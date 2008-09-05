@@ -1,10 +1,9 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/m-load-libraries.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/m-libraries.el : Mark Tran <mark@nirv.net>
 
 ;; browse-kill-ring
-(autoload 'browse-kill-ring "browse-kill-ring" 
-  "Display kill-ring items in another buffer" t)
+(require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
 ;; ido
@@ -32,4 +31,4 @@
     (define-key paredit-mode-map (kbd "M-)")
      'paredit-close-parenthesis-and-newline)))
 
-(provide 'm-load-libraries)
+(provide 'm-libraries)

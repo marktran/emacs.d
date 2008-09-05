@@ -11,7 +11,7 @@
 
 (require 'functions)
 (require 'key-bindings)
-(require 'lib)
+(require 'm-libraries)
 (require 'mail)
 (require 'm-scheme)
 (require 'm-slime)
