@@ -1,6 +1,11 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/lib.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/m-load-libraries.el : Mark Tran <mark@nirv.net>
+
+;; browse-kill-ring
+(autoload 'browse-kill-ring "browse-kill-ring" 
+  "Display kill-ring items in another buffer" t)
+(browse-kill-ring-default-keybindings)
 
 ;; ido
 (ido-mode t)
@@ -12,7 +17,7 @@
 
 ;; paredit
 (autoload 'paredit-mode "paredit" 
-  "Mode for pseudo-structurally editing Lisp code." t)
+  "Mode for pseudo-structurally editing Lisp code" t)
 
 (dolist (hook '(emacs-lisp-mode-hook
                 lisp-mode-hook
@@ -27,4 +32,4 @@
     (define-key paredit-mode-map (kbd "M-)")
      'paredit-close-parenthesis-and-newline)))
 
-(provide 'lib)
+(provide 'm-load-libraries)
