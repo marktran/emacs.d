@@ -5,8 +5,6 @@
 ;;; Note: bold text is colored since my font (terminus-12) does not have a bold
 ;;; style.
 
-(require 'color-theme)
-
 (defun color-theme-outback ()
   "Outback Color Theme"
   (interactive)
@@ -56,6 +54,7 @@
      (highlight ((t (:foreground "#983008"))))
      (ido-first-match ((t (:foreground "#d04008"))))
      (ido-incomplete-regexp ((t (:foreground "#d04008"))))
+     (ido-indicator ((t (:foreground "DodgerBlue4"))))
      (ido-only-match ((t (:foreground "chartreuse4"))))
      (ido-subdir ((t (:foreground "#d04008"))))
      (info-header-node ((t (:slant normal))))
@@ -68,6 +67,7 @@
      (info-xref ((t (:underline t :foreground "black"))))
      (info-xref-visited ((t (:underline t :foreground "#983008"))))
      (isearch ((t (:foreground "#f5deb3" :background "black"))))
+     (lazy-highlight ((t (:foreground "black" :background "khaki1"))))
      (minibuffer-prompt ((t (:foreground "black"))))
      (mode-line ((t (:foreground "white" :background "#983008"))))
      (mode-line-highlight ((t (:foreground "black"))))
@@ -81,5 +81,6 @@
      (slime-repl-inputed-output-face ((t (:foreground "OrangeRed3"))))
      (slime-repl-output-face ((t (:foreground "#983008"))))
      (w3m-anchor ((t (:foreground "#983008"))))
-     (w3m-current-anchor ((t (:foreground "DodgerBlue4"))))
+     (w3m-arrived-anchor ((t (:foreground "DodgerBlue4"))))
+     (w3m-current-anchor ((t (:foreground "#d04008"))))
      (w3m-image ((t (:foreground "chartreuse4")))))))
