@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/m-libraries.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-libraries.el : Mark Tran <mark@nirv.net>
 
 ;; browse-kill-ring
 (require 'browse-kill-ring)
@@ -31,4 +31,4 @@
     (define-key paredit-mode-map (kbd "M-)")
      'paredit-close-parenthesis-and-newline)))
 
-(provide 'm-libraries)
+(provide 'init-libraries)

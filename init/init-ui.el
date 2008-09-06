@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/interface.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/ui.el : Mark Tran <mark@nirv.net>
 
 ;; color theme
 (require 'color-theme)
@@ -47,4 +47,4 @@
 ;; disable info header line
 (setq Info-use-header-line nil)
 
-(provide 'interface)
+(provide 'init-ui)

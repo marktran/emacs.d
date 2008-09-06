@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/key-bindings.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-keybindings.el : Mark Tran <mark@nirv.net>
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 
@@ -13,4 +13,4 @@
 (global-set-key [XF86Back] 'windmove-left)
 (global-set-key [XF86Forward] 'windmove-right)
 
-(provide 'key-bindings)
+(provide 'init-keybindings)

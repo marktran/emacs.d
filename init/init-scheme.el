@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/m-scheme.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-scheme.el : Mark Tran <mark@nirv.net>
 
 (require 'quack)
 
@@ -13,4 +13,4 @@
  quack-run-scheme-prompt-defaults-to-last-p t
  quack-tabs-are-evil-p t)
 
-(provide 'm-scheme)
+(provide 'init-scheme)

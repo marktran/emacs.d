@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/web.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-web.el : Mark Tran <mark@nirv.net>
 
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/w3m")
 (autoload 'w3m "w3m-load" "Interface for w3m on emacs." t)
@@ -31,6 +31,4 @@
 
 (setq browse-url-browser-function 'browse-url-generic)
 
-(provide 'web)
-
-
+(provide 'init-web)

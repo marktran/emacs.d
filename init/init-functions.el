@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/functions.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-functions.el : Mark Tran <mark@nirv.net>
 
 ;; copy n lines to the kill-ring
 (defun copy-line (arg)
@@ -83,4 +83,4 @@ Otherwise, analyses point position and answers."
 (global-set-key [(tab)] 'smart-tab)
 
 ;;
-(provide 'functions)
+(provide 'init-functions)
