@@ -17,7 +17,7 @@
 (require 'm-slime)
 (require 'interface)
 (require 'web)
-(require 'ruby)
+(require 'm-ruby)
 
 ;; mode mappings
 (mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
