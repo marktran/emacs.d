@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/ui.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-ui.el : Mark Tran <mark@nirv.net>
 
 ;; color theme
 (require 'color-theme)
