@@ -42,6 +42,7 @@
      (gnus-cite-attribution ((t (:foreground "black"))))
      (gnus-header-content ((t (:foreground "#983008"))))
      (gnus-header-name ((t (:foreground "black"))))
+     (gnus-header-newsgroups ((t (:foreground "#983008"))))
      (gnus-server-agent ((t (:foreground "#983008"))))
      (gnus-server-closed ((t (:foreground "black"))))
      (gnus-server-opened ((t (:foreground "#983008"))))
