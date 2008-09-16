@@ -12,10 +12,10 @@
 (require 'init-functions)
 (require 'init-keybindings)
 (require 'init-libraries)
+(require 'init-lisp)
 (require 'init-mail)
 (require 'init-ruby)
 (require 'init-scheme)
-(require 'init-slime)
 (require 'init-ui)
 (require 'init-web)
 

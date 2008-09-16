@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-slime.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/init/init-lisp.el : Mark Tran <mark@nirv.net>
 
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime")
 
@@ -40,4 +40,4 @@
 ;; keybindings
 (global-set-key [f5] 'slime)
 
-(provide 'init-slime)
+(provide 'init-lisp)
