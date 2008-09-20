@@ -2,6 +2,10 @@
 
 ;;; .emacs.d/init/init-ui.el : Mark Tran <mark@nirv.net>
 
+;; winner mode
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; color theme
 (require 'color-theme)
 
