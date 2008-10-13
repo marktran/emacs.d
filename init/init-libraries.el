@@ -14,6 +14,9 @@
           (lambda () 
             (define-key ido-completion-map [tab] 'ido-complete)))
 
+;; lua
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+
 ;; paredit
 (autoload 'paredit-mode "paredit" 
   "Mode for pseudo-structurally editing Lisp code" t)

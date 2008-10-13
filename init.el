@@ -22,6 +22,7 @@
 ;; mode mappings
 (mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
       '(("\\.dtd$" . xml-mode)
+        ("\\.lua$" . lua-mode)
         ("\\.xml$" . xml-mode)
         ("\\.yml$" . conf-mode)))
 
@@ -52,9 +53,6 @@
 (setq tramp-default-method " ssh")
 ;; highlight active region
 (setq transient-mark-mode t)
-;; save session between restarts
-(desktop-save-mode 1)
-(setq desktop-save t)
 
 ;; identation
 (setq tab-width 4)
