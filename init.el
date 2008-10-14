@@ -14,6 +14,7 @@
 (setq byte-compile-warnings nil)
 (require 'byte-code-cache)
 
+;; load additional init files
 (require 'init-functions)
 (require 'init-keybindings)
 (require 'init-libraries)
@@ -34,30 +35,20 @@
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-;; set name of path/file in titlebar
-(setq frame-title-format
-      (list (format "%%j")
-	    '(get-file-buffer "%f" (dired-directory dired-directory "%b"))))
-
 ;; copy/paste between X11 and emacs
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-;; highlight expression when closing paren
-(show-paren-mode 1)
-(setq show-paren-style 'parenthesis
-      show-paren-delay 0)
 (setq auto-save-default nil)
+
 ;; disable backup
 (setq backup-inhibited t)
 (setq history-length 250)
-;; enable visible bell, disable audible
-(setq visible-bell t)
-;; automatically add trailing newline
+
+;; automatically add trailing newline to EOF
 (setq require-final-newline t)
+
 ;; tramp default transfer method
 (setq tramp-default-method " ssh")
-;; highlight active region
-(setq transient-mark-mode t)
 
 ;; identation
 (setq tab-width 4)
@@ -82,5 +73,3 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
 )
-
-(put 'set-goal-column 'disabled nil)

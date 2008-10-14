@@ -6,16 +6,24 @@
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 
-;; color theme
-(require 'color-theme)
-
 ;; enable syntax highlighting
 (global-font-lock-mode 1)
 
-;; initialize and apply color theme
-(color-theme-initialize)
-(color-theme-outback)
+;; highlight expression when closing paren
+(show-paren-mode 1)
+(setq show-paren-style 'parenthesis
+      show-paren-delay 0)
 
+;; highlight active region
+(setq transient-mark-mode t)
+
+;; set name of path/file in titlebar
+(setq frame-title-format
+      (list (format "%%j")
+	    '(get-file-buffer "%f" (dired-directory dired-directory "%b"))))
+
+;; enable visible bell, disable audible
+(setq visible-bell t)
 ;; font
 (set-default-font "-xos4-terminus-medium-*-normal-*-12-*-*-*-*-*-iso10646-1")
 ;; remove splashscreen
@@ -33,7 +41,7 @@
 ;; replace yes-or-no-p with y-or-n-p
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; ui customization
+;; bar/fringe
 (fringe-mode '(0 . right-only))
 (define-fringe-bitmap 'top-left-angle [0] nil)
 (define-fringe-bitmap 'top-right-angle [0] nil)
@@ -50,5 +58,12 @@
 ;; info-buffer
 ;; disable info header line
 (setq Info-use-header-line nil)
+
+(put 'set-goal-column 'disabled nil)
+
+;; initialize and apply color theme
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-outback)
 
 (provide 'init-ui)
