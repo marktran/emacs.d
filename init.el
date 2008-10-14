@@ -25,15 +25,8 @@
 (require 'init-ui)
 (require 'init-web)
 
-;; mode mappings
-(mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
-      '(("\\.dtd$" . xml-mode)
-        ("\\.lua$" . lua-mode)
-        ("\\.xml$" . xml-mode)
-        ("\\.yml$" . conf-mode)))
-
-;; hooks
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+;; replace yes-or-no-p with y-or-n-p
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; copy/paste between X11 and emacs
 (setq x-select-enable-clipboard t)
@@ -48,7 +41,7 @@
 (setq require-final-newline t)
 
 ;; tramp default transfer method
-(setq tramp-default-method " ssh")
+(setq tramp-default-method "ssh")
 
 ;; identation
 (setq tab-width 4)
@@ -57,6 +50,16 @@
 
 (setq fill-column 72)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; mode mappings
+(mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
+      '(("\\.dtd$" . xml-mode)
+        ("\\.lua$" . lua-mode)
+        ("\\.xml$" . xml-mode)
+        ("\\.yml$" . conf-mode)))
+
+;; hooks
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 ;; start server
 (server-start)

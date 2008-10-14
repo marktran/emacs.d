@@ -24,22 +24,19 @@
 
 ;; enable visible bell, disable audible
 (setq visible-bell t)
-;; font
-(set-default-font "-xos4-terminus-medium-*-normal-*-12-*-*-*-*-*-iso10646-1")
+
 ;; remove splashscreen
 (setq inhibit-startup-message t)
-;; disable menubar
-(menu-bar-mode -1)
+
 ;; add margin to buffers/windows
 (setq-default left-margin-width 1)
 (set-window-margins nil 1 0)
+
 ;; hide hollow cursor on inactive windows
 (setq-default cursor-in-non-selected-windows nil)
 
 ;; show column number on mode line
 (column-number-mode 1)
-;; replace yes-or-no-p with y-or-n-p
-(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; bar/fringe
 (fringe-mode '(0 . right-only))
@@ -55,11 +52,13 @@
 
 (setq default-indicate-buffer-boundaries 'right)
  
-;; info-buffer
 ;; disable info header line
 (setq Info-use-header-line nil)
 
 (put 'set-goal-column 'disabled nil)
+
+;; font
+(set-default-font "-xos4-terminus-medium-*-normal-*-12-*-*-*-*-*-iso10646-1")
 
 ;; initialize and apply color theme
 (require 'color-theme)
