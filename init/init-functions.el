@@ -13,17 +13,6 @@
 (global-set-key "\C-cl" 'copy-line)
 
 ;;
-(defun autocompile nil
-  "Compile itself if ~/.emacs"
-  (interactive)
-  (require 'bytecomp)
-  (let ((dotemacs (expand-file-name "~/.emacs")))
-    (if (string= (buffer-file-name) (file-chase-links dotemacs))
-      (byte-compile-file dotemacs))))
-
-(add-hook 'after-save-hook 'autocompile)
-
-;;
 (defun show-linum-and-goto nil
   "Temporarily enable linum-mode then jump to specified line"
   (interactive)
