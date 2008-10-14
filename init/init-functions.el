@@ -23,7 +23,7 @@
 (global-set-key [(shift f4)] 'kmacro-start-or-end)
 
 ;; smart tab
-(defvar smart-tab-using-hippie-expand nil
+(defvar smart-tab-using-hippie-expand t
   "turn this on if you want to use hippie-expand completion.")
 
 (defun smart-tab (prefix)
