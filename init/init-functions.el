@@ -13,18 +13,6 @@
 (global-set-key "\C-cl" 'copy-line)
 
 ;;
-(defun show-linum-and-goto nil
-  "Temporarily enable linum-mode then jump to specified line"
-  (interactive)
-  (fringe-mode 'default)
-  (linum-mode 1)
-  (goto-line (read-number "Goto Line: "))
-  (linum-mode -1)
-  (fringe-mode '(0 . right-only)))
-
-(global-set-key "\M-g\M-g" 'show-linum-and-goto)
-
-;;
 (defun kmacro-start-or-end (arg)
   "Toggle recording of keyboard macro"
   (interactive "P")
@@ -71,5 +59,4 @@ Otherwise, analyses point position and answers."
 
 (global-set-key [(tab)] 'smart-tab)
 
-;;
 (provide 'init-functions)
