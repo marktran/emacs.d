@@ -9,6 +9,11 @@
       (setq load-path (cons lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
+;; cache byte-compiled .el files
+(setq byte-compile-verbose nil)
+(setq byte-compile-warnings nil)
+(require 'byte-code-cache)
+
 (require 'init-functions)
 (require 'init-keybindings)
 (require 'init-libraries)
