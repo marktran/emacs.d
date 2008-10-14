@@ -10,11 +10,11 @@
       (normal-top-level-add-subdirs-to-load-path)))
 
 ;; cache byte-compiled .el files
-(setq byte-compile-verbose nil)
-(setq byte-compile-warnings nil)
+(setq byte-compile-verbose nil
+      byte-compile-warnings nil)
 (require 'byte-code-cache)
 
-;; load additional init files
+;; init
 (require 'init-functions)
 (require 'init-keybindings)
 (require 'init-libraries)
@@ -25,31 +25,20 @@
 (require 'init-ui)
 (require 'init-web)
 
-;; replace yes-or-no-p with y-or-n-p
+;; settings
+(setq backup-inhibited t
+      history-length 250
+      interprogram-paste-function 'x-cut-buffer-or-selection-value
+      require-final-newline t
+      tab-width 4
+      tramp-default-method "ssh"
+      x-select-enable-clipboard t)
+
+(setq-default c-basic-offset 4
+              fill-column 72
+              indent-tabs-mode nil)
+
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; copy/paste between X11 and emacs
-(setq x-select-enable-clipboard t)
-(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-(setq auto-save-default nil)
-
-;; disable backup
-(setq backup-inhibited t)
-(setq history-length 250)
-
-;; automatically add trailing newline to EOF
-(setq require-final-newline t)
-
-;; tramp default transfer method
-(setq tramp-default-method "ssh")
-
-;; identation
-(setq tab-width 4)
-(setq-default c-basic-offset 4)
-(setq-default indent-tabs-mode nil)
-
-(setq fill-column 72)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; mode mappings
 (mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
@@ -60,6 +49,7 @@
 
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; start server
 (server-start)

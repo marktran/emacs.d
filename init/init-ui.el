@@ -2,65 +2,46 @@
 
 ;;; .emacs.d/init/init-ui.el : Mark Tran <mark@nirv.net>
 
-;; winner mode
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
-
-;; enable syntax highlighting
-(global-font-lock-mode 1)
-
-;; highlight expression when closing paren
-(show-paren-mode 1)
-(setq show-paren-style 'parenthesis
-      show-paren-delay 0)
-
-;; highlight active region
-(setq transient-mark-mode t)
-
-;; set name of path/file in titlebar
-(setq frame-title-format
-      (list (format "%%j")
-	    '(get-file-buffer "%f" (dired-directory dired-directory "%b"))))
-
-;; enable visible bell, disable audible
-(setq visible-bell t)
-
-;; remove splashscreen
-(setq inhibit-startup-message t)
-
-;; add margin to buffers/windows
-(setq-default left-margin-width 1)
-(set-window-margins nil 1 0)
-
-;; hide hollow cursor on inactive windows
-(setq-default cursor-in-non-selected-windows nil)
-
-;; show column number on mode line
+;; modes
 (column-number-mode 1)
-
-;; bar/fringe
 (fringe-mode '(0 . right-only))
-(define-fringe-bitmap 'top-left-angle [0] nil)
-(define-fringe-bitmap 'top-right-angle [0] nil)
-(define-fringe-bitmap 'bottom-right-angle [0] nil)
-(blink-cursor-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(setq-default scroll-bar-width 10)             
-(tool-bar-mode -1)
-(tooltip-mode -1)
+(global-font-lock-mode 1)
+(show-paren-mode 1)
+(winner-mode 1)
 
-(setq default-indicate-buffer-boundaries 'right)
- 
-;; disable info header line
-(setq Info-use-header-line nil)
+;; settings
+(setq default-indicate-buffer-boundaries 'right
+      Info-use-header-line nil
+      inhibit-startup-message t 
+      show-paren-style 'parenthesis
+      show-paren-delay 0
+      transient-mark-mode t
+      visible-bell t)
 
+(setq-default cursor-in-non-selected-windows nil
+              left-margin-width 1)
+
+(set-default-font "-xos4-terminus-medium-*-normal-*-12-*-*-*-*-*-iso10646-1")
 (put 'set-goal-column 'disabled nil)
 
-;; font
-(set-default-font "-xos4-terminus-medium-*-normal-*-12-*-*-*-*-*-iso10646-1")
+;;
+(when window-system
+  (blink-cursor-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  (setq frame-title-format
+        (list (format "%%j")
+              '(get-file-buffer "%f" (dired-directory dired-directory "%b")))))
 
-;; initialize and apply color theme
+;; fringe, margins
+(define-fringe-bitmap 'bottom-right-angle [0] nil)
+(define-fringe-bitmap 'top-left-angle [0] nil)
+(define-fringe-bitmap 'top-right-angle [0] nil)
+(set-window-margins nil 1 0)
+
+;; color theme
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-outback)
