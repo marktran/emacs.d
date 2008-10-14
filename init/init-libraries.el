@@ -18,7 +18,7 @@
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 
 ;; paredit
-(autoload 'paredit-mode "paredit" 
+(autoload 'paredit-mode "paredit-beta" 
   "Mode for pseudo-structurally editing Lisp code" t)
 
 (dolist (hook '(emacs-lisp-mode-hook
