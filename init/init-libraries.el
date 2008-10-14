@@ -14,8 +14,12 @@
           (lambda () 
             (define-key ido-completion-map [tab] 'ido-complete)))
 
+;; lisppaste
+(autoload 'lisppaste-paste-region "lisppaste"
+  "Send region to paste.lisp.org" t)
+
 ;; lua
-(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(autoload 'lua-mode "lua-mode" "Mode for editing Lua code" t)
 
 ;; paredit
 (autoload 'paredit-mode "paredit-beta" 
