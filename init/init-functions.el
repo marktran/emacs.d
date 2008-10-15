@@ -10,17 +10,13 @@
                   (line-beginning-position (+ 1 arg)))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
-(global-set-key "\C-cl" 'copy-line)
-
-;;
+;; start keyboard macro or end
 (defun kmacro-start-or-end (arg)
   "Toggle recording of keyboard macro"
   (interactive "P")
   (if defining-kbd-macro
       (kmacro-end-macro arg)
     (kmacro-start-macro arg)))
-
-(global-set-key [(shift f4)] 'kmacro-start-or-end)
 
 ;; smart tab
 (defvar smart-tab-using-hippie-expand t
@@ -57,6 +53,11 @@ Otherwise, analyses point position and answers."
               mark-active)
     (looking-at "\\_>")))
 
-(global-set-key [(tab)] 'smart-tab)
+;; switch-to *scratch* or previous buffer
+(defun switch-to-scratch-or-previous ()
+  (interactive)
+  (if (string-match (buffer-name (current-buffer)) "*scratch*")
+      (switch-to-buffer (other-buffer))
+    (switch-to-buffer "*scratch*")))
 
 (provide 'init-functions)
