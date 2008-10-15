@@ -8,6 +8,7 @@
 (eval-after-load 'w3m
   '(progn
      (setq w3m-home-page "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")
+     (setq w3m-pop-up-windows nil)
      (setq w3m-show-graphic-icons-in-mode-line nil)
      (setq w3m-use-header-line nil)
      (setq w3m-use-tab nil)
