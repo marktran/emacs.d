@@ -37,7 +37,4 @@
  :ignore-case t
  :doc-spec '(("(ansicl)Symbol Index" nil nil nil)))
 
-;; keybindings
-(global-set-key [f5] 'slime)
-
 (provide 'init-lisp)
