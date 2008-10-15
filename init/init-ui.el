@@ -21,27 +21,27 @@
 (setq-default cursor-in-non-selected-windows nil
               left-margin-width 1)
 
-(set-default-font "-xos4-terminus-medium-*-normal-*-12-*-*-*-*-*-iso10646-1")
 (put 'set-goal-column 'disabled nil)
 
 ;;
-(when window-system
-  (blink-cursor-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (setq frame-title-format
-        (list (format "%%j")
-              '(get-file-buffer "%f" (dired-directory dired-directory "%b")))))
+(blink-cursor-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+
+(setq frame-title-format
+      (list (format "%%j")
+            '(get-file-buffer "%f" (dired-directory dired-directory "%b"))))
 
 ;; fringe, margins
 (define-fringe-bitmap 'bottom-right-angle [0] nil)
+(define-fringe-bitmap 'right-bracket [0] nil)
 (define-fringe-bitmap 'top-left-angle [0] nil)
 (define-fringe-bitmap 'top-right-angle [0] nil)
 (set-window-margins nil 1 0)
 
-;; color theme
+;;
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-outback)
