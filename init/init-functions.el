@@ -10,6 +10,20 @@
                   (line-beginning-position (+ 1 arg)))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
+;; increment number at point
+(defun increment-number-at-point (&optional amount)
+  "Increment the number under point by `amount'"
+  (interactive "p")
+  (let ((num (number-at-point)))
+    (when (numberp num)
+      (let ((newnum (+ num amount))
+            (p (point)))
+        (save-excursion
+          (skip-chars-backward "-.0123456789")
+          (delete-region (point) (+ (point) (length (number-to-string num))))
+          (insert (number-to-string newnum)))
+        (goto-char p)))))
+
 ;; start keyboard macro or end
 (defun kmacro-start-or-end (arg)
   "Toggle recording of keyboard macro"
