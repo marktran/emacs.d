@@ -5,7 +5,7 @@
 ;; Emacs-style font-lock specs adapted from GNU Emacs 21.2 scheme.el.
 ;; Scheme Mode menu adapted from GNU Emacs 21.2 cmuscheme.el.
 
-(defconst quack-version      "0.31")
+(defconst quack-version      "0.33")
 (defconst quack-author-name  "Neil Van Dyke")
 (defconst quack-author-email "neil@neilvandyke.org")
 (defconst quack-web-page     "http://www.neilvandyke.org/quack/")
@@ -21,7 +21,7 @@ should have received a copy of the GNU General Public License along with Emacs;
 see the file `COPYING'.  If not, write to the Free Software Foundation, Inc.,
 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.")
 
-(defconst quack-cvsid "$Id: quack.el,v 1.439 2008-05-04 02:58:28 neil Exp $")
+(defconst quack-cvsid "$Id: quack.el,v 1.445 2008-08-01 02:11:34 neil Exp $")
 
 ;;; Commentary:
 
@@ -82,24 +82,27 @@ see the file `COPYING'.  If not, write to the Free Software Foundation, Inc.,
 
 ;; COMPATIBILITY:
 ;;
-;;     GNU Emacs 21 -- Yes.  Quack is developed under GNU Emacs 21 on a
+;;     GNU Emacs 21 -- Yes.  Quack is developed under GNU Emacs 22 on a
 ;;     GNU/Linux system, which is the preferred platform for Quacksmokers.
-;;     Quack should work under GNU Emacs 21 on any Un*x-like OS.  Reportedly,
-;;     Quack also works with GNU Emacs 21 on Mac OS X and Microsoft Windows
-;;     (NT, 2000, XP), but the author has no means of testing on those
+;;     Quack should work under GNU Emacs 22 on any Un*x-like OS.  Reportedly,
+;;     Quack also works with GNU Emacs 22 on Apple Mac OS X and Microsoft
+;;     Windows (NT, 2000, XP), but the author has no means of testing on those
 ;;     platforms.
 ;;
-;;     GNU Emacs 20 -- Mostly.  Some of the menus do not work properly, due to
-;;     a bug in easymenu.el (which the FSF will not fix, since they no longer
-;;     support Emacs 20).  Nested block comments are not fontified correctly.
-;;     Pretty-lambda does not work.  Quack runs less efficiently in 20 than 21,
-;;     due to the lack of standard hash tables.
+;;     GNU Emacs 21 -- Probably, but no longer tested.
 ;;
-;;     XEmacs 21 -- Mostly.  Block comment fontification is not yet supported
-;;     under XEmacs 21, due to what appears to be a bug in 21.4 font-lock.
-;;     Pretty-lambda does not work.  XEmacs Quacksmokers who always want the
-;;     latest and greatest Quack should consider GNU Emacs 21 -- Quack treats
-;;     XEmacs like a high-maintenance redheaded stepchild.
+;;     GNU Emacs 20 -- Probably mostly.  When last tested. Some of the menus do
+;;     not work properly, due to a bug in easymenu.el (which the FSF will not
+;;     fix, since they no longer support Emacs 20).  Nested block comments are
+;;     not fontified correctly.  Pretty-lambda does not work.  Quack runs less
+;;     efficiently in 20 than 21, due to the lack of standard hash tables.
+;;
+;;     XEmacs 21 -- Probably mostly, but no longer tested.  Block comment
+;;     fontification is not yet supported under XEmacs 21, due to what appears
+;;     to be a bug in 21.4 font-lock.  Pretty-lambda does not work.  XEmacs
+;;     Quacksmokers who always want the latest and greatest Quack should
+;;     consider GNU Emacs 21 -- Quack treats XEmacs like a high-maintenance
+;;     redheaded stepchild.
 
 ;; INSTALLATION:
 ;;
@@ -153,6 +156,14 @@ see the file `COPYING'.  If not, write to the Free Software Foundation, Inc.,
 ;;     neil@neilvandyke.org to add you to the moderated `quack-announce' list.
 
 ;; HISTORY:
+;;
+;;     Version 0.33 (2008-07-31)
+;;         * Added handlers for some PLT 4.0.1 "setup-plt" messages.
+;;
+;;     Version 0.32 (2008-06-19)
+;;         * Added to `quack-programs'.
+;;         * Updated compatibility comments.
+;;         * Added indent rule for `for/fold'.
 ;;
 ;;     Version 0.31 (2008-05-03)
 ;;         * Added `defvar' for `quack-pltish-font-lock-keywords', so that the
@@ -840,7 +851,9 @@ unavailable for your system, please notify the Quack author."
 
 (defcustom quack-programs
   '("bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -"
-    "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M errortrace" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")
+    "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M
+    errortrace" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh"
+    "sisc" "stklos" "sxi")
   "List of Scheme interpreter programs that can be used with `run-scheme'.
 
 These names will be accessible via completion when `run-scheme' prompts for
@@ -3135,6 +3148,7 @@ Can be used in your `~/.emacs' file something like this:
 (put 'class*            'scheme-indent-function 'defun)
 (put 'compound-unit/sig 'scheme-indent-function 0)
 (put 'dynamic-wind      'scheme-indent-function 0)
+(put 'for/fold          'scheme-indent-function 2)
 (put 'instantiate       'scheme-indent-function 2)
 (put 'interface         'scheme-indent-function 1)
 (put 'let*-values       'scheme-indent-function 1)
@@ -3954,6 +3968,8 @@ Can be used in your `~/.emacs' file something like this:
 
 ;; Compilation Mode:
 
+;; TODO: Add compilation-directory-matcher support for "setup-plt:  in".
+
 (defvar quack-saved-compilation-error-regexp-alist nil)
 
 (defconst quack-compilation-error-regexp-alist-additions
@@ -3966,12 +3982,24 @@ Can be used in your `~/.emacs' file something like this:
     ;;   load-handler: expected a `module' declaration for `bar-unit' in
     ;;   "/u/collects/bar/bar-unit.ss", but found something else
     (,(concat "load-handler: expected a `module' declaration for `[^']+' in "
-              "\"\\([^\n\"]+\\)\", but found something else")
+              "\"\\([^:\n\"]+\\)\", but found something else")
      1 ,no-line)
 
     ;; PLT MzScheme 205 "setup-plt".
     ;;   setup-plt: Error during Compiling .zos for Foo Bar (/u/collects/fb)
     ("setup-plt: Error during Compiling .zos for [^\n]+ \(\\([^\n\)]+\\)\)"
+     1 ,no-line)
+
+    ;; PLT MzScheme 4.0.1 "setup-plt".
+    ("setup-plt: +\\(?:WARNING: +\\)\\([^:\n]+\\)::"
+     1 ,no-line)
+
+    ;; PLT MzScheme 4.0.1 "setup-plt".
+    ("setup-plt: +\\(?:WARNING: +\\)\\([^:\n]+\\):\\([0-9]+\\):\\([0-9]+\\)"
+     1 2 3)
+
+    ;; PLT MzScheme 4.0.1 "setup-plt":
+    ("load-handler: expected a `module' declaration for `[^'\n]+' in #<path:\\([^>\n]+\\)>[^\n]+"
      1 ,no-line)
 
     )))
