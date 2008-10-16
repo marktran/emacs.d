@@ -8,7 +8,7 @@
 (eval-after-load 'quack
    '(progn
       (setq quack-default-program "mzscheme -i -l errortrace"
-            quack-fontify-style 'plt
+            quack-fontify-style 'emacs
             quack-global-menu-p nil
             quack-remap-find-file-bindings-p nil
             quack-run-scheme-always-prompts-p nil
