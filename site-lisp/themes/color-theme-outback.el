@@ -47,6 +47,7 @@
      (gnus-server-closed ((t (:foreground "black"))))
      (gnus-server-opened ((t (:foreground "#983008"))))
      (gnus-signature ((t (:foreground "black"))))
+     (gnus-summary-high-read ((t (:foreground "DodgerBlue4"))))
      (gnus-summary-low-read ((t (:foreground "dark olive green"))))
      (gnus-summary-normal-ancient ((t (:foreground "black"))))
      (gnus-summary-normal-read ((t (:foreground "black"))))
