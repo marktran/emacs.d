@@ -14,7 +14,7 @@
 (global-set-key [f6] 'replace-regexp)
 (global-set-key [f7] 'kmacro-end-or-call-macro)
 
-(global-set-key [(shift f4)] 'kmacro-start-or-end)
+(global-set-key [(shift f7)] 'kmacro-start-or-end)
 
 ;;
 (global-set-key [(tab)] 'smart-tab)
