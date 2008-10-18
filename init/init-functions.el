@@ -33,8 +33,17 @@
     (kmacro-start-macro arg)))
 
 ;; smart tab
-(defvar smart-tab-using-hippie-expand t
+(defvar smart-tab-using-hippie-expand nil
   "turn this on if you want to use hippie-expand completion.")
+
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name
+        try-complete-file-name-partially
+        try-expand-list
+        try-expand-line))
 
 (defun smart-tab (prefix)
   "Needs `transient-mark-mode' to be on. This smart tab is
