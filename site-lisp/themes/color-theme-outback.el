@@ -72,6 +72,7 @@
      (isearch ((t (:foreground "#f5deb3" :background "black"))))
      (lazy-highlight ((t (:foreground "black" :background "khaki1"))))
      (minibuffer-prompt ((t (:foreground "black"))))
+     (mm-uu-extract ((t (:foreground "black" :background "#f5d69b"))))
      (mode-line ((t (:foreground "white" :background "#983008"))))
      (mode-line-highlight ((t (:foreground "black"))))
      (mode-line-inactive ((t (:foreground "white" :background "#453832"))))
