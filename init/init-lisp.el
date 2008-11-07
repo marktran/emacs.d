@@ -3,7 +3,7 @@
 ;;; .emacs.d/init/init-lisp.el : Mark Tran <mark@nirv.net>
 
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((slime-dir "~/lib/lisp/clbuild/source/slime/")
+    (let* ((slime-dir (expand-file-name "~/lib/lisp/clbuild/source/slime/"))
            (default-directory slime-dir))
       (setq load-path (cons slime-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
@@ -26,7 +26,9 @@
 
      (setq slime-complete-symbol*-fancy t
            slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-           slime-lisp-implementations '((sbcl ("sbcl"))))
+           slime-lisp-implementations `(,@(if (eq system-type 'darwin)
+                                              `((sbcl ("/opt/local/bin/sbcl")))
+                                            `((sbcl ("sbcl"))))))
 
      (define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
      (define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)))

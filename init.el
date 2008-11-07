@@ -4,7 +4,7 @@
 
 ;; load paths
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((lisp-dir "~/.emacs.d/")
+    (let* ((lisp-dir (expand-file-name "~/.emacs.d/"))
            (default-directory lisp-dir))
       (setq load-path (cons lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
@@ -24,6 +24,9 @@
 (require 'init-scheme)
 (require 'init-ui)
 (require 'init-web)
+
+(when (eq system-type 'darwin)
+  (require 'init-mac))
 
 ;; settings
 (setq backup-inhibited t
