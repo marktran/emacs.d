@@ -11,6 +11,9 @@
 (set-frame-height (selected-frame) 50)
 (set-frame-position (selected-frame) 50 -40)
 
+(set-default-font 
+ "-apple-inconsolata-medium-r-normal--14-0-72-72-m-0-iso10646-1")
+
 ;;
 (setenv "PATH" (concat "/opt/local/bin" ":" (getenv "PATH")))
 
