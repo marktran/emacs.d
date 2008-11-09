@@ -26,9 +26,7 @@
 
      (setq slime-complete-symbol*-fancy t
            slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-           slime-lisp-implementations `(,@(if (eq system-type 'darwin)
-                                              `((sbcl ("/opt/local/bin/sbcl")))
-                                            `((sbcl ("sbcl"))))))
+           slime-lisp-implementations '((sbcl ("sbcl"))))
 
      (define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
      (define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)))
