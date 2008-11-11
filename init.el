@@ -30,6 +30,8 @@
 
 ;; settings
 (setq backup-inhibited t
+      gnus-home-directory "~/.emacs.d/gnus/"
+      gnus-init-file "~/.emacs.d/gnus/gnus.el"
       history-length 250
       interprogram-paste-function 'x-cut-buffer-or-selection-value
       require-final-newline t
