@@ -2,6 +2,34 @@
 
 ;;; .emacs.d/init/init-functions.el : Mark Tran <mark@nirv.net>
 
+;; calculate rows/columns based on resolution
+(defconst display-padding '(100 30)
+  "Amount of padding, in pixels, around the outside of the frame")
+
+(defconst menubar-height 22
+  "Magic Number. Menubar has a height of 22 pixels")
+
+(defun calculate-columns (pixel-width)
+  "Calculate available columns from the display pixel width"
+  (/ (- pixel-width (car display-padding))
+     (frame-char-width)))
+
+(defun calculate-rows (pixel-height)
+  "Calculate available rows from the display pixel height"
+  (let ((dock-height (string-to-int 
+                      (shell-command-to-string 
+                       "defaults read com.apple.dock tilesize"))))
+   (/ (- pixel-height (car (cdr display-padding)) dock-height menubar-height)
+      (frame-char-height))))
+
+(defun calculate-x-position (padding-width)
+  "Calculate X offset from the display padding width"
+  (/ padding-width 2))
+
+(defun calculate-y-position (padding-height)
+  "Calculate Y offset from the display padding height"
+  (- 0 (/ padding-height 2) menubar-height))
+
 ;; copy n lines to the kill-ring
 (defun copy-line (arg)
   "Copy N lines at point to the kill-ring"
