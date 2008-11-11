@@ -50,7 +50,7 @@
 (setq gnussync-remote-login "tran")
 (setq gnussync-rsync-binary "/usr/bin/rsync")
 (setq gnussync-rsync-options "-auRvzp --delete")
-(setq gnussync-extra-files "~/.emacs.d/gnus/")
+(setq gnussync-extra-files "~/.gnus.d/")
 
 (defun gnussync-sync (arg)
   (interactive)
