@@ -6,6 +6,12 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
+
+(add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
+
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
