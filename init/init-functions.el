@@ -16,7 +16,7 @@
 
 (defun calculate-rows (pixel-height)
   "Calculate available rows from the display pixel height"
-  (let ((dock-height (string-to-int 
+  (let ((dock-height (string-to-number 
                       (shell-command-to-string 
                        "defaults read com.apple.dock tilesize"))))
    (/ (- pixel-height (car (cdr display-padding)) dock-height menubar-height)
