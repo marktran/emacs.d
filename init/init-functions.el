@@ -11,15 +11,19 @@
 
 (defun calculate-columns (pixel-width)
   "Calculate available columns from the display pixel width"
-  (/ (- pixel-width (car display-padding))
-     (frame-char-width)))
+  (let ((scroll-bar (or (frame-parameter nil 'scroll-bar-width) 0))
+        (left-fringe (or left-fringe-width (nth 0 (window-fringes)) 0))
+        (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0)))
+      (/ (- pixel-width (nth 0 display-padding) left-fringe right-fringe
+            scroll-bar)
+      (frame-char-width))))
 
 (defun calculate-rows (pixel-height)
   "Calculate available rows from the display pixel height"
   (let ((dock-height (string-to-number 
                       (shell-command-to-string 
                        "defaults read com.apple.dock tilesize"))))
-   (/ (- pixel-height (car (cdr display-padding)) dock-height menubar-height)
+   (/ (- pixel-height (nth 1 display-padding) dock-height menubar-height)
       (frame-char-height))))
 
 (defun calculate-x-position (padding-width)
