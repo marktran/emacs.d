@@ -2,6 +2,8 @@
 
 ;;; .emacs.d/init/init-mac.el : Mark Tran <mark@nirv.net>
 
+(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/w3m/")
+
 ;; bindings
 (setq mac-command-modifier 'control)
 (setq mac-option-modifier 'meta)
