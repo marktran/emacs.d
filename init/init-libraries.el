@@ -12,6 +12,14 @@
 
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 
+;; erc
+(setq erc-user-full-name "Mark T."
+      erc-email-userid "tran"
+      erc-nick '("mqt" "qvt")
+      erc-server "irc.freenode.net"
+      erc-port 6667
+      erc-prompt-for-password nil)
+
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
