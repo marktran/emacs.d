@@ -3,7 +3,7 @@
 ;;; .emacs.d/init/init-functions.el : Mark Tran <mark@nirv.net>
 
 ;; calculate rows/columns based on resolution
-(defconst display-padding '(100 30)
+(defconst display-padding '(100 100)
   "Amount of padding, in pixels, around the outside of the frame")
 
 (defconst menubar-height 22
@@ -11,20 +11,20 @@
 
 (defun calculate-columns (pixel-width)
   "Calculate available columns from the display pixel width"
-  (let ((scroll-bar (or (frame-parameter nil 'scroll-bar-width) 0))
+  (let ((dock-width (string-to-number 
+                      (shell-command-to-string 
+                       "defaults read com.apple.dock tilesize")))
         (left-fringe (or left-fringe-width (nth 0 (window-fringes)) 0))
-        (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0)))
-      (/ (- pixel-width (nth 0 display-padding) left-fringe right-fringe
-            scroll-bar)
+        (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0))
+        (scroll-bar (or (frame-parameter nil 'scroll-bar-width) 0)))
+      (/ (- pixel-width (nth 0 display-padding) dock-width left-fringe
+            right-fringe scroll-bar)
       (frame-char-width))))
 
 (defun calculate-rows (pixel-height)
   "Calculate available rows from the display pixel height"
-  (let ((dock-height (string-to-number 
-                      (shell-command-to-string 
-                       "defaults read com.apple.dock tilesize"))))
-   (/ (- pixel-height (nth 1 display-padding) dock-height menubar-height)
-      (frame-char-height))))
+  (/ (- pixel-height (nth 1 display-padding) menubar-height)
+     (frame-char-height)))
 
 (defun calculate-x-position (padding-width)
   "Calculate X offset from the display padding width"
