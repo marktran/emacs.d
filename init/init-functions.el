@@ -65,7 +65,7 @@
     (kmacro-start-macro arg)))
 
 ;; smart tab
-(defvar smart-tab-using-hippie-expand nil
+(defvar smart-tab-using-hippie-expand t
   "turn this on if you want to use hippie-expand completion.")
 
 (setq hippie-expand-try-functions-list

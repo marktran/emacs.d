@@ -17,7 +17,7 @@
 (global-set-key [(shift f7)] 'kmacro-start-or-end)
 
 ;;
-(global-set-key [(tab)] 'smart-tab)
+(global-set-key (kbd "M-<tab>") 'smart-tab)
 
 (global-set-key (kbd "C-c l") 'copy-line)
 (global-set-key (kbd "C-c t") 'increment-number-at-point)
