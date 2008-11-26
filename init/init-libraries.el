@@ -20,6 +20,15 @@
       erc-port 6667
       erc-prompt-for-password nil)
 
+;; eshell
+(setq eshell-ls-initial-args "-F"
+      eshell-ls-use-colors nil)
+
+(setq eshell-prompt-function
+  (lambda ()
+    (concat "(" (eshell/pwd) ")"
+      (if (= (user-uid) 0) " # " " % "))))
+
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
