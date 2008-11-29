@@ -15,7 +15,7 @@
 ;; ui
 (set-frame-size (selected-frame) 
                 (calculate-columns (display-pixel-width))
-                (calculate-rows (display-pixel-height)))
+                (+ (calculate-rows (display-pixel-height)) 3))
 (set-frame-position (selected-frame) 
                     (calculate-x-position (nth 0 display-padding))
                     (calculate-y-position (nth 1 display-padding)))
