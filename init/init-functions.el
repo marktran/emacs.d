@@ -3,7 +3,7 @@
 ;;; .emacs.d/init/init-functions.el : Mark Tran <mark@nirv.net>
 
 ;; calculate rows/columns based on resolution
-(defconst display-padding '(100 100)
+(defconst display-padding '(50 50)
   "Amount of padding, in pixels, around the outside of the frame")
 
 (defconst menubar-height 22
@@ -17,8 +17,8 @@
         (left-fringe (or left-fringe-width (nth 0 (window-fringes)) 0))
         (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0))
         (scroll-bar (or (frame-parameter nil 'scroll-bar-width) 0)))
-      (/ (- pixel-width (nth 0 display-padding) dock-width left-fringe
-            right-fringe scroll-bar)
+      (/ (- pixel-width (nth 0 display-padding) left-fringe right-fringe
+            scroll-bar)
       (frame-char-width))))
 
 (defun calculate-rows (pixel-height)
@@ -32,7 +32,7 @@
 
 (defun calculate-y-position (padding-height)
   "Calculate Y offset from the display padding height"
-  (- 0 (/ padding-height 2) menubar-height))
+  (+ (/ padding-height 2) menubar-height))
 
 ;; copy n lines to the kill-ring
 (defun copy-line (arg)
