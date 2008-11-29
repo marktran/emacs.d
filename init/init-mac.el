@@ -5,11 +5,12 @@
 (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/w3m/")
 
 ;; settings
-(setq browse-url-browser-function 'browse-url-default-macosx-browser)
+(setq browse-url-browser-function 'browse-url-default-macosx-browser
+      python-python-command "/opt/local/bin/python2.5")
 
 ;; bindings
-(setq mac-command-modifier 'control)
-(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'control
+      mac-option-modifier 'meta)
 
 ;; ui
 (set-frame-size (selected-frame) 
