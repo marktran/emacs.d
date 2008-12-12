@@ -2,11 +2,14 @@
 
 ;;; .emacs.d/init/init-lisp.el : Mark Tran <mark@nirv.net>
 
-(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((slime-dir (expand-file-name "~/lib/lisp/clbuild/source/slime/"))
-           (default-directory slime-dir))
-      (setq load-path (cons slime-dir load-path))
-      (normal-top-level-add-subdirs-to-load-path)))
+(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime")
+(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib")
+
+(set-language-environment "UTF-8")
+(setq inferior-lisp-program "/Users/tran/lib/lisp/clbuild/clbuild
+--implementation sbcl preloaded"
+      slime-backend "/Users/tran/lib/lisp/clbuild/.swank-loader.lisp"
+      slime-net-coding-system 'utf-8-unix)
 
 (require 'slime-autoloads)
 (add-hook 'lisp-mode-hook (lambda ()
@@ -22,7 +25,8 @@
         slime-autodoc
         slime-fancy
         slime-references
-        slime-scratch))
+        slime-scratch
+        slime-tramp))
 
      (setq slime-complete-symbol*-fancy t
            slime-complete-symbol-function 'slime-fuzzy-complete-symbol
@@ -30,6 +34,13 @@
 
      (define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
      (define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)))
+
+;; redshank
+(require 'redshank-loader "~/lib/lisp/clbuild/source/redshank/redshank-loader.el")
+
+(eval-after-load "redshank-loader"
+  `(redshank-setup '(lisp-mode-hook
+                     slime-repl-mode-hook) t))
 
 ;; C-h S (info-lookup-symbol) to view HyperSpec entry
 ;; http://www.phys.au.dk/~harder/dpans.html
