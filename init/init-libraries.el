@@ -44,6 +44,9 @@
 ;; lua
 (autoload 'lua-mode "lua-mode" "Mode for editing Lua code" t)
 
+;; magit
+(autoload 'magit-status "magit" "Interface to Git" t)
+
 ;; paredit
 (autoload 'paredit-mode "paredit-beta" 
   "Mode for pseudo-structurally editing Lisp code" t)
