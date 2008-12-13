@@ -6,9 +6,9 @@
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib")
 
 (set-language-environment "UTF-8")
-(setq inferior-lisp-program "/Users/tran/lib/lisp/clbuild/clbuild
+(setq inferior-lisp-program "~/lib/lisp/clbuild/clbuild 
 --implementation sbcl preloaded"
-      slime-backend "/Users/tran/lib/lisp/clbuild/.swank-loader.lisp"
+      slime-backend "~/lib/lisp/clbuild/.swank-loader.lisp"
       slime-net-coding-system 'utf-8-unix)
 
 (require 'slime-autoloads)
