@@ -2,11 +2,13 @@
 
 ;;; .emacs.d/init/init-lisp.el : Mark Tran <mark@nirv.net>
 
-(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime")
-(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib")
+;; slime
+(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/")
+(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib/")
 
 (set-language-environment "UTF-8")
-(setq inferior-lisp-program "~/lib/lisp/clbuild/clbuild 
+(setq default-enable-multibyte-characters t
+      inferior-lisp-program "~/lib/lisp/clbuild/clbuild 
 --implementation sbcl preloaded"
       slime-backend "~/lib/lisp/clbuild/.swank-loader.lisp"
       slime-net-coding-system 'utf-8-unix)
@@ -29,8 +31,7 @@
         slime-tramp))
 
      (setq slime-complete-symbol*-fancy t
-           slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-           slime-lisp-implementations '((sbcl ("sbcl"))))
+           slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
 
      (define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
      (define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)))
