@@ -13,6 +13,7 @@
 (setq default-indicate-buffer-boundaries 'right
       Info-use-header-line nil
       inhibit-startup-message t 
+      pop-up-windows nil
       show-paren-style 'parenthesis
       show-paren-delay 0
       transient-mark-mode t
