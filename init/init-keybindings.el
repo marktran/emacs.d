@@ -23,7 +23,8 @@
 
 (global-set-key [(shift f7)] 'kmacro-start-or-end)
 
-;;
+;; miscellaneous
+(global-set-key (kbd "C-<tab>") 'bury-buffer)
 (global-set-key (kbd "M-<tab>") 'smart-tab)
 
 (global-set-key (kbd "C-c l") 'copy-line)
