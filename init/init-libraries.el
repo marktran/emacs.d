@@ -47,6 +47,11 @@
 ;; magit
 (autoload 'magit-status "magit" "Interface to Git" t)
 
+;; makefile
+(add-hook 'makefile-mode-hook 
+  (lambda()
+    (setq show-trailing-whitespace t)))
+
 ;; paredit
 (autoload 'paredit-mode "paredit-beta" 
   "Mode for pseudo-structurally editing Lisp code" t)
