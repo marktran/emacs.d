@@ -20,6 +20,7 @@
 (require 'init-libraries)
 (require 'init-lisp)
 (require 'init-mail)
+(require 'init-modes)
 (require 'init-ruby)
 (require 'init-scheme)
 (require 'init-ui)
@@ -30,6 +31,7 @@
 
 ;; settings
 (setq backup-inhibited t
+      disabled-command-function nil
       gnus-home-directory "~/.gnus.d/"
       gnus-init-file "~/.gnus.el"
       history-length 250
@@ -45,6 +47,9 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(setq custom-file "~/.emacs.d/init/init-custom-file.el")
+(load custom-file 'noerror)
+
 ;; mode mappings
 (mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
       '(("\\.dtd$" . xml-mode)
@@ -58,18 +63,3 @@
 
 ;; start server
 (server-start)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((Syntax . Common-Lisp)))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-)
-
-(put 'erase-buffer 'disabled nil)
