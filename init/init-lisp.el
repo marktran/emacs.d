@@ -2,7 +2,7 @@
 
 ;;; .emacs.d/init/init-lisp.el : Mark Tran <mark@nirv.net>
 
-;; slime
+;; slime (generate preloaded core: "./clbuild dumpcore slime cl-ppcre tilde")
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/")
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib/")
 
@@ -23,7 +23,8 @@
 (eval-after-load 'slime
   '(progn
      (slime-setup
-      '(slime-asdf
+      '(slime-repl
+        slime-asdf
         slime-autodoc
         slime-fancy
         slime-references
