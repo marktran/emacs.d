@@ -18,7 +18,7 @@
         (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0))
         (scroll-bar (or (frame-parameter nil 'scroll-bar-width) 0)))
       (/ (- pixel-width (nth 0 display-padding) left-fringe right-fringe
-            scroll-bar)
+            scroll-bar dock-width)
       (frame-char-width))))
 
 (defun calculate-rows (pixel-height)
