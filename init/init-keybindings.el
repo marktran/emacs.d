@@ -3,25 +3,25 @@
 ;;; .emacs.d/init/init-keybindings.el : Mark Tran <mark@nirv.net>
 
 ;; function keys
-(global-set-key [f1] 'w3m)
-(global-set-key [f2] 'gnus)
-(global-set-key [f3] 'switch-to-scratch-or-previous)
-(global-set-key [f4] '(lambda ()
+(global-set-key [(meta f1)] 'w3m)
+(global-set-key [(meta f2)] 'gnus)
+(global-set-key [(meta f3)] 'switch-to-scratch-or-previous)
+(global-set-key [(meta f4)] '(lambda ()
                         (interactive)
                         (if (get-buffer "*scheme*")
                          (switch-to-buffer "*scheme*"))))
-(global-set-key [f5] 'slime)
-(global-set-key [f6] 'replace-regexp)
-(global-set-key [f7] 'kmacro-end-or-call-macro)
-(global-set-key [f12] '(lambda () 
+(global-set-key [(meta f5)] 'slime)
+(global-set-key [(meta f6)] 'replace-regexp)
+(global-set-key [(meta f7)] 'kmacro-end-or-call-macro)
+(global-set-key [(meta f12)] '(lambda () 
                          (interactive) 
                          (magit-status default-directory)))
 
-(global-set-key [(control f12)] '(lambda () 
+(global-set-key [(meta shift f12)] '(lambda () 
                                    (interactive) 
                                    (kill-buffer (current-buffer))))
 
-(global-set-key [(shift f7)] 'kmacro-start-or-end)
+(global-set-key [(meta shift f7)] 'kmacro-start-or-end)
 
 ;; miscellaneous
 (global-set-key (kbd "C-<tab>") 'bury-buffer)
