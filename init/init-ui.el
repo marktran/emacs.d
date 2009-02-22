@@ -42,7 +42,7 @@
 (define-fringe-bitmap 'top-right-angle [0] nil)
 (set-window-margins nil 1 0)
 
-;;
+;; color theme
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-outback)
