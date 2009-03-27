@@ -22,6 +22,6 @@
 ;;                     (calculate-y-position (nth 1 display-padding)))
 (split-window-horizontally)
 
-(set-default-font "Inconsolata-16")
+(set-default-font "Inconsolata-14")
 
 (provide 'init-mac)
