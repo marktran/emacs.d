@@ -13,15 +13,15 @@
       mac-option-modifier 'meta)
 
 ;; ui
-(set-frame-size (selected-frame) 
-                (calculate-columns (display-pixel-width))
-                (+ (calculate-rows (display-pixel-height)) 3))
-(set-frame-position (selected-frame) 
-                    (calculate-x-position (nth 0 display-padding))
-                    (calculate-y-position (nth 1 display-padding)))
+;; (set-frame-size (selected-frame) 
+;;                 (calculate-columns (display-pixel-width))
+;;                 (+ (calculate-rows (display-pixel-height)) 3))
+(set-frame-size (selected-frame) 175 50)
+;; (set-frame-position (selected-frame) 
+;;                     (calculate-x-position (nth 0 display-padding))
+;;                     (calculate-y-position (nth 1 display-padding)))
 (split-window-horizontally)
 
-(set-default-font 
- "-apple-inconsolata-medium-r-normal--14-0-72-72-m-0-iso10646-1")
+(set-default-font "Inconsolata-16")
 
 (provide 'init-mac)
