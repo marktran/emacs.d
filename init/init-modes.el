@@ -2,6 +2,9 @@
 
 ;;; .emacs.d/init/init-modes.el : Mark Tran <mark@nirv.net>
 
+;; cc
+(c-set-offset 'case-label '+)
+
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
