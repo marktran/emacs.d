@@ -6,6 +6,9 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
+;; linum
+(setq linum-format "%3d ")
+
 ;; lisppaste
 (autoload 'lisppaste-paste-region "lisppaste"
   "Send region to paste.lisp.org" t)
