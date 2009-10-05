@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-lisp.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-lisp.el : Mark Tran <mark@nirv.net>
 
 ;; slime (generate preloaded core: "./clbuild dumpcore slime cl-ppcre tilde")
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/")
@@ -54,4 +54,4 @@
     :ignore-case t
     :doc-spec '(("(ansicl)Symbol Index" nil nil nil))))
 
-(provide 'init-lisp)
+(provide 'mqt-lisp)

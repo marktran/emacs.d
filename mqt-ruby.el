@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-ruby.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-ruby.el : Mark Tran <mark@nirv.net>
 
 (autoload 'ruby-mode "ruby-mode" "Load ruby-mode")
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
@@ -15,4 +15,4 @@
              (inf-ruby-keys)))
 (add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
-(provide 'init-ruby)
+(provide 'mqt-ruby)

@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-custom-file.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-custom-file.el : Mark Tran <mark@nirv.net>
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.

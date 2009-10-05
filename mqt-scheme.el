@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-scheme.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-scheme.el : Mark Tran <mark@nirv.net>
 
 (autoload 'quack-scheme-mode-hookfunc "quack")
 (autoload 'quack-inferior-scheme-mode-hookfunc "quack")
@@ -18,4 +18,4 @@
 (add-hook 'scheme-mode-hook 'quack-scheme-mode-hookfunc)
 (add-hook 'inferior-scheme-mode-hook 'quack-inferior-scheme-mode-hookfunc)
 
-(provide 'init-scheme)
+(provide 'mqt-scheme)

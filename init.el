@@ -9,57 +9,30 @@
       (setq load-path (cons lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
-;; cache byte-compiled .el files
-(setq byte-compile-verbose nil
-      byte-compile-warnings nil)
-(require 'byte-code-cache)
+;; elpa
+(require 'package)
+(package-initialize)
+(require 'mqt-elpa)
 
 ;; init
-(require 'init-functions)
-(require 'init-keybindings)
-(require 'init-libraries)
-(require 'init-lisp)
-(require 'init-mail)
-(require 'init-modes)
-(require 'init-ruby)
-(require 'init-scheme)
-(require 'init-ui)
-(require 'init-web)
+(require 'mqt-functions)
+(require 'mqt-keybindings)
+(require 'mqt-libraries)
+(require 'mqt-lisp)
+(require 'mqt-mail)
+(require 'mqt-misc)
+(require 'mqt-modes)
+(require 'mqt-python)
+(require 'mqt-ruby)
+(require 'mqt-scheme)
+(require 'mqt-ui)
+(require 'mqt-web)
 
 (when (eq system-type 'darwin)
-  (require 'init-mac))
+  (require 'mqt-mac))
 
-;; settings
-(setq backup-inhibited t
-      disabled-command-function nil
-      gnus-home-directory "~/.gnus.d/"
-      gnus-init-file "~/.gnus.el"
-      history-length 250
-      interprogram-paste-function 'x-cut-buffer-or-selection-value
-      require-final-newline t
-      tab-width 4
-      tramp-default-method "ssh"
-      x-select-enable-clipboard t)
-
-(setq-default c-basic-offset 4
-              fill-column 72
-              indent-tabs-mode nil)
-
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(setq custom-file "~/.emacs.d/init/init-custom-file.el")
+(setq custom-file "~/.emacs.d/init/mqt-custom-file.el")
 (load custom-file 'noerror)
-
-;; mode mappings
-(mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
-      '(("\\.dtd$" . xml-mode)
-        ("\\.lua$" . lua-mode)
-        ("\\.xml$" . xml-mode)
-        ("\\.yml$" . conf-mode)))
-
-;; hooks
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; start server
 (server-start)

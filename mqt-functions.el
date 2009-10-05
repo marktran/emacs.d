@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-functions.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-functions.el : Mark Tran <mark@nirv.net>
 
 ;; calculate rows/columns based on resolution
 (defconst display-padding '(50 50)
@@ -108,11 +108,19 @@ Otherwise, analyses point position and answers."
               mark-active)
     (looking-at "\\_>")))
 
-;; switch-to *scratch* or previous buffer
 (defun switch-to-scratch-or-previous ()
+  "switch-to *scratch* or previous buffer"
   (interactive)
   (if (string-match (buffer-name (current-buffer)) "*scratch*")
       (switch-to-buffer (other-buffer))
     (switch-to-buffer "*scratch*")))
 
-(provide 'init-functions)
+(defun switch-or-start (function buffer)
+  "If the buffer is current, bury it, otherwise invoke the function."
+  (if (equal (buffer-name (current-buffer)) buffer)
+      (bury-buffer)
+    (if (get-buffer buffer)
+        (switch-to-buffer buffer)
+      (funcall function))))
+
+(provide 'mqt-functions)

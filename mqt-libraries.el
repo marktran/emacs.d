@@ -1,10 +1,14 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-libraries.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-libraries.el : Mark Tran <mark@nirv.net>
 
 ;; browse-kill-ring
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+;; erc
+(autoload 'erc-tls "erc"
+  "Initiate ERC connection with TLS" t)
 
 ;; linum
 (setq linum-format "%3d ")
@@ -20,7 +24,7 @@
 (autoload 'magit-status "magit" "Interface to Git" t)
 
 ;; paredit
-(autoload 'paredit-mode "paredit-beta" 
+(autoload 'paredit-mode "paredit" 
   "Mode for pseudo-structurally editing Lisp code" t)
 
 (dolist (hook '(emacs-lisp-mode-hook
@@ -36,4 +40,4 @@
     (define-key paredit-mode-map (kbd "M-)")
      'paredit-close-parenthesis-and-newline)))
 
-(provide 'init-libraries)
+(provide 'mqt-libraries)

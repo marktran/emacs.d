@@ -1,30 +1,34 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-ui.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-ui.el : Mark Tran <mark@nirv.net>
 
 ;; modes
 (column-number-mode 1)
 (fringe-mode '(0 . right-only))
 (global-font-lock-mode 1)
+(global-visual-line-mode 1)
 (show-paren-mode 1)
 (winner-mode 1)
 
 ;; settings
 (setq default-indicate-buffer-boundaries 'right
       Info-use-header-line nil
-      inhibit-startup-message t 
+      inhibit-startup-message t
+      interprogram-paste-function 'x-cut-buffer-or-selection-value
       pop-up-windows nil
       show-paren-style 'parenthesis
       show-paren-delay 0
+      show-trailing-whitespace t
       transient-mark-mode t
-      visible-bell t)
+      visible-bell t
+      x-select-enable-clipboard t)
 
 (setq-default cursor-in-non-selected-windows nil
               left-margin-width 1)
 
 (put 'set-goal-column 'disabled nil)
 
-;;
+;; bars
 (blink-cursor-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -47,4 +51,4 @@
 (color-theme-initialize)
 (color-theme-outback)
 
-(provide 'init-ui)
+(provide 'mqt-ui)

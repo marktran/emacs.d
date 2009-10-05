@@ -1,6 +1,13 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/init/init-modes.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-modes.el : Mark Tran <mark@nirv.net>
+
+;; mode mappings
+(mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
+      '(("\\.dtd$" . xml-mode)
+        ("\\.lua$" . lua-mode)
+        ("\\.xml$" . xml-mode)
+        ("\\.yml$" . conf-mode)))
 
 ;; cc
 (c-set-offset 'case-label '+)
@@ -11,22 +18,9 @@
 
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 
-;; erc
-(setq erc-user-full-name "Mark T."
-      erc-email-userid "tran"
-      erc-nick '("mqt" "qvt")
-      erc-server "irc.freenode.net"
-      erc-port 6667
-      erc-prompt-for-password nil)
-
 ;; eshell
 (setq eshell-ls-initial-args "-F"
       eshell-ls-use-colors nil)
-
-(setq eshell-prompt-function
-  (lambda ()
-    (concat "(" (eshell/pwd) ")"
-      (if (= (user-uid) 0) " # " " % "))))
 
 ;; ido
 (ido-mode t)
@@ -41,4 +35,11 @@
   (lambda()
     (setq show-trailing-whitespace t)))
 
-(provide 'init-modes)
+;; org
+(setq org-hide-leading-stars t
+      org-startup-folded nil)
+
+;; text-mode
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(provide 'mqt-modes)
