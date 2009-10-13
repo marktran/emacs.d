@@ -42,6 +42,21 @@
                   (line-beginning-position (+ 1 arg)))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
+;; highlight HTML-style color specifications in their color
+(defvar hexcolour-keywords
+  '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
+     (0 (put-text-property
+         (match-beginning 0)
+         (match-end 0)
+         'face (list :background
+                     (match-string-no-properties 0)))))))
+
+(defun hexcolour-add-to-font-lock ()
+  (interactive)
+  (font-lock-add-keywords nil hexcolour-keywords))
+
+(add-hook 'xml-mode-hook 'hexcolour-add-to-font-lock)
+
 ;; increment number at point
 (defun increment-number-at-point (&optional amount)
   "Increment the number under point by `amount'"
