@@ -29,6 +29,6 @@
         ("video/mpeg" "\\.mpe?g$" ("mplayer" file))
         ("video/quicktime" "\\.mov$" ("mplayer" file))))
 
-(setq browse-url-browser-function 'browse-url-generic)
+(setq browse-url-browser-function 'browse-url-default-macosx-browser)
 
 (provide 'mqt-web)
