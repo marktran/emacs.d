@@ -22,6 +22,10 @@
 (setq eshell-ls-initial-args "-F"
       eshell-ls-use-colors nil)
 
+;; hl-line
+(global-hl-line-mode 1)
+(set-face-background 'hl-line "#2b1811")
+
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
