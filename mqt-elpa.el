@@ -5,7 +5,6 @@
 (defvar elpa-packages (list 'gist
                             'inf-ruby
                             'kill-ring-search
-                            'lisppaste
                             'lua-mode
                             'magit
                             'paredit
