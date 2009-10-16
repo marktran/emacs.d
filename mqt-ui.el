@@ -6,6 +6,7 @@
 (column-number-mode 1)
 (fringe-mode '(0 . right-only))
 (global-font-lock-mode 1)
+(global-hl-line-mode 1)
 (global-visual-line-mode 1)
 (show-paren-mode 1)
 (winner-mode 1)
@@ -15,6 +16,7 @@
       Info-use-header-line nil
       inhibit-startup-message t
       interprogram-paste-function 'x-cut-buffer-or-selection-value
+      linum-format "%3d "
       pop-up-windows nil
       show-paren-style 'parenthesis
       show-paren-delay 0

@@ -30,9 +30,6 @@
 (setq eshell-ls-initial-args "-F"
       eshell-ls-use-colors nil)
 
-;; hl-line
-(global-hl-line-mode 1)
-
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
@@ -40,9 +37,6 @@
 (add-hook 'ido-setup-hook 
           (lambda () 
             (define-key ido-completion-map [tab] 'ido-complete)))
-
-;; linum
-(setq linum-format "%3d ")
 
 ;; lisppaste
 (autoload 'lisppaste-paste-region "lisppaste"
@@ -82,5 +76,11 @@
 
 ;; text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; uniquify
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse
+      uniquify-ignore-buffers-re "^\\*"
+      uniquify-separator "/")
 
 (provide 'mqt-modes)
