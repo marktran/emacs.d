@@ -7,8 +7,9 @@
 
 (setq gnus-select-method
       '(nntp "news.csh.rit.edu"
+             (nntp-open-connection-function nntp-open-ssl-stream)
              (nntp-address "news.csh.rit.edu")
-             (nntp-port-number 119))
+             (nntp-port-number 563))
       nntp-authinfo-file "~/.netrc")
 
 (setq gnus-secondary-select-methods
