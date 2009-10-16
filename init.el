@@ -18,7 +18,6 @@
 (require 'mqt-functions)
 (require 'mqt-keybindings)
 (require 'mqt-lisp)
-(require 'mqt-mail)
 (require 'mqt-misc)
 (require 'mqt-modes)
 (require 'mqt-python)
