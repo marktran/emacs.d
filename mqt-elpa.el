@@ -2,7 +2,10 @@
 
 ;;; .emacs.d/mqt-elpa.el : Mark Tran <mark@nirv.net>
 
-(defvar elpa-packages (list 'gist
+(defvar elpa-packages (list 'clojure-mode
+                            'css-mode
+                            'full-ack
+                            'gist
                             'inf-ruby
                             'kill-ring-search
                             'lua-mode
@@ -13,7 +16,7 @@
                             'yasnippet-bundle)
   "Libraries that should be installed by default.")
  
-(defun elpa-install ()
+(defun mqt-elpa-install ()
   "Install all starter-kit packages that aren't installed."
   (interactive)
   (dolist (package elpa-packages)
@@ -22,7 +25,7 @@
       (message "Installing %s" (symbol-name package))
       (package-install package))))
  
-(defun online? ()
+(defun mqt-online? ()
   "See if we're online."
   (if (and (functionp 'network-interface-list)
            (network-interface-list))
@@ -32,8 +35,8 @@
             (network-interface-list))
     t))
  
-(when (online?)
+(when (mqt-online?)
   (unless package-archive-contents (package-refresh-contents))
-  (elpa-install))
+  (mqt-elpa-install))
 
 (provide 'mqt-elpa)
