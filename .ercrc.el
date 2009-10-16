@@ -23,14 +23,7 @@
 
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
 
-;; growl notifcation for mentions and keywords
-(defun growl-chat (title message)
-  (interactive "sTitle: \nsMessage: ")
-  (shell-command-to-string
-   (format "/opt/local/bin/growlnotify --appIcon 'Emacs' -t $'%s' -m $'%s'" 
-           (replace-regexp-in-string "'" "\\\\'" title)
-           (replace-regexp-in-string "'" "\\\\'" message))))
-
+;; growl notifcations for mentions and keywords
 (when (eq system-type 'darwin)
   (add-hook 'erc-text-matched-hook
             (lambda (match-type nickuserhost message)
@@ -41,10 +34,10 @@
                      (not (string= nick (erc-current-nick))))
                 (cond
                  ((eq match-type 'current-nick)
-                  (growl-chat
+                  (growl
                    (format "ERC")
                    (format "<%s> %s" nick message)))
                  ((eq match-type 'keyword)
-                  (growl-chat 
+                  (growl
                    (format "ERC")
                    (format "<%s> %s" nick message))))))))

@@ -30,6 +30,9 @@
 (setq eshell-ls-initial-args "-F"
       eshell-ls-use-colors nil)
 
+;; growl
+(autoload 'growl "growl" "Emacs interface to Growl" t)
+
 ;; ido
 (ido-mode t)
 (setq ido-create-new-buffer 'always
