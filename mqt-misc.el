@@ -3,7 +3,8 @@
 ;;; .emacs.d-misc.el : Mark Tran <mark@nirv.net>
 
 ;; settings
-(setq backup-inhibited t
+(setq comment-auto-fill-only-comments t
+      backup-inhibited t
       disabled-command-function nil
       gnus-home-directory "~/.gnus.d/"
       gnus-init-file "~/.gnus.el"
