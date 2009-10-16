@@ -18,7 +18,7 @@
                   (indent-region (region-beginning) (region-end) nil))))))
 
 ;; calculate rows/columns based on resolution
-(defconst display-padding '(50 50)
+(defconst display-padding '(150 50)
   "Amount of padding, in pixels, around the outside of the frame")
 
 (defconst menubar-height 22
