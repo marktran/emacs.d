@@ -17,7 +17,6 @@
 ;; init
 (require 'mqt-functions)
 (require 'mqt-keybindings)
-(require 'mqt-libraries)
 (require 'mqt-lisp)
 (require 'mqt-mail)
 (require 'mqt-misc)
@@ -31,7 +30,7 @@
 (when (eq system-type 'darwin)
   (require 'mqt-mac))
 
-(setq custom-file "~/.emacs.d/init/mqt-custom-file.el")
+(setq custom-file "~/.emacs.d/mqt-custom-file.el")
 (load custom-file 'noerror)
 
 ;; start server
