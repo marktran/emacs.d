@@ -31,15 +31,16 @@
 (put 'set-goal-column 'disabled nil)
 
 ;; bars
-(blink-cursor-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
+(when window-system
+  (blink-cursor-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
 
-(setq frame-title-format
-      (list (format "%%j")
-            '(get-file-buffer "%f" (dired-directory dired-directory "%b"))))
+  (setq frame-title-format
+        (list (format "%%j")
+              '(get-file-buffer "%f" (dired-directory dired-directory "%b")))))
 
 ;; fringe, margins
 (define-fringe-bitmap 'bottom-right-angle [0] nil)
