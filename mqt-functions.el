@@ -2,6 +2,21 @@
 
 ;;; .emacs.d/mqt-functions.el : Mark Tran <mark@nirv.net>
 
+;; auto indentation for pasted lines
+;; http://www.emacswiki.org/emacs/AutoIndentation
+(dolist (command '(yank yank-pop))
+  (eval `(defadvice ,command (after indent-region activate)
+           (and (not current-prefix-arg)
+                (member major-mode '(emacs-lisp-mode lisp-mode
+                                                     clojure-mode   scheme-mode
+                                                     haskell-mode   ruby-mode
+                                                     rspec-mode     python-mode
+                                                     c-mode         c++-mode
+                                                     objc-mode      latex-mode
+                                                     plain-tex-mode))
+                (let ((mark-even-if-inactive transient-mark-mode))
+                  (indent-region (region-beginning) (region-end) nil))))))
+
 ;; calculate rows/columns based on resolution
 (defconst display-padding '(50 50)
   "Amount of padding, in pixels, around the outside of the frame")
@@ -34,7 +49,18 @@
   "Calculate Y offset from the display padding height"
   (+ (/ padding-height 2) menubar-height))
 
-;; copy n lines to the kill-ring
+;; http://www.emacswiki.org/emacs/CommentingCode
+(defun comment-dwim-line (&optional arg)
+  "Replacement for the comment-dwim command.
+If no region is selected and current line is not blank and we are not at the 
+end of the line, then comment current line. Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
+
+;;
 (defun copy-line (arg)
   "Copy N lines at point to the kill-ring"
   (interactive "p")
@@ -43,7 +69,7 @@
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 ;; highlight HTML-style color specifications in their color
-(defvar hexcolour-keywords
+(defvar hexcolor-keywords
   '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
      (0 (put-text-property
          (match-beginning 0)
@@ -51,13 +77,46 @@
          'face (list :background
                      (match-string-no-properties 0)))))))
 
-(defun hexcolour-add-to-font-lock ()
+(defun hexcolor-add-to-font-lock ()
   (interactive)
-  (font-lock-add-keywords nil hexcolour-keywords))
+  (font-lock-add-keywords nil hexcolor-keywords))
 
-(add-hook 'xml-mode-hook 'hexcolour-add-to-font-lock)
+;; http://www.emacswiki.org/emacs/ImenuMode#toc10
+(defun ido-goto-symbol ()
+  "Update the imenu index and then use ido to select a symbol to navigate to"
+  (interactive)
+  (imenu--make-index-alist)
+  (let ((name-and-pos '())
+        (symbol-names '()))
+    (flet ((addsymbols (symbol-list)
+                       (when (listp symbol-list)
+                         (dolist (symbol symbol-list)
+                           (let ((name nil) (position nil))
+                             (cond
+                              ((and (listp symbol) (imenu--subalist-p symbol))
+                               (addsymbols symbol))
+                              
+                              ((listp symbol)
+                               (setq name (car symbol))
+                               (setq position (cdr symbol)))
+                              
+                              ((stringp symbol)
+                               (setq name symbol)
+                               (setq position (get-text-property 1 'org-imenu-marker symbol))))
+                             
+                             (unless (or (null position) (null name))
+                               (add-to-list 'symbol-names name)
+                               (add-to-list 'name-and-pos (cons name position))))))))
+      (addsymbols imenu--index-alist))
+    (let* ((selected-symbol (ido-completing-read "Symbol: " symbol-names))
+           (position (cdr (assoc selected-symbol name-and-pos))))
+      (cond
+       ((overlayp position)
+        (goto-char (overlay-start position)))
+       (t
+        (goto-char position))))))
 
-;; increment number at point
+;;
 (defun increment-number-at-point (&optional amount)
   "Increment the number under point by `amount'"
   (interactive "p")
@@ -71,7 +130,7 @@
           (insert (number-to-string newnum)))
         (goto-char p)))))
 
-;; start keyboard macro or end
+;;
 (defun kmacro-start-or-end (arg)
   "Toggle recording of keyboard macro"
   (interactive "P")
@@ -79,7 +138,7 @@
       (kmacro-end-macro arg)
     (kmacro-start-macro arg)))
 
-;; smart tab
+;;
 (defvar smart-tab-using-hippie-expand t
   "turn this on if you want to use hippie-expand completion.")
 
@@ -123,6 +182,7 @@ Otherwise, analyses point position and answers."
               mark-active)
     (looking-at "\\_>")))
 
+;;
 (defun switch-to-scratch-or-previous ()
   "switch-to *scratch* or previous buffer"
   (interactive)
@@ -130,6 +190,7 @@ Otherwise, analyses point position and answers."
       (switch-to-buffer (other-buffer))
     (switch-to-buffer "*scratch*")))
 
+;;
 (defun switch-or-start (function buffer)
   "If the buffer is current, bury it, otherwise invoke the function."
   (if (equal (buffer-name (current-buffer)) buffer)
