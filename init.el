@@ -25,7 +25,6 @@
 (require 'mqt-ruby)
 (require 'mqt-scheme)
 (require 'mqt-ui)
-(require 'mqt-web)
 
 (when (eq system-type 'darwin)
   (require 'mqt-mac))
