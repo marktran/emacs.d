@@ -44,9 +44,6 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; window movement
-(global-set-key [C-left] 'windmove-left)
-(global-set-key [C-right] 'windmove-right)
-(global-set-key [C-up] 'windmove-up)
-(global-set-key [C-down] 'windmove-down)
+(windmove-default-keybindings)
 
 (provide 'mqt-keybindings)
