@@ -32,7 +32,9 @@
 
 ;; ido
 (ido-mode t)
-(setq ido-enable-flex-matching t)
+(setq ido-create-new-buffer 'always
+      ido-enable-flex-matching t
+      ido-use-filename-at-point 'guess)
 
 (add-hook 'ido-setup-hook 
           (lambda () 
@@ -74,13 +76,28 @@
      (define-key paredit-mode-map (kbd "M-)")
        'paredit-close-parenthesis-and-newline)))
 
+;; recentf
+(recentf-mode 1)
+
 ;; text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-flyspell)
 
 ;; uniquify
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse
-      uniquify-ignore-buffers-re "^\\*"
-      uniquify-separator "/")
+(setq uniquify-buffer-name-style 'forward
+      uniquify-ignore-buffers-re "^\\*")
+
+;; w3m
+(autoload 'w3m "w3m-load" "Interface for w3m on emacs." t)
+
+(eval-after-load 'w3m
+  '(progn
+     (setq w3m-home-page "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")
+     (setq w3m-pop-up-windows nil)
+     (setq w3m-show-graphic-icons-in-mode-line nil)
+     (setq w3m-use-header-line nil)
+     (setq w3m-use-tab nil)
+     (setq w3m-use-toolbar nil)))
 
 (provide 'mqt-modes)
