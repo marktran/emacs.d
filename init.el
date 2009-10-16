@@ -27,7 +27,7 @@
 (when (eq system-type 'darwin)
   (require 'mqt-mac))
 
-(setq custom-file "~/.emacs.d/mqt-custom-file.el")
+(setq custom-file "~/.emacs.d/mqt-custom.el")
 (load custom-file 'noerror)
 
 ;; start server
