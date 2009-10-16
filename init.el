@@ -22,7 +22,6 @@
 (require 'mqt-modes)
 (require 'mqt-python)
 (require 'mqt-ruby)
-(require 'mqt-scheme)
 (require 'mqt-ui)
 
 (when (eq system-type 'darwin)
