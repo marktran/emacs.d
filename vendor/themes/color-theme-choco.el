@@ -2,10 +2,8 @@
 
 ;;; color-theme-choco.el : Mark Tran <mark@nirv.net>
 
-;;; hl-line-mode: (set-face-background 'hl-line "#2b1811")
-
 (defun color-theme-choco ()
-  "Choco Color Theme"
+  "Choco theme"
   (interactive)
   (color-theme-install
    '(color-theme-choco
@@ -20,7 +18,7 @@
      (compilation-warning ((t (:foreground "DarkOrange3"))))
      (erc-action-face ((t (:foreground "#d77261"))))
      (erc-button ((t (:foreground "#a8799c"))))
-     (erc-current-nick-face ((t (:foreground "#7989a6"))))
+     (erc-current-nick-face ((t (:foreground "#7ca563"))))
      (erc-input-face ((t (:foreground "#c3be98"))))
      (erc-my-nick-face ((t (:foreground "#b3935c"))))
      (erc-nick-default-face ((t (:foreground "#c3be98"))))
@@ -45,9 +43,11 @@
      (gnus-header-name ((t (:foreground "#c3be98"))))
      (gnus-header-newsgroups ((t (:foreground "#983008"))))
      (gnus-header-subject ((t (:foreground "#a8799c"))))
-     (gnus-summary-selected ((t (:foreground "##a8799c"))))
+     (gnus-summary-normal-read ((t (:foreground "#7ca563"))))
+     (gnus-summary-selected ((t (:foreground "#a8799c"))))
      (header-line ((t (:foreground "#c3be98"))))
      (highlight ((t (:background "#483b39"))))
+     (hl-line ((t (:background "#2b1811"))))
      (ido-first-match ((t (:foreground "#679d47"))))
      (ido-incomplete-regexp ((t (:foreground "#a5659"))))
      (ido-indicator ((t (:foreground "#7989a6"))))
@@ -61,6 +61,7 @@
      (isearch ((t (:background "#483b39"))))
      (isearch-fail ((t (:background "#da5659"))))
      (lazy-highlight ((t (:background "#7989a6"))))
+     (linum ((t (:foreground "#c3be98" :background "#2b1811"))))
      (minibuffer-prompt ((t (:foreground "#c3be98"))))
      (mode-line ((t (:foreground "black" :background "#e5e894"))))
      (mode-line-highlight ((t (:foreground "#6d4c2f"))))
