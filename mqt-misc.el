@@ -7,7 +7,7 @@
       backup-inhibited t
       disabled-command-function nil
       gnus-home-directory "~/.gnus.d/"
-      gnus-init-file "~/.gnus.el"
+      gnus-init-file "~/.emacs.d/.gnus.el"
       history-length 250
       require-final-newline t
       tab-width 4
