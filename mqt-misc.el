@@ -4,6 +4,7 @@
 
 ;; settings
 (setq comment-auto-fill-only-comments t
+      confirm-nonexistent-file-or-buffer nil
       backup-inhibited t
       disabled-command-function nil
       gnus-home-directory "~/.gnus.d/"
