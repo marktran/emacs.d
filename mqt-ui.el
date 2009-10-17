@@ -7,7 +7,6 @@
 (fringe-mode '(0 . right-only))
 (global-font-lock-mode 1)
 (global-hl-line-mode 1)
-(global-visual-line-mode 1)
 (show-paren-mode 1)
 (winner-mode 1)
 
@@ -21,7 +20,6 @@
       show-paren-style 'parenthesis
       show-paren-delay 0
       show-trailing-whitespace t
-      transient-mark-mode t
       visible-bell t
       x-select-enable-clipboard t)
 

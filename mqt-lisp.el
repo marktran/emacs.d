@@ -47,6 +47,7 @@
 ;; C-h S (info-lookup-symbol) to view HyperSpec entry
 ;; http://www.phys.au.dk/~harder/dpans.html
 (autoload 'info-lookup-symbol "info-look" "Lookup documentation" t)
+
 (eval-after-load 'info-look
   '(info-lookup-add-help
     :mode 'lisp-mode

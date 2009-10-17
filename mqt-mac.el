@@ -14,11 +14,9 @@
 (set-frame-size (selected-frame) 
                 (calculate-columns (display-pixel-width))
                 (calculate-rows (display-pixel-height)))
-
 (set-frame-position (selected-frame) 
                     (calculate-x-position (nth 0 display-padding))
                     (calculate-y-position (nth 1 display-padding)))
-
 (split-window-horizontally)
 
 (set-default-font "Menlo-12")

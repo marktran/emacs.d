@@ -4,10 +4,7 @@
 
 ;; mode mappings
 (mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
-      '(("\\.dtd$" . xml-mode)
-        ("\\.lua$" . lua-mode)
-        ("\\.xml$" . xml-mode)
-        ("\\.yml$" . conf-mode)))
+      '(("\\.xml$" . nxml-mode)))
 
 ;; browse-kill-ring
 (require 'browse-kill-ring)
@@ -30,14 +27,16 @@
 (setq eshell-ls-initial-args "-F"
       eshell-ls-use-colors nil)
 
+(add-hook 'eshell-first-time-mode-hook 
+          (lambda () (visual-line-mode -1)))
+
 ;; growl
 (autoload 'growl "growl" "Emacs interface to Growl" t)
 
 ;; ido
 (ido-mode t)
 (setq ido-create-new-buffer 'always
-      ido-enable-flex-matching t
-      ido-use-filename-at-point 'guess)
+      ido-enable-flex-matching t)
 
 (add-hook 'ido-setup-hook 
           (lambda () 
@@ -55,8 +54,8 @@
 
 ;; makefile
 (add-hook 'makefile-mode-hook 
-  (lambda()
-    (setq show-trailing-whitespace t)))
+          (lambda()
+            (setq show-trailing-whitespace t)))
 
 ;; org
 (setq org-hide-leading-stars t
@@ -82,14 +81,13 @@
 ;; recentf
 (recentf-mode 1)
 
-;; text-mode
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'text-mode-hook 'turn-on-flyspell)
-
 ;; uniquify
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward
       uniquify-ignore-buffers-re "^\\*")
+
+;; visual line mode
+(global-visual-line-mode 1)
 
 ;; w3m
 (autoload 'w3m "w3m-load" "Interface for w3m on emacs." t)
@@ -102,5 +100,9 @@
      (setq w3m-use-header-line nil)
      (setq w3m-use-tab nil)
      (setq w3m-use-toolbar nil)))
+
+;; yasnippet
+(setq yas/prompt-functions '(yas/ido-prompt)
+      yas/use-menu 'abbreviate)
 
 (provide 'mqt-modes)

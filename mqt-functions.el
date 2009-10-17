@@ -68,7 +68,7 @@ end of the line, then comment current line. Replaces default behaviour of commen
                   (line-beginning-position (+ 1 arg)))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
-;; highlight HTML-style color specifications in their color
+;; highlight HTML-style color strings in the color they specify
 (defvar hexcolor-keywords
   '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
      (0 (put-text-property
@@ -143,7 +143,8 @@ end of the line, then comment current line. Replaces default behaviour of commen
   "turn this on if you want to use hippie-expand completion.")
 
 (setq hippie-expand-try-functions-list
-      '(try-expand-dabbrev
+      '(yas/hippie-try-expand
+        try-expand-dabbrev
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill
         try-complete-file-name
