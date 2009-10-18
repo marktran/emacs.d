@@ -12,7 +12,6 @@
                             'magit
                             'paredit
                             'ruby-mode
-                            'xml-rpc
                             'yasnippet-bundle)
   "Libraries that should be installed by default.")
  
