@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .gnus : Mark Tran <mark@nirv.net>
+;;; .gnus.el : Mark Tran <mark@nirv.net>
 
 (setq user-full-name "Mark Tran"
       user-mail-address "mark@nirv.net")
@@ -23,7 +23,7 @@
       gnus-novice-user nil
       gnus-summary-display-arrow nil
       gnus-summary-dummy-line-format ""
-      gnus-summary-line-format "%U%R%z %d %-20,20n %B%s\n"
+      gnus-summary-line-format "%U%R%z┃ %d ┃ %-20,20n ┃ %B%s\n"
       gnus-summary-mode-line-format "%g [%A / %z] %Z"
       gnus-treat-display-smileys nil
       gnus-use-cache 'passive
@@ -33,11 +33,6 @@
 ^Posted-To:\\|^Mail-Copies-To:\\|^Mail-Followup-To:\\|^Apparently-To:\\|
 ^Gnus-Warning:\\|^Resent-From:\\|^X-Sent:"
       message-from-style 'angles)
-
-(add-hook 'message-mode-hook
-          '(lambda ()
-            (turn-on-auto-fill)
-            (setq fill-column 72)))
 
 ;; scoring
 (setq gnus-use-adaptive-scoring t
