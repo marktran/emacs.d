@@ -7,7 +7,7 @@
       '(("\\.xml$" . nxml-mode)))
 
 ;; browse-kill-ring
-(require 'browse-kill-ring)
+(autoload 'browse-kill-ring "browse-kill-ring" t)
 (browse-kill-ring-default-keybindings)
 
 ;; cc
@@ -26,9 +26,6 @@
 ;; eshell
 (setq eshell-ls-initial-args "-F"
       eshell-ls-use-colors nil)
-
-(add-hook 'eshell-first-time-mode-hook 
-          (lambda () (visual-line-mode -1)))
 
 ;; growl
 (autoload 'growl "growl" "Emacs interface to Growl" t)

@@ -6,6 +6,6 @@
 (autoload 'run-ruby "inf-ruby")
 (autoload 'inf-ruby-keys "inf-ruby")
 
-(add-hook 'ruby-mode-hook (lambda () (inf-ruby-keys)))
+(add-hook 'ruby-mode-hook 'inf-ruby-keys)
 
 (provide 'mqt-ruby)
