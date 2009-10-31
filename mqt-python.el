@@ -2,7 +2,7 @@
 
 ;;; .emacs.d/mqt-python.el : Mark Tran <mark@nirv.net>
 
-(autoload 'python-mode "python-mode" t)
+(autoload 'python-mode "python-mode" "Python Mode" t)
 (eval-after-load 'python-mode
   '(require 'ipython))
 
@@ -22,6 +22,6 @@
   (add-to-list 'flymake-allowed-file-name-masks 
                '("\\.py\\'" flymake-pyflakes-init))) 
 
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+;; (add-hook 'find-file-hook 'flymake-find-file-hook)
 
 (provide 'mqt-python)
