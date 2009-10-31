@@ -28,12 +28,11 @@
 
 ;; miscellaneous
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-l") 'goto-line)
 
 (global-set-key (kbd "C-/") 'comment-dwim-line)
 (global-set-key (kbd "M-;") 'comment-dwim-line)
 
-(global-set-key (kbd "C-c C-c") 'copy-line)
+(global-set-key (kbd "C-c l") 'copy-line)
 (global-set-key (kbd "C-c i") 'increment-number-at-point)
 
 (global-set-key (kbd "C-t") 'ido-switch-buffer)
