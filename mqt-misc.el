@@ -10,6 +10,7 @@
       gnus-home-directory "~/.gnus.d/"
       gnus-init-file "~/.emacs.d/.gnus.el"
       history-length 250
+      initial-scratch-message nil
       require-final-newline t
       tab-width 4
       tramp-default-method "ssh")
