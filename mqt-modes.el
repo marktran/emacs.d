@@ -4,11 +4,14 @@
 
 ;; mode mappings
 (mapc (lambda (mapping) (add-to-list 'auto-mode-alist mapping))
-      '(("\\.xml$" . nxml-mode)))
+      '(("\\.xml$" . nxml-mode)
+        ("\\.yml$" . yaml-mode)))
 
 ;; browse-kill-ring
-(autoload 'browse-kill-ring "browse-kill-ring" t)
+(require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+(setq browse-kill-ring-quit-action  'save-and-restore)
 
 ;; cc
 (c-set-offset 'case-label '+)
@@ -97,6 +100,9 @@
      (setq w3m-use-header-line nil)
      (setq w3m-use-tab nil)
      (setq w3m-use-toolbar nil)))
+
+;; yaml
+(autoload 'yaml-mode "yaml-mode" "Major mode for editing YAML files" t)
 
 ;; yasnippet
 (setq yas/prompt-functions '(yas/ido-prompt)
