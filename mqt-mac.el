@@ -1,3 +1,4 @@
+
 ;;; -*- Mode: Emacs-Lisp; -*-
 
 ;;; .emacs.d/mqt-mac.el : Mark Tran <mark@nirv.net>
@@ -5,6 +6,8 @@
 ;; settings
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t)
+
+(add-to-list 'ido-ignore-files "\\.DS_Store")
 
 ;; bindings
 (setq mac-command-modifier 'control
