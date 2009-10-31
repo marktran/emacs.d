@@ -23,7 +23,7 @@
       gnus-novice-user nil
       gnus-summary-display-arrow nil
       gnus-summary-dummy-line-format ""
-      gnus-summary-line-format "%U%R%z┃ %d ┃ %-20,20n ┃ %B%s\n"
+      gnus-summary-line-format "%U %d %-20,20n %B%s\n"
       gnus-summary-mode-line-format "%g [%A / %z] %Z"
       gnus-treat-display-smileys nil
       gnus-use-cache 'passive
