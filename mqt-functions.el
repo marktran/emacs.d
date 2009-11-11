@@ -116,7 +116,7 @@ end of the line, then comment current line. Replaces default behaviour of commen
        (t
         (goto-char position))))))
 
-;;
+;; http://blog.jrock.us/articles/Increment%20test%20counter.pod
 (defun increment-number-at-point (&optional amount)
   "Increment the number under point by `amount'"
   (interactive "p")
@@ -140,13 +140,26 @@ end of the line, then comment current line. Replaces default behaviour of commen
 
 ;; http://www.emacswiki.org/emacs-es/RecentFiles#toc7
 (defun recentf-ido-find-file ()
-  "Find a recent file using ido."
+  "Find a recent file using Ido."
   (interactive)
-  (let ((file (ido-completing-read "Recent find file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
+  (let* ((file-assoc-list
+	  (mapcar (lambda (x)
+		    (cons (file-name-nondirectory x)
+			  x))
+		  recentf-list))
+	 (filename-list
+	  (remove-duplicates (mapcar #'car file-assoc-list)
+			     :test #'string=))
+	 (filename (ido-completing-read "Recent file: "
+					filename-list
+					nil
+					t)))
+    (when filename
+      (find-file (cdr (assoc filename
+			     file-assoc-list))))))
 
-;;
+
+;; http://www.emacswiki.org/cgi-bin/wiki/TabCompletion#toc2
 (defvar smart-tab-using-hippie-expand t
   "turn this on if you want to use hippie-expand completion.")
 
