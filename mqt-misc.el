@@ -17,7 +17,8 @@
 
 (setq-default c-basic-offset 4
               fill-column 72
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
+              truncate-lines t)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
