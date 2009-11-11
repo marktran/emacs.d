@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/mqt-keybindings.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-bindings.el : Mark Tran <mark@nirv.net>
 
 ;; function keys
 (global-set-key [(f1)] (lambda ()
@@ -26,21 +26,21 @@
                                 (interactive) 
                                 (kill-buffer (current-buffer))))
 
-;; miscellaneous
-(global-set-key (kbd "C-z") 'undo)
-
-(global-set-key (kbd "C-/") 'comment-dwim-line)
-(global-set-key (kbd "M-;") 'comment-dwim-line)
-
-(global-set-key (kbd "C-c l") 'copy-line)
-(global-set-key (kbd "C-c i") 'increment-number-at-point)
-
-(global-set-key (kbd "C-t") 'ido-switch-buffer)
+;; completion
+(global-set-key (kbd "<tab>") 'smart-tab)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-t") 'find-file-in-project)
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-S-t") 'ido-goto-symbol)
 
-(global-set-key (kbd "<tab>") 'smart-tab)
-(global-set-key (kbd "M-/") 'hippie-expand)
+;; miscellaneous
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-/") 'comment-dwim-line)
+(global-set-key (kbd "C-c l") 'copy-line)
+(global-set-key (kbd "C-c i") 'increment-number-at-point)
 
 ;; window movement
 (windmove-default-keybindings)
