@@ -2,6 +2,12 @@
 
 ;;; .gnus.el : Mark Tran <mark@nirv.net>
 
+;; encrypted authinfo file with gnupg
+;; http://www.emacswiki.org/emacs/GnusEncryptedAuthInfo
+(require 'epa-file)
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
+;; settings
 (setq user-full-name "Mark Tran"
       user-mail-address "mark@nirv.net")
 
@@ -10,7 +16,7 @@
              (nntp-open-connection-function nntp-open-ssl-stream)
              (nntp-address "news.csh.rit.edu")
              (nntp-port-number 563))
-      nntp-authinfo-file "~/.netrc")
+      nntp-authinfo-file "~/.netrc.gpg")
 
 (setq gnus-secondary-select-methods
       '((nntp "news.gmane.org"
