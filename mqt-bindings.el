@@ -45,4 +45,4 @@
 ;; window movement
 (windmove-default-keybindings)
 
-(provide 'mqt-keybindings)
+(provide 'mqt-bindings)
