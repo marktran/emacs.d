@@ -41,7 +41,6 @@
 
 ;; fringe, margins
 (define-fringe-bitmap 'bottom-right-angle [0] nil)
-(define-fringe-bitmap 'right-arrow [0] nil)
 (define-fringe-bitmap 'right-bracket [0] nil)
 (define-fringe-bitmap 'top-left-angle [0] nil)
 (define-fringe-bitmap 'top-right-angle [0] nil)
