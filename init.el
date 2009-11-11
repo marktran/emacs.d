@@ -16,7 +16,7 @@
 
 ;; init
 (require 'mqt-functions)
-(require 'mqt-keybindings)
+(require 'mqt-bindings)
 (require 'mqt-lisp)
 (require 'mqt-misc)
 (require 'mqt-modes)
