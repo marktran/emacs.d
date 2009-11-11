@@ -1,4 +1,3 @@
-
 ;;; -*- Mode: Emacs-Lisp; -*-
 
 ;;; .emacs.d/mqt-mac.el : Mark Tran <mark@nirv.net>
