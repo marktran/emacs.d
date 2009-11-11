@@ -4,6 +4,7 @@
 
 (defvar elpa-packages (list 'clojure-mode
                             'css-mode
+                            'fringe-helper
                             'full-ack
                             'gist
                             'inf-ruby
@@ -12,6 +13,8 @@
                             'lua-mode
                             'magit
                             'paredit
+                            'rinari
+                            'ruby-compilation
                             'ruby-mode
                             'yasnippet-bundle)
   "Libraries that should be installed by default.")
