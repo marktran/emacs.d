@@ -132,11 +132,19 @@ end of the line, then comment current line. Replaces default behaviour of commen
 
 ;;
 (defun kmacro-start-or-end (arg)
-  "Toggle recording of keyboard macro"
+  "Toggle recording of keyboard macro."
   (interactive "P")
   (if defining-kbd-macro
       (kmacro-end-macro arg)
     (kmacro-start-macro arg)))
+
+;; http://www.emacswiki.org/emacs-es/RecentFiles#toc7
+(defun recentf-ido-find-file ()
+  "Find a recent file using ido."
+  (interactive)
+  (let ((file (ido-completing-read "Recent find file: " recentf-list nil t)))
+    (when file
+      (find-file file))))
 
 ;;
 (defvar smart-tab-using-hippie-expand t
