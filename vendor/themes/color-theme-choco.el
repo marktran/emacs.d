@@ -14,6 +14,7 @@
      (default ((t (nil))))
      (comint-highlight-input ((t (:foreground "#c3be98"))))
      (comint-highlight-prompt ((t (:foreground "#7989a6"))))
+     (compilation-error ((t (:foreground "#d77261"))))
      (dired-directory ((t (:foreground "#679d47"))))
      (dired-header ((t (:foreground "#b3935c"))))
      (erc-action-face ((t (:foreground "#d77261"))))
