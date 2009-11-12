@@ -26,8 +26,8 @@
 
 (defun calculate-columns (pixel-width)
   "Calculate available columns from the display pixel width"
-  (let ((dock-width (string-to-number 
-                      (shell-command-to-string 
+  (let ((dock-width (string-to-number
+                      (shell-command-to-string
                        "defaults read com.apple.dock tilesize")))
         (left-fringe (or left-fringe-width (nth 0 (window-fringes)) 0))
         (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0))
@@ -52,7 +52,7 @@
 ;; http://www.emacswiki.org/emacs/CommentingCode
 (defun comment-dwim-line (&optional arg)
   "Replacement for the comment-dwim command.
-If no region is selected and current line is not blank and we are not at the 
+If no region is selected and current line is not blank and we are not at the
 end of the line, then comment current line. Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
   (interactive "*P")
   (comment-normalize-vars)
@@ -95,15 +95,15 @@ end of the line, then comment current line. Replaces default behaviour of commen
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -143,20 +143,20 @@ end of the line, then comment current line. Replaces default behaviour of commen
   "Find a recent file using Ido."
   (interactive)
   (let* ((file-assoc-list
-	  (mapcar (lambda (x)
-		    (cons (file-name-nondirectory x)
-			  x))
-		  recentf-list))
-	 (filename-list
-	  (remove-duplicates (mapcar #'car file-assoc-list)
-			     :test #'string=))
-	 (filename (ido-completing-read "Recent file: "
+          (mapcar (lambda (x)
+                    (cons (file-name-nondirectory x)
+                          x))
+                  recentf-list))
+         (filename-list
+          (remove-duplicates (mapcar #'car file-assoc-list)
+                             :test #'string=))
+         (filename (ido-completing-read "Recent file: "
 					filename-list
 					nil
 					t)))
     (when filename
       (find-file (cdr (assoc filename
-			     file-assoc-list))))))
+                             file-assoc-list))))))
 
 
 ;; http://www.emacswiki.org/cgi-bin/wiki/TabCompletion#toc2

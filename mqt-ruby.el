@@ -14,9 +14,9 @@
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 ;; flymake
-(defvar flymake-ruby-err-line-patterns 
+(defvar flymake-ruby-err-line-patterns
   '(("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)))
-(defvar flymake-ruby-allowed-file-name-masks 
+(defvar flymake-ruby-allowed-file-name-masks
   '((".+\\.\\(rb\\|rake\\)$" flymake-ruby-init)
     ("Rakefile$" flymake-ruby-init)))
 
@@ -29,15 +29,15 @@
 
 (defun flymake-ruby-load ()
   (interactive)
-  (set (make-local-variable 'flymake-allowed-file-name-masks) 
+  (set (make-local-variable 'flymake-allowed-file-name-masks)
        flymake-ruby-allowed-file-name-masks)
-  (set (make-local-variable 'flymake-err-line-patterns) 
+  (set (make-local-variable 'flymake-err-line-patterns)
        flymake-ruby-err-line-patterns)
   (flymake-mode t))
 
-(add-hook 'ruby-mode-hook 
+(add-hook 'ruby-mode-hook
           (lambda ()
-            (if (and (not (null buffer-file-name)) 
+            (if (and (not (null buffer-file-name))
                      (file-writable-p buffer-file-name))
                 (flymake-ruby-load))))
 

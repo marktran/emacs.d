@@ -52,8 +52,8 @@
       ido-enable-flex-matching t
       ido-use-filename-at-point t)
 
-(add-hook 'ido-setup-hook 
-          (lambda () 
+(add-hook 'ido-setup-hook
+          (lambda ()
             (define-key ido-completion-map [tab] 'ido-complete)))
 
 ;; lua
@@ -107,13 +107,13 @@
 ;; whitespace
 (global-whitespace-mode)
 
-(setq whitespace-style '(lines-tail 
-                         space-after-tab 
-                         space-before-tab 
+(setq whitespace-style '(lines-tail
+                         space-after-tab
+                         space-before-tab
                          trailing))
 
 (eval-after-load 'w3m
-  '(setq w3m-home-page 
+  '(setq w3m-home-page
 "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
          w3m-pop-up-windows nil
          w3m-show-graphic-icons-in-mode-line nil
