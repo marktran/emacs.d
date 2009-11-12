@@ -82,4 +82,5 @@
      (w3m-anchor ((t (:foreground "#7989a6"))))
      (w3m-arrived-anchor ((t (:foreground "#d77261"))))
      (w3m-image ((t (:foreground "#679d47"))))
+     (whitespace-trailing ((t (:background "#9e0039"))))
      (yas/field-highlight-face ((t (:background "#7989a6")))))))

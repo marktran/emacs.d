@@ -104,6 +104,14 @@
 ;; w3m
 (autoload 'w3m "w3m-load" nil t)
 
+;; whitespace
+(global-whitespace-mode)
+
+(setq whitespace-style '(lines-tail 
+                         space-after-tab 
+                         space-before-tab 
+                         trailing))
+
 (eval-after-load 'w3m
   '(setq w3m-home-page 
 "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
