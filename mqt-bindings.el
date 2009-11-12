@@ -4,26 +4,26 @@
 
 ;; function keys
 (global-set-key [(f1)] (lambda ()
-                         (interactive) 
+                         (interactive)
                          (switch-or-start 'w3m "w3m")))
-(global-set-key [(f2)] (lambda () 
-                         (interactive) 
+(global-set-key [(f2)] (lambda ()
+                         (interactive)
                          (switch-or-start 'gnus "*Group*")))
-(global-set-key [(f3)] (lambda () 
-                         (interactive) 
+(global-set-key [(f3)] (lambda ()
+                         (interactive)
                          (erc-tls :server "lambda.nirv.net"
                                   :port 65535
                                   :nick "mqt")))
 (global-set-key [(f4)] 'replace-regexp)
 (global-set-key [(f5)] 'switch-to-scratch-or-previous)
 (global-set-key [(f6)] 'kmacro-end-or-call-macro)
-(global-set-key [(f12)] (lambda () 
-                          (interactive) 
+(global-set-key [(f12)] (lambda ()
+                          (interactive)
                           (magit-status default-directory)))
 
 (global-set-key [(shift f6)] 'kmacro-start-or-end)
-(global-set-key [(shift f12)] (lambda () 
-                                (interactive) 
+(global-set-key [(shift f12)] (lambda ()
+                                (interactive)
                                 (kill-buffer (current-buffer))))
 
 ;; completion
