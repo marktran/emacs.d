@@ -15,7 +15,6 @@
                                   :port 65535
                                   :nick "mqt")))
 (global-set-key [(f4)] 'replace-regexp)
-(global-set-key [(f5)] 'switch-to-scratch-or-previous)
 (global-set-key [(f6)] 'kmacro-end-or-call-macro)
 (global-set-key [(f12)] (lambda ()
                           (interactive)
@@ -39,8 +38,7 @@
 ;; miscellaneous
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-/") 'comment-dwim-line)
-(global-set-key (kbd "C-c l") 'copy-line)
-(global-set-key (kbd "C-c i") 'increment-number-at-point)
+(global-set-key (kbd "C-c +") 'increment-number-at-point)
 
 ;; window movement
 (windmove-default-keybindings)
