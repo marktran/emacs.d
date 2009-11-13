@@ -26,7 +26,7 @@
                                 (kill-buffer (current-buffer))))
 
 ;; completion
-(global-set-key (kbd "<tab>") 'smart-tab)
+(global-set-key (kbd "M-<tab>") 'smart-tab)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "M-/") 'hippie-expand)
