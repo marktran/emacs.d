@@ -10,7 +10,7 @@
 
 (set-language-environment "UTF-8")
 (setq default-enable-multibyte-characters t
-      inferior-lisp-program 
+      inferior-lisp-program
 "~/lib/lisp/clbuild/clbuild --implementation sbcl preloaded"
       slime-backend "~/lib/lisp/clbuild/.swank-loader.lisp"
       slime-net-coding-system 'utf-8-unix)

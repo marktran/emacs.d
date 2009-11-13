@@ -44,9 +44,9 @@
 (setq gnus-use-adaptive-scoring t
       gnus-default-adaptive-score-alist
       '((gnus-unread-mark)
-        (gnus-ticked-mark (subject 5)) 
-        (gnus-read-mark (subject 1)) 
-        (gnus-catchup-mark (subject -1)) 
+        (gnus-ticked-mark (subject 5))
+        (gnus-read-mark (subject 1))
+        (gnus-catchup-mark (subject -1))
         (gnus-killed-mark (subject -5))))
 
 (add-hook 'message-sent-hook 'gnus-score-followup-article)

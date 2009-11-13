@@ -18,7 +18,7 @@
                             'ruby-mode
                             'yasnippet-bundle)
   "Libraries that should be installed by default.")
- 
+
 (defun mqt-elpa-install ()
   "Install all starter-kit packages that aren't installed."
   (interactive)
@@ -27,7 +27,7 @@
                 (functionp package))
       (message "Installing %s" (symbol-name package))
       (package-install package))))
- 
+
 (defun mqt-online? ()
   "See if we're online."
   (if (and (functionp 'network-interface-list)
@@ -37,7 +37,7 @@
                                                    (car iface)))))))
             (network-interface-list))
     t))
- 
+
 (when (mqt-online?)
   (unless package-archive-contents (package-refresh-contents))
   (mqt-elpa-install))
