@@ -60,14 +60,6 @@ end of the line, then comment current line. Replaces default behaviour of commen
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 
-;;
-(defun copy-line (arg)
-  "Copy N lines at point to the kill-ring"
-  (interactive "p")
-  (kill-ring-save (line-beginning-position)
-                  (line-beginning-position (+ 1 arg)))
-  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
-
 ;; highlight HTML-style color strings in the color they specify
 (defvar hexcolor-keywords
   '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
@@ -129,6 +121,22 @@ end of the line, then comment current line. Replaces default behaviour of commen
           (delete-region (point) (+ (point) (length (number-to-string num))))
           (insert (number-to-string newnum)))
         (goto-char p)))))
+
+;; http://www.emacswiki.org/emacs/SlickCopy
+(defadvice kill-ring-save (before slick-copy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (message "Copied line")
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
+
+(defadvice kill-region (before slick-cut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position)
+           (line-beginning-position 2)))))
 
 ;;
 (defun kmacro-start-or-end (arg)
@@ -204,15 +212,8 @@ Otherwise, analyses point position and answers."
               mark-active)
     (looking-at "\\_>")))
 
-;;
-(defun switch-to-scratch-or-previous ()
-  "switch-to *scratch* or previous buffer"
-  (interactive)
-  (if (string-match (buffer-name (current-buffer)) "*scratch*")
-      (switch-to-buffer (other-buffer))
-    (switch-to-buffer "*scratch*")))
-
-;;
+;; http://github.com/technomancy/emacs-starter-kit/blob/master/\
+;; starter-kit-defuns.el
 (defun switch-or-start (function buffer)
   "If the buffer is current, bury it, otherwise invoke the function."
   (if (equal (buffer-name (current-buffer)) buffer)
