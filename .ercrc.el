@@ -23,14 +23,11 @@
 
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
 
-;; key bindings
-(define-key erc-mode-map (kbd "<tab>") 'erc-complete-word)
-
 ;; growl notifcations for mentions and keywords
 (when (eq system-type 'darwin)
   (add-hook 'erc-text-matched-hook
             (lambda (match-type nickuserhost message)
-              (when (and 
+              (when (and
                      (boundp 'nick)
                      (not (string= nick "ChanServ"))
                      (not (string= nick "services."))

@@ -25,7 +25,6 @@
 ;; erc
 (autoload 'erc-tls "erc" nil t)
 
-(define-key erc-mode-map (kbd "<tab>") 'erc-complete-word)
 (add-hook 'erc-mode-hook 'turn-on-visual-line-mode)
 
 ;; eshell
