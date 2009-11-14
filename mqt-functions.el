@@ -18,7 +18,7 @@
                   (indent-region (region-beginning) (region-end) nil))))))
 
 ;; calculate rows/columns based on resolution
-(defconst display-padding '(150 50)
+(defconst display-padding '(100 50)
   "Amount of padding, in pixels, around the outside of the frame")
 
 (defconst menubar-height 22
@@ -53,7 +53,8 @@
 (defun comment-dwim-line (&optional arg)
   "Replacement for the comment-dwim command.
 If no region is selected and current line is not blank and we are not at the
-end of the line, then comment current line. Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+end of the line, then comment current line. Replaces default behaviour of
+comment-dwim, when it inserts comment at the end of the line."
   (interactive "*P")
   (comment-normalize-vars)
   (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
@@ -94,11 +95,15 @@ end of the line, then comment current line. Replaces default behaviour of commen
 
                               ((stringp symbol)
                                (setq name symbol)
-                               (setq position (get-text-property 1 'org-imenu-marker symbol))))
+                               (setq position
+                                     (get-text-property 1
+                                                        'org-imenu-marker
+                                                        symbol))))
 
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
-                               (add-to-list 'name-and-pos (cons name position))))))))
+                               (add-to-list 'name-and-pos
+                                            (cons name position))))))))
       (addsymbols imenu--index-alist))
     (let* ((selected-symbol (ido-completing-read "Symbol: " symbol-names))
            (position (cdr (assoc selected-symbol name-and-pos))))
