@@ -22,6 +22,7 @@
       erc-track-use-faces nil)
 
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
+(add-hook 'erc-mode-hook 'turn-on-visual-line-mode)
 
 ;; growl notifcations for mentions and keywords
 (when (eq system-type 'darwin)
