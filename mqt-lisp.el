@@ -37,6 +37,7 @@
                                    (normal-mode)))))
 
 ;; paredit
+(autoload 'paredit-mode "paredit-beta" nil t)
 (dolist (hook '(emacs-lisp-mode-hook
                 lisp-mode-hook
                 scheme-mode-hook
