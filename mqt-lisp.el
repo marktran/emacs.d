@@ -36,8 +36,16 @@
                                    (require 'slime)
                                    (normal-mode)))))
 
+;; paredit
+(dolist (hook '(emacs-lisp-mode-hook
+                lisp-mode-hook
+                scheme-mode-hook
+                slime-repl-mode-hook))
+  (add-hook hook 'paredit-mode))
+
 ;; redshank
-(require 'redshank-loader "~/lib/lisp/clbuild/source/redshank/redshank-loader.el")
+(require 'redshank-loader
+"~/lib/lisp/clbuild/source/redshank/redshank-loader.el")
 
 (eval-after-load "redshank-loader"
   '(redshank-setup '(lisp-mode-hook

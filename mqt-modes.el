@@ -4,7 +4,7 @@
 
 ;; mode mappings
 (dolist (pattern-mode '(("\\.xml$" . nxml-mode)
-                     ("\\.yml$" . yaml-mode)))
+                        ("\\.yml$" . yaml-mode)))
   (add-to-list 'auto-mode-alist pattern-mode))
 
 ;; browse-kill-ring
@@ -71,13 +71,7 @@
       org-startup-folded nil)
 
 ;; paredit
-(autoload 'paredit-mode "paredit" nil t)
-
-(dolist (hook '(emacs-lisp-mode-hook
-                lisp-mode-hook
-                scheme-mode-hook
-                slime-repl-mode-hook))
-  (add-hook hook 'paredit-mode))
+(autoload 'paredit-mode "paredit-beta" nil t)
 
 (eval-after-load 'paredit
   '(progn
