@@ -57,9 +57,6 @@
           (lambda ()
             (define-key ido-completion-map [tab] 'ido-complete)))
 
-;; lua
-(autoload 'lua-mode "lua-mode" nil t)
-
 ;; magit
 (autoload 'magit-status "magit" nil t)
 
