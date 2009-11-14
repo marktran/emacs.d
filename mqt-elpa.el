@@ -9,10 +9,7 @@
                             'gist
                             'inf-ruby
                             'kill-ring-search
-                            'light-symbol
-                            'lua-mode
                             'magit
-                            'paredit
                             'rinari
                             'ruby-compilation
                             'ruby-mode
