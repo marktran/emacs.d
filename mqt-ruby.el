@@ -48,14 +48,18 @@
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 
 ;; rcodetools
-(eval-after-load 'ruby-mode
-  '(require 'rcodetools))
+(autoload 'xmp "rcodetools" nil t)
 
 ;; ri
 (autoload 'ri "ri-ruby.el" nil t)
 (setq ri-ruby-script (expand-file-name "~/.emacs.d/vendor/ri-emacs.rb"))
 
 ;; rinari
-(setq rinari-tags-file-name "TAGS")
+(setq rinari-major-modes (list 'css-mode-hook
+                               'dired-mode-hook
+                               'javascript-mode-hook
+                               'mumamo-after-change-major-mode-hook
+                               'ruby-mode-hook
+                               'yaml-mode-hook))
 
 (provide 'mqt-ruby)
