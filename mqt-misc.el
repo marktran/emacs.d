@@ -1,28 +1,63 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d-misc.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-misc.el : Mark Tran <mark@nirv.net>
+
+;; load
+(require 'cl)
+(require 'uniquify)
+
+(ido-mode t)
+(recentf-mode 1)
+(global-whitespace-mode)
 
 ;; settings
-(setq comment-auto-fill-only-comments t
+(setq backup-inhibited t
+      comment-auto-fill-only-comments t
       confirm-nonexistent-file-or-buffer nil
-      backup-inhibited t
       disabled-command-function nil
+      ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      eshell-ls-initial-args "-F"
+      eshell-ls-use-colors nil
       gnus-home-directory "~/.gnus.d/"
       gnus-init-file "~/.emacs.d/.gnus.el"
       history-length 250
+      ido-create-new-buffer 'always
+      ido-enable-flex-matching t
+      ido-use-filename-at-point t
       initial-scratch-message nil
+      ispell-program-name "aspell"
+      org-hide-leading-stars t
+      org-startup-folded nil
       require-final-newline t
       tab-width 4
-      tramp-default-method "ssh")
+      tramp-default-method "ssh"
+      uniquify-buffer-name-style 'forward
+      uniquify-ignore-buffers-re "^\\*"
+      whitespace-style '(lines-tail
+                         space-after-tab
+                         space-before-tab
+                         trailing))
 
 (setq-default c-basic-offset 4
               fill-column 72
               indent-tabs-mode nil
               truncate-lines t)
 
+(c-set-offset 'case-label '+)
 (fset 'yes-or-no-p 'y-or-n-p)
+
+(dolist (pattern-mode '(("\\.css$" . css-mode)
+                        ("\\.xml$" . nxml-mode)
+                        ("\\.ya?ml$" . yaml-mode)))
+  (add-to-list 'auto-mode-alist pattern-mode))
 
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
+(add-hook 'ido-setup-hook
+          (lambda ()
+            (define-key ido-completion-map [tab] 'ido-complete)))
+(add-hook 'makefile-mode-hook (lambda() (setq show-trailing-whitespace t)))
 
 (provide 'mqt-misc)
