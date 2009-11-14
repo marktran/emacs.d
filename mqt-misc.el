@@ -58,6 +58,4 @@
 (add-hook 'ido-setup-hook
           (lambda ()
             (define-key ido-completion-map [tab] 'ido-complete)))
-(add-hook 'makefile-mode-hook (lambda() (setq show-trailing-whitespace t)))
-
 (provide 'mqt-misc)
