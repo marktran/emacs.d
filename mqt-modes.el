@@ -47,7 +47,6 @@
 
 ;; ido
 (ido-mode t)
-(ido-everywhere t)
 
 (setq ido-create-new-buffer 'always
       ido-enable-flex-matching t
