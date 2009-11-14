@@ -40,6 +40,7 @@
      (font-lock-string-face ((t (:foreground "#7ca563"))))
      (font-lock-type-face ((t (:foreground "#f1e694"))))
      (font-lock-variable-name-face ((t (:foreground "#7989a6"))))
+     (font-lock-warning-face ((t (:foreground "#da5659"))))
      (fringe ((t (:background "#1a0f0b"))))
      (gnus-button ((t (:foreground "#a8799c"))))
      (gnus-cite-1 ((t (:foreground "#7989a6"))))
