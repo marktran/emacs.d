@@ -24,6 +24,9 @@
       history-length 250
       ido-create-new-buffer 'always
       ido-enable-flex-matching t
+      ido-everywhere t
+      ido-ignore-buffers '("\\` " ".*Completion" "^\*Ido" "^\*IPython"
+                           "^\*magit-")
       ido-use-filename-at-point t
       initial-scratch-message nil
       ispell-program-name "aspell"
