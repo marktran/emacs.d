@@ -13,6 +13,7 @@
 ;; settings
 (setq backup-inhibited t
       comment-auto-fill-only-comments t
+      compilation-message-face nil
       confirm-nonexistent-file-or-buffer nil
       disabled-command-function nil
       ediff-split-window-function 'split-window-horizontally
@@ -25,7 +26,10 @@
       ido-create-new-buffer 'always
       ido-enable-flex-matching t
       ido-everywhere t
-      ido-ignore-buffers '("\\` " ".*Completion" "^\*Ido" "^\*IPython"
+      ido-ignore-buffers '("\\` "
+                           ".*Completion"
+                           "^\*Ido"
+                           "^\*IPython"
                            "^\*magit-")
       ido-use-filename-at-point t
       initial-scratch-message nil
