@@ -44,7 +44,6 @@
 (define-fringe-bitmap 'right-bracket [0] nil)
 (define-fringe-bitmap 'top-left-angle [0] nil)
 (define-fringe-bitmap 'top-right-angle [0] nil)
-(set-window-margins nil 1 0)
 
 ;; transparency
 (add-to-list 'default-frame-alist '(alpha . 98))
