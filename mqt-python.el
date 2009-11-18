@@ -4,9 +4,11 @@
 
 (autoload 'python-mode "python-mode" nil t)
 
-;; ffip
-(add-hook 'python-mode-hook
-          (lambda () (set (make-local-variable 'ffip-patterns) '("*.py"))))
+(setq ipython-command
+      "/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/ipython"
+      py-python-command-args '("-colors" "NoColor"))
+
+(eval-after-load 'python-mode '(require 'ipython))
 
 ;; flymake
 (defvar flymake-python-allowed-file-name-masks
@@ -32,12 +34,5 @@
             (if (and (not (null buffer-file-name))
                      (file-writable-p buffer-file-name))
                 (flymake-python-load))))
-
-;; ipython
-(eval-after-load 'python-mode '(require 'ipython))
-
-(setq ipython-command
-"/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/ipython"
-      py-python-command-args '("-colors" "NoColor"))
 
 (provide 'mqt-python)
