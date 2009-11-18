@@ -4,8 +4,8 @@
 
 ;; load
 (require 'browse-kill-ring)
+(load "~/.emacs.d/vendor/nxhtml/autostart.el")
 (autoload 'erc-tls "erc" nil t)
-(autoload 'find-file-in-project "find-file-in-project" nil t)
 (autoload 'growl "growl" nil t)
 (autoload 'smex-initialize "smex")
 (autoload 'w3m "w3m-load" nil t)
@@ -20,6 +20,10 @@
 
 ;; settings
 (setq browse-kill-ring-quit-action 'save-and-restore
+      mumamo-chunk-coloring 1
+      nxhtml-skip-welcome t
+      nxml-degraded t
+      rng-nxml-auto-validate-flag nil
       smex-prompt-string "M-x "
       smex-save-file "~/.smex.save"
       w3m-home-page
