@@ -30,7 +30,6 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-t") 'find-file-in-project)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-S-t") 'ido-goto-symbol)
@@ -40,7 +39,9 @@
 (global-set-key (kbd "C-/") 'comment-dwim-line)
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 
-;; window movement
+;; window
+(global-set-key (kbd "C-x t") 'transpose-windows)
+
 (windmove-default-keybindings)
 
 (provide 'mqt-bindings)
