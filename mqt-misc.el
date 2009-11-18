@@ -27,10 +27,12 @@
       ido-enable-flex-matching t
       ido-everywhere t
       ido-ignore-buffers '("\\` "
-                           ".*Completion"
+                           "^\*Completions\*"
                            "^\*Ido"
                            "^\*IPython"
-                           "^\*magit-")
+                           "^\*Messages\*"
+                           "^\*magit-"
+                           "^\*rhtml-")
       ido-use-filename-at-point t
       initial-scratch-message nil
       ispell-program-name "aspell"
@@ -61,6 +63,7 @@
 
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 (add-hook 'ido-setup-hook
           (lambda ()
