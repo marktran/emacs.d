@@ -27,12 +27,14 @@
       ido-enable-flex-matching t
       ido-everywhere t
       ido-ignore-buffers '("\\` "
-                           "^\*Completions\*"
-                           "^\*Ido"
-                           "^\*IPython"
-                           "^\*Messages\*"
-                           "^\*magit-"
-                           "^\*rhtml-")
+                           ":[0-9]+" ; erc server buffer
+                           "^\\*Completions\\*"
+                           "^\\*Help\\*"
+                           "^\\*Ido"
+                           "^\\*IPython"
+                           "^\\*Messages\\*"
+                           "^\\*magit-"
+                           "^\\*rhtml-")
       ido-use-filename-at-point t
       initial-scratch-message nil
       ispell-program-name "aspell"
