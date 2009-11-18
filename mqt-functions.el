@@ -62,6 +62,18 @@ comment-dwim, when it inserts comment at the end of the line."
                                    (line-end-position))
     (comment-dwim arg)))
 
+;; ido complete everything
+;; http://www.emacswiki.org/emacs/InteractivelyDoThings#toc12
+(defadvice completing-read
+  (around foo activate)
+  (if (boundp 'ido-cur-list)
+      ad-do-it
+    (setq ad-return-value
+          (ido-completing-read
+           prompt
+           (all-completions "" collection predicate)
+           nil require-match initial-input hist def))))
+
 ;; highlight HTML-style color strings in the color they specify
 (defvar hexcolor-keywords
   '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
