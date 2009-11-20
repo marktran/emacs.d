@@ -35,7 +35,7 @@
      (eshell-prompt ((t (:foreground "#c3be98"))))
      (flymake-errline ((t (:background "#1a0f0b"))))
      (font-lock-builtin-face ((t (:foreground "#89ac71"))))
-     (font-lock-comment-face ((t (:foreground "#679d47"))))
+     (font-lock-comment-face ((t (:italic t :foreground "#679d47"))))
      (font-lock-constant-face ((t (:foreground "#da5659"))))
      (font-lock-doc-face ((t (:foreground "#a18764"))))
      (font-lock-function-name-face ((t (:foreground "#8c6239"))))
