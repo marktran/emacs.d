@@ -50,7 +50,8 @@
                 "The.Big.Bang.Theory"
                 "The.IT.Crowd"
                 "The.Office"
-                "Top.Gear")))
+                "Top.Gear"
+                "True.Blood")))
 
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
 (add-hook 'erc-mode-hook 'turn-on-visual-line-mode)
