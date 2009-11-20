@@ -74,6 +74,7 @@
      (isearch ((t (:background "#483b39"))))
      (isearch-fail ((t (:background "#da5659"))))
      (lazy-highlight ((t (:foreground "#f7977a" :background "#1c1c1c"))))
+     (link ((t (:foreground "#a8799c"))))
      (linum ((t (:italic t :foreground "#696969"))))
      (magit-branch ((t (:foreground "#c3be98"))))
      (magit-diff-add ((t (:foreground "#7ca563"))))
