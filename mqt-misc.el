@@ -58,10 +58,10 @@
 (c-set-offset 'case-label '+)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(dolist (pattern-mode '(("\\.css$" . css-mode)
-                        ("\\.xml$" . nxml-mode)
-                        ("\\.ya?ml$" . yaml-mode)))
-  (add-to-list 'auto-mode-alist pattern-mode))
+(dolist (mode '(("\\.css$" . css-mode)
+                ("\\.xml$" . nxml-mode)
+                ("\\.ya?ml$" . yaml-mode)))
+  (add-to-list 'auto-mode-alist mode))
 
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
@@ -70,4 +70,5 @@
 (add-hook 'ido-setup-hook
           (lambda ()
             (define-key ido-completion-map [tab] 'ido-complete)))
+
 (provide 'mqt-misc)
