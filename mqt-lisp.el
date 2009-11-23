@@ -2,6 +2,23 @@
 
 ;;; .emacs.d/mqt-lisp.el : Mark Tran <mark@nirv.net>
 
+;; eldoc
+(dolist (hook '(emacs-lisp-mode-hook
+                lisp-interaction-mode-hook))
+  (add-hook hook 'turn-on-eldoc-mode))
+
+;; paredit
+(autoload 'paredit-mode "paredit-beta" nil t)
+
+(eldoc-add-command 'paredit-backward-delete
+                   'paredit-close-round)
+
+(dolist (hook '(emacs-lisp-mode-hook
+                lisp-mode-hook
+                scheme-mode-hook
+                slime-repl-mode-hook))
+  (add-hook hook 'paredit-mode))
+
 ;; slime (generate preloaded core: "./clbuild dumpcore slime cl-ppcre tilde")
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/")
 (add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib/")
@@ -35,14 +52,6 @@
                             (cond ((not (featurep 'slime))
                                    (require 'slime)
                                    (normal-mode)))))
-
-;; paredit
-(autoload 'paredit-mode "paredit-beta" nil t)
-(dolist (hook '(emacs-lisp-mode-hook
-                lisp-mode-hook
-                scheme-mode-hook
-                slime-repl-mode-hook))
-  (add-hook hook 'paredit-mode))
 
 ;; redshank
 (require 'redshank-loader
