@@ -34,7 +34,10 @@
                            "^\\*IPython"
                            "^\\*Messages\\*"
                            "^\\*magit-"
-                           "^\\*rhtml-")
+                           "^\\*Python Output\\*"
+                           "^\\*RE-Builder\\*"
+                           "^\\*rhtml-"
+                           "^\\*Shell Command Output\\*")
       ido-use-filename-at-point t
       initial-scratch-message nil
       ispell-program-name "aspell"
