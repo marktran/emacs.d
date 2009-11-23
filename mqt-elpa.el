@@ -6,12 +6,14 @@
                             'fringe-helper
                             'full-ack
                             'gist
+                            'haml-mode
                             'inf-ruby
                             'kill-ring-search
                             'magit
                             'rinari
                             'ruby-compilation
                             'ruby-mode
+                            'sass-mode
                             'yasnippet-bundle)
   "Libraries that should be installed by default.")
 
