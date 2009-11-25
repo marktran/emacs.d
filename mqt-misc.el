@@ -3,9 +3,6 @@
 ;;; .emacs.d/mqt-misc.el : Mark Tran <mark@nirv.net>
 
 ;; load
-(require 'cl)
-(require 'uniquify)
-
 (ido-mode t)
 (recentf-mode 1)
 (global-whitespace-mode)

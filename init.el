@@ -9,6 +9,11 @@
       (setq load-path (cons lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
+;; load
+(require 'cl)
+(require 'eldoc)
+(require 'uniquify)
+
 ;; elpa
 (require 'package)
 (package-initialize)
