@@ -31,6 +31,7 @@
                            "^\\*IPython"
                            "^\\*Messages\\*"
                            "^\\*magit-"
+                           "^\\*Pymacs\\*"
                            "^\\*Python Output\\*"
                            "^\\*RE-Builder\\*"
                            "^\\*rhtml-"

@@ -8,7 +8,11 @@
       "/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/ipython"
       py-python-command-args '("-colors" "NoColor"))
 
-(eval-after-load 'python-mode '(require 'ipython))
+(eval-after-load 'python-mode
+  '(progn
+     (require 'ipython)
+     (require 'pymacs)
+     (pymacs-load "ropemacs" "rope-")))
 
 ;; flymake
 (defvar flymake-python-allowed-file-name-masks
