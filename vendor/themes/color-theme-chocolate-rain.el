@@ -1,6 +1,8 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; color-theme-choco.el : Mark Tran <mark@nirv.net>
+;;; color-theme-chocolate-rain.el : Mark Tran <mark@nirv.net>
+
+;;; Based on Ludvig Widman's Choco TextMate theme. Inspired by Tay Zonday.
 
 (defvar choco-fg "#c3be98")
 (defvar choco-bg "#1a0f0b")
@@ -9,7 +11,14 @@
 (defvar choco-doc "#a18764")
 (defvar choco-function "#9b703f")
 (defvar choco-highlight "#483b39")
+(defvar choco-highlight-alt "#1c1c1c")
+(defvar choco-highlight-line "#211612")
 (defvar choco-keyword "#b3935c")
+(defvar choco-line-numbers "#696969")
+(defvar choco-mode-line "#e5e894")
+(defvar choco-mode-line-fg "#000000")
+(defvar choco-mode-line-highlight "#6d4c2f")
+(defvar choco-mode-line-inactive "#999d63")
 (defvar choco-type "#f1e694")
 (defvar choco-warning "#da5659")
 
@@ -19,17 +28,16 @@
 (defvar choco-purple "#a8799c")
 (defvar choco-red "#cf6a4c")
 
-(defun color-theme-choco ()
+(defun color-theme-chocolate-rain ()
   "Choco theme"
   (interactive)
   (color-theme-install
    (append
-    (list 'color-theme-choco
+    (list 'color-theme-chocolate-rain
           `((foreground-color . ,choco-fg)
             (background-color . ,choco-bg)
             (border-color . ,choco-fg)
             (cursor-color . ,choco-cursor))
-          '(default ((t (nil))))
           `(comint-highlight-input ((t (:foreground ,choco-fg))))
           `(comint-highlight-prompt ((t (:foreground ,choco-blue))))
           `(compilation-error ((t (:foreground ,choco-red))))
@@ -41,7 +49,7 @@
           `(dired-header ((t (:foreground ,choco-keyword))))
           `(erc-action-face ((t (:foreground ,choco-red))))
           `(erc-button ((t (:foreground ,choco-purple))))
-          `(erc-current-nick-face ((t (:foreground ,choco-red))))
+          `(erc-current-nick-face ((t (:foreground ,choco-green))))
           `(erc-error-face ((t (:foreground ,choco-warning))))
           `(erc-input-face ((t (:foreground ,choco-fg))))
           `(erc-keyword-face ((t (:foreground ,choco-red))))
@@ -71,7 +79,7 @@
           `(gnus-cite-attribution ((t (:foreground ,choco-fg))))
           `(gnus-header-content ((t (:foreground ,choco-purple))))
           `(gnus-header-name ((t (:foreground ,choco-fg))))
-          '(gnus-header-newsgroups ((t (:foreground "#983008"))))
+          `(gnus-header-newsgroups ((t (:foreground ,choco-warning))))
           `(gnus-header-subject ((t (:foreground ,choco-purple))))
           `(gnus-summary-high-read ((t (:foreground ,choco-dark-green))))
           `(gnus-summary-high-unread ((t (:foreground ,choco-red))))
@@ -80,7 +88,7 @@
           `(gnus-summary-selected ((t (:foreground ,choco-purple))))
           `(header-line ((t (:foreground ,choco-fg))))
           `(highlight ((t (:background ,choco-highlight))))
-          '(hl-line ((t (:background "#211612"))))
+          `(hl-line ((t (:background ,choco-highlight-line))))
           `(ido-first-match ((t (:foreground ,choco-dark-green))))
           `(ido-incomplete-regexp ((t (:foreground ,choco-comment))))
           `(ido-indicator ((t (:foreground ,choco-blue))))
@@ -92,18 +100,18 @@
           `(info-xref-visited ((t (:underline t :foreground ,choco-purple))))
           `(isearch ((t (:background ,choco-highlight))))
           `(isearch-fail ((t (:background ,choco-warning))))
-          '(lazy-highlight ((t (:foreground "#f7977a" :background "#1c1c1c"))))
+          `(lazy-highlight ((t (:foreground ,choco-red :background ,choco-highlight-alt))))
           `(link ((t (:foreground ,choco-purple))))
-          '(linum ((t (:italic t :foreground "#696969"))))
+          `(linum ((t (:italic t :foreground ,choco-line-numbers))))
           `(magit-branch ((t (:foreground ,choco-fg))))
           `(magit-diff-add ((t (:foreground ,choco-green))))
           `(magit-diff-del ((t (:foreground ,choco-red))))
-          '(magit-item-highlight ((t (:background "#211612"))))
+          `(magit-item-highlight ((t (:background ,choco-highlight-line))))
           `(magit-section-title ((t (:foreground ,choco-purple))))
           `(minibuffer-prompt ((t (:foreground ,choco-fg))))
-          '(mode-line ((t (:foreground "black" :background "#e5e894"))))
-          '(mode-line-highlight ((t (:foreground "#6d4c2f"))))
-          '(mode-line-inactive ((t (:foreground "black" :background "#999d63"))))
+          `(mode-line ((t (:foreground ,choco-mode-line-fg :background ,choco-mode-line))))
+          `(mode-line-highlight ((t (:foreground ,choco-mode-line-highlight))))
+          `(mode-line-inactive ((t (:foreground ,choco-mode-line-fg :background ,choco-mode-line-inactive))))
           `(mumamo-background-chunk-submode1 ((t (:background ,choco-bg))))
           `(py-builtins-face ((t (:foreground ,choco-purple))))
           `(py-pseudo-keyword-face ((t (:foreground ,choco-blue))))
@@ -114,5 +122,6 @@
           `(w3m-anchor ((t (:foreground ,choco-blue))))
           `(w3m-arrived-anchor ((t (:foreground ,choco-red))))
           `(w3m-image ((t (:foreground ,choco-dark-green))))
+          `(whitespace-space-after-tab ((t (:background ,choco-type))))
           `(whitespace-trailing ((t (:background ,choco-red))))
-          '(yas/field-highlight-face ((t (:background "#1c1c1c"))))))))
+          `(yas/field-highlight-face ((t (:background ,choco-highlight-alt))))))))
