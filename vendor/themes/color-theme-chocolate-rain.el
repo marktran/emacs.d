@@ -29,7 +29,7 @@
 (defvar choco-red "#cf6a4c")
 
 (defun color-theme-chocolate-rain ()
-  "Choco theme"
+  "Chocolate Rain Theme"
   (interactive)
   (color-theme-install
    (append
