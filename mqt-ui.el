@@ -51,6 +51,6 @@
 ;; color theme
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-choco)
+(color-theme-chocolate-rain)
 
 (provide 'mqt-ui)
