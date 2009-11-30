@@ -93,7 +93,7 @@
           `(ido-incomplete-regexp ((t (:foreground ,choco-comment))))
           `(ido-indicator ((t (:foreground ,choco-blue))))
           `(ido-only-match ((t (:foreground ,choco-dark-green))))
-          `(ido-subdir ((t (:foreground ,choco-red))))
+          `(ido-subdir ((t (:foreground ,choco-warning))))
           `(info-header-node ((t (:foreground ,choco-green))))
           `(info-menu-star ((t (:foreground ,choco-red))))
           `(info-xref ((t (:underline t :foreground ,choco-blue))))
