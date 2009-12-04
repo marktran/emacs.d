@@ -4,6 +4,7 @@
 
 ;; load
 (require 'browse-kill-ring)
+(require 'undo-tree)
 (load "~/.emacs.d/vendor/nxhtml/autostart.el")
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
@@ -12,6 +13,7 @@
 (autoload 'yaml-mode "yaml-mode" nil t)
 
 (browse-kill-ring-default-keybindings)
+(global-undo-tree-mode)
 
 (eval-after-load 'flymake
   '(defun flymake-get-tex-args (file-name)
