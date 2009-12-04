@@ -12,6 +12,7 @@
 ;; load
 (require 'cl)
 (require 'eldoc)
+(require 'thingatpt)
 (require 'uniquify)
 
 ;; elpa
