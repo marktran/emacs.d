@@ -7,6 +7,7 @@
                             'full-ack
                             'gist
                             'haml-mode
+                            'htmlize
                             'inf-ruby
                             'kill-ring-search
                             'magit
