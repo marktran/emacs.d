@@ -13,10 +13,8 @@
       mac-option-modifier 'meta)
 
 ;; ui
-(setq initial-frame-alist
-      `((left . 64) (top . 63)
-        (width . 185) (height . 55)))
-(split-window-horizontally)
+(setq initial-frame-alist `((left . 64) (top . 63)
+                            (width . 185) (height . 55)))
 
 (set-default-font "Menlo-12")
 
