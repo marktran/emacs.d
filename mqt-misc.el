@@ -5,7 +5,7 @@
 ;; load
 (ido-mode t)
 (recentf-mode 1)
-(global-whitespace-mode)
+;; (global-whitespace-mode)
 
 ;; settings
 (setq backup-inhibited t
@@ -23,8 +23,7 @@
       ido-create-new-buffer 'always
       ido-enable-flex-matching t
       ido-everywhere t
-      ido-ignore-buffers '("\\` "
-                           ":[0-9]+" ; erc server buffer
+      ido-ignore-buffers `("\\` "
                            "^\\*Completions\\*"
                            "^\\*Help\\*"
                            "^\\*Ido"
@@ -35,13 +34,23 @@
                            "^\\*Python Output\\*"
                            "^\\*RE-Builder\\*"
                            "^\\*rhtml-"
-                           "^\\*Shell Command Output\\*")
+                           "^\\*Shell Command Output\\*"
+                           "^\\*XML Validation Header\\*"
+                           ,(lambda (name)
+                              (if (derived-mode-p 'erc-mode)
+                                  (with-current-buffer name
+                                    (not (derived-mode-p 'erc-mode)))
+                                (with-current-buffer name
+                                  (derived-mode-p 'erc-mode)))))
       ido-use-filename-at-point t
       initial-scratch-message nil
       ispell-program-name "aspell"
       org-hide-leading-stars t
       org-startup-folded nil
       require-final-newline t
+      scroll-conservatively 100000
+      scroll-margin 0
+      scroll-preserve-screen-position 1
       tab-width 4
       tramp-default-method "ssh"
       uniquify-buffer-name-style 'forward
@@ -60,7 +69,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (dolist (mode '(("\\.css$" . css-mode)
-                ("\\.haml$" . haml-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.ya?ml$" . yaml-mode)))
   (add-to-list 'auto-mode-alist mode))
