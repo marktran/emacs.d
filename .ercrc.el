@@ -28,7 +28,8 @@
                                       erc-error-face
                                       erc-keyword-face
                                       erc-pal-face)
-      erc-track-priority-faces-only '("#python"
+      erc-track-priority-faces-only '("#django"
+                                      "#python"
                                       "#scc-pre")
       erc-whowas-on-nosuchnick t)
 
