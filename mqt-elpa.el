@@ -9,12 +9,16 @@
                             'haml-mode
                             'htmlize
                             'inf-ruby
+                            'js2-mode
+                            'json
                             'kill-ring-search
                             'magit
+                            'pastie
                             'rinari
                             'ruby-compilation
                             'ruby-mode
                             'sass-mode
+                            'yaml-mode
                             'yasnippet-bundle)
   "Libraries that should be installed by default.")
 
