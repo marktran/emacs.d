@@ -4,30 +4,46 @@
 
 ;; load
 (require 'browse-kill-ring)
+(require 'diminish)
+(require 'dired+)
+(require 'elscreen)
+(require 'iflipb)
+(require 'smex)
 (require 'undo-tree)
 (load "~/.emacs.d/vendor/nxhtml/autostart.el")
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
-(autoload 'smex-initialize "smex")
 (autoload 'w3m "w3m-load" nil t)
-(autoload 'yaml-mode "yaml-mode" nil t)
 
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
+(smex-auto-update)
+(toggle-dired-find-file-reuse-dir 1)
 
+;; diminish
+(diminish 'eldoc-mode)
+(diminish 'undo-tree-mode)
+(diminish 'visual-line-mode)
+(eval-after-load "paredit-beta" '(diminish 'paredit-mode))
+
+;; dired+
+(define-key dired-mode-map [mouse-2] 'diredp-mouse-find-file-reuse-dir-buffer)
+(add-hook 'dired-mode-hook '(lambda () (dired-omit-mode 1)))
+
+;;
 (eval-after-load 'flymake
   '(defun flymake-get-tex-args (file-name)
      (list "latex" (list "-file-line-error" file-name))))
-(eval-after-load "init.el" '(smex-initialize))
+(add-hook 'after-init-hook 'smex-initialize)
 
 ;; settings
 (setq browse-kill-ring-quit-action 'save-and-restore
+      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+      elscreen-display-tab nil
       mumamo-chunk-coloring 1
       nxhtml-skip-welcome t
       nxml-degraded t
       rng-nxml-auto-validate-flag nil
-      smex-prompt-string "M-x "
-      smex-save-file "~/.smex.save"
       w3m-home-page
 "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
       w3m-pop-up-windows nil
