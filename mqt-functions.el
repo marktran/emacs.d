@@ -74,6 +74,36 @@ comment-dwim, when it inserts comment at the end of the line."
            (all-completions "" collection predicate)
            nil require-match initial-input hist def))))
 
+;; http://article.gmane.org/gmane.emacs.help/69021
+(defmacro elscreen-create-automatically (ad-do-it)
+  `(if (not (elscreen-one-screen-p))
+       ,ad-do-it
+     (elscreen-create)
+     (elscreen-notify-screen-modification 'force-immediately)
+     (elscreen-message "New screen is automatically created")))
+
+(defadvice elscreen-jump (before elscreen-jump-create activate)
+  (let ((next-screen (string-to-number (string last-command-event))))
+    (when (and (<= 0 next-screen)
+               (<= next-screen 9)
+               (not (elscreen-screen-live-p next-screen)))
+      (elscreen-set-window-configuration
+       (elscreen-get-current-screen)
+       (elscreen-current-window-configuration))
+      (elscreen-set-window-configuration
+       next-screen (elscreen-default-window-configuration))
+      (elscreen-append-screen-to-history next-screen)
+      (elscreen-notify-screen-modification 'force))))
+
+(defadvice elscreen-next (around elscreen-create-automatically activate)
+  (elscreen-create-automatically ad-do-it))
+
+(defadvice elscreen-previous (around elscreen-create-automatically activate)
+  (elscreen-create-automatically ad-do-it))
+
+(defadvice elscreen-toggle (around elscreen-create-automatically activate)
+  (elscreen-create-automatically ad-do-it))
+
 ;; highlight HTML-style color strings in the color they specify
 (defvar hexcolor-keywords
   '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
@@ -139,6 +169,22 @@ comment-dwim, when it inserts comment at the end of the line."
           (delete-region (point) (+ (point) (length (number-to-string num))))
           (insert (number-to-string newnum)))
         (goto-char p)))))
+
+;; http://www.emacswiki.org/emacs/SearchAtPoint#toc5
+(defun isearch-yank-symbol ()
+  "*Put symbol at current point into search string."
+  (interactive)
+  (let ((sym (symbol-at-point)))
+    (if sym
+        (progn
+          (setq isearch-regexp t
+                isearch-string (concat "\\_<"
+                                       (regexp-quote (symbol-name sym)) "\\_>")
+                isearch-message (mapconcat 'isearch-text-char-description
+                                           isearch-string "")
+                isearch-yank-flag t))
+      (ding)))
+  (isearch-search-and-update))
 
 ;; http://www.emacswiki.org/emacs/SlickCopy
 (defadvice kill-ring-save (before slick-copy activate compile)
