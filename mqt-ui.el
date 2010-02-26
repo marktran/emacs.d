@@ -17,6 +17,7 @@
       interprogram-paste-function 'x-cut-buffer-or-selection-value
       linum-format "%3d "
       pop-up-windows nil
+      ring-bell-function (lambda nil (message ""))
       show-paren-style 'parenthesis
       show-paren-delay 0
       show-trailing-whitespace t
