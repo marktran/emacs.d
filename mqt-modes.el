@@ -10,6 +10,7 @@
 (require 'iflipb)
 (require 'smex)
 (require 'undo-tree)
+(require 'yasnippet)
 (load "~/.emacs.d/vendor/nxhtml/autostart.el")
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
@@ -35,6 +36,10 @@
   '(defun flymake-get-tex-args (file-name)
      (list "latex" (list "-file-line-error" file-name))))
 (add-hook 'after-init-hook 'smex-initialize)
+
+;; yasnippet
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/vendor/yasnippet-0.6.1c/snippets")
 
 ;; settings
 (setq browse-kill-ring-quit-action 'save-and-restore
