@@ -51,6 +51,7 @@
       scroll-conservatively 100000
       scroll-margin 0
       scroll-preserve-screen-position 1
+      sql-mysql-program "mysql5"
       tab-width 4
       tramp-default-method "ssh"
       uniquify-buffer-name-style 'forward
@@ -76,6 +77,9 @@
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'dired-after-readin-hook
+          (lambda () 
+            (rename-buffer (concat "Dired:" (directory-file-name dired-directory)))))
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 (add-hook 'ido-setup-hook
           (lambda ()
