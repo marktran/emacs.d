@@ -9,7 +9,7 @@
 
 ;; settings
 (setq user-full-name "Mark Tran"
-      user-mail-address "mark@nirv.net")
+      user-mail-address "tran@csh.rit.edu")
 
 (setq gnus-select-method
       '(nntp "news.csh.rit.edu"
