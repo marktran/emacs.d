@@ -18,8 +18,7 @@
                             'ruby-compilation
                             'ruby-mode
                             'sass-mode
-                            'yaml-mode
-                            'yasnippet-bundle)
+                            'yaml-mode)
   "Libraries that should be installed by default.")
 
 (defun mqt-elpa-install ()
