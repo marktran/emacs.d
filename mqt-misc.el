@@ -70,6 +70,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (dolist (mode '(("\\.css$" . css-mode)
+                ("\\.md$" . markdown-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.ya?ml$" . yaml-mode)))
   (add-to-list 'auto-mode-alist mode))
