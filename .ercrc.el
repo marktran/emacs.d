@@ -29,8 +29,10 @@
                                       erc-keyword-face
                                       erc-pal-face)
       erc-track-priority-faces-only '("#django"
+                                      "#emacs"
                                       "#python"
-                                      "#scc-pre")
+                                      "#scc-pre"
+                                      "#startups")
       erc-whowas-on-nosuchnick t)
 
 (setq erc-keywords
