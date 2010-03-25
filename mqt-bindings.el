@@ -14,32 +14,33 @@
                          (erc-tls :server "lambda.nirv.net"
                                   :port 65535
                                   :nick "mqt")))
-(global-set-key [(f4)] 'replace-regexp)
+(global-set-key [(f4)] (lambda ()
+                         (interactive)
+                         (magit-status default-directory)))
+(global-set-key [(f5)] 'replace-regexp)
 (global-set-key [(f6)] 'kmacro-end-or-call-macro)
+(global-set-key [(f11)] 'bookmark-jump)
 (global-set-key [(f12)] (lambda ()
-                          (interactive)
-                          (magit-status default-directory)))
-
-(global-set-key [(shift f6)] 'kmacro-start-or-end)
-(global-set-key [(shift f12)] (lambda ()
                                 (interactive)
                                 (kill-buffer (current-buffer))))
 
+(global-set-key [(shift f6)] 'kmacro-start-or-end)
+
 ;; completion
-(global-set-key (kbd "M-<tab>") 'smart-tab)
+(global-set-key (kbd "M-/") 'smart-tab)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-S-t") 'ido-goto-symbol)
 
 ;; miscellaneous
-(global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-/") 'comment-dwim-line)
+(global-set-key (kbd "C-;") 'comment-dwim-line)
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
+(global-set-key (kbd "C-*") 'isearch-yank-symbol)
 
 ;; window
+(global-set-key (kbd "C-x t") 'transpose-windows)
 (global-set-key (kbd "C-x t") 'transpose-windows)
 
 (windmove-default-keybindings)
