@@ -38,9 +38,9 @@
 (global-set-key (kbd "C-;") 'comment-dwim-line)
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 (global-set-key (kbd "C-*") 'isearch-yank-symbol)
+(global-set-key (kbd "C-t") 'peepopen-goto-file-gui)
 
 ;; window
-(global-set-key (kbd "C-x t") 'transpose-windows)
 (global-set-key (kbd "C-x t") 'transpose-windows)
 
 (windmove-default-keybindings)
