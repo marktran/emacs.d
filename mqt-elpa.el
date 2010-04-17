@@ -12,12 +12,11 @@
                             'js2-mode
                             'json
                             'kill-ring-search
-                            'magit
                             'pastie
                             'rinari
                             'ruby-compilation
                             'ruby-mode
-                            'sass-mode
+                            'smex
                             'yaml-mode)
   "Libraries that should be installed by default.")
 
