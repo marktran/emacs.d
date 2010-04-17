@@ -8,11 +8,15 @@
       "/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/ipython"
       py-python-command-args '("-colors" "NoColor"))
 
+;; (eval-after-load 'python-mode
+;;   '(progn
+;;      (require 'ipython)
+;;      (require 'pymacs)
+;;      (pymacs-load "ropemacs" "rope-")))
+
 (eval-after-load 'python-mode
   '(progn
-     (require 'ipython)
-     (require 'pymacs)
-     (pymacs-load "ropemacs" "rope-")))
+     (require 'ipython)))
 
 ;; flymake
 (defvar flymake-python-allowed-file-name-masks
@@ -33,10 +37,10 @@
        flymake-python-allowed-file-name-masks)
   (flymake-mode t))
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (if (and (not (null buffer-file-name))
-                     (file-writable-p buffer-file-name))
-                (flymake-python-load))))
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (if (and (not (null buffer-file-name))
+;;                      (file-writable-p buffer-file-name))
+;;                 (flymake-python-load))))
 
 (provide 'mqt-python)
