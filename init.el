@@ -24,7 +24,7 @@
 (require 'mqt-functions)
 (require 'mqt-bindings)
 (require 'mqt-lisp)
-(require 'mqt-mk-project)
+;; (require 'mqt-mk-project)
 (require 'mqt-misc)
 (require 'mqt-modes)
 (require 'mqt-python)
