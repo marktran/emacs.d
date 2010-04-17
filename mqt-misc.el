@@ -45,6 +45,7 @@
       ido-use-filename-at-point t
       initial-scratch-message nil
       ispell-program-name "aspell"
+      ns-pop-up-frames nil
       org-hide-leading-stars t
       org-startup-folded nil
       require-final-newline t
@@ -54,6 +55,7 @@
       sql-mysql-program "mysql5"
       tab-width 4
       tramp-default-method "ssh"
+      tramp-mode nil
       uniquify-buffer-name-style 'forward
       uniquify-ignore-buffers-re "^\\*"
       whitespace-style '(lines-tail
