@@ -7,10 +7,13 @@
 (require 'diminish)
 (require 'dired+)
 (require 'elscreen)
+(require 'magit)
+(require 'peepopen)
 (require 'smex)
 (require 'undo-tree)
+(require 'textmate)
 (require 'yasnippet)
-(load "~/.emacs.d/vendor/nxhtml/autostart.el")
+;; (load "~/.emacs.d/vendor/nxhtml/autostart.el")
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
@@ -19,11 +22,13 @@
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
 (smex-auto-update)
+(textmate-mode)
 (toggle-dired-find-file-reuse-dir 1)
 
 ;; diminish
 (diminish 'eldoc-mode)
 (diminish 'undo-tree-mode)
+(diminish 'textmate-mode)
 (diminish 'visual-line-mode)
 (eval-after-load "paredit-beta" '(diminish 'paredit-mode))
 
