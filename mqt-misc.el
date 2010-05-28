@@ -42,7 +42,7 @@
                                     (not (derived-mode-p 'erc-mode)))
                                 (with-current-buffer name
                                   (derived-mode-p 'erc-mode)))))
-      ido-use-filename-at-point t
+      ido-use-filename-at-point nil
       initial-scratch-message nil
       ispell-program-name "aspell"
       ns-pop-up-frames nil
@@ -72,7 +72,10 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (dolist (mode '(("\\.css$" . css-mode)
+                ("\\.js$" . js-mode)
                 ("\\.md$" . markdown-mode)
+                ("\\.pjs$" . js-mode)
+                ("\\.[sx]?html?\\'" . django-html-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.ya?ml$" . yaml-mode)))
   (add-to-list 'auto-mode-alist mode))
@@ -81,7 +84,7 @@
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'dired-after-readin-hook
-          (lambda () 
+          (lambda ()
             (rename-buffer (concat "Dired:" (directory-file-name dired-directory)))))
 (add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
 (add-hook 'ido-setup-hook
