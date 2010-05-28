@@ -9,7 +9,6 @@
                             'haml-mode
                             'htmlize
                             'inf-ruby
-                            'js2-mode
                             'json
                             'kill-ring-search
                             'pastie
