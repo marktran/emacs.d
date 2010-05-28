@@ -9,7 +9,7 @@
       erc-default-port 65535
       erc-disable-ctcp-replies t
       erc-header-line-format nil
-      erc-hide-list '("JOIN" "PART" "NICK" "QUIT")
+      erc-hide-list '("PART", "QUIT")
       erc-insert-timestamp-function 'erc-insert-timestamp-left
       erc-keyword-highlight-type 'all
       erc-kill-buffer-on-part t
@@ -23,7 +23,8 @@
       erc-timestamp-format "%H:%M "
       erc-timestamp-only-if-changed-flag nil
       erc-track-exclude-server-buffer t
-      erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT")
+      erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                "324" "329" "332" "333" "353" "477")
       erc-track-faces-priority-list '(erc-current-nick-face
                                       erc-error-face
                                       erc-keyword-face
