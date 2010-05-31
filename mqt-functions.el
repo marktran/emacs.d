@@ -17,6 +17,17 @@
                 (let ((mark-even-if-inactive transient-mark-mode))
                   (indent-region (region-beginning) (region-end) nil))))))
 
+;; using IDO for bookmarks and recent files
+;; http://blog.kelsin.net/2010/04/22/using-ido-for-bookmarks-and-recent-files/
+(defun bookmark-ido-find-file ()
+  "Find a bookmark using Ido."
+  (interactive)
+  (let ((bm (ido-completing-read "Open Bookmark: "
+                                 (bookmark-all-names)
+                                 nil t)))
+    (when bm
+      (bookmark-jump bm))))
+
 ;; calculate rows/columns based on resolution
 (defconst display-padding '(100 50)
   "Amount of padding, in pixels, around the outside of the frame")
