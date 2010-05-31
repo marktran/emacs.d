@@ -3,6 +3,7 @@
 ;;; .emacs.d/mqt-modes.el : Mark Tran <mark@nirv.net>
 
 ;; load
+(require 'bookmark)
 (require 'browse-kill-ring)
 (require 'diminish)
 (require 'dired+)
