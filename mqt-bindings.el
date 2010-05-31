@@ -19,7 +19,7 @@
                          (magit-status default-directory)))
 (global-set-key [(f5)] 'replace-regexp)
 (global-set-key [(f6)] 'kmacro-end-or-call-macro)
-(global-set-key [(f11)] 'bookmark-jump)
+(global-set-key [(f11)] 'bookmark-ido-find-file)
 (global-set-key [(f12)] (lambda ()
                                 (interactive)
                                 (kill-buffer (current-buffer))))
