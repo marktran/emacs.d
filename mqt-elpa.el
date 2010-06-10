@@ -3,6 +3,7 @@
 ;;; .emacs.d/mqt-elpa.el : Mark Tran <mark@nirv.net>
 
 (defvar elpa-packages (list 'clojure-mode
+                            'dired-isearch
                             'fringe-helper
                             'full-ack
                             'gist
@@ -11,10 +12,12 @@
                             'inf-ruby
                             'json
                             'kill-ring-search
+                            'lua-mode
                             'pastie
                             'rinari
                             'ruby-compilation
                             'ruby-mode
+                            'slime
                             'smex
                             'yaml-mode)
   "Libraries that should be installed by default.")
