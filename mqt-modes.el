@@ -50,7 +50,8 @@
 (yas/load-directory "~/.emacs.d/vendor/yasnippet-0.6.1c/snippets")
 
 ;; settings
-(setq browse-kill-ring-quit-action 'save-and-restore
+(setq bookmark-default-file "~/.emacs.d/.emacs.bmk"
+      browse-kill-ring-quit-action 'save-and-restore
       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
       elscreen-display-tab nil
       mumamo-chunk-coloring 1
