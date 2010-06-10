@@ -19,17 +19,10 @@
                 slime-repl-mode-hook))
   (add-hook hook 'paredit-mode))
 
-;; slime (generate preloaded core: "./clbuild dumpcore slime cl-ppcre tilde")
-(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/")
-(add-to-list 'load-path "~/lib/lisp/clbuild/source/slime/contrib/")
-
 (require 'slime-autoloads)
 
 (set-language-environment "UTF-8")
 (setq default-enable-multibyte-characters t
-      inferior-lisp-program
-"~/lib/lisp/clbuild/clbuild --implementation sbcl preloaded"
-      slime-backend "~/lib/lisp/clbuild/.swank-loader.lisp"
       slime-net-coding-system 'utf-8-unix)
 (eval-after-load 'slime
   '(progn
@@ -52,14 +45,6 @@
                             (cond ((not (featurep 'slime))
                                    (require 'slime)
                                    (normal-mode)))))
-
-;; redshank
-(require 'redshank-loader
-"~/lib/lisp/clbuild/source/redshank/redshank-loader.el")
-
-(eval-after-load "redshank-loader"
-  '(redshank-setup '(lisp-mode-hook
-                     slime-repl-mode-hook) t))
 
 ;; scheme
 (autoload 'quack-scheme-mode-hookfunc "quack")
