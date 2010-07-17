@@ -45,6 +45,7 @@
       ido-use-filename-at-point nil
       initial-scratch-message nil
       ispell-program-name "aspell"
+      js-indent-level 2
       ns-pop-up-frames nil
       org-hide-leading-stars t
       org-startup-folded nil
@@ -53,7 +54,6 @@
       scroll-margin 0
       scroll-preserve-screen-position 1
       sql-mysql-program "mysql5"
-      tab-width 4
       tramp-default-method "ssh"
       tramp-mode nil
       uniquify-buffer-name-style 'forward
@@ -66,12 +66,15 @@
 (setq-default c-basic-offset 4
               fill-column 72
               indent-tabs-mode nil
+              tab-width 4
               truncate-lines t)
 
 (c-set-offset 'case-label '+)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(dolist (mode '(("\\.css$" . css-mode)
+(dolist (mode '(("Cakefile" . coffee-mode)
+                ("\\.coffee$" . coffee-mode)
+                ("\\.css$" . css-mode)
                 ("\\.js$" . js-mode)
                 ("\\.md$" . markdown-mode)
                 ("\\.pjs$" . js-mode)
