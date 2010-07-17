@@ -241,6 +241,15 @@ comment-dwim, when it inserts comment at the end of the line."
       (find-file (cdr (assoc filename
                              file-assoc-list))))))
 
+;; http://atomized.org/2010/06/ \
+;; resolving-merge-conflicts-the-easy-way-with-smerge-kmacro/
+(defun sm-try-smerge ()
+  (save-excursion
+    (goto-char (point-min))
+    (when (re-search-forward "^<<<<<<< " nil t)
+      (smerge-mode 1))))
+
+(add-hook 'find-file-hook 'sm-try-smerge t)
 
 ;; http://www.emacswiki.org/cgi-bin/wiki/TabCompletion#toc2
 (defvar smart-tab-using-hippie-expand t
