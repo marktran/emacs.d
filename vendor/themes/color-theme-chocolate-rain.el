@@ -1,1 +1,1 @@
-/Users/tran/git/color-theme-chocolate-rain/color-theme-chocolate-rain.el
+../../../color-theme-chocolate-rain/color-theme-chocolate-rain.el
