@@ -13,10 +13,12 @@
                             'json
                             'kill-ring-search
                             'lua-mode
+                            'magit
                             'pastie
                             'rinari
                             'ruby-compilation
                             'ruby-mode
+                            'sass-mode
                             'slime
                             'smex
                             'yaml-mode)
