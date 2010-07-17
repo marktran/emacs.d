@@ -29,8 +29,15 @@
                                       erc-error-face
                                       erc-keyword-face
                                       erc-pal-face)
-      erc-track-priority-faces-only '("#django"
+      erc-track-priority-faces-only '("#clojure"
+                                      "#cloudkick-updates"
+                                      "#coffeescript"
+                                      "#django"
                                       "#emacs"
+                                      "##javascript"
+                                      "#lisp"
+                                      "#node.js"
+                                      "#prgmr"
                                       "#python"
                                       "#scc-pre"
                                       "#startups")
