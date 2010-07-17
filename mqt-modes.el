@@ -3,32 +3,45 @@
 ;;; .emacs.d/mqt-modes.el : Mark Tran <mark@nirv.net>
 
 ;; load
+(require 'autopair)
 (require 'bookmark)
 (require 'browse-kill-ring)
 (require 'diminish)
 (require 'dired+)
 (require 'elscreen)
-(require 'magit)
+(require 'elscreen-buffer-list)
+(setq elscreen-buffer-list-enabled t)
 (require 'peepopen)
 (require 'smex)
 (require 'undo-tree)
 (require 'textmate)
-;; (require 'vimpulse)
 (require 'yasnippet)
 ;; (load "~/.emacs.d/vendor/nxhtml/autostart.el")
+(autoload 'coffee-mode "coffee-mode" nil t)
 (autoload 'django-html-mode "django-html-mode" nil t)
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'w3m "w3m-load" nil t)
 
+(autopair-global-mode)
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
 (smex-auto-update)
 (textmate-mode)
 (toggle-dired-find-file-reuse-dir 1)
 
+;; coffee
+(defun coffee-custom ()
+  (set (make-local-variable 'tab-width) 2)
+  (setq coffee-js-mode 'javascript-mode)
+
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer))
+
+(add-hook 'coffee-mode-hook '(lambda() (coffee-custom)))
+
 ;; diminish
+(diminish 'autopair-mode)
 (diminish 'eldoc-mode)
 (diminish 'undo-tree-mode)
 (diminish 'textmate-mode)
@@ -39,7 +52,13 @@
 (define-key dired-mode-map [mouse-2] 'diredp-mouse-find-file-reuse-dir-buffer)
 (add-hook 'dired-mode-hook '(lambda () (dired-omit-mode 1)))
 
-;;
+;; dired-isearch
+(define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
+(define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
+(define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
+(define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+
+;; flymake
 (eval-after-load 'flymake
   '(defun flymake-get-tex-args (file-name)
      (list "latex" (list "-file-line-error" file-name))))
