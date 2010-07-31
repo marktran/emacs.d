@@ -1,6 +1,6 @@
 ;;; -*- Mode: Emacs-Lisp; -*-
 
-;;; .emacs.d/mqt-bindings.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-keybindings.el : Mark Tran <mark@nirv.net>
 
 ;; function keys
 (global-set-key [(f1)] (lambda ()
@@ -39,10 +39,14 @@
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 (global-set-key (kbd "C-*") 'isearch-yank-symbol)
 (global-set-key (kbd "C-t") 'peepopen-goto-file-gui)
+(global-set-key (kbd "<C-return>") 'textmate-next-line)
 
 ;; window
 (global-set-key (kbd "C-x t") 'transpose-windows)
+(global-set-key (kbd "C-{") 'windmove-left)
+(global-set-key (kbd "C-}") 'windmove-right)
+
 
 (windmove-default-keybindings)
 
-(provide 'mqt-bindings)
+(provide 'mqt-keybindings)
