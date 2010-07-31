@@ -10,6 +10,7 @@
                             'haml-mode
                             'htmlize
                             'inf-ruby
+                            'js2-mode
                             'json
                             'kill-ring-search
                             'lua-mode
@@ -21,6 +22,7 @@
                             'sass-mode
                             'slime
                             'smex
+                            'textmate
                             'yaml-mode)
   "Libraries that should be installed by default.")
 
