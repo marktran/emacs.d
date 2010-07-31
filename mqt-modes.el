@@ -10,7 +10,6 @@
 (require 'dired+)
 (require 'elscreen)
 (require 'elscreen-buffer-list)
-(setq elscreen-buffer-list-enabled t)
 (require 'peepopen)
 (require 'smex)
 (require 'undo-tree)
@@ -46,6 +45,7 @@
 (diminish 'undo-tree-mode)
 (diminish 'textmate-mode)
 (diminish 'visual-line-mode)
+(diminish 'whitespace-mode)
 (eval-after-load "paredit-beta" '(diminish 'paredit-mode))
 
 ;; dired+
@@ -72,6 +72,7 @@
 (setq bookmark-default-file "~/.emacs.d/.emacs.bmk"
       browse-kill-ring-quit-action 'save-and-restore
       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+      elscreen-buffer-list-enabled t
       elscreen-display-tab nil
       mumamo-chunk-coloring 1
       nxhtml-skip-welcome t
