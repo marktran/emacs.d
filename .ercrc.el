@@ -29,16 +29,7 @@
                                       erc-error-face
                                       erc-keyword-face
                                       erc-pal-face)
-      erc-track-priority-faces-only '("#clojure"
-                                      "#cloudkick-updates"
-                                      "#django"
-                                      "#emacs"
-                                      "##javascript"
-                                      "#lisp"
-                                      "#prgmr"
-                                      "#python"
-                                      "#scc-pre"
-                                      "#startups")
+      erc-track-priority-faces-only '("#scc-pre")
       erc-whowas-on-nosuchnick t)
 
 (setq erc-keywords
