@@ -9,7 +9,7 @@
       erc-default-port 65535
       erc-disable-ctcp-replies t
       erc-header-line-format nil
-      erc-hide-list '("PART", "QUIT")
+      erc-hide-list '("JOIN", "PART", "QUIT")
       erc-insert-timestamp-function 'erc-insert-timestamp-left
       erc-keyword-highlight-type 'all
       erc-kill-buffer-on-part t
