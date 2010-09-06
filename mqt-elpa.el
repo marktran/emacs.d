@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-elpa.el : Mark Tran <mark@nirv.net>
 
 (defvar elpa-packages (list 'clojure-mode

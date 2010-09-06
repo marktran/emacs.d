@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-functions.el : Mark Tran <mark@nirv.net>
 
 ;; auto indentation for pasted lines

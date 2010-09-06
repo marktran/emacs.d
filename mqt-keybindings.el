@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-keybindings.el : Mark Tran <mark@nirv.net>
 
 ;; function keys

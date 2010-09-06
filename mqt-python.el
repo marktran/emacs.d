@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-python.el : Mark Tran <mark@nirv.net>
 
 (autoload 'python-mode "python-mode" nil t)

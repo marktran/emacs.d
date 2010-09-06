@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-ruby.el : Mark Tran <mark@nirv.net>
 
 (autoload 'inf-ruby "inf-ruby" nil t)

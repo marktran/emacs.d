@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-custom-file.el : Mark Tran <mark@nirv.net>
 
 (custom-set-variables

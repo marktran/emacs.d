@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/init.el : Mark Tran <mark@nirv.net>
 
 ;; load paths

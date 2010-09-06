@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/mqt-ui.el : Mark Tran <mark@nirv.net>
 
 ;; modes
