@@ -32,27 +32,6 @@
       erc-track-priority-faces-only '("#scc-pre")
       erc-whowas-on-nosuchnick t)
 
-(setq erc-keywords
-      (mapcar (lambda (x) (concat "^\\[PRE\\] \\[ TV \\] \\[ " x))
-              '("Californication"
-                "Curb.Your.Enthusiasm"
-                "Dexter"
-                "Doctor.Who"
-                "Entourage"
-                "Heroes"
-                "How.I.Met.Your.Mother"
-                "Its.Always.Sunny.In.Philadelphia"
-                "Jeopardy"
-                "Mad.Men"
-                "Man.v.Food"
-                "Monk"
-                "Sons.of.Anarchy"
-                "The.Big.Bang.Theory"
-                "The.IT.Crowd"
-                "The.Office"
-                "Top.Gear"
-                "True.Blood")))
-
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
 (add-hook 'erc-mode-hook 'turn-on-visual-line-mode)
 
