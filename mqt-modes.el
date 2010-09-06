@@ -45,8 +45,9 @@
 (diminish 'undo-tree-mode)
 (diminish 'textmate-mode)
 (diminish 'visual-line-mode)
-(diminish 'whitespace-mode)
+(diminish 'yas/minor-mode)
 (eval-after-load "paredit-beta" '(diminish 'paredit-mode))
+(eval-after-load "whitespace" '(diminish 'whitespace-mode " W"))
 
 ;; dired+
 (define-key dired-mode-map [mouse-2] 'diredp-mouse-find-file-reuse-dir-buffer)
