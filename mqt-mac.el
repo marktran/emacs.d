@@ -18,4 +18,9 @@
 
 (set-default-font "Menlo-12")
 
+;; functions
+(defun browse-url-default-macosx-browser (url &optional new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (start-process (concat "open " url) nil "open" "-g" url))
+
 (provide 'mqt-mac)
