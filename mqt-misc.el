@@ -5,7 +5,6 @@
 ;; load
 (ido-mode t)
 (recentf-mode 1)
-(global-whitespace-mode)
 
 ;; settings
 (setq backup-inhibited t
