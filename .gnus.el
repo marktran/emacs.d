@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .gnus.el : Mark Tran <mark@nirv.net>
 
 ;; encrypted authinfo file with gnupg

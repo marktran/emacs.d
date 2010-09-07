@@ -1,5 +1,3 @@
-;;; -*- Mode: Emacs-Lisp; -*-
-
 ;;; .emacs.d/.ercrc.el : Mark Tran <mark@nirv.net>
 
 (setq erc-auto-query 'buffer
