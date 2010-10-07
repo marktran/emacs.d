@@ -2,4 +2,5 @@ auto-save-list/
 elpa/
 vendor/
 
+.emacs.bmk
 mqt-custom.el
