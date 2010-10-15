@@ -4,9 +4,7 @@
 (autoload 'inf-ruby-keys "inf-ruby" nil t)
 (autoload 'rhtml-mode "rhtml-mode" nil t)
 (autoload 'ri "ri-ruby.el" nil t)
-(autoload 'ruby-electric-mode "ruby-electric")
-(autoload 'ruby-mode "ruby-mode" nil t)
-(autoload 'textmate-goto-file "textmate" nil t)
+(autoload 'rspec-mode "rspec-mode" nil t)
 (autoload 'xmp "rcodetools" nil t)
 
 (setq erb-type-to-delim-face nil
@@ -18,6 +16,8 @@
                                'mumamo-after-change-major-mode-hook
                                'ruby-mode-hook
                                'yaml-mode-hook)
+      rspec-spec-command "chdir /Users/marktran/code/crowdflower/builder && bin/spec"
+      rspec-use-rake-flag nil
       ruby-electric-expand-delimiters-list nil)
 
 (add-to-list 'auto-mode-alist '("\\.html\\.erb" . rhtml-mode))
@@ -29,6 +29,7 @@
           (lambda ()
             (define-key rinari-minor-mode-map (kbd "C-t") 'textmate-goto-file)))
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
+;; (add-hook 'ruby-mode-hook 'rspec-mode)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 ;; flymake
@@ -53,10 +54,10 @@
        flymake-ruby-err-line-patterns)
   (flymake-mode t))
 
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (if (and (not (null buffer-file-name))
-                     (file-writable-p buffer-file-name))
-                (flymake-ruby-load))))
+;; (add-hook 'ruby-mode-hook
+;;           (lambda ()
+;;             (if (and (not (null buffer-file-name))
+;;                      (file-writable-p buffer-file-name))
+;;                 (flymake-ruby-load))))
 
 (provide 'mqt-ruby)
