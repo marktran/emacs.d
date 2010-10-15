@@ -10,6 +10,8 @@
       compilation-message-face nil
       confirm-nonexistent-file-or-buffer nil
       disabled-command-function nil
+      display-time-24hr-format t
+      display-time-default-load-average nil
       ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain
       eshell-ls-initial-args "-F"
