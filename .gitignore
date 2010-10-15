@@ -3,4 +3,5 @@ elpa/
 vendor/
 
 .emacs.bmk
+.visited-files
 mqt-custom.el
