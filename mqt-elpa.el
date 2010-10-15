@@ -16,8 +16,10 @@
                             'pastie
                             'rinari
                             'ruby-compilation
+                            'ruby-electric
                             'ruby-mode
                             'sass-mode
+                            'Save-visited-files
                             'slime
                             'smex
                             'textmate
