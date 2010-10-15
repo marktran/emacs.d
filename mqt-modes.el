@@ -10,6 +10,7 @@
 (require 'elscreen-buffer-list)
 (require 'peepopen)
 (require 'smex)
+(require 'switch-window)
 (require 'undo-tree)
 (require 'textmate)
 (require 'yasnippet)
@@ -19,6 +20,7 @@
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
+(autoload 'mode-compile "mode-compile" nil t)
 (autoload 'w3m "w3m-load" nil t)
 
 (autopair-global-mode)
@@ -40,8 +42,9 @@
 ;; diminish
 (diminish 'autopair-mode)
 (diminish 'eldoc-mode)
-(diminish 'undo-tree-mode)
+(diminish 'ruby-electric-mode)
 (diminish 'textmate-mode)
+(diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
 (diminish 'yas/minor-mode)
 (eval-after-load "paredit-beta" '(diminish 'paredit-mode))
@@ -68,7 +71,8 @@
 (yas/load-directory "~/.emacs.d/vendor/yasnippet-0.6.1c/snippets")
 
 ;; settings
-(setq bookmark-default-file "~/.emacs.d/.emacs.bmk"
+(setq ack-prompt-for-directory t
+      bookmark-default-file "~/.emacs.d/.emacs.bmk"
       browse-kill-ring-quit-action 'save-and-restore
       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
       elscreen-buffer-list-enabled t
