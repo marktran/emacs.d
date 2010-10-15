@@ -31,6 +31,7 @@
       gnus-summary-mode-line-format "%g [%A / %z] %Z"
       gnus-treat-display-smileys nil
       gnus-use-cache 'passive
+      gnus-use-dribble-file nil
       gnus-use-full-window nil
       gnus-visible-headers "^From:\\|^Subject:\\|^Date:\\|
 ^Followup-To:\\|^Reply-To:\\|^Summary:\\|^Keywords:\\|^To:\\|^[BGF]?Cc:\\|
