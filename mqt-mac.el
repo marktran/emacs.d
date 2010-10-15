@@ -1,8 +1,17 @@
 ;;; .emacs.d/mqt-mac.el : Mark Tran <mark@nirv.net>
 
 ;; settings
+(setenv "PATH"
+        (concat "/usr/local/bin" ":"
+                "/opt/local/bin" ":"
+                "/usr/bin" ":"
+                "/bin"))
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
-      delete-by-moving-to-trash t)
+      delete-by-moving-to-trash t
+      exec-path '("/usr/local/bin"
+                  "/opt/local/bin"
+                  "/usr/bin"
+                  "/bin"))
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
