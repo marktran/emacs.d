@@ -44,8 +44,9 @@
       ispell-program-name "aspell"
       js-indent-level 2
       ns-pop-up-frames nil
+      org-hide-block-startup t
       org-hide-leading-stars t
-      org-startup-folded nil
+      org-startup-folded t
       require-final-newline t
       scroll-conservatively 100000
       scroll-margin 0
@@ -77,7 +78,8 @@
                 ("\\.pjs$" . js-mode)
                 ("\\.[sx]?html?\\'" . django-html-mode)
                 ("\\.xml$" . nxml-mode)
-                ("\\.ya?ml$" . yaml-mode)))
+                ("\\.ya?ml$" . yaml-mode)
+                ("\\.zsh$" . shell-script-mode)))
   (add-to-list 'auto-mode-alist mode))
 
 ;; hooks
