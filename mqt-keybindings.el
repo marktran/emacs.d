@@ -17,10 +17,11 @@
                          (magit-status default-directory)))
 (global-set-key [(f5)] 'replace-regexp)
 (global-set-key [(f6)] 'kmacro-end-or-call-macro)
-(global-set-key [(f11)] 'bookmark-ido-find-file)
+(global-set-key [(f7)] 'bookmark-ido-find-file)
+(global-set-key [(f11)] 'ns-toggle-fullscreen)
 (global-set-key [(f12)] (lambda ()
-                                (interactive)
-                                (kill-buffer (current-buffer))))
+                          (interactive)
+                          (kill-buffer (current-buffer))))
 
 (global-set-key [(shift f6)] 'kmacro-start-or-end)
 
@@ -38,13 +39,18 @@
 (global-set-key (kbd "C-*") 'isearch-yank-symbol)
 (global-set-key (kbd "C-t") 'peepopen-goto-file-gui)
 (global-set-key (kbd "<C-return>") 'textmate-next-line)
+(global-set-key (kbd "M-[") 'textmate-shift-left)
+(global-set-key (kbd "M-]") 'textmate-shift-right)
 
 ;; window
 (global-set-key (kbd "C-x t") 'transpose-windows)
 (global-set-key (kbd "C-{") 'windmove-left)
 (global-set-key (kbd "C-}") 'windmove-right)
-
-
 (windmove-default-keybindings)
+
+(eval-after-load 'paredit
+  '(progn
+     (define-key paredit-mode-map (kbd "C-{") 'windmove-left)
+     (define-key paredit-mode-map (kbd "C-}") 'windmove-right)))
 
 (provide 'mqt-keybindings)
