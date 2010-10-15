@@ -81,6 +81,7 @@
       nxhtml-skip-welcome t
       nxml-degraded t
       rng-nxml-auto-validate-flag nil
+      save-visited-files-location "~/.emacs.d/.visited-files"
       w3m-home-page
 "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
       w3m-pop-up-windows nil
