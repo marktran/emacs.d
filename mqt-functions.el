@@ -126,6 +126,21 @@ comment-dwim, when it inserts comment at the end of the line."
   (interactive)
   (font-lock-add-keywords nil hexcolor-keywords))
 
+;; http://www.emacswiki.org/emacs/InteractivelyDoThings#toc4
+(defun ido-erc-buffer ()
+  (interactive)
+  (switch-to-buffer
+   (ido-completing-read "Channel: "
+                        (save-excursion
+                          (delq
+                           nil
+                           (mapcar (lambda (buf)
+                                     (when (buffer-live-p buf)
+                                       (with-current-buffer buf
+                                         (and (eq major-mode 'erc-mode)
+                                              (buffer-name buf)))))
+                                   (buffer-list)))))))
+
 ;; http://www.emacswiki.org/emacs/ImenuMode#toc10
 (defun ido-goto-symbol ()
   "Update the imenu index and then use ido to select a symbol to navigate to"
