@@ -10,8 +10,9 @@
 (global-set-key [(f3)] (lambda ()
                          (interactive)
                          (erc-tls :server "lambda.nirv.net"
-                                  :port 65535
-                                  :nick "mqt")))
+                                  :port znc-port
+                                  :nick "mqt"
+                                  :password znc-mqt-password)))
 (global-set-key [(f4)] (lambda ()
                          (interactive)
                          (magit-status default-directory)))
