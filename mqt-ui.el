@@ -47,9 +47,4 @@
 ;; transparency
 (add-to-list 'default-frame-alist '(alpha . 98))
 
-;; color theme
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-chocolate-rain)
-
 (provide 'mqt-ui)
