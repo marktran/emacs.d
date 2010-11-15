@@ -7,7 +7,6 @@
 (require 'diminish)
 (require 'dired+)
 (require 'elscreen)
-(require 'elscreen-buffer-list)
 (require 'peepopen)
 (require 'smex)
 (require 'switch-window)
