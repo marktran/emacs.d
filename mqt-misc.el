@@ -23,6 +23,7 @@
       ido-enable-flex-matching t
       ido-everywhere t
       ido-ignore-buffers `("\\` "
+                           "^\\*Compile-Log\\*"
                            "^\\*Completions\\*"
                            "^\\*Help\\*"
                            "^\\*Ido"
@@ -45,6 +46,8 @@
       initial-scratch-message nil
       ispell-program-name "aspell"
       js-indent-level 2
+      kill-buffer-query-functions (remq 'process-kill-buffer-query-function
+                                        kill-buffer-query-functions)
       ns-pop-up-frames nil
       org-hide-block-startup t
       org-hide-leading-stars t
