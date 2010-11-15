@@ -1,1 +1,0 @@
-../../../color-theme-chocolate-rain/color-theme-chocolate-rain.el

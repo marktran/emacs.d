@@ -13,27 +13,28 @@
 (require 'thingatpt)
 (require 'uniquify)
 
-;; elpa
-(require 'package)
-(package-initialize)
-(require 'mqt-elpa)
+;; el-get
+(require 'mqt-el-get)
 
 ;; init
 (require 'mqt-functions)
 (require 'mqt-keybindings)
 (require 'mqt-lisp)
-;; (require 'mqt-mk-project)
 (require 'mqt-misc)
 (require 'mqt-modes)
 (require 'mqt-python)
 (require 'mqt-ruby)
 (require 'mqt-ui)
 
-(when (eq system-type 'darwin)
+(when (eq window-system 'ns)
   (require 'mqt-mac))
 
 (setq custom-file "~/.emacs.d/mqt-custom.el")
 (load custom-file 'noerror)
+(load "~/.emacs.d/local.el" 'noerror)
 
 ;; start server
 (server-start)
+
+;; load these last
+(turn-on-save-visited-files-mode)
