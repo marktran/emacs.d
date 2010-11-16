@@ -1,21 +1,15 @@
 ;;; .emacs.d/mqt-keybindings.el : Mark Tran <mark@nirv.net>
 
 ;; function keys
-(global-set-key [(f1)] (lambda ()
-                         (interactive)
-                         (switch-or-start 'w3m "w3m")))
-(global-set-key [(f2)] (lambda ()
-                         (interactive)
-                         (switch-or-start 'gnus "*Group*")))
+(global-set-key [(f1)] 'w3m)
+(global-set-key [(f2)] 'gnus)
 (global-set-key [(f3)] (lambda ()
                          (interactive)
                          (erc-tls :server "lambda.nirv.net"
                                   :port znc-port
                                   :nick "mqt"
                                   :password znc-mqt-password)))
-(global-set-key [(f4)] (lambda ()
-                         (interactive)
-                         (magit-status default-directory)))
+(global-set-key [(f4)] 'magit-status)
 (global-set-key [(f5)] 'replace-regexp)
 (global-set-key [(f6)] 'kmacro-end-or-call-macro)
 (global-set-key [(f7)] 'bookmark-ido-find-file)
