@@ -35,6 +35,3 @@
 
 ;; start server
 (server-start)
-
-;; load these last
-(turn-on-save-visited-files-mode)
