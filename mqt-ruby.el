@@ -3,9 +3,9 @@
 (autoload 'inf-ruby "inf-ruby" nil t)
 (autoload 'inf-ruby-keys "inf-ruby" nil t)
 (autoload 'rhtml-mode "rhtml-mode" nil t)
-(autoload 'ri "ri-ruby.el" nil t)
+;; (autoload 'ri "ri-ruby.el" nil t)
 (autoload 'rspec-mode "rspec-mode" nil t)
-(autoload 'xmp "rcodetools" nil t)
+;; (autoload 'xmp "rcodetools" nil t)
 
 (setq erb-type-to-delim-face nil
       erb-type-to-face nil
@@ -31,33 +31,5 @@
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 ;; (add-hook 'ruby-mode-hook 'rspec-mode)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
-
-;; flymake
-(defvar flymake-ruby-err-line-patterns
-  '(("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)))
-(defvar flymake-ruby-allowed-file-name-masks
-  '((".+\\.\\(rb\\|rake\\)$" flymake-ruby-init)
-    ("Rakefile$" flymake-ruby-init)))
-
-(defun flymake-create-temp-in-system-tempdir (filename prefix)
-  (make-temp-file (or prefix "flymake-ruby")))
-
-(defun flymake-ruby-init ()
-  (list "ruby" (list "-c" (flymake-init-create-temp-buffer-copy
-                           'flymake-create-temp-in-system-tempdir))))
-
-(defun flymake-ruby-load ()
-  (interactive)
-  (set (make-local-variable 'flymake-allowed-file-name-masks)
-       flymake-ruby-allowed-file-name-masks)
-  (set (make-local-variable 'flymake-err-line-patterns)
-       flymake-ruby-err-line-patterns)
-  (flymake-mode t))
-
-;; (add-hook 'ruby-mode-hook
-;;           (lambda ()
-;;             (if (and (not (null buffer-file-name))
-;;                      (file-writable-p buffer-file-name))
-;;                 (flymake-ruby-load))))
 
 (provide 'mqt-ruby)
