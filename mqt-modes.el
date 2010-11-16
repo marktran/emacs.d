@@ -23,7 +23,6 @@
 (autoload 'mo-git-blame-current "mo-git-blame" nil t)
 (autoload 'mode-compile "mode-compile" nil t)
 (autoload 'w3m "w3m-load" nil t)
-(autoload 'zencoding-mode "zencoding-mode" nil t)
 
 (autopair-global-mode)
 (browse-kill-ring-default-keybindings)
@@ -48,7 +47,7 @@
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
 (diminish 'yas/minor-mode)
-(eval-after-load "paredit-beta" '(diminish 'paredit-mode))
+(eval-after-load "paredit" '(diminish 'paredit-mode))
 (eval-after-load "ruby-electric" '(diminish 'ruby-electric-mode))
 (eval-after-load "whitespace" '(diminish 'whitespace-mode " W"))
 
@@ -67,10 +66,6 @@
   '(defun flymake-get-tex-args (file-name)
      (list "latex" (list "-file-line-error" file-name))))
 (add-hook 'after-init-hook 'smex-initialize)
-
-;; yasnippet
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/vendor/yasnippet-0.6.1c/snippets")
 
 ;; settings
 (setq ack-prompt-for-directory t
@@ -94,6 +89,12 @@
       w3m-use-toolbar nil
       yas/prompt-functions '(yas/ido-prompt)
       yas/use-menu 'abbreviate
+      yas/root-directory '("~/.emacs.d/snippets"
+                           "~/.emacs.d/el-get/yasnippet/snippets")
       zencoding-preview-default nil)
+
+;; yasnippet
+(yas/initialize)
+(mapc 'yas/load-directory yas/root-directory)
 
 (provide 'mqt-modes)
