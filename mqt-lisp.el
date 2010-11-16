@@ -6,7 +6,7 @@
   (add-hook hook 'turn-on-eldoc-mode))
 
 ;; paredit
-(autoload 'paredit-mode "paredit-beta" nil t)
+(autoload 'paredit-mode "paredit" nil t)
 
 (eldoc-add-command 'paredit-backward-delete
                    'paredit-close-round)
