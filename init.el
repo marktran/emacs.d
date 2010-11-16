@@ -29,7 +29,7 @@
 (when (eq window-system 'ns)
   (require 'mqt-mac))
 
-(setq custom-file "~/.emacs.d/mqt-custom.el")
+(setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 (load "~/.emacs.d/local.el" 'noerror)
 

@@ -1,9 +1,8 @@
 auto-save-list/
 el-get
-elpa/
 vendor/
 
 .emacs.bmk
 .visited-files
 local.el
-mqt-custom.el
+custom.el
