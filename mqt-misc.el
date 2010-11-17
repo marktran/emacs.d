@@ -25,6 +25,7 @@
       ido-ignore-buffers `("\\` "
                            "^\\*Compile-Log\\*"
                            "^\\*Completions\\*"
+                           "^\\*growl\\*"
                            "^\\*Help\\*"
                            "^\\*Ido"
                            "^\\*IPython"
