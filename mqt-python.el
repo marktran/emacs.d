@@ -2,8 +2,7 @@
 
 (autoload 'python-mode "python-mode" nil t)
 
-(setq ipython-command
-      "/usr/local/Cellar/python/2.7/bin/ipython"
+(setq ipython-command "/usr/local/Cellar/python/2.7/bin/ipython"
       py-python-command-args '("-colors" "NoColor"))
 
 ;; (eval-after-load 'python-mode
