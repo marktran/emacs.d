@@ -5,8 +5,9 @@
 (require 'el-get)
 
 (setq el-get-sources
-      '(apel autopair color-theme django-mode el-get emacs-w3m magit package
-             pymacs slime smex switch-window textile-mode undo-tree yasnippet
+      '(apel autopair color-theme django-mode el-get emacs-w3m magit nxhtml
+             package pymacs python-mode slime smex switch-window textile-mode
+             undo-tree yasnippet
              
              ;; elpa
              (:name clojure-mode :type elpa)
@@ -67,9 +68,6 @@
                     :type git
                     :url "git://github.com/topfunky/PeepOpen-EditorSupport.git"
                     :features peepopen)
-             (:name python-mode
-                    :type bzr
-                    :url "https://launchpad.net/python-mode/trunk")
              (:name quack
                     :type http
                     :url "http://www.neilvandyke.org/quack/quack.el")
