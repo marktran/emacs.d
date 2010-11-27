@@ -6,7 +6,7 @@
 
 (setq el-get-sources
       '(apel autopair color-theme django-mode el-get emacs-w3m magit nxhtml
-             package pymacs python-mode slime smex switch-window textile-mode
+             package pymacs python-mode smex switch-window textile-mode
              undo-tree yasnippet
              
              ;; elpa
@@ -26,7 +26,7 @@
              (:name ruby-electric :type elpa)
              (:name ruby-mode :type elpa)
              (:name sass-mode :type elpa)
-             (:name Save-visited-files :type elpa)
+             (:name slime :type elpa)
              (:name textmate :type elpa)
              (:name yaml-mode :type elpa)
 
