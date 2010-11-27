@@ -13,7 +13,6 @@
 (require 'undo-tree)
 (require 'textmate)
 (require 'yasnippet)
-;; (load "~/.emacs.d/vendor/nxhtml/autostart.el")
 (autoload 'coffee-mode "coffee-mode" nil t)
 (autoload 'django-html-mode "django-html-mode" nil t)
 (autoload 'erc-tls "erc" nil t)

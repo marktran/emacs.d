@@ -82,7 +82,7 @@
                 ("\\.js$" . js-mode)
                 ("\\.md$" . markdown-mode)
                 ("\\.pjs$" . js-mode)
-                ("\\.[sx]?html?\\'" . django-html-mode)
+                ("\\.[sx]?html?$" . nxhtml-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.ya?ml$" . yaml-mode)
                 ("\\.zsh$" . shell-script-mode)))
