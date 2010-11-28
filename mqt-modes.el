@@ -71,7 +71,6 @@
       bookmark-default-file "~/.emacs.d/.emacs.bmk"
       browse-kill-ring-quit-action 'save-and-restore
       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
-      elscreen-buffer-list-enabled t
       elscreen-display-tab nil
       mumamo-chunk-coloring 1
       nxhtml-skip-welcome t
