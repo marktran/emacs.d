@@ -1,19 +1,17 @@
 ;;; .emacs.d/init.el : Mark Tran <mark@nirv.net>
 
 ;; load paths
-(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((lisp-dir (expand-file-name "~/.emacs.d/"))
-           (default-directory lisp-dir))
-      (setq load-path (cons lisp-dir load-path))
-      (normal-top-level-add-subdirs-to-load-path)))
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/vendor")
 
-;; load
+;; require built-in packages
 (require 'cl)
 (require 'eldoc)
 (require 'thingatpt)
 (require 'uniquify)
 
 ;; el-get
+(load "~/.emacs.d/el-get/el-get/el-get.elc")
 (require 'mqt-el-get)
 
 ;; init
