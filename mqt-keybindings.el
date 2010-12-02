@@ -41,7 +41,6 @@
 (global-set-key (kbd "C-x t") 'transpose-windows)
 (global-set-key (kbd "C-{") 'windmove-left)
 (global-set-key (kbd "C-}") 'windmove-right)
-(windmove-default-keybindings)
 
 (eval-after-load 'paredit
   '(progn
