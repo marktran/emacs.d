@@ -37,7 +37,7 @@
              ;; other
              (:name coffee-mode
                     :type git
-                    :url "git://github.com/defunkt/coffee-mode.git")
+                    :url "git://github.com/sstephenson/coffee-mode.git")
              (:name color-theme-chocolate-rain
                     :type git
                     :url "git://github.com/marktran/color-theme-chocolate-rain.git"
