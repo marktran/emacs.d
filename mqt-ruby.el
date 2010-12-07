@@ -16,7 +16,7 @@
                                'mumamo-after-change-major-mode-hook
                                'ruby-mode-hook
                                'yaml-mode-hook)
-      rspec-spec-command "chdir /Users/marktran/code/crowdflower/builder && bin/spec"
+      rspec-spec-command "chdir /Users/mark/code/crowdflower/builder && bin/spec"
       rspec-use-rake-flag nil
       ruby-electric-expand-delimiters-list nil)
 
