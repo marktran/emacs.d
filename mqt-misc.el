@@ -87,6 +87,10 @@
                 ("\\.zsh$" . shell-script-mode)))
   (add-to-list 'auto-mode-alist mode))
 
+;; names of buffers that should appear in the "same" window
+(dolist (name '("*SQL*"))
+  (add-to-list 'same-window-buffer-names name))
+
 ;; hooks
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
