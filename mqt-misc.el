@@ -14,8 +14,7 @@
       display-time-default-load-average nil
       ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain
-      eshell-ls-initial-args "-F"
-      eshell-ls-use-colors nil
+      eshell-banner-message ""
       gnus-home-directory "~/.gnus.d/"
       gnus-init-file "~/.emacs.d/.gnus.el"
       history-length 250
