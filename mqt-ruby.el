@@ -10,6 +10,7 @@
       rspec-spec-command "chdir /Users/mark/code/crowdflower/builder && bin/spec"
       rspec-use-rake-flag nil
       ruby-deep-arglist nil
+      ruby-deep-indent-paren nil
       ruby-electric-expand-delimiters-list nil)
 
 (add-to-list 'auto-mode-alist '("\\.html\\.erb" . rhtml-mode))
@@ -21,7 +22,6 @@
           (lambda ()
             (define-key rinari-minor-mode-map (kbd "C-t") 'textmate-goto-file)))
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
-;; (add-hook 'ruby-mode-hook 'rspec-mode)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (provide 'mqt-ruby)
