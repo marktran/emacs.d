@@ -9,7 +9,8 @@
       delete-by-moving-to-trash t
       exec-path '("/usr/local/bin"
                   "/usr/bin"
-                  "/bin"))
+                  "/bin")
+      mouse-wheel-scroll-amount '(0.01))
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
@@ -18,8 +19,8 @@
       mac-option-modifier 'meta)
 
 ;; ui
-(setq initial-frame-alist `((left . 64) (top . 63)
-                            (width . 185) (height . 55)))
+(setq initial-frame-alist `((left . 46) (top . 49)
+                            (width . 190) (height . 57)))
 
 (set-default-font "Menlo-12")
 
