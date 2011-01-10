@@ -52,6 +52,7 @@
       org-hide-block-startup t
       org-hide-leading-stars t
       org-startup-folded t
+      recentf-max-menu-items 25
       require-final-newline t
       scroll-conservatively 100000
       scroll-margin 0
@@ -78,6 +79,7 @@
 (dolist (mode '(("Cakefile" . coffee-mode)
                 ("\\.coffee$" . coffee-mode)
                 ("\\.css$" . css-mode)
+                ("\\.csv$" . csv-mode)
                 ("\\.js$" . js-mode)
                 ("\\.md$" . markdown-mode)
                 ("\\.pjs$" . js-mode)
