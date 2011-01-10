@@ -6,15 +6,15 @@
 
 (setq el-get-sources
       '(apel autopair color-theme coffee-mode diminish dired+ django-mode
-             el-get emacs-w3m magit markdown-mode mode-compile nxhtml package
-             paredit pymacs python-mode quack smex switch-window textile-mode
-             undo-tree yaml-mode yasnippet
+             el-get emacs-w3m haml-mode ipython magit markdown-mode
+             mode-compile nxhtml package paredit pymacs python-mode quack
+             sass-mode smart-tab smex switch-window textile-mode undo-tree
+             yaml-mode yasnippet
              
              ;; elpa
              (:name clojure-mode :type elpa)
              (:name dired-isearch :type elpa)
              (:name gist :type elpa)
-             (:name haml-mode :type elpa)
              (:name htmlize :type elpa)
              (:name inf-ruby :type elpa)
              (:name js2-mode :type elpa)
@@ -25,7 +25,6 @@
              (:name ruby-compilation :type elpa)
              (:name ruby-electric :type elpa)
              (:name ruby-mode :type elpa)
-             (:name sass-mode :type elpa)
              (:name slime :type elpa)
              (:name textmate :type elpa)
 
@@ -44,9 +43,6 @@
              (:name growl
                     :type http
                     :url "http://edward.oconnor.cx/elisp/growl.el")
-             (:name ipython
-                    :type http
-                    :url "http://ipython.scipy.org/dist/ipython.el")
              (:name peepopen
                     :type git
                     :url "git://github.com/topfunky/PeepOpen-EditorSupport.git"
@@ -59,10 +55,7 @@
                     :type git
                     :url "git://github.com/pezra/rspec-mode.git"
                     :features rspec-mode
-                    :compile "rspec-mode.el")
-             (:name smart-tab
-                    :type git
-                    :url "git://github.com/genehack/smart-tab.git")))
+                    :compile "rspec-mode.el")))
 
 (el-get)
 
