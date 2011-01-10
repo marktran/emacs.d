@@ -18,9 +18,6 @@
 (eval-after-load 'ruby-mode
   '(define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent))
 
-(add-hook 'rinari-minor-mode-hook
-          (lambda ()
-            (define-key rinari-minor-mode-map (kbd "C-t") 'textmate-goto-file)))
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
