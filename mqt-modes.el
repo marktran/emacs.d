@@ -1,7 +1,6 @@
 ;;; .emacs.d/mqt-modes.el : Mark Tran <mark@nirv.net>
 
 ;; load
-(require 'autopair)
 (require 'bookmark)
 (require 'browse-kill-ring)
 (require 'coffee-mode)
@@ -10,22 +9,24 @@
 (require 'elscreen)
 (require 'peepopen)
 (require 'smex)
+(require 'smart-tab)
 (require 'switch-window)
 (require 'undo-tree)
 (require 'textmate)
 (require 'yasnippet)
+(autoload 'ack "full-ack" nil t)
+(autoload 'ack-find-file "full-ack" nil t)
+(autoload 'ack-find-same-file "full-ack" nil t)
+(autoload 'ack-same "full-ack" nil t)
 (autoload 'coffee-mode "coffee-mode" nil t)
 (autoload 'django-html-mode "django-html-mode" nil t)
 (autoload 'erc-tls "erc" nil t)
 (autoload 'growl "growl" nil t)
 (autoload 'magit-status "magit" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
-(autoload 'mo-git-blame-file "mo-git-blame" nil t)
-(autoload 'mo-git-blame-current "mo-git-blame" nil t)
 (autoload 'mode-compile "mode-compile" nil t)
 (autoload 'w3m "w3m-load" nil t)
 
-(autopair-global-mode)
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
 (smex-auto-update)
@@ -42,7 +43,6 @@
 (add-hook 'coffee-mode-hook '(lambda() (coffee-custom)))
 
 ;; diminish
-(diminish 'autopair-mode)
 (diminish 'eldoc-mode)
 (diminish 'smart-tab-mode)
 (diminish 'textmate-mode)
