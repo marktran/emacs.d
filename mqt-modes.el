@@ -44,6 +44,7 @@
 ;; diminish
 (diminish 'autopair-mode)
 (diminish 'eldoc-mode)
+(diminish 'smart-tab-mode)
 (diminish 'textmate-mode)
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
