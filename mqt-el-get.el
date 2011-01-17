@@ -35,7 +35,9 @@
                     :url "git://github.com/nschum/full-ack.git")
              (:name growl
                     :type http
-                    :url "http://edward.oconnor.cx/elisp/growl.el")
+                    :url "http://edward.oconnor.cx/elisp/growl.el"
+                    :after (lambda ()
+                             (autoload 'growl "growl" nil t)))
              (:name peepopen
                     :type git
                     :url "git://github.com/topfunky/PeepOpen-EditorSupport.git"
