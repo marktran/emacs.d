@@ -1,6 +1,8 @@
 ;;; note: on the initial (el-get), if magit is not installed and "git" is not
 ;;;       in your $PATH (remember, Emacs.app does not inherit environment
-;;;       variables), el-get will error.
+;;;       variables), el-get will error. Also, package.el doesn't seem to fetch
+;;;       a package list so you'll need to M-x package-list-packages to
+;;;       initialize it.
 
 (require 'el-get)
 
@@ -9,7 +11,7 @@
              el-get emacs-w3m gist haml-mode ipython json magit markdown-mode
              mode-compile nxhtml package paredit pymacs python-mode quack
              ruby-compilation ruby-mode rvm sass-mode smex switch-window 
-             textile-mode undo-tree yaml-mode yasnippet
+             textile-mode undo-tree yaml-mode yasnippet color-theme-zen-and-art
              
              ;; elpa
              (:name dired-isearch :type elpa)

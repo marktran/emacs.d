@@ -9,7 +9,6 @@
 (require 'elscreen)
 (require 'peepopen)
 (require 'smex)
-(require 'smart-tab)
 (require 'switch-window)
 (require 'undo-tree)
 (require 'textmate)
@@ -44,7 +43,6 @@
 
 ;; diminish
 (diminish 'eldoc-mode)
-(diminish 'smart-tab-mode)
 (diminish 'textmate-mode)
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
