@@ -10,6 +10,15 @@
 (require 'thingatpt)
 (require 'uniquify)
 
+;; this needs to happen before packages like rvm.el, which prepends the PATH
+(setenv "PATH"
+        (concat "/usr/local/bin" ":"
+                "/usr/bin" ":"
+                "/bin"))
+(setq exec-path '("/usr/local/bin"
+                  "/usr/bin"
+                  "/bin"))
+
 ;; el-get
 (load "~/.emacs.d/el-get/el-get/el-get.elc")
 (require 'mqt-el-get)
