@@ -12,6 +12,7 @@
 (require 'switch-window)
 (require 'undo-tree)
 (require 'textmate)
+(require 'tramp)
 (require 'yasnippet)
 (autoload 'ack "full-ack" nil t)
 (autoload 'ack-find-file "full-ack" nil t)
