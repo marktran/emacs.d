@@ -11,7 +11,7 @@
              el-get emacs-w3m gist haml-mode ipython json magit markdown-mode
              mode-compile nxhtml package paredit pymacs python-mode quack
              ruby-compilation ruby-mode rvm sass-mode smex switch-window 
-             textile-mode undo-tree yaml-mode yasnippet color-theme-zen-and-art
+             textile-mode undo-tree yaml-mode yari yasnippet
              
              ;; elpa
              (:name dired-isearch :type elpa)
