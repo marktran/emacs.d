@@ -40,10 +40,6 @@
                     :url "http://edward.oconnor.cx/elisp/growl.el"
                     :after (lambda ()
                              (autoload 'growl "growl" nil t)))
-             (:name peepopen
-                    :type git
-                    :url "git://github.com/topfunky/PeepOpen-EditorSupport.git"
-                    :features peepopen)
              (:name rhtml-mode
                     :type git
                     :url "git://github.com/eschulte/rhtml.git"
