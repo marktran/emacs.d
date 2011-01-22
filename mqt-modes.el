@@ -26,6 +26,7 @@
 (autoload 'mode-compile "mode-compile" nil t)
 (autoload 'w3m "w3m-load" nil t)
 
+(autopair-global-mode)
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
 (smex-auto-update)
@@ -42,6 +43,7 @@
 (add-hook 'coffee-mode-hook '(lambda() (coffee-custom)))
 
 ;; diminish
+(diminish 'autopair-mode)
 (diminish 'eldoc-mode)
 (diminish 'textmate-mode)
 (diminish 'undo-tree-mode)
