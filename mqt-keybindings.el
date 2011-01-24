@@ -34,6 +34,7 @@
 (global-set-key (kbd "C-*") 'isearch-yank-symbol)
 (global-set-key (kbd "C-t") 'textmate-goto-file)
 (global-set-key (kbd "<C-return>") 'textmate-next-line)
+(global-set-key (kbd "M-.") 'find-tag-other-window)
 (global-set-key (kbd "M-[") 'textmate-shift-left)
 (global-set-key (kbd "M-]") 'textmate-shift-right)
 
