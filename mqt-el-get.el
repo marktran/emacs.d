@@ -10,8 +10,8 @@
       '(apel autopair color-theme coffee-mode diminish dired+ django-mode
              el-get emacs-w3m gist haml-mode ipython json magit markdown-mode
              mode-compile nxhtml package paredit pymacs python-mode quack
-             ruby-compilation ruby-mode rvm sass-mode smex switch-window 
-             textile-mode undo-tree yaml-mode yari yasnippet
+             ruby-compilation ruby-mode rvm sass-mode scratch smart-tab smex
+             switch-window textile-mode undo-tree yaml-mode yari yasnippet
              
              ;; elpa
              (:name dired-isearch :type elpa)
@@ -30,11 +30,15 @@
              (:name color-theme-chocolate-rain
                     :type git
                     :url "git://github.com/marktran/color-theme-chocolate-rain.git"
-                    :load "color-theme-chocolate-rain.el"
-                    :after (lambda () (color-theme-chocolate-rain)))
+                    :load "color-theme-chocolate-rain.el")
              (:name full-ack
                     :type git
-                    :url "git://github.com/nschum/full-ack.git")
+                    :url "git://github.com/nschum/full-ack.git"
+                    :after (lambda ()
+                             (autoload 'ack "full-ack" nil t)
+                             (autoload 'ack-find-file "full-ack" (not  )il t)
+                             (autoload 'ack-find-same-file "full-ack" nil t)
+                             (autoload 'ack-same "full-ack" nil t)))
              (:name growl
                     :type http
                     :url "http://edward.oconnor.cx/elisp/growl.el"
