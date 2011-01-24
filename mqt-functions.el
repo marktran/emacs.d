@@ -411,6 +411,32 @@ comment-dwim, when it inserts comment at the end of the line."
 
 (add-hook 'find-file-hook 'sm-try-smerge t)
 
+;; http://atomized.org/2008/10/enhancing-emacs%E2%80%99-sql-mode/
+(defun sql-make-smart-buffer-name ()
+  "Return a string that can be used to rename a SQLi buffer.
+
+This is used to set `sql-alternate-buffer-name' within
+`sql-interactive-mode'."
+  (or (and (boundp 'sql-name) sql-name)
+      (concat (if (not(string= "" sql-server))
+                  (concat
+                   (or (and (string-match "[0-9.]+" sql-server) sql-server)
+                       (car (split-string sql-server "\\.")))
+                   "/"))
+              sql-database)))
+
+
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (setq sql-alternate-buffer-name (sql-make-smart-buffer-name))
+            (sql-rename-buffer)))
+
+(defun sql-connect-preset (name)
+  "Connect to a predefined SQL connection listed in `sql-connection-alist'"
+  (eval `(let ,(cdr (assoc name sql-connection-alist))
+           (flet ((sql-get-login (&rest what)))
+             (sql-product-interactive sql-product)))))
+
 ;; http://github.com/technomancy/emacs-starter-kit/blob/master/\
 ;; starter-kit-defuns.el
 (defun switch-or-start (function buffer)
