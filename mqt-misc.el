@@ -51,13 +51,16 @@
       ns-pop-up-frames nil
       org-hide-block-startup t
       org-hide-leading-stars t
-      org-startup-folded t
+      org-level-color-stars-only t
+      org-log-done 'time
+      org-startup-folded nil
+      org-startup-indented t
       recentf-max-menu-items 25
       require-final-newline t
       scroll-conservatively 100000
       scroll-margin 0
       scroll-preserve-screen-position 1
-      sql-mysql-program "mysql5"
+      sql-mysql-program "postgres"
       tramp-default-method "ssh"
       tramp-mode nil
       uniquify-buffer-name-style 'forward

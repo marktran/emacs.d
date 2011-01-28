@@ -51,16 +51,3 @@
                   (growl
                    (format "ERC")
                    (format "<%s> %s" nick message))))))))
-
-;; keybindings
-(defun ido-erc-or-switch-buffer ()
-  (if (= (elscreen-get-current-screen) 9)
-      (ido-erc-buffer)
-    (ido-switch-buffer)))
-
-(global-set-key (kbd "C-x b") (lambda ()
-                                (interactive)
-                                (ido-erc-or-switch-buffer)))
-(global-set-key (kbd "C-x C-b") (lambda ()
-                                (interactive)
-                                (ido-erc-or-switch-buffer)))

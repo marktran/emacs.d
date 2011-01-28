@@ -24,7 +24,7 @@
 (global-set-key (kbd "M-/") 'smart-tab)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+(global-set-key (kbd "C-x C-r") 'recentf-ido-find-file)
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-S-t") 'ido-goto-symbol)
 
@@ -34,7 +34,6 @@
 (global-set-key (kbd "C-*") 'isearch-yank-symbol)
 (global-set-key (kbd "C-t") 'textmate-goto-file)
 (global-set-key (kbd "<C-return>") 'textmate-next-line)
-(global-set-key (kbd "M-.") 'find-tag-other-window)
 (global-set-key (kbd "M-[") 'textmate-shift-left)
 (global-set-key (kbd "M-]") 'textmate-shift-right)
 

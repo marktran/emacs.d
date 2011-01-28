@@ -6,9 +6,9 @@
 (require 'coffee-mode)
 (require 'diminish)
 (require 'dired+)
-(require 'elscreen)
 (require 'scratch)
 (require 'smex)
+(require 'sql)
 (require 'switch-window)
 (require 'undo-tree)
 (require 'textmate)
@@ -22,8 +22,33 @@
 (autoload 'mode-compile "mode-compile" nil t)
 (autoload 'w3m "w3m-load" nil t)
 
+;; settings
+(setq ack-prompt-for-directory t
+      bookmark-default-file "~/.emacs.d/.emacs.bmk"
+      browse-kill-ring-quit-action 'save-and-restore
+      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+      escreen-prefix-char "\C-z"
+      mumamo-chunk-coloring 1
+      nxhtml-skip-welcome t
+      nxml-degraded t
+      rng-nxml-auto-validate-flag nil
+      w3m-home-page
+      "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
+      w3m-pop-up-windows nil
+      w3m-show-graphic-icons-in-mode-line nil
+      w3m-use-header-line nil
+      w3m-use-tab nil
+      w3m-use-title-buffer-name t
+      w3m-use-toolbar nil
+      yas/prompt-functions '(yas/ido-prompt)
+      yas/use-menu 'abbreviate
+      yas/root-directory '("~/.emacs.d/snippets"
+                           "~/.emacs.d/el-get/yasnippet/snippets")
+      zencoding-preview-default nil)
+
 (autopair-global-mode)
 (browse-kill-ring-default-keybindings)
+(escreen-install)
 (global-undo-tree-mode)
 (smex-auto-update)
 (textmate-mode)
@@ -64,30 +89,6 @@
   '(defun flymake-get-tex-args (file-name)
      (list "latex" (list "-file-line-error" file-name))))
 (add-hook 'after-init-hook 'smex-initialize)
-
-;; settings
-(setq ack-prompt-for-directory t
-      bookmark-default-file "~/.emacs.d/.emacs.bmk"
-      browse-kill-ring-quit-action 'save-and-restore
-      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
-      elscreen-display-tab nil
-      mumamo-chunk-coloring 1
-      nxhtml-skip-welcome t
-      nxml-degraded t
-      rng-nxml-auto-validate-flag nil
-      w3m-home-page
-"http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
-      w3m-pop-up-windows nil
-      w3m-show-graphic-icons-in-mode-line nil
-      w3m-use-header-line nil
-      w3m-use-tab nil
-      w3m-use-title-buffer-name t
-      w3m-use-toolbar nil
-      yas/prompt-functions '(yas/ido-prompt)
-      yas/use-menu 'abbreviate
-      yas/root-directory '("~/.emacs.d/snippets"
-                           "~/.emacs.d/el-get/yasnippet/snippets")
-      zencoding-preview-default nil)
 
 ;; yasnippet
 (yas/initialize)
