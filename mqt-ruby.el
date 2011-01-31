@@ -15,10 +15,12 @@
 
 (add-to-list 'auto-mode-alist '("\\.html\\.erb" . rhtml-mode))
 
-(eval-after-load 'ruby-mode
-  '(define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent))
+(defun ri-bind-key ()
+  (local-set-key [f1] 'yari)
+  (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent))
 
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
+(add-hook 'ruby-mode-hook 'ri-bind-key)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (provide 'mqt-ruby)
