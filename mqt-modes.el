@@ -27,6 +27,10 @@
       bookmark-default-file "~/.emacs.d/.emacs.bmk"
       browse-kill-ring-quit-action 'save-and-restore
       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+      escreen-mode-line-format '(escreen-number-mode
+                                 (escreen-one-screen-p
+                                  ""
+                                  ("[" escreen-current-screen-string "]")))
       escreen-prefix-char "\C-z"
       mumamo-chunk-coloring 1
       nxhtml-skip-welcome t
@@ -48,7 +52,6 @@
 
 (autopair-global-mode)
 (browse-kill-ring-default-keybindings)
-(escreen-install)
 (global-undo-tree-mode)
 (smex-auto-update)
 (textmate-mode)
@@ -83,6 +86,11 @@
 (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
 (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
 (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+
+;; escreen
+(escreen-install)
+(add-hook 'escreen-goto-screen-hook
+          'escreen-enable-number-mode-if-more-than-one-screen)
 
 ;; flymake
 (eval-after-load 'flymake
