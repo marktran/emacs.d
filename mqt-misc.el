@@ -3,12 +3,14 @@
 ;; load
 (ido-mode t)
 (recentf-mode 1)
+(cua-mode 1)
 
 ;; settings
 (setq backup-inhibited t
       comment-auto-fill-only-comments t
       compilation-message-face nil
       confirm-nonexistent-file-or-buffer nil
+      cua-enable-cua-keys nil
       disabled-command-function nil
       display-time-24hr-format t
       display-time-default-load-average nil

@@ -103,13 +103,13 @@ safe-local-variable-values."
                  (car (last (assq (char-before) skeleton-pair-alist)))))
     (delete-char 1)))
 
-(global-set-key "("  'autopair-insert)
-(global-set-key ")"  'autopair-insert)
-(global-set-key "["  'autopair-insert)
-(global-set-key "]"  'autopair-insert)
-(global-set-key "{"  'autopair-insert)
-(global-set-key "}"  'autopair-insert)
-(global-set-key "\"" 'autopair-insert)
+;; (global-set-key "("  'autopair-insert)
+;; (global-set-key ")"  'autopair-insert)
+;; (global-set-key "["  'autopair-insert)
+;; (global-set-key "]"  'autopair-insert)
+;; (global-set-key "{"  'autopair-insert)
+;; (global-set-key "}"  'autopair-insert)
+;; (global-set-key "\"" 'autopair-insert)
 
 ;; using IDO for bookmarks and recent files
 ;; http://blog.kelsin.net/2010/04/22/using-ido-for-bookmarks-and-recent-files/
@@ -168,16 +168,32 @@ comment-dwim, when it inserts comment at the end of the line."
     (comment-dwim arg)))
 
 ;; ido complete everything
-;; http://www.emacswiki.org/emacs/InteractivelyDoThings#toc12
+;; http://www.emacswiki.org/emacs/InteractivelyDoThings#toc13
+(defvar ido-enable-replace-completing-read t
+  "If t, use ido-completing-read instead of completing-read if possible.
+    
+    Set it to nil using let in around-advice for functions where the
+    original completing-read is required.  For example, if a function
+    foo absolutely must use the original completing-read, define some
+    advice like this:
+    
+    (defadvice foo (around original-completing-read-only activate)
+      (let (ido-enable-replace-completing-read) ad-do-it))")
+
+;; Replace completing-read wherever possible, unless directed otherwise
 (defadvice completing-read
-  (around foo activate)
-  (if (boundp 'ido-cur-list)
+  (around use-ido-when-possible activate)
+  (if (or (not ido-enable-replace-completing-read) ; Manual override disable ido
+          (and (boundp 'ido-cur-list)
+               ido-cur-list)) ; Avoid infinite loop from ido calling this
       ad-do-it
-    (setq ad-return-value
-          (ido-completing-read
-           prompt
-           (all-completions "" collection predicate)
-           nil require-match initial-input hist def))))
+    (let ((allcomp (all-completions "" collection predicate)))
+      (if allcomp
+          (setq ad-return-value
+                (ido-completing-read prompt
+                                     allcomp
+                                     nil require-match initial-input hist def))
+        ad-do-it))))
 
 ;; http://article.gmane.org/gmane.emacs.help/69021
 (defmacro elscreen-create-automatically (ad-do-it)

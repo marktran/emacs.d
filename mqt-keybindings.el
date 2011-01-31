@@ -36,11 +36,17 @@
 (global-set-key (kbd "<C-return>") 'textmate-next-line)
 (global-set-key (kbd "M-[") 'textmate-shift-left)
 (global-set-key (kbd "M-]") 'textmate-shift-right)
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
 
 ;; window
 (global-set-key (kbd "C-x t") 'transpose-windows)
 (global-set-key (kbd "C-{") 'windmove-left)
 (global-set-key (kbd "C-}") 'windmove-right)
+(global-set-key (kbd "<left>") 'windmove-left)
+(global-set-key (kbd "<right>") 'windmove-right)
+(global-set-key (kbd "<up>") 'windmove-up)
+(global-set-key (kbd "<down>") 'windmove-down)
 
 (eval-after-load 'paredit
   '(progn
