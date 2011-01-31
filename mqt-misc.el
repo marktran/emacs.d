@@ -1,12 +1,17 @@
 ;;; .emacs.d/mqt-misc.el : Mark Tran <mark@nirv.net>
 
+(if (not (file-exists-p "~/.emacs.d/backups"))
+    (make-directory "~/.emacs.d/backups" t))
+
 ;; load
 (ido-mode t)
 (recentf-mode 1)
 (cua-mode 1)
 
 ;; settings
-(setq backup-inhibited t
+(setq auto-save-default nil
+      backup-by-copying t
+      backup-directory-alist '(("." . "~/.emacs.d/backups"))
       comment-auto-fill-only-comments t
       compilation-message-face nil
       confirm-nonexistent-file-or-buffer nil
