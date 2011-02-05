@@ -53,7 +53,6 @@
 (autopair-global-mode)
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
-(smex-auto-update)
 (textmate-mode)
 (toggle-dired-find-file-reuse-dir 1)
 
@@ -96,6 +95,9 @@
 (eval-after-load 'flymake
   '(defun flymake-get-tex-args (file-name)
      (list "latex" (list "-file-line-error" file-name))))
+
+;; smex
+(smex-auto-update)
 (add-hook 'after-init-hook 'smex-initialize)
 
 ;; yasnippet
