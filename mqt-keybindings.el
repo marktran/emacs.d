@@ -24,6 +24,7 @@
 
 ;; miscellaneous
 (global-set-key (kbd "C-;") 'comment-dwim-line)
+(global-set-key (kbd "M-;") 'comment-dwim-line)
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 (global-set-key (kbd "C-*") 'isearch-yank-symbol)
 (global-set-key (kbd "C-t") 'textmate-goto-file)
@@ -41,6 +42,9 @@
 (global-set-key (kbd "<right>") 'windmove-right)
 (global-set-key (kbd "<up>") 'windmove-up)
 (global-set-key (kbd "<down>") 'windmove-down)
+
+(global-set-key (kbd "<down-mouse-4>") 'escreen-goto-prev-screen)
+(global-set-key (kbd "<down-mouse-5>") 'escreen-goto-next-screen)
 
 (eval-after-load 'paredit
   '(progn
