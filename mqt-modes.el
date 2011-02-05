@@ -101,7 +101,6 @@
 (add-hook 'after-init-hook 'smex-initialize)
 
 ;; yasnippet
-(yas/initialize)
 (mapc 'yas/load-directory yas/root-directory)
 
 (provide 'mqt-modes)
