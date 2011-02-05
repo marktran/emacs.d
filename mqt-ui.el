@@ -45,6 +45,6 @@
 (define-fringe-bitmap 'top-right-angle [0] nil)
 
 ;; transparency
-(add-to-list 'default-frame-alist '(alpha . 98))
+(add-to-list 'default-frame-alist '(alpha . 99))
 
 (provide 'mqt-ui)
