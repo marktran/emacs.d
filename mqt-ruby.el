@@ -22,5 +22,6 @@
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 (add-hook 'ruby-mode-hook 'ri-bind-key)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
+(add-hook 'ruby-mode-hook 'run-coding-hook)
 
 (provide 'mqt-ruby)
