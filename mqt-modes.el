@@ -46,11 +46,8 @@
       w3m-use-toolbar nil
       yas/prompt-functions '(yas/ido-prompt)
       yas/use-menu 'abbreviate
-      yas/root-directory '("~/.emacs.d/snippets"
-                           "~/.emacs.d/el-get/yasnippet/snippets")
       zencoding-preview-default nil)
 
-(autopair-global-mode)
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
 (textmate-mode)
@@ -101,6 +98,6 @@
 (add-hook 'after-init-hook 'smex-initialize)
 
 ;; yasnippet
-(mapc 'yas/load-directory yas/root-directory)
+(add-to-list 'yas/snippet-dirs "~/.emacs.d/snippets")
 
 (provide 'mqt-modes)
