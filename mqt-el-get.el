@@ -13,8 +13,8 @@
                  haml-mode ipython json magit markdown-mode mode-compile nxhtml
                  package paredit pymacs python-mode quack rhtml-mode rspec-mode
                  ruby-compilation ruby-mode rvm sass-mode scratch session
-                 smart-tab smex switch-window textile-mode undo-tree vimpulse
-                 yaml-mode yari yasnippet
+                 smart-tab smex switch-window textile-mode undo-tree yaml-mode
+                 yari yasnippet
              
                  ;; elpa
                  (:name dired-isearch :type elpa)
