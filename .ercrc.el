@@ -1,6 +1,6 @@
 ;;; .emacs.d/.ercrc.el : Mark Tran <mark@nirv.net>
 
-(setq erc-auto-query 'buffer
+(setq erc-auto-query 'bury
       erc-button-buttonize-nicks nil
       erc-current-nick-highlight-type 'nick
       erc-default-server "lambda.nirv.net"
@@ -17,6 +17,7 @@
       erc-notice-prefix "* "
       erc-prompt ">"
       erc-prompt-for-password nil
+      erc-query-display 'buffer
       erc-server-auto-reconnect nil
       erc-timestamp-format "%H:%M "
       erc-timestamp-only-if-changed-flag nil
@@ -32,6 +33,12 @@
 
 (add-hook 'erc-mode-hook 'erc-add-scroll-to-bottom)
 (add-hook 'erc-mode-hook 'turn-on-visual-line-mode)
+
+;; http://www.emacswiki.org/emacs/ErcChannelTracking#toc5
+(defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
+  (if (erc-query-buffer-p) 
+      (setq ad-return-value (intern "fg:erc-color-face4"))
+    ad-do-it))
 
 ;; growl notifcations for mentions and keywords
 (when (eq system-type 'darwin)
