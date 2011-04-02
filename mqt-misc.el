@@ -63,7 +63,7 @@
       org-startup-folded nil
       org-startup-indented t
       recentf-max-menu-items 25
-      require-final-newline t
+      require-final-newline nil
       scroll-conservatively 100000
       scroll-margin 0
       scroll-preserve-screen-position 1
@@ -72,6 +72,7 @@
       tramp-mode nil
       uniquify-buffer-name-style 'forward
       uniquify-ignore-buffers-re "^\\*"
+      vc-handled-backends '(git)
       whitespace-style '(lines-tail
                          space-after-tab
                          space-before-tab
