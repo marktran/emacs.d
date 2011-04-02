@@ -10,12 +10,16 @@
 (require 'thingatpt)
 (require 'uniquify)
 
-;; this needs to happen before packages like rvm.el, which prepends the PATH
+;; this needs to happen before packages like rvm.el load, which prepends the PATH
 (setenv "PATH"
         (concat "/usr/local/bin" ":"
                 "/usr/bin" ":"
                 "/bin"))
-(setq exec-path '("/usr/local/bin"
+
+;; set ansi colors before ansi-color-map is built somewhere in an el-get package
+(setq ansi-color-names-vector ["#000000" "#cf6a4c" "#7ca563" "#5f9ea0"
+                               "#8a9a95" "#a8799c" "#f1e694" "#c3be98"]
+       exec-path '("/usr/local/bin"
                   "/usr/bin"
                   "/bin"))
 
