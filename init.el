@@ -17,7 +17,7 @@
                 "/bin"))
 
 ;; set ansi colors before ansi-color-map is built somewhere in an el-get package
-(setq ansi-color-names-vector ["#000000" "#cf6a4c" "#7ca563" "#5f9ea0"
+(setq ansi-color-names-vector ["#000000" "#cf6a4c" "#7ca563" "#8a9a95"
                                "#8a9a95" "#a8799c" "#f1e694" "#c3be98"]
        exec-path '("/usr/local/bin"
                   "/usr/bin"
