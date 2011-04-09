@@ -37,6 +37,8 @@
 (global-set-key (kbd "C-x t") 'transpose-windows)
 (global-set-key (kbd "C-{") 'windmove-left)
 (global-set-key (kbd "C-}") 'windmove-right)
+(global-set-key (kbd "M-<left>") 'winner-undo)
+(global-set-key (kbd "M-<right>") 'winner-redo)
 (global-set-key (kbd "<left>") 'windmove-left)
 (global-set-key (kbd "<right>") 'windmove-right)
 (global-set-key (kbd "<up>") 'windmove-up)
