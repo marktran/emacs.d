@@ -99,5 +99,6 @@
 
 ;; yasnippet
 (add-to-list 'yas/snippet-dirs "~/.emacs.d/snippets")
+(yas/load-snippet-dirs)
 
 (provide 'mqt-modes)
