@@ -21,7 +21,10 @@
       display-time-default-load-average nil
       ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain
+      eshell-aliases-file "~/.emacs.d/eshell/alias"
       eshell-banner-message ""
+      eshell-last-dir-ring-size 10
+      eshell-list-files-after-cd t
       gnus-home-directory "~/.gnus.d/"
       gnus-init-file "~/.emacs.d/.gnus.el"
       history-length 250
@@ -100,11 +103,22 @@
                 ("\\.zsh$" . shell-script-mode)))
   (add-to-list 'auto-mode-alist mode))
 
+;; eshell visual commands
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (dolist (command '("htop"
+                               "ssh"))
+              (add-to-list 'eshell-visual-commands command))
+
+            (local-set-key (kbd "<up>") 'windmove-up)
+            (local-set-key (kbd "<down>") 'windmove-down)))
+
 ;; names of buffers that should appear in the "same" window
 (dolist (name '("*SQL*"))
   (add-to-list 'same-window-buffer-names name))
 
 ;; hooks
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'dired-after-readin-hook
