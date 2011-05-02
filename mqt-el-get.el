@@ -13,6 +13,7 @@
         color-theme
         color-theme-chocolate-rain
         color-theme-solarized
+        csv-mode
         diminish
         dired+
         el-expectations

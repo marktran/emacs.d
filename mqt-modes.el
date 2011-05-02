@@ -15,6 +15,7 @@
 (require 'tramp)
 (require 'yasnippet)
 (autoload 'coffee-mode "coffee-mode" nil t)
+(autoload 'csv-mode "csv-mode" nil t)
 (autoload 'erc-tls "erc" nil t)
 (autoload 'highlight-indentation "highlight-indentation" nil t)
 (autoload 'magit-status "magit" nil t)
