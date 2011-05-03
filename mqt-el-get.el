@@ -27,7 +27,6 @@
         highlight-indentation
         ipython
         json
-        magit
         markdown-mode
         mode-compile
         nxhtml
@@ -52,7 +51,15 @@
         yaml-mode
         yari
         yasnippet
-        
+
+        (:name goto-last-change
+               :after (lambda ()
+                        (global-set-key (kbd "C-x C-/") 'goto-last-change)))
+
+        (:name magit
+               :after (lambda ()
+                        (global-set-key (kbd "C-x C-z") 'magit-status)))
+
         ;; elpa
         (:name dired-isearch :type elpa)
         (:name htmlize :type elpa)
