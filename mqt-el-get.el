@@ -38,6 +38,7 @@
         rhtml-mode
         rspec-mode
         ruby-compilation
+        ruby-electric
         ruby-mode
         rvm
         sass-mode
@@ -64,9 +65,7 @@
         (:name dired-isearch :type elpa)
         (:name htmlize :type elpa)
         (:name inf-ruby :type elpa)
-        (:name js2-mode :type elpa)
         (:name kill-ring-search :type elpa)
-        (:name ruby-electric :type elpa)
         (:name slime :type elpa)
         (:name textmate :type elpa)))
 
