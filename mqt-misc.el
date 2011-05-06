@@ -79,7 +79,8 @@
       whitespace-style '(lines-tail
                          space-after-tab
                          space-before-tab
-                         trailing))
+                         trailing)
+      windmove-wrap-around t)
 
 (setq-default c-basic-offset 4
               fill-column 72
