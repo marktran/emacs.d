@@ -265,6 +265,15 @@ comment-dwim, when it inserts comment at the end of the line."
                                               (buffer-name buf)))))
                                    (buffer-list)))))))
 
+;; http://www.emacswiki.org/emacs/TextMate
+(defun ido-find-file-in-tag-files ()
+  (interactive)
+  (save-excursion
+    (let ((enable-recursive-minibuffers t)) (visit-tags-table-buffer))
+    (find-file (expand-file-name
+                (ido-completing-read "Project file: "
+                                     (tags-table-files) nil t)))))
+
 ;; http://www.emacswiki.org/emacs/ImenuMode#toc10
 (defun ido-goto-symbol ()
   "Update the imenu index and then use ido to select a symbol to navigate to"
