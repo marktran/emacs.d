@@ -119,7 +119,6 @@
   (add-to-list 'same-window-buffer-names name))
 
 ;; hooks
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'dired-after-readin-hook
