@@ -13,19 +13,20 @@
 ;; this needs to happen before packages like rvm.el load, which prepends the PATH
 (setenv "PATH"
         (concat "/usr/local/bin" ":"
+                "/usr/local/share/python" ":"
                 "/usr/bin" ":"
                 "/bin" ":"
                 "/usr/local/share/npm/bin" ":"
-                "/Users/mark/.rvm/gems/ruby-1.8.7-p334/bin/"))
+                "/Users/mark/.rbenv/shims"))
 
 ;; set ansi colors before ansi-color-map is built somewhere in an el-get package
 (setq ansi-color-names-vector ["#000000" "#cf6a4c" "#7ca563" "#8a9a95"
                                "#8a9a95" "#a8799c" "#f1e694" "#c3be98"]
-       exec-path '("/usr/local/bin"
+      exec-path '("/usr/local/bin"
                   "/usr/bin"
                   "/bin"
                   "/usr/local/share/npm/bin"
-                  "/Users/mark/.rvm/gems/ruby-1.8.7-p334/bin/"))
+                  "/Users/mark/.rbenv/shims"))
 
 ;; el-get
 (load "~/.emacs.d/el-get/el-get/el-get.elc")

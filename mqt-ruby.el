@@ -8,7 +8,6 @@
 (setq erb-type-to-delim-face nil
       erb-type-to-face nil
       rspec-use-rake-flag nil
-      rspec-use-rvm t
       ruby-deep-arglist nil
       ruby-deep-indent-paren nil
       ruby-electric-expand-delimiters-list nil)
