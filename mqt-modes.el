@@ -11,9 +11,7 @@
 (require 'sql)
 (require 'switch-window)
 (require 'undo-tree)
-(require 'textmate)
 (require 'tramp)
-(require 'yasnippet)
 (autoload 'coffee-mode "coffee-mode" nil t)
 (autoload 'csv-mode "csv-mode" nil t)
 (autoload 'erc-tls "erc" nil t)
@@ -51,8 +49,7 @@
 
 (browse-kill-ring-default-keybindings)
 (global-undo-tree-mode)
-(textmate-mode)
-(toggle-dired-find-file-reuse-dir 1)
+(toggle-diredp-find-file-reuse-dir 1)
 
 ;; coffee
 (defun coffee-custom ()
@@ -97,9 +94,5 @@
 ;; smex
 (smex-auto-update)
 (add-hook 'after-init-hook 'smex-initialize)
-
-;; yasnippet
-(add-to-list 'yas/snippet-dirs "~/.emacs.d/snippets")
-(yas/load-snippet-dirs)
 
 (provide 'mqt-modes)

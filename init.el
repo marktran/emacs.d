@@ -6,6 +6,7 @@
 
 ;; require built-in packages
 (require 'cl)
+(require 'compile)
 (require 'eldoc)
 (require 'thingatpt)
 (require 'uniquify)
@@ -29,7 +30,6 @@
                   "/Users/mark/.rbenv/shims"))
 
 ;; el-get
-(load "~/.emacs.d/el-get/el-get/el-get.elc")
 (require 'mqt-el-get)
 
 ;; init

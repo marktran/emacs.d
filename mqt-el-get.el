@@ -1,59 +1,15 @@
-;;; note: on the initial (el-get), if magit is not installed and "git" is not
-;;;       in your $PATH (remember, Emacs.app does not inherit environment
-;;;       variables), el-get will error. Also, package.el doesn't seem to fetch
-;;;       a package list so you'll need to M-x package-list-packages to
-;;;       initialize it.
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(require 'el-get)
+(unless (require 'el-get nil t)
+  (url-retrieve
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s)
+     (let (el-get-master-branch)
+       (end-of-buffer)
+       (eval-print-last-sexp)))))
 
 (setq el-get-sources
-      '(autopair
-        browse-kill-ring
-        coffee-mode
-        color-theme
-        color-theme-chocolate-rain
-        color-theme-solarized
-        csv-mode
-        diminish
-        dired+
-        el-expectations
-        el-get
-        emacs-w3m
-        escreen
-        full-ack
-        gist
-        growl
-        haml-mode
-        highlight-indentation
-        ipython
-        json
-        markdown-mode
-        mode-compile
-        nxhtml
-        package
-        paredit
-        pymacs
-        python-mode
-        quack
-        rhtml-mode
-        rspec-mode
-        ruby-compilation
-        ruby-electric
-        ruby-mode
-        rvm
-        sass-mode
-        scratch
-        session
-        smart-tab
-        smex
-        switch-window
-        textile-mode
-        undo-tree
-        yaml-mode
-        yari
-        yasnippet
-
-        (:name goto-last-change
+      '((:name goto-last-change
                :after (lambda ()
                         (global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
@@ -63,12 +19,57 @@
 
         ;; elpa
         (:name dired-isearch :type elpa)
-        (:name htmlize :type elpa)
-        (:name inf-ruby :type elpa)
         (:name kill-ring-search :type elpa)
-        (:name slime :type elpa)
-        (:name textmate :type elpa)))
+        (:name slime :type elpa)))
 
-(el-get)
+(setq packages
+      (append
+       '(autopair
+         browse-kill-ring
+         coffee-mode
+         color-theme
+         color-theme-chocolate-rain
+         csv-mode
+         diminish
+         dired+
+         el-expectations
+         el-get
+         emacs-w3m
+         escreen
+         full-ack
+         growl
+         haml-mode
+         highlight-indentation
+         inf-ruby
+         json
+         markdown-mode
+         mode-compile
+         nxhtml
+         package
+         paredit
+         pymacs
+         python-mode
+         quack
+         rhtml-mode
+         rspec-mode
+         ruby-compilation
+         ruby-electric
+         ruby-mode
+         sass-mode
+         scala-mode
+         scratch
+         session
+         smart-tab
+         smex
+         switch-window
+         textile-mode
+         textmate
+         undo-tree
+         yaml-mode
+         yari
+         yasnippet)
+       (mapcar 'el-get-source-name el-get-sources)))
+
+(el-get 'sync packages)
 
 (provide 'mqt-el-get)
