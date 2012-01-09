@@ -1,5 +1,7 @@
 ;;; .emacs.d/.ercrc.el : Mark Tran <mark@nirv.net>
 
+(erc-track-disable)
+
 (setq erc-auto-query 'bury
       erc-button-buttonize-nicks nil
       erc-current-nick-highlight-type 'nick
@@ -14,6 +16,7 @@
       erc-kill-queries-on-quit t
       erc-kill-server-buffer-on-quit t
       erc-mode-line-format "%t"
+      erc-modules (delq 'track erc-modules)
       erc-notice-prefix "* "
       erc-prompt ">"
       erc-prompt-for-password nil
