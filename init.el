@@ -13,12 +13,12 @@
 
 ;; this needs to happen before packages like rvm.el load, which prepends the PATH
 (setenv "PATH"
-        (concat "/usr/local/bin" ":"
+        (concat "/Users/mark/.rbenv/shims" ":"
+                "/usr/local/bin" ":"
                 "/usr/local/share/python" ":"
                 "/usr/bin" ":"
                 "/bin" ":"
-                "/usr/local/share/npm/bin" ":"
-                "/Users/mark/.rbenv/shims"))
+                "/usr/local/share/npm/bin"))
 
 ;; set ansi colors before ansi-color-map is built somewhere in an el-get package
 (setq ansi-color-names-vector ["#000000" "#cf6a4c" "#7ca563" "#8a9a95"
