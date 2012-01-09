@@ -2,9 +2,9 @@
 
 (setq py-python-command-args '("-colors" "NoColor"))
 
-(eval-after-load 'python-mode
-  '(progn
-     (require 'ipython)))
+;; (eval-after-load 'python-mode
+;;   '(progn
+;;      (require 'ipython)))
 
 (add-hook 'python-mode-hook
           '(lambda () (whitespace-mode 1)) t)

@@ -41,6 +41,7 @@
          haml-mode
          highlight-indentation
          inf-ruby
+;;         ipython
          json
          markdown-mode
          mode-compile
