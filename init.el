@@ -42,7 +42,7 @@
 (require 'mqt-ruby)
 (require 'mqt-ui)
 
-(when (eq window-system 'ns)
+(when (eq system-type 'darwin)
   (require 'mqt-mac))
 
 (setq custom-file "~/.emacs.d/custom.el")
