@@ -35,13 +35,14 @@
          el-expectations
          el-get
          emacs-w3m
-         escreen
+         evil
+         evil-leader
+         evil-numbers
          full-ack
          growl
          haml-mode
          highlight-indentation
          inf-ruby
-;;         ipython
          json
          markdown-mode
          mode-compile
