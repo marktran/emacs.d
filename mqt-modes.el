@@ -35,6 +35,7 @@
       nxhtml-skip-welcome t
       nxml-degraded t
       rng-nxml-auto-validate-flag nil
+      rspec-use-bundler-when-possible nil
       w3m-home-page
       "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
       w3m-pop-up-windows nil
