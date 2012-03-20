@@ -4,8 +4,9 @@
 (column-number-mode 1)
 (fringe-mode '(0 . right-only))
 (global-font-lock-mode 1)
-(global-hl-line-mode 1)
-(show-paren-mode 1)
+(global-hl-line-mode -1)
+(menu-bar-mode -1)
+(show-paren-mode -1)
 (winner-mode 1)
 
 ;; settings
