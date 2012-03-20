@@ -12,7 +12,6 @@
 (setq default-indicate-buffer-boundaries 'right
       Info-use-header-line nil
       inhibit-startup-message t
-      interprogram-paste-function 'x-cut-buffer-or-selection-value
       linum-format "%3d "
       pop-up-windows nil
       ring-bell-function (lambda nil (message ""))
