@@ -18,7 +18,7 @@
                 "/usr/local/share/python" ":"
                 "/usr/bin" ":"
                 "/bin" ":"
-                "/usr/local/share/npm/bin"))
+                "/usr/local/lib/node_modules/.bin/"))
 
 ;; set ansi colors before ansi-color-map is built somewhere in an el-get package
 (setq ansi-color-names-vector ["#000000" "#cf6a4c" "#7ca563" "#8a9a95"
@@ -26,7 +26,7 @@
       exec-path '("/usr/local/bin"
                   "/usr/bin"
                   "/bin"
-                  "/usr/local/share/npm/bin"
+                  "/usr/local/lib/node_modules/.bin/"
                   "/Users/mark/.rbenv/shims"))
 
 ;; el-get
