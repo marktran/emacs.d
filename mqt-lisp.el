@@ -1,10 +1,5 @@
 ;;; .emacs.d/mqt-lisp.el : Mark Tran <mark@nirv.net>
 
-;; eldoc
-(dolist (hook '(emacs-lisp-mode-hook
-                lisp-interaction-mode-hook))
-  (add-hook hook 'turn-on-eldoc-mode))
-
 ;; paredit
 (autoload 'paredit-mode "paredit" nil t)
 
