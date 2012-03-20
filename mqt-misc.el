@@ -92,6 +92,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (dolist (mode '(("Cakefile" . coffee-mode)
+                ("Capfile" . ruby-mode)
+                ("Gemfile" . ruby-mode)
+                ("Rakefile" . ruby-mode)
                 ("\\.coffee$" . coffee-mode)
                 ("\\.css$" . css-mode)
                 ("\\.csv$" . csv-mode)
