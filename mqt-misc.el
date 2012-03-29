@@ -54,6 +54,7 @@
                                   (derived-mode-p 'erc-mode)))))
       ido-use-filename-at-point nil
       initial-scratch-message nil
+      isearch-lazy-highlight nil
       ispell-program-name "aspell"
       js-indent-level 2
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function

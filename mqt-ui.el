@@ -2,7 +2,6 @@
 
 ;; modes
 (column-number-mode 1)
-(fringe-mode '(0 . right-only))
 (global-font-lock-mode 1)
 (global-hl-line-mode -1)
 (menu-bar-mode -1)
@@ -37,13 +36,6 @@
   (setq frame-title-format
         (list (format "%%j")
               '(get-file-buffer "%f" (dired-directory dired-directory "%b")))))
-
-;; fringe, margins
-(define-fringe-bitmap 'bottom-right-angle [0] nil)
-(define-fringe-bitmap 'right-arrow [0] nil)
-(define-fringe-bitmap 'right-bracket [0] nil)
-(define-fringe-bitmap 'top-left-angle [0] nil)
-(define-fringe-bitmap 'top-right-angle [0] nil)
 
 ;; transparency
 (add-to-list 'default-frame-alist '(alpha . 99))
