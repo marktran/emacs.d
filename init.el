@@ -41,6 +41,7 @@
 (require 'mqt-python)
 (require 'mqt-ruby)
 (require 'mqt-ui)
+(require 'mqt-evil)
 
 (when (eq system-type 'darwin)
   (require 'mqt-mac))

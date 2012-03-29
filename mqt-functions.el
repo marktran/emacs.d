@@ -513,4 +513,103 @@ This is used to set `sql-alternate-buffer-name' within
         (select-window (funcall selector)))
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 
+(defmacro defkeymap (symbol &rest mappings)
+  "Define keymap bound to `symbol'.
+See `pour-mappings-to'"
+  `(defconst ,symbol (fill-keymap (make-sparse-keymap) ,@mappings)))
+
+(defun fill-keymap (keymap &rest mappings)
+  "Fill `KEYMAP' with `MAPPINGS'.
+See `pour-mappings-to'."
+  (pour-mappings-to keymap mappings))
+
+(defun fill-keymaps (keymaps &rest mappings)
+  "Fill `KEYMAPS' with `MAPPINGS'.
+See `pour-mappings-to'."
+  (dolist (keymap keymaps keymaps)
+    (let ((map (if (symbolp keymap)
+                   (symbol-value keymap)
+                 keymap)))
+      (pour-mappings-to map mappings))))
+
+(defmacro gen-fill-keymap-hook (keymap &rest mappings)
+  "Build fun that fills `KEYMAP' with `MAPPINGS'.
+See `pour-mappings-to'."
+  `(lambda () (fill-keymap ,keymap ,@mappings)))
+
+(defmacro gen-local-fill-keymap-hook (&rest mappings)
+  "Build fun that fills local keymap with `MAPPINGS'.
+See `pour-mappings-to'."
+  `(lambda () (fill-keymap 'local ,@mappings)))
+
+(defun pour-mappings-to (map mappings)
+  "Calls `cofi/set-key' with `map' on every key-fun pair in `MAPPINGS'.
+`MAPPINGS' is a list of string-fun pairs, with a `READ-KBD-MACRO'-readable string and a interactive-fun."
+  (dolist (mapping (group mappings 2))
+    (cofi/set-key map (car mapping) (cadr mapping)))
+  map)
+
+(defmacro cmd (&rest code)
+  "Macro for shorter keybindings."
+  `(lambda ()
+     (interactive)
+     ,@code))
+
+(defmacro cmd-arg (args iflag &rest code)
+  "Macro for shorter keybindings with argument.
+
+For example:
+  (cmd-arg (num) \"p\"
+    (message \"num-prefix: %d\" num)"
+  `(lambda ,args
+     (interactive ,iflag)
+     ,@code))
+
+(defun gen-extension-re (&rest extensions)
+  "Generate a regexp that matches all `EXTENSIONS'."
+  (concat "\\.\\("
+          (mapconcat 'identity
+                     extensions
+                     "\\|")
+          "\\)$"))
+
+(defun group (lst n)
+  "Group `LST' into portions of `N'."
+  (let (groups)
+    (while lst
+      (push (take n lst) groups)
+      (setq lst (nthcdr n lst)))
+    (nreverse groups)))
+
+(defun take (n lst)
+  "Return atmost the first `N' items of `LST'."
+  (let (acc '())
+    (while (and lst (> n 0))
+      (decf n)
+      (push (car lst) acc)
+      (setq  lst (cdr lst)))
+    (nreverse acc)))
+
+(defun cofi/set-key (map spec cmd)
+  "Set in `map' `spec' to `cmd'.
+
+`Map' may be `'global' `'local' or a keymap.
+A `spec' can be a `read-kbd-macro'-readable string or a vector."
+  (let ((setter-fun (case map
+                      (global #'global-set-key)
+                      (local  #'local-set-key)
+                      (t      (lambda (key def) (define-key map key def)))))
+        (key (typecase spec
+               (vector spec)
+               (string (read-kbd-macro spec))
+               (t (error "wrong argument")))))
+    (funcall setter-fun key cmd)))
+
+(defun def-assoc (key alist default)
+  "Return cdr of `KEY' in `ALIST' or `DEFAULT' if key is no car in alist."
+  (let ((match (assoc key alist)))
+    (if match
+        (cdr match)
+      default)))
+
 (provide 'mqt-functions)
