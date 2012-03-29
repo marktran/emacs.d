@@ -10,12 +10,16 @@
 
 (setq el-get-sources
       '((:name goto-last-change
-               :after (lambda ()
+               :after (progn
                         (global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
-        (:name magit
-               :after (lambda ()
-                        (global-set-key (kbd "C-x C-z") 'magit-status)))
+        (:name color-theme-ujelly
+         :type github
+         :pkgname "marktran/color-theme-ujelly"
+         :depends color-theme
+         :prepare (progn
+                    (autoload 'color-theme-ujelly "color-theme-ujelly"
+                      "color-theme: ujelly" t)))
 
         ;; elpa
         (:name dired-isearch :type elpa)
@@ -28,31 +32,25 @@
          browse-kill-ring
          coffee-mode
          color-theme
-         color-theme-chocolate-rain
          csv-mode
          diminish
-         dired+
          el-expectations
          el-get
          emacs-w3m
          evil
          evil-leader
          evil-numbers
-         full-ack
          growl
          haml-mode
          highlight-indentation
          inf-ruby
          json
+         magit
          markdown-mode
          mode-compile
-         nxhtml
          package
          paredit
-         pymacs
          python-mode
-         quack
-         rhtml-mode
          rspec-mode
          ruby-compilation
          ruby-electric
@@ -60,7 +58,6 @@
          sass-mode
          scala-mode
          scratch
-         session
          smart-tab
          smex
          switch-window
@@ -68,7 +65,6 @@
          textmate
          undo-tree
          yaml-mode
-         yari
          yasnippet)
        (mapcar 'el-get-source-name el-get-sources)))
 

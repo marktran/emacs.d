@@ -5,7 +5,6 @@
 (require 'browse-kill-ring)
 (require 'coffee-mode)
 (require 'diminish)
-(require 'dired+)
 (require 'scratch)
 (require 'smex)
 (require 'sql)
@@ -44,8 +43,7 @@
       zencoding-preview-default nil)
 
 (browse-kill-ring-default-keybindings)
-(global-undo-tree-mode)
-(toggle-diredp-find-file-reuse-dir 1)
+(global-undo-tree-mode 1)
 
 ;; coffee
 (defun coffee-custom ()
