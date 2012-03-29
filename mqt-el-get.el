@@ -51,6 +51,7 @@
          package
          paredit
          python-mode
+         quack
          rspec-mode
          ruby-compilation
          ruby-electric
