@@ -23,7 +23,7 @@
   "g" 'magit-status
   "k" 'kill-this-buffer
   "r" 'recentf-ido-find-file
-  "s" 'suspend-frame
+  "s" 'rspec-verify-single
   "t" 'ido-goto-symbol)
 
 (when evil-want-C-u-scroll
