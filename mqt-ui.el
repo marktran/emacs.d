@@ -40,4 +40,6 @@
 ;; transparency
 (add-to-list 'default-frame-alist '(alpha . 99))
 
+(load-theme 'ujelly t)
+
 (provide 'mqt-ui)

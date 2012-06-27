@@ -8,7 +8,6 @@
 (require 'scratch)
 (require 'smex)
 (require 'sql)
-(require 'switch-window)
 (require 'undo-tree)
 (require 'tramp)
 (autoload 'coffee-mode "coffee-mode" nil t)
@@ -22,7 +21,6 @@
 
 ;; settings
 (setq ack-prompt-for-directory t
-      bookmark-default-file "~/.emacs.d/.emacs.bmk"
       browse-kill-ring-quit-action 'save-and-restore
       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
       mumamo-chunk-coloring 1
@@ -30,6 +28,7 @@
       nxml-degraded t
       rng-nxml-auto-validate-flag nil
       rspec-use-bundler-when-possible nil
+      scss-compile-at-save nil
       w3m-home-page
       "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
       w3m-pop-up-windows nil
@@ -55,9 +54,7 @@
 (add-hook 'coffee-mode-hook '(lambda() (coffee-custom)))
 
 ;; diminish
-(diminish 'autopair-mode)
 (diminish 'eldoc-mode)
-(diminish 'textmate-mode)
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
 (diminish 'yas/minor-mode)
@@ -74,6 +71,9 @@
 (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
 (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
 (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+
+;; electric-pair
+(electric-pair-mode)
 
 ;; flymake
 (eval-after-load 'flymake

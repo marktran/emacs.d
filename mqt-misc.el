@@ -1,10 +1,11 @@
-;;; .emacs.d/mqt-misc.el : Mark Tran <mark@nirv.net>
+;;; .emacs.d/mqt-misc.el : Mark Tran <mark.tran@gmail.com>
 
 (if (not (file-exists-p "~/.emacs.d/backups"))
     (make-directory "~/.emacs.d/backups" t))
 
 ;; load
-(ido-mode t)
+(desktop-save-mode 1)
+(ido-mode 1)
 (recentf-mode 1)
 (cua-mode 1)
 
@@ -15,7 +16,9 @@
       comment-auto-fill-only-comments t
       compilation-message-face nil
       confirm-nonexistent-file-or-buffer nil
+      css-indent-offset 2
       cua-enable-cua-keys nil
+      desktop-dirname "~/.emacs.d/"
       disabled-command-function nil
       display-time-24hr-format t
       display-time-default-load-average nil
@@ -39,13 +42,13 @@
                            "^\\*Ido"
                            "^\\*IPython"
                            "^\\*Messages\\*"
-                           "^\\*magit-"
+                           "^\\*magit"
                            "^\\*Pymacs\\*"
                            "^\\*Python Output\\*"
                            "^\\*RE-Builder\\*"
-                           "^\\*rhtml-"
                            "^\\*Shell Command Output\\*"
                            "^\\*XML Validation Header\\*"
+                           "^Dired:"
                            ,(lambda (name)
                               (if (derived-mode-p 'erc-mode)
                                   (with-current-buffer name
@@ -60,12 +63,8 @@
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function
                                         kill-buffer-query-functions)
       ns-pop-up-frames nil
-      org-hide-block-startup t
-      org-hide-leading-stars t
-      org-level-color-stars-only t
+      org-completion-use-ido t
       org-log-done 'time
-      org-startup-folded nil
-      org-startup-indented t
       recentf-max-menu-items 25
       require-final-newline nil
       scroll-conservatively 100000
@@ -95,14 +94,18 @@
 (dolist (mode '(("Cakefile" . coffee-mode)
                 ("Capfile" . ruby-mode)
                 ("Gemfile" . ruby-mode)
+                ("Guardfile" . ruby-mode)
                 ("Rakefile" . ruby-mode)
                 ("\\.coffee$" . coffee-mode)
                 ("\\.css$" . css-mode)
                 ("\\.csv$" . csv-mode)
+                ("\\.eco$" . rhtml-mode)
+                ("\\.jbuilder$" . ruby-mode)
                 ("\\.js$" . js-mode)
+                ("\\.less$" . css-mode)
                 ("\\.md$" . markdown-mode)
                 ("\\.pjs$" . js-mode)
-                ("\\.[sx]?html?$" . nxhtml-mode)
+                ("\\.html$" . html-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.ya?ml$" . yaml-mode)
                 ("\\.zsh$" . shell-script-mode)))
@@ -115,8 +118,15 @@
                                "ssh"))
               (add-to-list 'eshell-visual-commands command))
 
-            (local-set-key (kbd "<up>") 'windmove-up)
-            (local-set-key (kbd "<down>") 'windmove-down)))
+            (local-set-key (kbd "C-w C-k") 'windmove-up)
+            (local-set-key (kbd "C-w C-l") 'windmove-right)
+            (local-set-key (kbd "C-w C-j") 'windmove-down)
+            (local-set-key (kbd "C-w C-h") 'windmove-left)
+
+            (local-set-key (kbd "C-w k") 'windmove-up)
+            (local-set-key (kbd "C-w l") 'windmove-right)
+            (local-set-key (kbd "C-w j") 'windmove-down)
+            (local-set-key (kbd "C-w h") 'windmove-left)))
 
 ;; names of buffers that should appear in the "same" window
 (dolist (name '("*SQL*"))

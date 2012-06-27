@@ -13,32 +13,32 @@
                 slime-repl-mode-hook))
   (add-hook hook 'paredit-mode))
 
-(require 'slime-autoloads)
+;; (require 'slime-autoloads)
 
 (set-language-environment "UTF-8")
 (setq default-enable-multibyte-characters t
       slime-net-coding-system 'utf-8-unix)
-(eval-after-load 'slime
-  '(progn
-     (slime-setup
-      '(slime-repl
-        slime-asdf
-        slime-autodoc
-        slime-fancy
-        slime-references
-        slime-scratch
-        slime-tramp))
+;; (eval-after-load 'slime
+;;   '(progn
+;;      (slime-setup
+;;       '(slime-repl
+;;         slime-asdf
+;;         slime-autodoc
+;;         slime-fancy
+;;         slime-references
+;;         slime-scratch
+;;         slime-tramp))
 
-     (setq slime-complete-symbol*-fancy t
-           slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+;;      (setq slime-complete-symbol*-fancy t
+;;            slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
 
-     (define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
-     (define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)))
+;;      (define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
+;;      (define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)))
 
-(add-hook 'lisp-mode-hook (lambda ()
-                            (cond ((not (featurep 'slime))
-                                   (require 'slime)
-                                   (normal-mode)))))
+;; (add-hook 'lisp-mode-hook (lambda ()
+;;                             (cond ((not (featurep 'slime))
+;;                                    (require 'slime)
+;;                                    (normal-mode)))))
 
 ;; scheme
 (autoload 'quack-scheme-mode-hookfunc "quack")

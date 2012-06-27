@@ -48,69 +48,6 @@ safe-local-variable-values."
        (dolist (variable (cdr class))
          (add-to-list 'safe-local-variable-values variable)))))
 
-;; http://www.emacswiki.org/emacs/AutoPairs#toc8
-(setq skeleton-pair t
-      skeleton-pair-alist
-      '((?\( _ ?\))
-        (?[  _ ?])
-        (?{  _ ?})
-        (?\" _ ?\")))
-
-(defun autopair-insert (arg)
-  (interactive "P")
-  (let (pair)
-    (cond
-     ((assq last-command-char skeleton-pair-alist)
-      (autopair-open arg))
-     (t
-      (autopair-close arg)))))
-
-(defun autopair-open (arg)
-  (interactive "P")
-  (let ((pair (assq last-command-char
-                    skeleton-pair-alist)))
-    (cond
-     ((and (not mark-active)
-           (eq (car pair) (car (last pair)))
-           (eq (car pair) (char-after)))
-      (autopair-close arg))
-     (t
-      (skeleton-pair-insert-maybe arg)))))
-
-(defun autopair-close (arg)
-  (interactive "P")
-  (cond
-   (mark-active
-    (let (pair open)
-      (dolist (pair skeleton-pair-alist)
-        (when (eq last-command-char (car (last pair)))
-          (setq open (car pair))))
-      (setq last-command-char open)
-      (skeleton-pair-insert-maybe arg)))
-   ((looking-at
-     (concat "[ \t\n]*"
-             (regexp-quote (string last-command-char))))
-    (replace-match (string last-command-char))
-    (indent-according-to-mode))
-   (t
-    (self-insert-command (prefix-numeric-value arg))
-    (indent-according-to-mode))))
-
-(defadvice delete-backward-char (before autopair activate)
-  (when (and (char-after)
-             (eq this-command 'delete-backward-char)
-             (eq (char-after)
-                 (car (last (assq (char-before) skeleton-pair-alist)))))
-    (delete-char 1)))
-
-;; (global-set-key "("  'autopair-insert)
-;; (global-set-key ")"  'autopair-insert)
-;; (global-set-key "["  'autopair-insert)
-;; (global-set-key "]"  'autopair-insert)
-;; (global-set-key "{"  'autopair-insert)
-;; (global-set-key "}"  'autopair-insert)
-;; (global-set-key "\"" 'autopair-insert)
-
 ;; using IDO for bookmarks and recent files
 ;; http://blog.kelsin.net/2010/04/22/using-ido-for-bookmarks-and-recent-files/
 (defun bookmark-ido-find-file ()
@@ -454,6 +391,10 @@ comment-dwim, when it inserts comment at the end of the line."
       (setq buffer (car list))))
   (message "Refreshed open files"))
 
+;; https://github.com/technomancy/ido-ubiquitous/issues/3
+(defadvice rgrep (around original-completing-read-only activate)
+  (let (ido-ubiquitous-enabled) ad-do-it))
+
 ;; http://atomized.org/2010/06/ \
 ;; resolving-merge-conflicts-the-easy-way-with-smerge-kmacro/
 (defun sm-try-smerge ()
@@ -611,5 +552,32 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
     (if match
         (cdr match)
       default)))
+
+;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-windowing.el
+(autoload 'windmove-find-other-window "windmove")
+(defun swap-window (direction)
+  "Swap current window with the one in `direction'."
+  (interactive (list (ido-completing-read "Swap with window: "
+                                          (mapcar 'symbol-name
+                                                  '(left right down up)))))
+  (let* ((dir (if (symbolp direction)
+                  direction
+                (intern direction)))
+        (other-window (windmove-find-other-window dir)))
+    (when other-window
+      (let* ((this-window (selected-window))
+             (this-buffer (window-buffer this-window))
+             (other-buffer (window-buffer other-window))
+             (this-start (window-start this-window))
+             (other-start (window-start other-window)))
+        (set-window-buffer this-window other-buffer)
+        (set-window-buffer other-window this-buffer)
+        (set-window-start this-window other-start)
+        (set-window-start other-window this-start)))))
+
+(defun swap-with-left () (interactive) (swap-window 'left))
+(defun swap-with-down () (interactive) (swap-window 'down))
+(defun swap-with-up () (interactive) (swap-window 'up))
+(defun swap-with-right () (interactive) (swap-window 'right))
 
 (provide 'mqt-functions)
