@@ -11,7 +11,6 @@ alias 8 cd -8
 alias 9 cd -9
 
 alias e find-file $1
-alias open find-file $1
 alias l ls $*
 alias l. ls -d .*
 alias ll ls -l $*
