@@ -1,9 +1,10 @@
 auto-save-list/
 backups/
-el-get
+el-get/
+url/
 vendor/
 
-.emacs.bmk
+bookmarks
 .visited-files
 local.el
 custom.el
