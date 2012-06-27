@@ -49,6 +49,3 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 (load "~/.emacs.d/local.el" 'noerror)
-
-;; start server
-(server-start)
