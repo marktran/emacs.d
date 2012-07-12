@@ -32,10 +32,9 @@
 (loop for (mode . state) in '((inferior-emacs-lisp-mode      . emacs)
                               (comint-mode                   . emacs)
                               (eshell-mode                   . emacs)
-                              (shell-mode                    . emacs)
-                              (term-mode                     . emacs)
-                              (magit-branch-manager-mode-map . emacs)
-                              (magit-log-edit-mode           . emacs))
+                              (magit-show-branches-mode      . emacs)
+                              (magit-log-edit-mode           . emacs)
+                              (sql-interactive-mode          . emacs))
       do (evil-set-initial-state mode state))
 
 (evil-declare-key 'normal org-mode-map
