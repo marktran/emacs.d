@@ -40,7 +40,6 @@
          dired+
          el-expectations
          el-get
-         emacs-w3m
          evil
          evil-leader
          evil-numbers
@@ -57,7 +56,6 @@
          package
          paredit
          python-mode
-         quack
          rhtml-mode
          rspec-mode
          ;; ruby-compilation
