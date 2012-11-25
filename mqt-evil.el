@@ -20,14 +20,14 @@
   "a" 'bookmark-ido-find-file
   "b" 'ido-switch-buffer
   "d" 'dired-jump
-  "e" 'eshell
   "f" 'ido-find-file
   "g" 'magit-status
   "k" 'kill-this-buffer
   "o" 'browse-url-of-file
   "r" 'recentf-ido-find-file
   "s" 'rspec-verify-single
-  "t" 'ido-goto-symbol)
+  "t" 'ido-goto-symbol
+  "v" 'rspec-verify)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode      . emacs)
                               (comint-mode                   . emacs)
@@ -55,25 +55,25 @@
   (kbd "M-L") 'org-metaright)
 
 (evil-declare-key 'insert org-mode-map
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
+                  (kbd "M-j") 'org-shiftleft
+                  (kbd "M-k") 'org-shiftright
+                  (kbd "M-H") 'org-metaleft
+                  (kbd "M-J") 'org-metadown
+                  (kbd "M-K") 'org-metaup
+                  (kbd "M-L") 'org-metaright)
+
+(eval-after-load 'compile
+  '(progn
+     (evil-define-key 'motion compilation-mode-map "h" 'evil-backward-char)
+     (evil-define-key 'motion compilation-mode-map "0" 'evil-digit-argument-or-evil-beginning-of-line)))
 
 (fill-keymap evil-window-map
-             "M-h"       'swap-with-left
-             "M-j"       'swap-with-down
-             "M-k"       'swap-with-up
-             "M-l"       'swap-with-right
-             "S-<left>"  'swap-with-left
-             "S-<down>"  'swap-with-down
-             "S-<up>"    'swap-with-up
-             "S-<right>" 'swap-with-right
-             "SPC"       'swap-window
-
-             "u" 'winner-undo
+             "M-h" 'swap-with-left
+             "M-j" 'swap-with-down
+             "M-k" 'swap-with-up
+             "M-l" 'swap-with-right
+             "SPC" 'swap-window
+             "u"   'winner-undo
              "C-r" 'winner-redo)
 
 (provide 'mqt-evil)
