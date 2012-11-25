@@ -55,7 +55,6 @@
 (diminish 'eldoc-mode)
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
-(diminish 'yas/minor-mode)
 (eval-after-load "paredit" '(diminish 'paredit-mode))
 (eval-after-load "ruby-electric" '(diminish 'ruby-electric-mode))
 (eval-after-load "whitespace" '(diminish 'whitespace-mode " W"))
