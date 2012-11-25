@@ -4,10 +4,11 @@
     (make-directory "~/.emacs.d/backups" t))
 
 ;; load
+(cua-mode 1)
 (desktop-save-mode 1)
+(global-auto-revert-mode 1)
 (ido-mode 1)
 (recentf-mode 1)
-(cua-mode 1)
 
 ;; settings
 (setq auto-save-default nil
@@ -100,6 +101,7 @@
                 ("\\.css$" . css-mode)
                 ("\\.csv$" . csv-mode)
                 ("\\.eco$" . rhtml-mode)
+                ("\\.gemspec$" . ruby-mode)
                 ("\\.jbuilder$" . ruby-mode)
                 ("\\.js$" . js-mode)
                 ("\\.less$" . css-mode)
