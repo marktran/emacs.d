@@ -17,7 +17,6 @@
 (autoload 'magit-status "magit" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'mode-compile "mode-compile" nil t)
-(autoload 'w3m "w3m-load" nil t)
 
 ;; settings
 (setq ack-prompt-for-directory t
@@ -27,7 +26,6 @@
       nxhtml-skip-welcome t
       nxml-degraded t
       rng-nxml-auto-validate-flag nil
-      rspec-use-bundler-when-possible nil
       scss-compile-at-save nil
       w3m-home-page
       "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start"
