@@ -14,3 +14,5 @@ alias e find-file $1
 alias l ls $*
 alias l. ls -d .*
 alias ll ls -l $*
+
+alias t tree
