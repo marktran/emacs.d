@@ -75,5 +75,3 @@
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync packages)
-
-(provide 'mqt-el-get)

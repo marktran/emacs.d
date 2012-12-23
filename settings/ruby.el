@@ -1,5 +1,3 @@
-;;; .emacs.d/mqt-ruby.el : Mark Tran <mark@nirv.net>
-
 (autoload 'inf-ruby "inf-ruby" nil t)
 (autoload 'inf-ruby-keys "inf-ruby" nil t)
 (autoload 'rspec-mode "rspec-mode" nil t)
@@ -11,13 +9,18 @@
       ruby-deep-indent-paren nil
       ruby-electric-expand-delimiters-list nil)
 
-(defun ri-bind-key ()
-  (local-set-key [f1] 'yari)
-  (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent))
-
 (add-hook 'ruby-mode-hook 'inf-ruby-keys)
-(add-hook 'ruby-mode-hook 'ri-bind-key)
 (add-hook 'ruby-mode-hook 'run-coding-hook)
+
+(dolist (mode '(("Capfile" . ruby-mode)
+                ("Gemfile" . ruby-mode)
+                ("Guardfile" . ruby-mode)
+                ("Rakefile" . ruby-mode)
+                ("\\.gemspec$" . ruby-mode)
+                ("\\.jbuilder$" . ruby-mode)))
+  (add-to-list 'auto-mode-alist mode))
+
+;; functions
 
 ;; workaround for ruby-electric breaking yasnippet
 ;; http://code.google.com/p/yasnippet/issues/detail?id=71#c11
@@ -32,5 +35,3 @@
                ad-do-it)))))
 
 (yas/advise-indent-function 'ruby-indent-line)
-
-(provide 'mqt-ruby)

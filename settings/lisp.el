@@ -1,4 +1,5 @@
-;;; .emacs.d/mqt-lisp.el : Mark Tran <mark@nirv.net>
+(require 'cl)
+(require 'eldoc)
 
 ;; paredit
 (autoload 'paredit-mode "paredit" nil t)
@@ -55,5 +56,3 @@
 
 (add-hook 'scheme-mode-hook 'quack-scheme-mode-hookfunc)
 (add-hook 'inferior-scheme-mode-hook 'quack-inferior-scheme-mode-hookfunc)
-
-(provide 'mqt-lisp)

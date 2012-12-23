@@ -1,5 +1,3 @@
-;;; .emacs.d/mqt-functions.el : Mark Tran <mark@nirv.net>
-
 ;; auto indentation for pasted lines
 ;; http://www.emacswiki.org/emacs/AutoIndentation
 (dolist (command '(yank yank-pop))
@@ -59,38 +57,6 @@ safe-local-variable-values."
     (when bm
       (bookmark-jump bm))))
 
-;; calculate rows/columns based on resolution
-(defconst display-padding '(100 50)
-  "Amount of padding, in pixels, around the outside of the frame")
-
-(defconst menubar-height 22
-  "Magic Number. Menubar has a height of 22 pixels")
-
-(defun calculate-columns (pixel-width)
-  "Calculate available columns from the display pixel width"
-  (let ((dock-width (string-to-number
-                      (shell-command-to-string
-                       "defaults read com.apple.dock tilesize")))
-        (left-fringe (or left-fringe-width (nth 0 (window-fringes)) 0))
-        (right-fringe (or right-fringe-width (nth 1 (window-fringes)) 0))
-        (scroll-bar (or (frame-parameter nil 'scroll-bar-width) 0)))
-      (/ (- pixel-width (nth 0 display-padding) left-fringe right-fringe
-            scroll-bar dock-width)
-      (frame-char-width))))
-
-(defun calculate-rows (pixel-height)
-  "Calculate available rows from the display pixel height"
-  (/ (- pixel-height (nth 1 display-padding) menubar-height)
-     (frame-char-height)))
-
-(defun calculate-x-position (padding-width)
-  "Calculate X offset from the display padding width"
-  (/ padding-width 2))
-
-(defun calculate-y-position (padding-height)
-  "Calculate Y offset from the display padding height"
-  (+ (/ padding-height 2) menubar-height))
-
 ;; https://github.com/technomancy/emacs-starter-kit/blob/master/starter-kit-defuns.el
 (defun add-watchwords ()
   (font-lock-add-keywords
@@ -143,64 +109,6 @@ comment-dwim, when it inserts comment at the end of the line."
                                      allcomp
                                      nil require-match initial-input hist def))
         ad-do-it))))
-
-;; http://article.gmane.org/gmane.emacs.help/69021
-(defmacro elscreen-create-automatically (ad-do-it)
-  `(if (not (elscreen-one-screen-p))
-       ,ad-do-it
-     (elscreen-create)
-     (elscreen-notify-screen-modification 'force-immediately)
-     (elscreen-message "New screen is automatically created")))
-
-(defadvice elscreen-jump (before elscreen-jump-create activate)
-  (let ((next-screen (string-to-number (string last-command-event))))
-    (when (and (<= 0 next-screen)
-               (<= next-screen 9)
-               (not (elscreen-screen-live-p next-screen)))
-      (elscreen-set-window-configuration
-       (elscreen-get-current-screen)
-       (elscreen-current-window-configuration))
-      (elscreen-set-window-configuration
-       next-screen (elscreen-default-window-configuration))
-      (elscreen-append-screen-to-history next-screen)
-      (elscreen-notify-screen-modification 'force))))
-
-(defadvice elscreen-next (around elscreen-create-automatically activate)
-  (elscreen-create-automatically ad-do-it))
-
-(defadvice elscreen-previous (around elscreen-create-automatically activate)
-  (elscreen-create-automatically ad-do-it))
-
-(defadvice elscreen-toggle (around elscreen-create-automatically activate)
-  (elscreen-create-automatically ad-do-it))
-
-;; highlight HTML-style color strings in the color they specify
-(defvar hexcolor-keywords
-  '(("#[ABCDEFabcdef[:digit:]]\\{6\\}"
-     (0 (put-text-property
-         (match-beginning 0)
-         (match-end 0)
-         'face (list :background
-                     (match-string-no-properties 0)))))))
-
-(defun hexcolor-add-to-font-lock ()
-  (interactive)
-  (font-lock-add-keywords nil hexcolor-keywords))
-
-;; http://www.emacswiki.org/emacs/InteractivelyDoThings#toc4
-(defun ido-erc-buffer ()
-  (interactive)
-  (switch-to-buffer
-   (ido-completing-read "Channel: "
-                        (save-excursion
-                          (delq
-                           nil
-                           (mapcar (lambda (buf)
-                                     (when (buffer-live-p buf)
-                                       (with-current-buffer buf
-                                         (and (eq major-mode 'erc-mode)
-                                              (buffer-name buf)))))
-                                   (buffer-list)))))))
 
 ;; http://www.emacswiki.org/emacs/TextMate
 (defun ido-find-file-in-tag-files ()
@@ -579,5 +487,3 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 (defun swap-with-down () (interactive) (swap-window 'down))
 (defun swap-with-up () (interactive) (swap-window 'up))
 (defun swap-with-right () (interactive) (swap-window 'right))
-
-(provide 'mqt-functions)

@@ -1,5 +1,3 @@
-;;; .emacs.d/mqt-keybindings.el : Mark Tran <mark@nirv.net>
-
 ;; function keys
 (global-set-key [(f4)] 'ack)
 (global-set-key [(f5)] 'query-replace-regexp)
@@ -28,5 +26,3 @@
 
 (global-set-key (kbd "M-o") 'other-window)
 (add-hook 'dired-mode-hook (lambda () (define-key dired-mode-map (kbd "M-o") 'other-window)))
-
-(provide 'mqt-keybindings)

@@ -75,5 +75,3 @@
              "SPC" 'swap-window
              "u"   'winner-undo
              "C-r" 'winner-redo)
-
-(provide 'mqt-evil)

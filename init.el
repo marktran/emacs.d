@@ -1,47 +1,12 @@
-;;; .emacs.d/init.el : Mark Tran <mark@nirv.net>
-
-;; load paths
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
-;; require built-in packages
-(require 'cl)
-(require 'compile)
-(require 'eldoc)
-(require 'thingatpt)
-(require 'uniquify)
-
-;; this needs to happen before packages like rvm.el load, which prepends the PATH
-(setenv "PATH"
-        (concat "/Users/mark/.rbenv/shims" ":"
-                "/usr/local/bin" ":"
-                "/usr/local/share/python" ":"
-                "/usr/bin" ":"
-                "/bin" ":"
-                "/usr/local/lib/node_modules/.bin/"))
-
-(setq exec-path '("/usr/local/bin"
-                  "/usr/bin"
-                  "/bin"
-                  "/usr/local/lib/node_modules/.bin/"
-                  "/Users/mark/.rbenv/shims"))
-
-;; el-get
-(require 'mqt-el-get)
-
-;; init
-(require 'mqt-functions)
-(require 'mqt-keybindings)
-(require 'mqt-lisp)
-(require 'mqt-misc)
-(require 'mqt-modes)
-(require 'mqt-python)
-(require 'mqt-ruby)
-(require 'mqt-ui)
-(require 'mqt-evil)
-
-(when (eq system-type 'darwin)
-  (require 'mqt-mac))
+(load-file "~/.emacs.d/platform/mac.el")
+(load-file "~/.emacs.d/packages.el")
+(load-file "~/.emacs.d/functions.el")
+(load-file "~/.emacs.d/settings.el")
+(load-file "~/.emacs.d/keybindings.el")
+(load-file "~/.emacs.d/ui.el")
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
