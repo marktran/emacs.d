@@ -1,1 +1,1 @@
-(setq auto-mode-alist (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.zsh$" shell-script-mode))

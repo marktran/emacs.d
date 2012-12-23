@@ -1,1 +1,1 @@
-(setq auto-mode-alist (cons '("\\.ya?ml$" . yaml-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" yaml-mode))
