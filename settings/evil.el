@@ -67,6 +67,9 @@
      (evil-define-key 'motion compilation-mode-map "h" 'evil-backward-char)
      (evil-define-key 'motion compilation-mode-map "0" 'evil-digit-argument-or-evil-beginning-of-line)))
 
+(fill-keymap evil-normal-state-map
+             "SPC" 'ace-jump-char-mode)
+
 (fill-keymap evil-window-map
              "M-h" 'swap-with-left
              "M-j" 'swap-with-down

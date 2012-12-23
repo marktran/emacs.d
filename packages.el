@@ -33,7 +33,8 @@
 
 (setq packages
       (append
-       '(browse-kill-ring
+       '(ace-jump-mode
+         browse-kill-ring
          coffee-mode
          csv-mode
          diminish
@@ -51,6 +52,7 @@
          inf-ruby
          json
          magit
+         magithub
          markdown-mode
          mode-compile
          package
