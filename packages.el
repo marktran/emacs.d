@@ -49,6 +49,7 @@
          growl
          haml-mode
          highlight-indentation
+         ido-ubiquitous
          inf-ruby
          json
          magit

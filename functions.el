@@ -82,34 +82,6 @@ comment-dwim, when it inserts comment at the end of the line."
                                    (line-end-position))
     (comment-dwim arg)))
 
-;; ido complete everything
-;; http://www.emacswiki.org/emacs/InteractivelyDoThings#toc13
-(defvar ido-enable-replace-completing-read t
-  "If t, use ido-completing-read instead of completing-read if possible.
-    
-    Set it to nil using let in around-advice for functions where the
-    original completing-read is required.  For example, if a function
-    foo absolutely must use the original completing-read, define some
-    advice like this:
-    
-    (defadvice foo (around original-completing-read-only activate)
-      (let (ido-enable-replace-completing-read) ad-do-it))")
-
-;; Replace completing-read wherever possible, unless directed otherwise
-(defadvice completing-read
-  (around use-ido-when-possible activate)
-  (if (or (not ido-enable-replace-completing-read) ; Manual override disable ido
-          (and (boundp 'ido-cur-list)
-               ido-cur-list)) ; Avoid infinite loop from ido calling this
-      ad-do-it
-    (let ((allcomp (all-completions "" collection predicate)))
-      (if allcomp
-          (setq ad-return-value
-                (ido-completing-read prompt
-                                     allcomp
-                                     nil require-match initial-input hist def))
-        ad-do-it))))
-
 ;; http://www.emacswiki.org/emacs/TextMate
 (defun ido-find-file-in-tag-files ()
   (interactive)
@@ -240,14 +212,6 @@ comment-dwim, when it inserts comment at the end of the line."
   ;; Since we killed it, don't let caller do that.
   nil)
 
-;;
-(defun kmacro-start-or-end (arg)
-  "Toggle recording of keyboard macro."
-  (interactive "P")
-  (if defining-kbd-macro
-      (kmacro-end-macro arg)
-    (kmacro-start-macro arg)))
-
 ;; http://www.emacswiki.org/emacs-es/RecentFiles#toc7
 (defun recentf-ido-find-file ()
   "Find a recent file using Ido."
@@ -349,53 +313,17 @@ This is used to set `sql-alternate-buffer-name' within
         (switch-to-buffer buffer)
       (funcall function))))
 
-;; http://www.emacswiki.org/emacs/TransposeWindows
-(defun transpose-windows (arg)
-  "Transpose the buffers shown in two windows."
-  (interactive "p")
-  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
-    (while (/= arg 0)
-      (let ((this-win (window-buffer))
-            (next-win (window-buffer (funcall selector))))
-        (set-window-buffer (selected-window) next-win)
-        (set-window-buffer (funcall selector) this-win)
-        (select-window (funcall selector)))
-      (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
-
-(defmacro defkeymap (symbol &rest mappings)
-  "Define keymap bound to `symbol'.
-See `pour-mappings-to'"
-  `(defconst ,symbol (fill-keymap (make-sparse-keymap) ,@mappings)))
-
+;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-func.el
 (defun fill-keymap (keymap &rest mappings)
   "Fill `KEYMAP' with `MAPPINGS'.
 See `pour-mappings-to'."
   (pour-mappings-to keymap mappings))
 
-(defun fill-keymaps (keymaps &rest mappings)
-  "Fill `KEYMAPS' with `MAPPINGS'.
-See `pour-mappings-to'."
-  (dolist (keymap keymaps keymaps)
-    (let ((map (if (symbolp keymap)
-                   (symbol-value keymap)
-                 keymap)))
-      (pour-mappings-to map mappings))))
-
-(defmacro gen-fill-keymap-hook (keymap &rest mappings)
-  "Build fun that fills `KEYMAP' with `MAPPINGS'.
-See `pour-mappings-to'."
-  `(lambda () (fill-keymap ,keymap ,@mappings)))
-
-(defmacro gen-local-fill-keymap-hook (&rest mappings)
-  "Build fun that fills local keymap with `MAPPINGS'.
-See `pour-mappings-to'."
-  `(lambda () (fill-keymap 'local ,@mappings)))
-
 (defun pour-mappings-to (map mappings)
-  "Calls `cofi/set-key' with `map' on every key-fun pair in `MAPPINGS'.
+  "Calls `set-key' with `map' on every key-fun pair in `MAPPINGS'.
 `MAPPINGS' is a list of string-fun pairs, with a `READ-KBD-MACRO'-readable string and a interactive-fun."
   (dolist (mapping (group mappings 2))
-    (cofi/set-key map (car mapping) (cadr mapping)))
+    (set-key map (car mapping) (cadr mapping)))
   map)
 
 (defmacro cmd (&rest code)
@@ -403,24 +331,6 @@ See `pour-mappings-to'."
   `(lambda ()
      (interactive)
      ,@code))
-
-(defmacro cmd-arg (args iflag &rest code)
-  "Macro for shorter keybindings with argument.
-
-For example:
-  (cmd-arg (num) \"p\"
-    (message \"num-prefix: %d\" num)"
-  `(lambda ,args
-     (interactive ,iflag)
-     ,@code))
-
-(defun gen-extension-re (&rest extensions)
-  "Generate a regexp that matches all `EXTENSIONS'."
-  (concat "\\.\\("
-          (mapconcat 'identity
-                     extensions
-                     "\\|")
-          "\\)$"))
 
 (defun group (lst n)
   "Group `LST' into portions of `N'."
@@ -439,7 +349,7 @@ For example:
       (setq  lst (cdr lst)))
     (nreverse acc)))
 
-(defun cofi/set-key (map spec cmd)
+(defun set-key (map spec cmd)
   "Set in `map' `spec' to `cmd'.
 
 `Map' may be `'global' `'local' or a keymap.
@@ -453,13 +363,6 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
                (string (read-kbd-macro spec))
                (t (error "wrong argument")))))
     (funcall setter-fun key cmd)))
-
-(defun def-assoc (key alist default)
-  "Return cdr of `KEY' in `ALIST' or `DEFAULT' if key is no car in alist."
-  (let ((match (assoc key alist)))
-    (if match
-        (cdr match)
-      default)))
 
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-windowing.el
 (autoload 'windmove-find-other-window "windmove")

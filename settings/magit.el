@@ -1,5 +1,9 @@
 (require 'magit)
 
+(setq magit-completing-read-function 'magit-ido-completing-read
+      magit-remote-ref-format 'remote-slash-name
+      vc-handled-backends '(git))
+
 (defun vc-annotate-quit ()
   "Restores the previous window configuration and kills the vc-annotate buffer"
   (interactive)

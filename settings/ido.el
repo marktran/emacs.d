@@ -1,4 +1,5 @@
 (ido-mode t)
+(ido-ubiquitous t)
 
 (setq ido-create-new-buffer 'always
       ido-enable-flex-matching t
@@ -27,7 +28,3 @@
       ido-use-filename-at-point nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
-
-(add-hook 'ido-setup-hook
-          (lambda ()
-            (define-key ido-completion-map [tab] 'ido-complete)))
