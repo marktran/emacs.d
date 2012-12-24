@@ -1,3 +1,5 @@
+(global-auto-revert-mode t)
+
 (setq auto-save-default nil
       comment-auto-fill-only-comments t
       confirm-nonexistent-file-or-buffer nil
