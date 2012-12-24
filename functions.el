@@ -319,6 +319,11 @@ This is used to set `sql-alternate-buffer-name' within
 See `pour-mappings-to'."
   (pour-mappings-to keymap mappings))
 
+(defmacro gen-fill-keymap-hook (keymap &rest mappings)
+  "Build fun that fills `KEYMAP' with `MAPPINGS'.
+See `pour-mappings-to'."
+  `(lambda () (fill-keymap ,keymap ,@mappings)))
+
 (defun pour-mappings-to (map mappings)
   "Calls `set-key' with `map' on every key-fun pair in `MAPPINGS'.
 `MAPPINGS' is a list of string-fun pairs, with a `READ-KBD-MACRO'-readable string and a interactive-fun."

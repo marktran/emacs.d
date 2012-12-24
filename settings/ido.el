@@ -28,3 +28,8 @@
       ido-use-filename-at-point nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
+
+(add-hook 'ido-setup-hook
+          (gen-fill-keymap-hook ido-completion-map
+                                "C-h" 'ido-prev-match
+                                "C-l" 'ido-next-match))
