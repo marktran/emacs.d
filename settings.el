@@ -1,9 +1,13 @@
+;; auto refresh buffers
+;; http://whattheemacsd.com//sane-defaults.el-01.html
 (global-auto-revert-mode t)
 
-(setq auto-save-default nil
+(setq auto-revert-verbose nil
+      auto-save-default nil
       comment-auto-fill-only-comments t
       confirm-nonexistent-file-or-buffer nil
       disabled-command-function nil
+      global-auto-revert-non-file-buffers t
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function
                                         kill-buffer-query-functions)
       require-final-newline nil
