@@ -30,6 +30,7 @@
          evil-leader
          evil-numbers
          evil-surround
+         expand-region
          goto-chg
          growl
          haml-mode

@@ -18,6 +18,7 @@
   "B" 'ido-switch-buffer-other-window
   "c" 'comment-dwim-line
   "d" 'dired-jump
+  "e" 'er/expand-region
   "f" 'ido-find-file
   "F" 'ido-find-file-other-window
   "g" 'magit-status
