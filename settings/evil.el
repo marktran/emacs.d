@@ -13,7 +13,7 @@
     (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
 
 (evil-leader/set-key
-  "a" 'bookmark-ido-find-file
+  "a" 'ack
   "b" 'ido-switch-buffer
   "B" 'ido-switch-buffer-other-window
   "c" 'comment-dwim-line
@@ -22,6 +22,7 @@
   "F" 'ido-find-file-other-window
   "g" 'magit-status
   "k" 'kill-this-buffer
+  "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
   "r" 'recentf-ido-find-file
   "s" 'rspec-verify-single
