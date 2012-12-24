@@ -29,9 +29,9 @@
            ,(format
              "Try to expand a snippet before point, then call `%s' as usual"
              function-symbol)
-           (let ((yas/fallback-behavior nil))
-             (unless (and (interactive-p)
-                          (yas/expand))
+           (let ((yas-fallback-behavior nil))
+             (unless (and (called-interactive-p)
+                          (yas-expand))
                ad-do-it)))))
 
 (yas/advise-indent-function 'ruby-indent-line)
