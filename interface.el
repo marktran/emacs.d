@@ -23,6 +23,4 @@
       visible-bell t
       x-select-enable-clipboard t)
 
-(setq-default left-margin-width 1)
-
 (load-theme 'ujelly t)

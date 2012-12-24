@@ -34,6 +34,7 @@
          evil-numbers
          evil-surround
          expand-region
+         golden-ratio
          growl
          haml-mode
          highlight-indentation
