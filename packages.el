@@ -58,6 +58,7 @@
          smart-tab
          smex
          undo-tree
+         window-numbering
          yaml-mode
          yasnippet
          zencoding-mode)
