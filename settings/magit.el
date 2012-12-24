@@ -4,6 +4,8 @@
       magit-remote-ref-format 'remote-slash-name
       vc-handled-backends '(git))
 
+;; full screen vc-annotate
+;; https://github.com/magnars/.emacs.d/blob/master/setup-magit.el
 (defun vc-annotate-quit ()
   "Restores the previous window configuration and kills the vc-annotate buffer"
   (interactive)
@@ -18,8 +20,6 @@
        (delete-other-windows))
 
      (define-key vc-annotate-mode-map (kbd "q") 'vc-annotate-quit)))
-
-;; functions
 
 ;; full screen magit-status
 ;; http://whattheemacsd.com/setup-magit.el-01.html
