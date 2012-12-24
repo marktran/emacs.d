@@ -1,3 +1,6 @@
+;; set before el-get loads packages
+(setq evil-want-C-u-scroll t)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil t)
@@ -31,7 +34,6 @@
          evil-numbers
          evil-surround
          expand-region
-         goto-chg
          growl
          haml-mode
          highlight-indentation
@@ -50,12 +52,10 @@
          ruby-electric
          ruby-mode
          sass-mode
-         scala-mode
          scratch
          scss-mode
          smart-tab
          smex
-         textile-mode
          undo-tree
          yaml-mode
          yasnippet

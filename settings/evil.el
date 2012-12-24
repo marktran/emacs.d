@@ -1,16 +1,12 @@
 (evil-mode t)
-(require 'evil-leader)
 
 (setq evil-leader/in-all-states t
       evil-leader/leader ","
       evil-mode-line-format nil
-      evil-move-cursor-back t
-      evil-want-C-u-scroll t)
+      evil-move-cursor-back t)
 (setq-default evil-shift-width 2)
 
 (define-key evil-motion-state-map evil-leader/leader evil-leader/map)
-(when evil-want-C-u-scroll
-    (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
 
 (evil-leader/set-key
   "a" 'ack
