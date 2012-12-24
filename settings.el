@@ -6,7 +6,8 @@
       disabled-command-function nil
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function
                                         kill-buffer-query-functions)
-      require-final-newline nil)
+      require-final-newline nil
+      windmove-wrap-around t)
 
 (setq-default c-basic-offset 4
               fill-column 72

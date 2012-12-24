@@ -1,5 +1,3 @@
-(require 'diminish)
-
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
 (eval-after-load "eldoc" '(diminish 'eldoc-mode))
