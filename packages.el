@@ -61,7 +61,6 @@
          python-mode
          rhtml-mode
          rspec-mode
-         ;; ruby-compilation
          ruby-electric
          ruby-mode
          sass-mode
