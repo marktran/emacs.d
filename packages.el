@@ -42,7 +42,6 @@
          inf-ruby
          json
          magit
-         magithub
          markdown-mode
          mode-compile
          package
