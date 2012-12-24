@@ -1,8 +1,8 @@
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t
+      interprogram-cut-function 'paste-to-osx
+      interprogram-paste-function 'copy-from-osx
       mouse-wheel-scroll-amount '(0.01))
-
-(set-default-font "Menlo-12")
 
 (defun browse-url-default-macosx-browser (url &optional new-window)
   (interactive (browse-url-interactive-arg "URL: "))
@@ -16,8 +16,3 @@
         (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
                (process-send-string proc text)
                      (process-send-eof proc))))
-
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
-
-(provide 'mac)
