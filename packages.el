@@ -9,24 +9,9 @@
        (eval-print-last-sexp)))))
 
 (setq el-get-sources
-      '((:name ack-and-a-half
-               :type github
-               :pkgname "jhelwig/ack-and-a-half"
-               :after (progn
-                        (autoload 'ack-and-a-half-same "ack-and-a-half" nil t)
-                        (autoload 'ack-and-a-half "ack-and-a-half" nil t)
-                        (autoload 'ack-and-a-half-find-file-samee "ack-and-a-half" nil t)
-                        (autoload 'ack-and-a-half-find-file "ack-and-a-half" nil t)
-                        ;; aliases
-                        (defalias 'ack 'ack-and-a-half)
-                        (defalias 'ack-same 'ack-and-a-half-same)
-                        (defalias 'ack-find-file 'ack-and-a-half-find-file)
-                        (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)))
-
-        ;; elpa
+      '((:name ack-and-a-half :type elpa)
         (:name dired-isearch :type elpa)
         (:name kill-ring-search :type elpa)
-        ;; (:name slime :type elpa)
         (:name ujelly-theme
                :type elpa
                :post-init (add-to-list 'custom-theme-load-path default-directory))))
