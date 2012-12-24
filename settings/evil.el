@@ -15,8 +15,11 @@
 (evil-leader/set-key
   "a" 'bookmark-ido-find-file
   "b" 'ido-switch-buffer
+  "B" 'ido-switch-buffer-other-window
+  "c" 'comment-dwim-line
   "d" 'dired-jump
   "f" 'ido-find-file
+  "F" 'ido-find-file-other-window
   "g" 'magit-status
   "k" 'kill-this-buffer
   "o" 'browse-url-of-file

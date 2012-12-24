@@ -130,20 +130,6 @@ comment-dwim, when it inserts comment at the end of the line."
        (t
         (goto-char position))))))
 
-;; http://blog.jrock.us/articles/Increment%20test%20counter.pod
-(defun increment-number-at-point (&optional amount)
-  "Increment the number under point by `amount'"
-  (interactive "p")
-  (let ((num (number-at-point)))
-    (when (numberp num)
-      (let ((newnum (+ num amount))
-            (p (point)))
-        (save-excursion
-          (skip-chars-backward "-.0123456789")
-          (delete-region (point) (+ (point) (length (number-to-string num))))
-          (insert (number-to-string newnum)))
-        (goto-char p)))))
-
 ;; http://www.emacswiki.org/emacs/SearchAtPoint#toc5
 (defun isearch-yank-symbol ()
   "*Put symbol at current point into search string."
