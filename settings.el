@@ -19,4 +19,4 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; load ~/.emacs.d/settings
-(mapc 'load (directory-files "~/.emacs.d/settings" t "^[A-Za-z]*\\.el"))
+(mapc 'load (directory-files "~/.emacs.d/settings" t "^[A-Za-z-]*\\.el"))
