@@ -38,7 +38,7 @@ in the same format as `dir-locals-set-class-variables' expects."
      (dir-locals-set-directory-class ,dir name nil)))
 
 (defmacro dir-locals-safe (directory variables)
-  "Set local variables for a directory and add variables to 
+  "Set local variables for a directory and add variables to
 safe-local-variable-values."
   `(progn
      (dir-locals ,directory ,variables)
@@ -234,21 +234,6 @@ comment-dwim, when it inserts comment at the end of the line."
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
 
-;; http://blog.plover.com/prog/revert-all.html
-(defun revert-all-buffers ()
-  "Refreshes all open buffers from their respective files"
-  (interactive)
-  (let* ((list (buffer-list))
-         (buffer (car list)))
-    (while buffer
-      (when (and (buffer-file-name buffer) 
-                 (not (buffer-modified-p buffer)))
-        (set-buffer buffer)
-        (revert-buffer t t t))
-      (setq list (cdr list))
-      (setq buffer (car list))))
-  (message "Refreshed open files"))
-
 ;; https://github.com/technomancy/ido-ubiquitous/issues/3
 (defadvice rgrep (around original-completing-read-only activate)
   (let (ido-ubiquitous-enabled) ad-do-it))
@@ -262,42 +247,6 @@ comment-dwim, when it inserts comment at the end of the line."
       (smerge-mode 1))))
 
 (add-hook 'find-file-hook 'sm-try-smerge t)
-
-;; http://atomized.org/2008/10/enhancing-emacs%E2%80%99-sql-mode/
-(defun sql-make-smart-buffer-name ()
-  "Return a string that can be used to rename a SQLi buffer.
-
-This is used to set `sql-alternate-buffer-name' within
-`sql-interactive-mode'."
-  (or (and (boundp 'sql-name) sql-name)
-      (concat (if (not(string= "" sql-server))
-                  (concat
-                   (or (and (string-match "[0-9.]+" sql-server) sql-server)
-                       (car (split-string sql-server "\\.")))
-                   "/"))
-              sql-database)))
-
-
-(add-hook 'sql-interactive-mode-hook
-          (lambda ()
-            (setq sql-alternate-buffer-name (sql-make-smart-buffer-name))
-            (sql-rename-buffer)))
-
-(defun sql-connect-preset (name)
-  "Connect to a predefined SQL connection listed in `sql-connection-alist'"
-  (eval `(let ,(cdr (assoc name sql-connection-alist))
-           (flet ((sql-get-login (&rest what)))
-             (sql-product-interactive sql-product)))))
-
-;; http://github.com/technomancy/emacs-starter-kit/blob/master/\
-;; starter-kit-defuns.el
-(defun switch-or-start (function buffer)
-  "If the buffer is current, bury it, otherwise invoke the function."
-  (if (equal (buffer-name (current-buffer)) buffer)
-      (bury-buffer)
-    (if (get-buffer buffer)
-        (switch-to-buffer buffer)
-      (funcall function))))
 
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-func.el
 (defun fill-keymap (keymap &rest mappings)

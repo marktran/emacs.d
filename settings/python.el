@@ -6,3 +6,5 @@
 (add-hook 'python-mode-hook
   (function (lambda ()
           (setq evil-shift-width python-indent))))
+
+(add-hook 'python-mode-hook 'run-coding-hook)
