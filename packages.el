@@ -46,6 +46,7 @@
          mode-compile
          package
          paredit
+         projectile
          python-mode
          rhtml-mode
          rspec-mode
