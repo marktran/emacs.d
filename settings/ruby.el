@@ -5,8 +5,6 @@
       ruby-deep-indent-paren nil
       ruby-electric-expand-delimiters-list nil)
 
-(add-hook 'ruby-mode-hook 'run-coding-hook)
-
 (dolist (mode '(("Capfile" . ruby-mode)
                 ("Gemfile" . ruby-mode)
                 ("Guardfile" . ruby-mode)
@@ -16,6 +14,8 @@
                 ("\\.gemspec$" . ruby-mode)
                 ("\\.jbuilder$" . ruby-mode)))
   (add-to-list 'auto-mode-alist mode))
+
+(add-hook 'ruby-mode-hook 'run-coding-hook)
 
 ;; workaround for ruby-electric breaking yasnippet
 ;; http://code.google.com/p/yasnippet/issues/detail?id=71#c11
