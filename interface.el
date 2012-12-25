@@ -21,6 +21,7 @@
       uniquify-buffer-name-style 'forward
       uniquify-ignore-buffers-re "^\\*"
       visible-bell t
-      x-select-enable-clipboard t)
+      x-select-enable-clipboard t
+      xterm-mouse-mode t)
 
 (load-theme 'ujelly t)
