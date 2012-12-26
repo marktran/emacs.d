@@ -1,12 +1,15 @@
 (ido-mode t)
 (ido-ubiquitous t)
 
-(setq ido-create-new-buffer 'always
+(setq ido-auto-merge-work-directories-length 1
+      ido-case-fold nil
+      ido-create-new-buffer 'always
       ido-enable-flex-matching t
       ido-everywhere t
       ido-ignore-buffers `("\\` "
                            "^\\*Compile-Log\\*"
                            "^\\*Completions\\*"
+                           "^\\*dired\\*"
                            "^\\*growl\\*"
                            "^\\*Help\\*"
                            "^\\*Ido"
