@@ -1,2 +1,2 @@
-(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 35)
 (recentf-mode t)
