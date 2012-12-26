@@ -13,7 +13,6 @@
 
 (setq el-get-sources
       '((:name ack-and-a-half :type elpa)
-        (:name dired-isearch :type elpa)
         (:name kill-ring-search :type elpa)
         (:name ujelly-theme
                :type elpa
@@ -26,7 +25,7 @@
          coffee-mode
          csv-mode
          diminish
-         dired+
+         dired-single
          el-expectations
          el-get
          evil

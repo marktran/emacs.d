@@ -1,18 +1,3 @@
-;; auto indentation for pasted lines
-;; http://www.emacswiki.org/emacs/AutoIndentation
-(dolist (command '(yank yank-pop))
-  (eval `(defadvice ,command (after indent-region activate)
-           (and (not current-prefix-arg)
-                (member major-mode '(emacs-lisp-mode lisp-mode
-                                                     clojure-mode   scheme-mode
-                                                     haskell-mode   ruby-mode
-                                                     rspec-mode     python-mode
-                                                     c-mode         c++-mode
-                                                     objc-mode      latex-mode
-                                                     plain-tex-mode))
-                (let ((mark-even-if-inactive transient-mark-mode))
-                  (indent-region (region-beginning) (region-end) nil))))))
-
 ;; http://atomized.org/2009/05/emacs-23-easier-directory-local-variables/
 (defmacro absolute-dirname (path)
   "Return the directory name portion of a path.
@@ -330,3 +315,13 @@ A `spec' can be a `read-kbd-macro'-readable string or a vector."
 (defun swap-with-down () (interactive) (swap-window 'down))
 (defun swap-with-up () (interactive) (swap-window 'up))
 (defun swap-with-right () (interactive) (swap-window 'right))
+
+;; http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
+(defun toggle-current-window-dedication ()
+  (interactive)
+  (let* ((window    (selected-window))
+         (dedicated (window-dedicated-p window)))
+    (set-window-dedicated-p window (not dedicated))
+    (message "Window %sdedicated to %s"
+             (if dedicated "no longer " "")
+             (buffer-name))))
