@@ -16,17 +16,3 @@
   (add-to-list 'auto-mode-alist mode))
 
 (add-hook 'ruby-mode-hook 'run-coding-hook)
-
-;; workaround for ruby-electric breaking yasnippet
-;; http://code.google.com/p/yasnippet/issues/detail?id=71#c11
-(defun yas/advise-indent-function (function-symbol)
-  (eval `(defadvice ,function-symbol (around yas/try-expand-first activate)
-           ,(format
-             "Try to expand a snippet before point, then call `%s' as usual"
-             function-symbol)
-           (let ((yas-fallback-behavior nil))
-             (unless (and (called-interactive-p)
-                          (yas-expand))
-               ad-do-it)))))
-
-(yas/advise-indent-function 'ruby-indent-line)
