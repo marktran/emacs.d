@@ -19,6 +19,7 @@
   "F" 'ido-find-file-other-window
   "g" 'magit-status
   "k" 'kill-this-buffer
+  "K" 'kill-buffer-and-window
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
   "r" 'recentf-ido-find-file
