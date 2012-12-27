@@ -39,7 +39,7 @@
   "b" 'ido-switch-buffer
   "B" 'ido-switch-buffer-other-window
   "c" 'comment-dwim-line
-  "d" (cmd (dired-single-magic-buffer default-directory))
+  "d" 'dired-jump
   "D" 'toggle-current-window-dedication
   "e" 'er/expand-region
   "f" 'ido-find-file
@@ -58,11 +58,6 @@
 (evil-declare-key 'motion compilation-mode-map
                   "h" 'evil-backward-char
                   "0" 'evil-digit-argument-or-evil-beginning-of-line)
-
-;; dired mode
-(evil-declare-key 'normal dired-mode-map
-                  "^" (cmd (dired-single-buffer ".."))
-                  (kbd "RET") 'dired-single-buffer)
 
 ;; org mode
 (evil-declare-key 'normal org-mode-map

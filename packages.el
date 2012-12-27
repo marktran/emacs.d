@@ -25,7 +25,7 @@
          coffee-mode
          csv-mode
          diminish
-         dired-single
+         dired+
          el-expectations
          el-get
          evil

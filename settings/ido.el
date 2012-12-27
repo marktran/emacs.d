@@ -7,9 +7,9 @@
       ido-enable-flex-matching t
       ido-everywhere t
       ido-ignore-buffers `("\\` "
+                           "^\\*Buffer List\\*"
                            "^\\*Compile-Log\\*"
                            "^\\*Completions\\*"
-                           "^\\*dired\\*"
                            "^\\*growl\\*"
                            "^\\*Help\\*"
                            "^\\*Ido"
@@ -23,11 +23,9 @@
                            "^\\*XML Validation Header\\*"
                            "^Dired:"
                            ,(lambda (name)
-                              (if (derived-mode-p 'erc-mode)
-                                  (with-current-buffer name
-                                    (not (derived-mode-p 'erc-mode)))
+                              (if (not (derived-mode-p 'dired-mode))
                                 (with-current-buffer name
-                                  (derived-mode-p 'erc-mode)))))
+                                  (derived-mode-p 'dired-mode)))))
       ido-use-filename-at-point nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
