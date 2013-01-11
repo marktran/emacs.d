@@ -221,6 +221,20 @@ comment-dwim, when it inserts comment at the end of the line."
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
+;; http://whattheemacsd.com//file-defuns.el-02.html
+(defun delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
 ;; https://github.com/technomancy/ido-ubiquitous/issues/3
 (defadvice rgrep (around original-completing-read-only activate)
   (let (ido-ubiquitous-enabled) ad-do-it))
