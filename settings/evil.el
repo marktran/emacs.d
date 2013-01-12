@@ -84,3 +84,12 @@
                   (kbd "M-J") 'org-metadown
                   (kbd "M-K") 'org-metaup
                   (kbd "M-L") 'org-metaright)
+
+;; eshell mode
+(defun eshell-evil-keys ()
+     (define-key eshell-mode-map (kbd "C-w h") 'windmove-left)
+     (define-key eshell-mode-map (kbd "C-w l") 'windmove-right)
+     (define-key eshell-mode-map (kbd "C-w j") 'windmove-down)
+     (define-key eshell-mode-map (kbd "C-w k") 'windmove-up))
+
+(add-hook 'eshell-mode-hook 'eshell-evil-keys)
