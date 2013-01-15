@@ -9,9 +9,7 @@
       disabled-command-function nil
       global-auto-revert-non-file-buffers t
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function
-                                        kill-buffer-query-functions)
-      require-final-newline nil
-      windmove-wrap-around t)
+                                        kill-buffer-query-functions))
 
 (setq-default c-basic-offset 4
               fill-column 72
