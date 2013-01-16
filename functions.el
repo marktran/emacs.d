@@ -115,22 +115,6 @@ comment-dwim, when it inserts comment at the end of the line."
        (t
         (goto-char position))))))
 
-;; http://www.emacswiki.org/emacs/SearchAtPoint#toc5
-(defun isearch-yank-symbol ()
-  "*Put symbol at current point into search string."
-  (interactive)
-  (let ((sym (symbol-at-point)))
-    (if sym
-        (progn
-          (setq isearch-regexp t
-                isearch-string (concat "\\_<"
-                                       (regexp-quote (symbol-name sym)) "\\_>")
-                isearch-message (mapconcat 'isearch-text-char-description
-                                           isearch-string "")
-                isearch-yank-flag t))
-      (ding)))
-  (isearch-search-and-update))
-
 ;; http://blog.tuxicity.se/elisp/emacs/2010/11/16/delete-file-and-buffer-in-emacs.html
 (defun kill-buffer-and-delete-file ()
   "Removes file connected to current buffer and kills buffer."

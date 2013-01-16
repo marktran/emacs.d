@@ -38,10 +38,10 @@
   "a" 'ack
   "b" 'ido-switch-buffer
   "B" 'ido-switch-buffer-other-window
-  "c" 'comment-dwim-line
   "d" 'dired-jump
   "D" 'toggle-current-window-dedication
   "e" 'er/expand-region
+  "E" 'eshell
   "f" 'ido-find-file
   "F" 'ido-find-file-other-window
   "g" 'magit-status
@@ -52,7 +52,8 @@
   "r" 'recentf-ido-find-file
   "s" 'rspec-verify-single
   "t" 'ido-goto-symbol
-  "v" 'rspec-verify)
+  "v" 'rspec-verify
+  "w" 'evil-write)
 
 ;; compilation mode
 (evil-declare-key 'motion compilation-mode-map
