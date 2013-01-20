@@ -1,3 +1,4 @@
+alias -- cd -
 alias d cd =
 alias 0 cd -0
 alias 1 cd -1
