@@ -50,6 +50,7 @@
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
   "r" 'recentf-ido-find-file
+  "R" 'find-file-in-repository
   "s" 'rspec-verify-single
   "t" 'ido-goto-symbol
   "v" 'rspec-verify
@@ -95,6 +96,7 @@
      (define-key eshell-mode-map (kbd "C-w j") 'windmove-down)
      (define-key eshell-mode-map (kbd "C-w C-j") 'windmove-down)
      (define-key eshell-mode-map (kbd "C-w C-k") 'windmove-up)
-     (define-key eshell-mode-map (kbd "C-w k") 'windmove-up))
+     (define-key eshell-mode-map (kbd "C-w k") 'windmove-up)
+     (define-key eshell-mode-map (kbd "C-d") 'bury-buffer))
 
 (add-hook 'eshell-mode-hook 'eshell-evil-keys)

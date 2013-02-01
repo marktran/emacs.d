@@ -13,6 +13,8 @@
 
 (setq el-get-sources
       '((:name ack-and-a-half :type elpa)
+        (:name find-file-in-repository :type elpa)
+        (:name eshell-autojump :type emacswiki)
         (:name kill-ring-search :type elpa)
         (:name ujelly-theme
                :type elpa
