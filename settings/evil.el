@@ -25,13 +25,12 @@
              "C-c -" 'evil-numbers/dec-at-pt)
 
 (fill-keymap evil-window-map
-             "SPC" 'swap-window
              "u"   'winner-undo
              "C-r" 'winner-redo
-             "M-h" 'swap-with-left
-             "M-j" 'swap-with-down
-             "M-k" 'swap-with-up
-             "M-l" 'swap-with-right)
+             "M-h" 'buf-move-left
+             "M-j" 'buf-move-down
+             "M-k" 'buf-move-up
+             "M-l" 'buf-move-right)
 
 ;; evil leader
 (evil-leader/set-key
@@ -56,8 +55,8 @@
   "v" 'rspec-verify
   "w" 'evil-write)
 
-;; compilation mode
-(evil-declare-key 'motion compilation-mode-map
+;; rspec compilation mode
+(evil-declare-key 'motion rspec-compilation-mode-map
                   "h" 'evil-backward-char
                   "0" 'evil-digit-argument-or-evil-beginning-of-line)
 

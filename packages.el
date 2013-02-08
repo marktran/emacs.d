@@ -24,6 +24,7 @@
       (append
        '(ace-jump-mode
          browse-kill-ring
+         buffer-move
          coffee-mode
          csv-mode
          diminish
