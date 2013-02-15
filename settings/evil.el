@@ -55,10 +55,10 @@
   "v" 'rspec-verify
   "w" 'evil-write)
 
-;; rspec compilation mode
-(evil-declare-key 'motion rspec-compilation-mode-map
-                  "h" 'evil-backward-char
-                  "0" 'evil-digit-argument-or-evil-beginning-of-line)
+;; compilation mode
+(add-hook 'compilation-mode-hook '(lambda ()
+                                    (local-unset-key "h")
+                                    (local-unset-key "0")))
 
 ;; org mode
 (evil-declare-key 'normal org-mode-map
