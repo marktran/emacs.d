@@ -5,6 +5,7 @@
       eshell-cmpl-cycle-completions nil
       eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'"
       eshell-highlight-prompt nil
+      eshell-history-size 4096
       eshell-last-dir-ring-size 10
       eshell-list-files-after-cd t
       eshell-prompt-function
@@ -14,4 +15,8 @@
          " "
          (propertize (abbreviate-file-name (eshell/pwd)) 'face `(:foreground "#cd00cd"))
          " "))
-      eshell-prompt-regexp "^[^@]*@[^ ]* [^ ]* ")
+      eshell-prompt-regexp "^[^ ]* [^ ]* ")
+
+(add-hook 'eshell-mode-hook '(lambda ()
+                               (define-key eshell-mode-map (kbd "C-p") 'eshell-previous-input)
+                               (define-key eshell-mode-map (kbd "C-n") 'eshell-next-input)))
