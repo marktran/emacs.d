@@ -13,9 +13,7 @@
 
 (setq el-get-sources
       '((:name ack-and-a-half :type elpa)
-        (:name find-file-in-repository :type elpa)
         (:name eshell-autojump :type emacswiki)
-        (:name kill-ring-search :type elpa)
         (:name ujelly-theme
                :type elpa
                :post-init (add-to-list 'custom-theme-load-path default-directory))))
@@ -53,9 +51,7 @@
          rspec-mode
          ruby-electric
          ruby-mode
-         sass-mode
          scratch
-         scss-mode
          smart-tab
          smex
          undo-tree
