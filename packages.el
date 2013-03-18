@@ -11,16 +11,10 @@
        (end-of-buffer)
        (eval-print-last-sexp)))))
 
-(setq el-get-sources
-      '((:name ack-and-a-half :type elpa)
-        (:name eshell-autojump :type emacswiki)
-        (:name ujelly-theme
-               :type elpa
-               :post-init (add-to-list 'custom-theme-load-path default-directory))))
-
 (setq packages
       (append
        '(ace-jump-mode
+         ack-and-a-half
          browse-kill-ring
          buffer-move
          coffee-mode
@@ -29,6 +23,7 @@
          dired+
          el-expectations
          el-get
+         eshell-autojump
          evil
          evil-leader
          evil-numbers
@@ -54,6 +49,7 @@
          scratch
          smart-tab
          smex
+         ujelly-theme
          undo-tree
          window-numbering
          yaml-mode
