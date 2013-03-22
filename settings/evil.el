@@ -2,7 +2,7 @@
 
 (setq evil-ex-search-vim-style-regexp t
       evil-leader/in-all-states t
-      evil-leader/leader ","
+      evil-leader/leader " "
       evil-mode-line-format nil
       evil-move-cursor-back t
       evil-search-module 'evil-search)
@@ -20,7 +20,6 @@
 
 ;; key bindings
 (fill-keymap evil-normal-state-map
-             "SPC"   'ace-jump-char-mode
              "C-c +" 'evil-numbers/inc-at-pt
              "C-c -" 'evil-numbers/dec-at-pt)
 
@@ -42,14 +41,14 @@
   "e" 'er/expand-region
   "E" 'eshell
   "f" 'ido-find-file
-  "F" 'ido-find-file-other-window
+  "F" 'helm-ls-git-ls
   "g" 'magit-status
   "k" 'kill-this-buffer
   "K" 'kill-buffer-and-window
+  "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
   "r" 'recentf-ido-find-file
-  "R" 'find-file-in-repository
   "s" 'rspec-verify-single
   "t" 'ido-goto-symbol
   "v" 'rspec-verify

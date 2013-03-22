@@ -11,6 +11,11 @@
        (end-of-buffer)
        (eval-print-last-sexp)))))
 
+(setq el-get-sources
+      '((:name helm-ls-git
+               :type github
+               :pkgname "emacs-helm/helm-ls-git")))
+
 (setq packages
       (append
        '(ace-jump-mode
@@ -32,6 +37,7 @@
          golden-ratio
          growl
          haml-mode
+         helm
          highlight-indentation
          ido-ubiquitous
          json

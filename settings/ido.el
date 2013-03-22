@@ -11,6 +11,8 @@
                            "^\\*Compile-Log\\*"
                            "^\\*Completions\\*"
                            "^\\*growl\\*"
+                           "^\\*helm"
+                           "^\\*Helm"
                            "^\\*Help\\*"
                            "^\\*Ido"
                            "^\\*Messages\\*"
@@ -18,12 +20,9 @@
                            "^\\*RE-Builder\\*"
                            "^\\*Shell Command Output\\*"
                            "^\\*XML Validation Header\\*"
-                           "^Dired:"
-                           ,(lambda (name)
-                              (if (not (derived-mode-p 'dired-mode))
-                                (with-current-buffer name
-                                  (derived-mode-p 'dired-mode)))))
-      ido-use-filename-at-point nil)
+                           "^Dired:")
+      ido-use-filename-at-point nil
+      ido-use-virtual-buffers t)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
