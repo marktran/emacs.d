@@ -1,7 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
 (load-file "~/.emacs.d/packages.el")
-(load-file "~/.emacs.d/functions.el")
+(mapc 'load (directory-files "~/.emacs.d/functions" t "^[A-Za-z-]*\\.el"))
 (load-file "~/.emacs.d/settings.el")
 (load-file "~/.emacs.d/bindings.el")
 (load-file "~/.emacs.d/interface.el")
