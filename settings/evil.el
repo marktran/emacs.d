@@ -57,7 +57,8 @@
 ;; compilation mode
 (add-hook 'compilation-mode-hook '(lambda ()
                                     (local-unset-key "h")
-                                    (local-unset-key "0")))
+                                    (local-unset-key "0")
+                                    (local-unset-key (kbd "SPC"))))
 
 ;; org mode
 (evil-declare-key 'normal org-mode-map
