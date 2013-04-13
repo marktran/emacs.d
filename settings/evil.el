@@ -48,7 +48,8 @@
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
-  "r" 'recentf-ido-find-file
+  "r" 'recompile
+  "R" 'recentf-ido-find-file
   "s" 'rspec-verify-single
   "t" 'ido-goto-symbol
   "v" 'rspec-verify
