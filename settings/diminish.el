@@ -4,3 +4,4 @@
 (eval-after-load "paredit" '(diminish 'paredit-mode))
 (eval-after-load "projectile" '(diminish 'projectile-mode))
 (eval-after-load "ruby-electric" '(diminish 'ruby-electric-mode))
+(eval-after-load "yasnippet" '(diminish 'yas-minor-mode))
