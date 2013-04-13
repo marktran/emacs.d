@@ -97,6 +97,7 @@
      (define-key eshell-mode-map (kbd "C-w C-j") 'windmove-down)
      (define-key eshell-mode-map (kbd "C-w C-k") 'windmove-up)
      (define-key eshell-mode-map (kbd "C-w k") 'windmove-up)
+     (define-key eshell-mode-map (kbd "C-w c") 'delete-window)
      (define-key eshell-mode-map (kbd "C-d") 'bury-buffer))
 
 (add-hook 'eshell-mode-hook 'eshell-evil-keys)
