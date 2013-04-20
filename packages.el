@@ -22,6 +22,7 @@
          ack-and-a-half
          browse-kill-ring
          buffer-move
+         cl-lib
          coffee-mode
          csv-mode
          diminish
