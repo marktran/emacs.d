@@ -36,6 +36,7 @@
          evil-surround
          expand-region
          golden-ratio
+         goto-chg
          growl
          haml-mode
          helm
