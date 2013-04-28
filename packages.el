@@ -12,7 +12,8 @@
        (eval-print-last-sexp)))))
 
 (setq el-get-sources
-      '((:name helm-ls-git
+      '((:name ag :type elpa)
+        (:name helm-ls-git
                :type github
                :pkgname "emacs-helm/helm-ls-git")))
 
@@ -42,6 +43,7 @@
          helm
          highlight-indentation
          ido-ubiquitous
+         inf-ruby
          json
          magit
          markdown-mode

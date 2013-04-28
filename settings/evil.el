@@ -33,7 +33,8 @@
 
 ;; evil leader
 (evil-leader/set-key
-  "a" 'ack
+  "a" 'ag-project
+  "A" 'ack
   "b" 'ido-switch-buffer
   "B" 'ido-switch-buffer-other-window
   "d" 'dired-jump
