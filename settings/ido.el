@@ -21,8 +21,7 @@
                            "^\\*Shell Command Output\\*"
                            "^\\*XML Validation Header\\*"
                            "^Dired:")
-      ido-use-filename-at-point nil
-      ido-use-virtual-buffers t)
+      ido-use-filename-at-point nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
