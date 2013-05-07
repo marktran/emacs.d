@@ -3,7 +3,8 @@
       rspec-use-rake-flag nil
       ruby-deep-arglist nil
       ruby-deep-indent-paren nil
-      ruby-electric-expand-delimiters-list nil)
+      ruby-electric-expand-delimiters-list nil
+      ruby-insert-encoding-magic-comment nil)
 
 (dolist (mode '(("Capfile" . ruby-mode)
                 ("Gemfile" . ruby-mode)
