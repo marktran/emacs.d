@@ -15,7 +15,11 @@
       '((:name ag :type elpa)
         (:name helm-ls-git
                :type github
-               :pkgname "emacs-helm/helm-ls-git")))
+               :pkgname "emacs-helm/helm-ls-git")
+        (:name zencoding-mode
+               :type github
+               :pkgname "smihica/zencoding"
+               :features zencoding-mode)))
 
 (setq packages
       (append
@@ -48,6 +52,7 @@
          magit
          markdown-mode
          mode-compile
+         multiple-cursors
          package
          paredit
          projectile
@@ -63,8 +68,7 @@
          undo-tree
          window-numbering
          yaml-mode
-         yasnippet
-         zencoding-mode)
+         yasnippet)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync packages)
