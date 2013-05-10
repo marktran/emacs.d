@@ -36,6 +36,8 @@
   "A" 'ack
   "b" 'ido-switch-buffer
   "B" 'ido-switch-buffer-other-window
+  "c" 'mc/mark-next-like-this
+  "C" 'mc/edit-lines
   "d" 'dired-jump
   "D" 'toggle-current-window-dedication
   "e" 'er/expand-region
