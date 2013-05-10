@@ -23,8 +23,7 @@
 
 (setq packages
       (append
-       '(ace-jump-mode
-         ack-and-a-half
+       '(ack-and-a-half
          browse-kill-ring
          buffer-move
          cl-lib
