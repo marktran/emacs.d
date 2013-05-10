@@ -4,7 +4,6 @@
       evil-leader/in-all-states t
       evil-leader/leader " "
       evil-mode-line-format nil
-      evil-move-cursor-back t
       evil-search-module 'evil-search)
 (setq-default evil-shift-width 2)
 
