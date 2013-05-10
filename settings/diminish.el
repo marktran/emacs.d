@@ -1,5 +1,6 @@
 (diminish 'undo-tree-mode)
 (diminish 'visual-line-mode)
+(eval-after-load "abbrev" '(diminish 'abbrev-mode))
 (eval-after-load "eldoc" '(diminish 'eldoc-mode))
 (eval-after-load "paredit" '(diminish 'paredit-mode))
 (eval-after-load "projectile" '(diminish 'projectile-mode))
