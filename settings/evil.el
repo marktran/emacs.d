@@ -63,13 +63,6 @@
                                     (local-unset-key "0")
                                     (local-unset-key (kbd "SPC"))))
 
-;; golden ratio mode
-(dolist (command '(evil-window-left
-                   evil-window-up
-                   evil-window-right
-                   evil-window-down))
-  (add-to-list 'golden-ratio-extra-commands command))
-
 ;; org mode
 (evil-declare-key 'normal org-mode-map
                   "za"        'org-cycle
