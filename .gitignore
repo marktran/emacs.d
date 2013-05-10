@@ -5,7 +5,6 @@ url/
 vendor/
 
 .bookmarks
-.mc-lists.el
 .visited-files
 local.el
 custom.el
