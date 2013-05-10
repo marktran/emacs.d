@@ -12,7 +12,9 @@
        (eval-print-last-sexp)))))
 
 (setq el-get-sources
-      '((:name ag :type elpa)
+      '((:name ag
+               :type github
+               :pkgname "Wilfred/ag.el")
         (:name helm-ls-git
                :type github
                :pkgname "emacs-helm/helm-ls-git")
