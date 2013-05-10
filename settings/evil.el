@@ -103,3 +103,8 @@
      (define-key eshell-mode-map (kbd "C-d") 'bury-buffer))
 
 (add-hook 'eshell-mode-hook 'eshell-evil-keys)
+
+;; zencoding mode
+(defadvice zencoding-expand-line (after evil-normal-state activate)
+  "Enable Normal state after expansion"
+  (evil-normal-state))
