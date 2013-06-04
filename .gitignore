@@ -8,3 +8,4 @@ vendor/
 .visited-files
 local.el
 custom.el
+projectile-bookmarks.eld
