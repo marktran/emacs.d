@@ -1,13 +1,12 @@
 (evil-mode t)
+(global-evil-leader-mode)
 
 (setq evil-ex-search-vim-style-regexp t
       evil-leader/in-all-states t
-      evil-leader/leader " "
+      evil-leader/leader ","
       evil-mode-line-format nil
       evil-search-module 'evil-search)
 (setq-default evil-shift-width 2)
-
-(define-key evil-motion-state-map evil-leader/leader evil-leader/map)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode      . emacs)
                               (comint-mode                   . emacs)
@@ -50,12 +49,12 @@
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
-  "r" 'recompile
   "R" 'recentf-ido-find-file
-  "s" 'rspec-verify-single
-  "t" 'ido-goto-symbol
-  "v" 'rspec-verify
-  "w" 'evil-write)
+  "t" 'ido-goto-symbol)
+
+(evil-leader/set-key-for-mode 'ruby-mode "r" 'rspec-recompile)
+(evil-leader/set-key-for-mode 'ruby-mode "s" 'rspec-verify-single)
+(evil-leader/set-key-for-mode 'ruby-mode "v" 'rspec-verify)
 
 ;; compilation mode
 (add-hook 'compilation-mode-hook '(lambda ()
