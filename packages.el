@@ -15,6 +15,10 @@
       '((:name ag
                :type github
                :pkgname "Wilfred/ag.el")
+        (:name flx
+               :type github
+               :pkgname "lewang/flx"
+               :features flx-ido)
         (:name helm-ls-git
                :type github
                :pkgname "emacs-helm/helm-ls-git")

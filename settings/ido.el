@@ -1,10 +1,11 @@
 (ido-mode t)
+(ido-everywhere t)
 (ido-ubiquitous t)
+(flx-ido-mode t)
 
 (setq ido-auto-merge-work-directories-length 1
       ido-create-new-buffer 'always
       ido-enable-flex-matching t
-      ido-everywhere t
       ido-ignore-buffers `("\\` "
                            "^\\*Buffer List\\*"
                            "^\\*Compile-Log\\*"
