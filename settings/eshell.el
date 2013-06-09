@@ -1,5 +1,3 @@
-(require 'eshell-autojump)
-
 (setq eshell-aliases-file "~/.emacs.d/eshell/alias"
       eshell-banner-message ""
       eshell-cmpl-cycle-completions nil

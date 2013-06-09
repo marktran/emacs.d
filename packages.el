@@ -41,7 +41,6 @@
          dired+
          el-expectations
          el-get
-         eshell-autojump
          evil
          evil-leader
          evil-numbers
