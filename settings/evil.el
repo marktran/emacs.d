@@ -1,12 +1,13 @@
-(evil-mode t)
-(global-evil-leader-mode)
-
 (setq evil-ex-search-vim-style-regexp t
       evil-leader/in-all-states t
-      evil-leader/leader ","
+      evil-leader/leader "SPC"
       evil-mode-line-format nil
       evil-search-module 'evil-search)
 (setq-default evil-shift-width 2)
+
+(evil-mode nil)
+(global-evil-leader-mode)
+(evil-mode t)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode      . emacs)
                               (comint-mode                   . emacs)
