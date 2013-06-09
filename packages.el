@@ -18,6 +18,9 @@
         (:name helm-ls-git
                :type github
                :pkgname "emacs-helm/helm-ls-git")
+        (:name ido-ubiquitous
+               :type github
+               :pkgname "technomancy/ido-ubiquitous")
         (:name zencoding-mode
                :type github
                :pkgname "smihica/zencoding"
@@ -30,7 +33,6 @@
          buffer-move
          cl-lib
          coffee-mode
-         csv-mode
          diminish
          dired+
          el-expectations
@@ -47,7 +49,6 @@
          haml-mode
          helm
          highlight-indentation
-         ido-ubiquitous
          inf-ruby
          json
          magit
