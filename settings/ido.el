@@ -2,7 +2,6 @@
 (ido-ubiquitous t)
 
 (setq ido-auto-merge-work-directories-length 1
-      ido-case-fold nil
       ido-create-new-buffer 'always
       ido-enable-flex-matching t
       ido-everywhere t
