@@ -5,6 +5,7 @@
       evil-search-module 'evil-search)
 (setq-default evil-shift-width 2)
 
+;; https://github.com/cofi/evil-leader/issues/10
 (evil-mode nil)
 (global-evil-leader-mode)
 (evil-mode t)
