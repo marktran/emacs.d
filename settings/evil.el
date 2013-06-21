@@ -42,7 +42,6 @@
   "d" 'dired-jump
   "D" 'toggle-current-window-dedication
   "e" 'er/expand-region
-  "E" 'eshell
   "f" 'ido-find-file
   "F" 'helm-ls-git-ls
   "g" 'magit-status
@@ -52,6 +51,7 @@
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
   "R" 'recentf-ido-find-file
+  "S" 'scratch
   "t" 'ido-goto-symbol)
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
