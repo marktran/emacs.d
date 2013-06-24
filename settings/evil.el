@@ -52,7 +52,8 @@
   "o" 'browse-url-of-file
   "R" 'recentf-ido-find-file
   "S" 'scratch
-  "t" 'ido-goto-symbol)
+  "t" 'ido-goto-symbol
+  "w" 'whitespace-cleanup)
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
 (evil-leader/set-key-for-mode 'ruby-mode "p" 'rspec-toggle-example-pendingness)
