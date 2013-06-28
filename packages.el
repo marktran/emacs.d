@@ -25,10 +25,10 @@
         (:name ido-ubiquitous
                :type github
                :pkgname "technomancy/ido-ubiquitous")
-        (:name zencoding-mode
+        (:name emmet-mode
                :type github
                :pkgname "smihica/zencoding"
-               :features zencoding-mode)))
+               :features emmet-mode)))
 
 (setq packages
       (append

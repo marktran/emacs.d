@@ -8,4 +8,4 @@
 (eval-after-load "ruby-electric" '(diminish 'ruby-electric-mode))
 (eval-after-load "yasnippet" '(diminish 'yas-minor-mode))
 (eval-after-load "whitespace" '(diminish 'global-whitespace-mode))
-(eval-after-load "zencoding" '(diminish 'zencoding-mode))
+(eval-after-load "emmet" '(diminish 'emmet-mode))
