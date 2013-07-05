@@ -1,6 +1,5 @@
 (global-whitespace-mode)
-(setq whitespace-style '(empty
-                         face
+(setq whitespace-style '(face
                          indentation
                          space-after-tab
                          space-before-tab

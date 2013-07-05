@@ -50,6 +50,7 @@
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
+  "r" 'rspec-rerun
   "R" 'recentf-ido-find-file
   "S" 'scratch
   "t" 'ido-goto-symbol
@@ -57,7 +58,6 @@
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
 (evil-leader/set-key-for-mode 'ruby-mode "p" 'rspec-toggle-example-pendingness)
-(evil-leader/set-key-for-mode 'ruby-mode "r" 'rspec-rerun)
 (evil-leader/set-key-for-mode 'ruby-mode "s" 'rspec-verify-single)
 (evil-leader/set-key-for-mode 'ruby-mode "v" 'rspec-verify)
 
