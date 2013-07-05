@@ -69,42 +69,43 @@
 
 ;; org mode
 (evil-declare-key 'normal org-mode-map
-                  "za"        'org-cycle
-                  "zA"        'org-shifttab
-                  "zc"        'hide-subtree
-                  "zC"        'org-hide-block-all
-                  "zm"        'hide-body
-                  "zo"        'show-subtree
-                  "zO"        'show-all
-                  "zr"        'show-all
-                  (kbd "RET") 'org-open-at-point
-                  (kbd "M-j") 'org-shiftleft
-                  (kbd "M-k") 'org-shiftright
-                  (kbd "M-H") 'org-metaleft
-                  (kbd "M-J") 'org-metadown
-                  (kbd "M-K") 'org-metaup
-                  (kbd "M-L") 'org-metaright)
+  ";"         'universal-argument
+  "za"        'org-cycle
+  "zA"        'org-shifttab
+  "zc"        'org-ctrl-c-ctrl-c
+  "zC"        'org-hide-block-all
+  "zm"        'hide-body
+  "zo"        'show-subtree
+  "zt"        'org-todo
+  "zr"        'show-all
+  (kbd "RET") 'org-open-at-point
+  (kbd "M-j") 'org-shiftleft
+  (kbd "M-k") 'org-shiftright
+  (kbd "M-H") 'org-metaleft
+  (kbd "M-J") 'org-metadown
+  (kbd "M-K") 'org-metaup
+  (kbd "M-L") 'org-metaright)
 
 (evil-declare-key 'insert org-mode-map
-                  (kbd "M-j") 'org-shiftleft
-                  (kbd "M-k") 'org-shiftright
-                  (kbd "M-H") 'org-metaleft
-                  (kbd "M-J") 'org-metadown
-                  (kbd "M-K") 'org-metaup
-                  (kbd "M-L") 'org-metaright)
+  (kbd "M-j") 'org-shiftleft
+  (kbd "M-k") 'org-shiftright
+  (kbd "M-H") 'org-metaleft
+  (kbd "M-J") 'org-metadown
+  (kbd "M-K") 'org-metaup
+  (kbd "M-L") 'org-metaright)
 
 ;; eshell mode
 (defun eshell-evil-keys ()
-     (define-key eshell-mode-map (kbd "C-w h") 'windmove-left)
-     (define-key eshell-mode-map (kbd "C-w C-h") 'windmove-left)
-     (define-key eshell-mode-map (kbd "C-w l") 'windmove-right)
-     (define-key eshell-mode-map (kbd "C-w C-l") 'windmove-right)
-     (define-key eshell-mode-map (kbd "C-w j") 'windmove-down)
-     (define-key eshell-mode-map (kbd "C-w C-j") 'windmove-down)
-     (define-key eshell-mode-map (kbd "C-w C-k") 'windmove-up)
-     (define-key eshell-mode-map (kbd "C-w k") 'windmove-up)
-     (define-key eshell-mode-map (kbd "C-w c") 'delete-window)
-     (define-key eshell-mode-map (kbd "C-d") 'bury-buffer))
+  (define-key eshell-mode-map (kbd "C-w h") 'windmove-left)
+  (define-key eshell-mode-map (kbd "C-w C-h") 'windmove-left)
+  (define-key eshell-mode-map (kbd "C-w l") 'windmove-right)
+  (define-key eshell-mode-map (kbd "C-w C-l") 'windmove-right)
+  (define-key eshell-mode-map (kbd "C-w j") 'windmove-down)
+  (define-key eshell-mode-map (kbd "C-w C-j") 'windmove-down)
+  (define-key eshell-mode-map (kbd "C-w C-k") 'windmove-up)
+  (define-key eshell-mode-map (kbd "C-w k") 'windmove-up)
+  (define-key eshell-mode-map (kbd "C-w c") 'delete-window)
+  (define-key eshell-mode-map (kbd "C-d") 'bury-buffer))
 
 (add-hook 'eshell-mode-hook 'eshell-evil-keys)
 
