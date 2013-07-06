@@ -1,3 +1,7 @@
+;; set SPC to nil before evil makes dired-mode-map the overriding map
+(require 'dired)
+(define-key dired-mode-map (kbd "SPC") nil)
+
 ;; set before el-get loads packages
 (setq evil-want-C-u-scroll t)
 
