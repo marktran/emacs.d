@@ -16,4 +16,10 @@
                 ("\\.jbuilder$" . ruby-mode)))
   (add-to-list 'auto-mode-alist mode))
 
+;; http://www.emacswiki.org/emacs/HideShow
+(add-to-list 'hs-special-modes-alist
+             '(ruby-mode
+               "^\\s-*\\(def\\|class\\|module\\|do\\|if\\)" "end" "#"
+               (lambda (arg) (ruby-end-of-block)) nil))
+
 (add-hook 'ruby-mode-hook 'run-coding-hook)
