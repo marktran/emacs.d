@@ -20,7 +20,10 @@
                            "^\\*RE-Builder\\*"
                            "^\\*Shell Command Output\\*"
                            "^\\*XML Validation Header\\*"
-                           "^Dired:")
+                           (lambda (name)
+                             (save-excursion
+                               (set-buffer name)
+                               (equal major-mode 'dired-mode))))
       ido-use-filename-at-point nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
