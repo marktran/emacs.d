@@ -58,6 +58,7 @@
          markdown-mode
          mode-compile
          multiple-cursors
+         org-mode
          package
          paredit
          projectile

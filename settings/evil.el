@@ -67,33 +67,6 @@
                                     (local-unset-key "0")
                                     (local-unset-key (kbd "SPC"))))
 
-;; org mode
-(evil-declare-key 'normal org-mode-map
-  ";"         'universal-argument
-  "za"        'org-cycle
-  "zA"        'org-shifttab
-  "zc"        'org-ctrl-c-ctrl-c
-  "zC"        'org-hide-block-all
-  "zm"        'hide-body
-  "zo"        'show-subtree
-  "zt"        'org-todo
-  "zr"        'show-all
-  (kbd "RET") 'org-open-at-point
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
-
-(evil-declare-key 'insert org-mode-map
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
-
 ;; eshell mode
 (defun eshell-evil-keys ()
   (define-key eshell-mode-map (kbd "C-w h") 'windmove-left)
@@ -113,3 +86,28 @@
 (defadvice emmet-expand-line (after evil-normal-state activate)
   "Enable Normal state after expansion"
   (evil-normal-state))
+
+;; org mode
+(evil-declare-key 'normal org-mode-map
+  "za"        'org-cycle
+  "zA"        'org-shifttab
+  "zc"        'hide-subtree
+  "zm"        'hide-body
+  "zo"        'show-subtree
+  "zr"        'show-all
+  (kbd "RET") 'org-open-at-point
+  (kbd "C-u") 'universal-argument
+  (kbd "M-j") 'org-shiftleft
+  (kbd "M-k") 'org-shiftright
+  (kbd "M-H") 'org-metaleft
+  (kbd "M-J") 'org-metadown
+  (kbd "M-K") 'org-metaup
+  (kbd "M-L") 'org-metaright)
+
+(evil-declare-key 'insert org-mode-map
+  (kbd "M-j") 'org-shiftleft
+  (kbd "M-k") 'org-shiftright
+  (kbd "M-H") 'org-metaleft
+  (kbd "M-J") 'org-metadown
+  (kbd "M-K") 'org-metaup
+  (kbd "M-L") 'org-metaright)
