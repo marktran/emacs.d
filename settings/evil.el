@@ -42,6 +42,7 @@
   "d" 'dired-jump
   "D" 'toggle-current-window-dedication
   "e" 'er/expand-region
+  "E" 'eshell
   "f" 'ido-find-file
   "F" 'helm-ls-git-ls
   "g" 'magit-status

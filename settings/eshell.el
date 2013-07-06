@@ -18,3 +18,5 @@
 (add-hook 'eshell-mode-hook '(lambda ()
                                (define-key eshell-mode-map (kbd "C-p") 'eshell-previous-input)
                                (define-key eshell-mode-map (kbd "C-n") 'eshell-next-input)))
+
+(setenv "GEM_EDITOR" "emacsclient")
