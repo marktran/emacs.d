@@ -1,8 +1,3 @@
 (setq css-indent-offset 2)
-
-(dolist (mode '(("\\.css$" . css-mode)
-                ("\\.less$" . css-mode)
-                ("\\.scss$" . css-mode)))
-  (add-to-list 'auto-mode-alist mode))
-
+(add-auto-mode 'css-mode "\\.css\\'" "\\.less\\'" "\\.scss\\'")
 (add-hook 'css-mode-hook  'emmet-mode)

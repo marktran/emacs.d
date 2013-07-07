@@ -12,14 +12,12 @@
   (kill-buffer)
   (jump-to-register :vc-annotate-fullscreen))
 
-(eval-after-load "vc-annotate"
-  '(progn
+(after-load 'vc-annotate
      (defadvice vc-annotate (around fullscreen activate)
        (window-configuration-to-register :vc-annotate-fullscreen)
        ad-do-it
        (delete-other-windows))
-
-     (define-key vc-annotate-mode-map (kbd "q") 'vc-annotate-quit)))
+     (define-key vc-annotate-mode-map (kbd "q") 'vc-annotate-quit))
 
 ;; full screen magit-status
 ;; http://whattheemacsd.com/setup-magit.el-01.html

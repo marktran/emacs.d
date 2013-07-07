@@ -1,4 +1,4 @@
-(add-to-list 'auto-mode-alist '("\\.yasnippet$" . snippet-mode))
+(add-auto-mode 'snippet-mode "\\.yasnippet\\'")
 
 (setq yas-prompt-functions '(yas/ido-prompt)
       yas-use-menu 'abbreviate

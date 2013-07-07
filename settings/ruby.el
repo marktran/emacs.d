@@ -6,15 +6,15 @@
       ruby-electric-expand-delimiters-list nil
       ruby-insert-encoding-magic-comment nil)
 
-(dolist (mode '(("Capfile" . ruby-mode)
-                ("Gemfile" . ruby-mode)
-                ("Guardfile" . ruby-mode)
-                ("Rakefile" . ruby-mode)
-                ("Vagrantfile" . ruby-mode)
-                ("\\.rake$" . ruby-mode)
-                ("\\.gemspec$" . ruby-mode)
-                ("\\.jbuilder$" . ruby-mode)))
-  (add-to-list 'auto-mode-alist mode))
+(add-auto-mode 'ruby-mode
+               "Capfile"
+               "Gemfile"
+               "Guardfile"
+               "Rakefile"
+               "Vagrantfile"
+               "\\.rake\\'"
+               "\\.gemspec\\'"
+               "\\.jbuilder\\'")
 
 ;; http://www.emacswiki.org/emacs/HideShow
 (add-to-list 'hs-special-modes-alist

@@ -1,4 +1,4 @@
-(add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
+(add-auto-mode 'rhtml-mode "\\.erb\\'")
 (add-hook 'rhtml-mode-hook 'emmet-mode)
 
 ;; after deleting a tag, indent properly
