@@ -23,9 +23,9 @@
                            "^\\*magit"
                            (lambda (name)
                              (save-excursion
-                               (set-buffer name)
                                (equal major-mode 'dired-mode))))
-      ido-use-filename-at-point nil)
+      ido-use-filename-at-point nil
+      ido-use-virtual-buffers t)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
