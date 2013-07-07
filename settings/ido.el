@@ -10,16 +10,17 @@
                            "^\\*Buffer List\\*"
                            "^\\*Compile-Log\\*"
                            "^\\*Completions\\*"
-                           "^\\*growl\\*"
-                           "^\\*helm"
                            "^\\*Helm"
                            "^\\*Help\\*"
                            "^\\*Ido"
                            "^\\*Messages\\*"
-                           "^\\*magit"
                            "^\\*RE-Builder\\*"
                            "^\\*Shell Command Output\\*"
+                           "^\\*Warnings\\*"
                            "^\\*XML Validation Header\\*"
+                           "^\\*growl\\*"
+                           "^\\*helm"
+                           "^\\*magit"
                            (lambda (name)
                              (save-excursion
                                (set-buffer name)
