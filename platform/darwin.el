@@ -1,5 +1,7 @@
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t
+      dired-use-ls-dired t
+      insert-directory-program "gls"
       interprogram-cut-function 'paste-to-osx
       interprogram-paste-function 'copy-from-osx
       mouse-wheel-scroll-amount '(0.01))
