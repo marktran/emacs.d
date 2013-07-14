@@ -70,6 +70,7 @@
 
 ;; eshell mode
 (defun eshell-evil-keys ()
+  (define-key eshell-mode-map (kbd "C-w =") 'balance-windows)
   (define-key eshell-mode-map (kbd "C-w h") 'windmove-left)
   (define-key eshell-mode-map (kbd "C-w C-h") 'windmove-left)
   (define-key eshell-mode-map (kbd "C-w l") 'windmove-right)
