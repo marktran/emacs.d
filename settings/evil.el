@@ -7,7 +7,7 @@
 
 ;; https://github.com/cofi/evil-leader/issues/10
 (evil-mode nil)
-(global-evil-leader-mode)
+(global-evil-leader-mode t)
 (evil-mode t)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode      . emacs)
