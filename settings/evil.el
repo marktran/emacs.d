@@ -44,7 +44,7 @@
   "e" 'er/expand-region
   "E" 'eshell
   "f" 'ido-find-file
-  "F" 'helm-ls-git-ls
+  "F" 'fiplr-find-file
   "g" 'magit-status
   "k" 'kill-this-buffer
   "K" 'kill-buffer-and-window

@@ -23,6 +23,14 @@
                :type github
                :pkgname "lewang/flx"
                :features flx-ido)
+        (:name grizzl
+               :type github
+               :pkgname "d11wtq/grizzl"
+               :features grizzl)
+        (:name fiplr
+               :type github
+               :pkgname "d11wtq/fiplr"
+               :features fiplr)
         (:name helm-ls-git
                :type github
                :pkgname "emacs-helm/helm-ls-git")
