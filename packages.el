@@ -61,7 +61,7 @@
          evil-numbers
          evil-surround
          expand-region
-         golden-ratio
+         ;; golden-ratio
          goto-chg
          growl
          haml-mode
