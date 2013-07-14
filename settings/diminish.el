@@ -6,6 +6,7 @@
 (eval-after-load "hideshow" '(diminish 'hs-minor-mode))
 (eval-after-load "paredit" '(diminish 'paredit-mode))
 (eval-after-load "projectile" '(diminish 'projectile-mode))
+(eval-after-load "sackspace" '(diminish 'sackspace-mode))
 (eval-after-load "ruby-electric" '(diminish 'ruby-electric-mode))
 (eval-after-load "undo-tree" '(diminish 'undo-tree-mode))
 (eval-after-load "whitespace" '(diminish 'global-whitespace-mode))
