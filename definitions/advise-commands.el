@@ -4,6 +4,12 @@
 The body of the advice is in BODY."
   `(progn
      ,@(mapcar (lambda (command)
-                 `(defadvice ,command (before ,(intern (concat (symbol-name command) "-" advice-name)) activate)
+                 `(defadvice ,command
+                    (before ,(intern
+                              (concat
+                               (symbol-name command)
+                               "-"
+                               advice-name))
+                            activate)
                     ,@body))
                commands)))
