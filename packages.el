@@ -40,10 +40,7 @@
         (:name emmet-mode
                :type github
                :pkgname "smihica/zencoding"
-               :features emmet-mode)
-        (:name sackspace
-               :type github
-               :pkgname "cofi/sackspace.el")))
+               :features emmet-mode)))
 
 (setq packages
       (append
