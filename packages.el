@@ -19,10 +19,6 @@
       '((:name ag
                :type github
                :pkgname "Wilfred/ag.el")
-        (:name flx
-               :type github
-               :pkgname "lewang/flx"
-               :features flx-ido)
         (:name grizzl
                :type github
                :pkgname "d11wtq/grizzl"
@@ -31,9 +27,6 @@
                :type github
                :pkgname "d11wtq/fiplr"
                :features fiplr)
-        (:name helm-ls-git
-               :type github
-               :pkgname "emacs-helm/helm-ls-git")
         (:name ido-ubiquitous
                :type github
                :pkgname "technomancy/ido-ubiquitous")
@@ -58,6 +51,7 @@
          evil-numbers
          evil-surround
          expand-region
+         flx
          ;; golden-ratio
          goto-chg
          growl
