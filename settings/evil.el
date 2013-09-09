@@ -20,6 +20,7 @@
 
 ;; key bindings
 (fill-keymap evil-normal-state-map
+             "Y" (kbd "y$")
              "C-c +" 'evil-numbers/inc-at-pt
              "C-c -" 'evil-numbers/dec-at-pt)
 
@@ -55,7 +56,7 @@
   "R" 'recentf-ido-find-file
   "S" 'scratch
   "t" 'ido-goto-symbol
-  "w" 'whitespace-cleanup)
+  "SPC" 'whitespace-cleanup)
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
 (evil-leader/set-key-for-mode 'ruby-mode "p" 'rspec-toggle-example-pendingness)
