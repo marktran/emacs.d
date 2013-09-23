@@ -52,6 +52,7 @@
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
+  "Q" 'save-buffers-kill-emacs
   "r" 'rspec-rerun
   "R" 'recentf-ido-find-file
   "S" 'scratch
