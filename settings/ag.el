@@ -1,1 +1,2 @@
-(setq ag-reuse-buffers t)
+(setq ag-reuse-buffers t
+      ag-reuse-window t)
