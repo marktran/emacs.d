@@ -51,7 +51,6 @@
          evil-surround
          expand-region
          flx
-         golden-ratio
          goto-chg
          growl
          haml-mode
