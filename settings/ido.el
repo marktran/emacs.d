@@ -25,7 +25,7 @@
                              (save-excursion
                                (equal major-mode 'dired-mode))))
       ido-use-filename-at-point nil
-      ido-use-virtual-buffers t)
+      ido-use-virtual-buffers nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
