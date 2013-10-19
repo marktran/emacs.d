@@ -23,6 +23,11 @@
                :type github
                :pkgname "d11wtq/grizzl"
                :features grizzl)
+        (:name es-lib
+               :website "https://github.com/sabof/es-lib"
+               :description "A collecton of emacs utilities"
+               :type github
+               :pkgname "sabof/es-lib")
         (:name fiplr
                :type github
                :pkgname "d11wtq/fiplr"
@@ -30,10 +35,13 @@
         (:name ido-ubiquitous
                :type github
                :pkgname "technomancy/ido-ubiquitous")
-        (:name emmet-mode
+        (:name project-explorer
+               :website "https://github.com/sabof/project-explorer"
+               :description "A project explorer sidebar"
                :type github
-               :pkgname "smihica/zencoding"
-               :features emmet-mode)))
+               :depends (es-lib)
+               :pkgname "sabof/project-explorer"
+               :features project-explorer)))
 
 (setq packages
       (append
@@ -45,6 +53,7 @@
          dired+
          el-expectations
          el-get
+         emmet-mode
          evil
          evil-leader
          evil-numbers
