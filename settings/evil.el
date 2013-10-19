@@ -15,6 +15,7 @@
                               (eshell-mode                   . emacs)
                               (magit-branch-manager-mode     . emacs)
                               (magit-log-edit-mode           . emacs)
+                              (project-explorer-mode         . emacs)
                               (sql-interactive-mode          . emacs))
       do (evil-set-initial-state mode state))
 
@@ -52,6 +53,7 @@
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
+  "p" 'project-explorer-open
   "Q" 'save-buffers-kill-emacs
   "r" 'rspec-rerun
   "R" 'recentf-ido-find-file
