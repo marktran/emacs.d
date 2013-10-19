@@ -65,7 +65,6 @@
          org-mode
          package
          paredit
-         projectile
          rhtml-mode
          rspec-mode
          ruby-electric
