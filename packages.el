@@ -1,91 +1,22 @@
-;; set SPC to nil before evil makes dired-mode-map the overriding map
-(require 'dired)
-(define-key dired-mode-map (kbd "SPC") nil)
+(require 'package)
 
-;; set before el-get loads packages
-(setq evil-want-C-u-scroll t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
+  (package-refresh-contents))
 
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (let (el-get-master-branch)
-       (end-of-buffer)
-       (eval-print-last-sexp)))))
+;; on-demand installation of packages
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
 
-(setq el-get-sources
-      '((:name ag
-               :type github
-               :pkgname "Wilfred/ag.el")
-        (:name grizzl
-               :type github
-               :pkgname "d11wtq/grizzl"
-               :features grizzl)
-        (:name es-lib
-               :website "https://github.com/sabof/es-lib"
-               :description "A collecton of emacs utilities"
-               :type github
-               :pkgname "sabof/es-lib")
-        (:name fiplr
-               :type github
-               :pkgname "d11wtq/fiplr"
-               :features fiplr)
-        (:name ido-ubiquitous
-               :type github
-               :pkgname "technomancy/ido-ubiquitous")
-        (:name project-explorer
-               :website "https://github.com/sabof/project-explorer"
-               :description "A project explorer sidebar"
-               :type github
-               :depends (es-lib)
-               :pkgname "sabof/project-explorer"
-               :features project-explorer)))
-
-(setq packages
-      (append
-       '(ack-and-a-half
-         buffer-move
-         cl-lib
-         coffee-mode
-         diminish
-         dired+
-         el-expectations
-         el-get
-         emmet-mode
-         evil
-         evil-leader
-         evil-numbers
-         evil-surround
-         expand-region
-         flx
-         goto-chg
-         growl
-         haml-mode
-         helm
-         highlight-indentation
-         inf-ruby
-         json
-         magit
-         markdown-mode
-         mode-compile
-         multiple-cursors
-         org-mode
-         package
-         paredit
-         rhtml-mode
-         rspec-mode
-         ruby-electric
-         ruby-mode
-         scratch
-         smart-tab
-         smex
-         ujelly-theme
-         undo-tree
-         window-numbering
-         yaml-mode
-         yasnippet)
-       (mapcar 'el-get-source-name el-get-sources)))
-
-(el-get 'sync packages)
+(package-initialize)

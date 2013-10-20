@@ -1,0 +1,1 @@
+(require-package 'goto-chg)

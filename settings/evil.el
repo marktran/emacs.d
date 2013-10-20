@@ -1,22 +1,26 @@
+(require-package 'evil)
+(require-package 'evil-leader)
+(require-package 'evil-numbers)
+(require-package 'surround)
+
 (setq evil-ex-search-vim-style-regexp t
       evil-leader/in-all-states t
       evil-leader/leader "SPC"
       evil-mode-line-format nil
-      evil-search-module 'evil-search)
+      evil-search-module 'evil-search
+      evil-want-C-u-scroll t)
 (setq-default evil-shift-width 2)
 
 ;; https://github.com/cofi/evil-leader/issues/10
 (evil-mode nil)
 (global-evil-leader-mode t)
 (evil-mode t)
+(global-surround-mode t)
 
-(loop for (mode . state) in '((inferior-emacs-lisp-mode      . emacs)
-                              (comint-mode                   . emacs)
-                              (eshell-mode                   . emacs)
-                              (magit-branch-manager-mode     . emacs)
-                              (magit-log-edit-mode           . emacs)
-                              (project-explorer-mode         . emacs)
-                              (sql-interactive-mode          . emacs))
+(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
+                              (comint-mode              . emacs)
+                              (eshell-mode              . emacs)
+                              (sql-interactive-mode     . emacs))
       do (evil-set-initial-state mode state))
 
 ;; key bindings

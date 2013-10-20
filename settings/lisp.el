@@ -1,3 +1,5 @@
+(require-package 'paredit)
+
 (dolist (hook '(emacs-lisp-mode-hook
                 lisp-interaction-mode-hook
                 lisp-mode-hook

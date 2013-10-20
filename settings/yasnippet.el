@@ -1,3 +1,5 @@
+(require-package 'yasnippet)
+
 (add-auto-mode 'snippet-mode "\\.yasnippet\\'")
 
 (setq yas-prompt-functions '(yas/ido-prompt)

@@ -1,3 +1,6 @@
+(require-package 'flx-ido)
+(require-package 'ido-ubiquitous)
+
 (ido-mode t)
 (ido-everywhere t)
 (ido-ubiquitous t)

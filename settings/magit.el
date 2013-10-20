@@ -1,3 +1,5 @@
+(require-package 'magit)
+
 (require 'magit)
 
 (setq magit-completing-read-function 'magit-ido-completing-read
@@ -33,3 +35,7 @@
   (jump-to-register :magit-fullscreen))
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+
+;; use emacs state in the following modes
+(evil-set-initial-state 'git-commit-mode 'emacs)
+(evil-set-initial-state 'magit-branch-manager-mode 'emacs)

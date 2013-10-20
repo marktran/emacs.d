@@ -1,3 +1,5 @@
+(require-package 'scratch)
+
 ;; http://www.emacswiki.org/emacs/RecreateScratchBuffer
 (save-excursion
   (set-buffer (get-buffer-create "*scratch*"))
