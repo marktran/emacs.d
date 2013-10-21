@@ -11,9 +11,9 @@
           (remove-duplicates (mapcar #'car file-assoc-list)
                              :test #'string=))
          (filename (ido-completing-read "Recent file: "
-					filename-list
-					nil
-					t)))
+          filename-list
+          nil
+          t)))
     (when filename
       (find-file (cdr (assoc filename
                              file-assoc-list))))))
