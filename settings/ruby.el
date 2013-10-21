@@ -1,6 +1,6 @@
-(require-package 'ruby-electric)
-(require-package 'rspec-mode)
 (require-package 'inf-ruby)
+(require-package 'rspec-mode)
+(require-package 'ruby-electric)
 
 (setq erb-type-to-delim-face nil
       erb-type-to-face nil
