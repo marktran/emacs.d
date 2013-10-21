@@ -66,7 +66,6 @@
   "SPC" 'whitespace-cleanup)
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
-(evil-leader/set-key-for-mode 'ruby-mode "p" 'rspec-toggle-example-pendingness)
 (evil-leader/set-key-for-mode 'ruby-mode "s" 'rspec-verify-single)
 (evil-leader/set-key-for-mode 'ruby-mode "v" 'rspec-verify)
 
