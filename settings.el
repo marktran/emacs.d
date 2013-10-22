@@ -6,6 +6,7 @@
       auto-save-default nil
       comment-auto-fill-only-comments t
       confirm-nonexistent-file-or-buffer nil
+      custom-file "~/.emacs.d/custom.el"
       disabled-command-function nil
       global-auto-revert-non-file-buffers t
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function
