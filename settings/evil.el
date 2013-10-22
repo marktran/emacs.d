@@ -39,13 +39,10 @@
 
 ;; evil leader
 (evil-leader/set-key
-  "A" 'ack
-  "B" 'ido-switch-buffer-other-window
   "C" 'mc/mark-next-like-this
   "D" 'toggle-current-window-dedication
   "E" 'eshell
   "F" 'fiplr-find-file
-  "K" 'kill-buffer-and-window
   "Q" 'save-buffers-kill-emacs
   "R" 'recentf-ido-find-file
   "S" 'scratch
