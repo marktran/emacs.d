@@ -39,30 +39,32 @@
 
 ;; evil leader
 (evil-leader/set-key
-  "a" 'ag-project
   "A" 'ack
-  "b" 'ido-switch-buffer
   "B" 'ido-switch-buffer-other-window
-  "c" 'mc/mark-next-like-this
-  "C" 'mc/edit-lines
-  "d" 'dired-jump
+  "C" 'mc/mark-next-like-this
   "D" 'toggle-current-window-dedication
-  "e" 'er/expand-region
   "E" 'eshell
-  "f" 'ido-find-file
   "F" 'fiplr-find-file
+  "K" 'kill-buffer-and-window
+  "Q" 'save-buffers-kill-emacs
+  "R" 'recentf-ido-find-file
+  "S" 'scratch
+  "a" 'ag-project
+  "b" 'ido-switch-buffer
+  "c" 'simpleclip-copy
+  "d" 'dired-jump
+  "e" 'er/expand-region
+  "f" 'ido-find-file
   "g" 'magit-status
   "k" 'kill-this-buffer
-  "K" 'kill-buffer-and-window
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
   "p" 'project-explorer-open
-  "Q" 'save-buffers-kill-emacs
   "r" 'rspec-rerun
-  "R" 'recentf-ido-find-file
-  "S" 'scratch
   "t" 'ido-goto-symbol
+  "v" 'simpleclip-paste
+  "x" 'simpleclip-cut
   "SPC" 'whitespace-cleanup)
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
