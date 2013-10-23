@@ -19,7 +19,7 @@
                    (setq imenu--index-alist nil)
                    (ido-goto-symbol (imenu--make-index-alist))
                    (setq selected-symbol
-                         (ido-completing-read "Symbol? " symbol-names))
+                         (ido-completing-read "Symbol: " symbol-names))
                    (string= (car imenu--rescan-item) selected-symbol)))
           (unless (and (boundp 'mark-active) mark-active)
             (push-mark nil t nil))
