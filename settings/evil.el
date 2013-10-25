@@ -45,7 +45,6 @@
   "F" 'fiplr-find-file
   "Q" 'save-buffers-kill-emacs
   "R" 'recentf-ido-find-file
-  "S" 'scratch
   "a" 'ag-project
   "b" 'ido-switch-buffer
   "c" 'simpleclip-copy
@@ -66,7 +65,7 @@
 
 (evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
 (evil-leader/set-key-for-mode 'ruby-mode "s" 'rspec-verify-single)
-(evil-leader/set-key-for-mode 'ruby-mode "v" 'rspec-verify)
+(evil-leader/set-key-for-mode 'ruby-mode "S" 'rspec-verify)
 
 ;; compilation mode
 (add-hook 'compilation-mode-hook '(lambda ()
