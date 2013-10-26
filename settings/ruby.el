@@ -20,7 +20,6 @@
                "Rakefile"
                "Vagrantfile"
                "\\.rake\\'"
-               "\\.rb$"
                "\\.gemspec\\'"
                "\\.jbuilder\\'")
 
