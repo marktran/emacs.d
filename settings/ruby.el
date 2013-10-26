@@ -1,6 +1,9 @@
+(require-package 'ruby-additional)
 (require-package 'inf-ruby)
 (require-package 'rspec-mode)
 (require-package 'ruby-electric)
+
+(require 'ruby-additional)
 
 (setq erb-type-to-delim-face nil
       erb-type-to-face nil
@@ -17,6 +20,7 @@
                "Rakefile"
                "Vagrantfile"
                "\\.rake\\'"
+               "\\.rb$"
                "\\.gemspec\\'"
                "\\.jbuilder\\'")
 
@@ -26,4 +30,5 @@
                "^\\s-*\\(def\\|class\\|module\\|do\\|if\\)" "end" "#"
                (lambda (arg) (ruby-end-of-block)) nil))
 
+(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 (add-hook 'ruby-mode-hook 'run-coding-hook)
