@@ -8,7 +8,6 @@
 (after-load 'paredit (diminish 'paredit-mode))
 (after-load 'projectile (diminish 'projectile-mode))
 (after-load 'sackspace (diminish 'sackspace-mode))
-(after-load 'ruby-electric (diminish 'ruby-electric-mode))
 (after-load 'undo-tree (diminish 'undo-tree-mode))
 (after-load 'whitespace (diminish 'global-whitespace-mode))
 (after-load 'yasnippet (diminish 'yas-minor-mode))

@@ -1,16 +1,18 @@
 (require-package 'ruby-additional)
 (require-package 'inf-ruby)
 (require-package 'rspec-mode)
-(require-package 'ruby-electric)
+(require-package 'ruby-end)
 
 (require 'ruby-additional)
+
+(after-load 'ruby-end (diminish 'ruby-end-mode))
 
 (setq erb-type-to-delim-face nil
       erb-type-to-face nil
       rspec-use-rake-flag nil
       ruby-deep-arglist nil
       ruby-deep-indent-paren nil
-      ruby-electric-expand-delimiters-list nil
+      ruby-end-insert-newline nil
       ruby-insert-encoding-magic-comment nil)
 
 (add-auto-mode 'ruby-mode
@@ -29,5 +31,5 @@
                "^\\s-*\\(def\\|class\\|module\\|do\\|if\\)" "end" "#"
                (lambda (arg) (ruby-end-of-block)) nil))
 
-(add-hook 'ruby-mode-hook 'ruby-electric-mode)
+(add-hook 'ruby-mode-hook 'ruby-end-mode)
 (add-hook 'ruby-mode-hook 'run-coding-hook)
