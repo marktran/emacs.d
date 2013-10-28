@@ -5,8 +5,6 @@
 
 (after-load 'ruby-end (diminish 'ruby-end-mode))
 
-(setq erb-type-to-delim-face nil
-      erb-type-to-face nil
 (setq enh-ruby-bounce-deep-indent t
       enh-ruby-hanging-brace-indent-level 2
       rspec-use-rake-flag nil
