@@ -40,7 +40,7 @@
 ;; evil leader
 (evil-leader/set-key
   "C" 'mc/mark-next-like-this
-  "D" 'toggle-current-window-dedication
+  "D" 'dash-at-point
   "E" 'eshell
   "F" 'fiplr-find-file
   "Q" 'save-buffers-kill-emacs
