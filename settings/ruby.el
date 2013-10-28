@@ -1,21 +1,21 @@
-(require-package 'ruby-additional)
+(require-package 'enh-ruby-mode)
 (require-package 'inf-ruby)
 (require-package 'rspec-mode)
 (require-package 'ruby-end)
-
-(require 'ruby-additional)
 
 (after-load 'ruby-end (diminish 'ruby-end-mode))
 
 (setq erb-type-to-delim-face nil
       erb-type-to-face nil
+(setq enh-ruby-bounce-deep-indent t
+      enh-ruby-hanging-brace-indent-level 2
       rspec-use-rake-flag nil
       ruby-deep-arglist nil
       ruby-deep-indent-paren nil
       ruby-end-insert-newline nil
       ruby-insert-encoding-magic-comment nil)
 
-(add-auto-mode 'ruby-mode
+(add-auto-mode 'enh-ruby-mode
                "Capfile"
                "Gemfile"
                "Guardfile"
@@ -31,5 +31,5 @@
                "^\\s-*\\(def\\|class\\|module\\|do\\|if\\)" "end" "#"
                (lambda (arg) (ruby-end-of-block)) nil))
 
-(add-hook 'ruby-mode-hook 'ruby-end-mode)
-(add-hook 'ruby-mode-hook 'run-coding-hook)
+(add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
+(add-hook 'enh-ruby-mode-hook 'run-coding-hook)
