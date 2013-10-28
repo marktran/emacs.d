@@ -7,6 +7,7 @@
 
 (dolist (hook '(comint-mode-hook
                 compilation-mode-hook
+                help-mode-hook
                 vc-annotate-mode-hook))
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
