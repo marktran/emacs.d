@@ -1,5 +1,3 @@
-(require 'cl)
-
 (defun take (n lst)
   "Return atmost the first `N' items of `LST'."
   (let (acc '())
