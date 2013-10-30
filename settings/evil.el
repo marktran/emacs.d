@@ -63,9 +63,9 @@
   "x" 'simpleclip-cut
   "SPC" 'whitespace-cleanup)
 
-(evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
-(evil-leader/set-key-for-mode 'ruby-mode "s" 'rspec-verify-single)
-(evil-leader/set-key-for-mode 'ruby-mode "S" 'rspec-verify)
+(evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
+(evil-leader/set-key-for-mode 'enh-ruby-mode "s" 'rspec-verify-single)
+(evil-leader/set-key-for-mode 'enh-ruby-mode "S" 'rspec-verify)
 
 ;; compilation mode
 (add-hook 'compilation-mode-hook '(lambda ()
