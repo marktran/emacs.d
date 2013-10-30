@@ -6,6 +6,7 @@
         evil-append
         evil-backward-char
         evil-delete
+        evil-delete-backward-char-and-join
         evil-delete-char
         evil-delete-line
         evil-digit-argument-or-evil-beginning-of-line
