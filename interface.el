@@ -1,6 +1,5 @@
 (require-package 'ujelly-theme)
 
-(require 'ujelly-theme)
 (require 'uniquify)
 
 (column-number-mode t)
@@ -31,3 +30,5 @@
 ;; remove $ at end of truncated lines
 ;; http://stackoverflow.com/questions/8370778/remove-glyph-at-end-of-truncated-lines
 (set-display-table-slot standard-display-table 0 ?\ )
+
+(load-theme 'ujelly t)
