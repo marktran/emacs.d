@@ -56,6 +56,7 @@
   "l" 'linum-mode
   "m" 'bookmark-ido-find-file
   "o" 'browse-url-of-file
+  "m" 'bookmark-jump
   "p" 'project-explorer-open
   "r" 'rspec-rerun
   "t" 'ido-goto-symbol
