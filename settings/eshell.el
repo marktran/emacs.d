@@ -1,3 +1,6 @@
+(require 'eshell)
+(require 'em-smart)
+
 (setq eshell-aliases-file "~/.emacs.d/eshell/alias"
       eshell-banner-message ""
       eshell-cmpl-cycle-completions nil
@@ -13,7 +16,10 @@
          " "
          (propertize (abbreviate-file-name (eshell/pwd)) 'face `(:foreground "#cd00cd"))
          " "))
-      eshell-prompt-regexp "^[^ ]* [^ ]* ")
+      eshell-prompt-regexp "^[^ ]* [^ ]* "
+      esehll-review-quick-commands t
+      eshell-smart-space-goes-to-end t
+      eshell-where-to-jump 'begin)
 
 (add-hook 'eshell-mode-hook '(lambda ()
                                (define-key eshell-mode-map (kbd "C-p") 'eshell-previous-input)
