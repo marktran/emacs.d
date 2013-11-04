@@ -20,6 +20,7 @@
 (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                               (comint-mode              . emacs)
                               (eshell-mode              . emacs)
+                              (occur-mode               . normal)
                               (sql-interactive-mode     . emacs))
       do (evil-set-initial-state mode state))
 
