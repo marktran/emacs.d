@@ -7,6 +7,7 @@
 
 (setq enh-ruby-bounce-deep-indent t
       enh-ruby-hanging-brace-indent-level 2
+      enh-ruby-use-encoding-map nil
       rspec-use-rake-flag nil
       ruby-deep-arglist nil
       ruby-deep-indent-paren nil
