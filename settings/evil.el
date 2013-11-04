@@ -40,10 +40,13 @@
 
 ;; evil leader
 (evil-leader/set-key
+  "A" 'ag
   "C" 'mc/mark-next-like-this
   "D" 'dash-at-point
   "E" 'eshell
   "F" 'fiplr-find-file
+  "G" 'magit-blame-mode
+  "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
   "R" 'recentf-ido-find-file
   "a" 'ag-project
@@ -55,14 +58,14 @@
   "g" 'magit-status
   "k" 'kill-this-buffer
   "l" 'linum-mode
-  "m" 'bookmark-ido-find-file
-  "o" 'browse-url-of-file
   "m" 'bookmark-jump
+  "o" 'occur
   "p" 'project-explorer-open
   "r" 'rspec-rerun
   "t" 'ido-goto-symbol
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
+  "y" 'bury-buffer
   "SPC" 'whitespace-cleanup)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
