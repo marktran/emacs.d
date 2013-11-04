@@ -28,13 +28,14 @@
   ad-do-it
   (delete-other-windows))
 
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :magit-fullscreen))
-
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+;; restore previously hidden windows
+(defadvice magit-mode-quit-window (around magit-restore-screen activate)
+  (let ((current-mode major-mode))
+    ad-do-it
+    ;; we only want to jump to register when the last seen buffer
+    ;; was a magit-status buffer.
+    (when (eq 'magit-status-mode current-mode)
+      (jump-to-register :magit-fullscreen))))
 
 ;; use emacs state in the following modes
 (evil-set-initial-state 'git-commit-mode 'emacs)
