@@ -20,9 +20,10 @@
                "Guardfile"
                "Rakefile"
                "Vagrantfile"
-               "\\.rake\\'"
+               "\\.jbuilder\\'"
                "\\.gemspec\\'"
-               "\\.jbuilder\\'")
+               "\\.rake\\'"
+               "\\.ru\\'")
 
 ;; http://www.emacswiki.org/emacs/HideShow
 (add-to-list 'hs-special-modes-alist
