@@ -60,13 +60,22 @@
   "l" 'linum-mode
   "m" 'bookmark-jump
   "o" 'occur
-  "p" 'project-explorer-open
   "r" 'rspec-rerun
   "t" 'ido-goto-symbol
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
   "y" 'bury-buffer
-  "SPC" 'whitespace-cleanup)
+  "SPC" 'whitespace-cleanup
+
+  "p b" 'projectile-switch-to-buffer
+  "p D" 'projectile-dired
+  "p d" 'projectile-find-dir
+  "p e" 'project-explorer-open
+  "p j" 'projectile-find-tag
+  "p k" 'projectile-kill-buffers
+  "p R" 'projectile-regenerate-tags
+  "p r" 'projectile-recentf
+  "p s" 'projectile-switch-project)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
 (evil-leader/set-key-for-mode 'enh-ruby-mode "s" 'rspec-verify-single)
