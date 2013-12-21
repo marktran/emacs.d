@@ -4,12 +4,6 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-*") 'mc/mark-all-words-like-this)
 
-;;; autopair messes with multiple cursors, so disable it
-(add-hook 'multiple-cursors-mode-enabled-hook (lambda ()
-                                                (autopair-mode -1)))
-(add-hook 'multiple-cursors-mode-disabled-hook (lambda ()
-                                                (autopair-mode t)))
-
 ;;; Thanks to tkf on
 ;;; https://github.com/magnars/multiple-cursors.el/issues/19
 ;;; insert state has been changed to emacs state
