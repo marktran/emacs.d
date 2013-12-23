@@ -2,6 +2,8 @@
 
 (require 'project-explorer)
 
+(setq pe/omit-regex "^\\.\\|^#\\|~$|^vendor$")
+
 (after-load 'project-explorer
   (define-key project-explorer-mode-map
     (kbd "C-w h") 'windmove-left)
