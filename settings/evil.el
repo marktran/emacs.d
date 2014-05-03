@@ -81,6 +81,8 @@
 (evil-leader/set-key-for-mode 'enh-ruby-mode "s" 'rspec-verify-single)
 (evil-leader/set-key-for-mode 'enh-ruby-mode "S" 'rspec-verify)
 
+(define-key evil-insert-state-map [remap newline] 'evil-ret-and-indent)
+
 ;; compilation mode
 (add-hook 'compilation-mode-hook '(lambda ()
                                     (local-unset-key "h")
