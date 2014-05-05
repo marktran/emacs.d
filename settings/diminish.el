@@ -2,6 +2,7 @@
 
 (diminish 'visual-line-mode)
 (after-load 'abbrev (diminish 'abbrev-mode))
+(after-load 'company (diminish 'company-mode))
 (after-load 'emmet-mode (diminish 'emmet-mode))
 (after-load 'eldoc (diminish 'eldoc-mode))
 (after-load 'golden-ratio (diminish 'golden-ratio-mode))
