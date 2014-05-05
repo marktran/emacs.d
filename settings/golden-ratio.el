@@ -1,5 +1,7 @@
 (require-package 'golden-ratio)
 
+(require 'golden-ratio)
+
 (setq golden-ratio-extra-commands
       (append golden-ratio-extra-commands
               '(evil-window-left
