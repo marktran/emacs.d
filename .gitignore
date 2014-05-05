@@ -2,6 +2,7 @@ auto-save-list/
 backups/
 elpa/
 eshell/
+project-explorer-cache/
 url/
 vendor/
 
