@@ -1,3 +1,4 @@
-(require-package 'simpleclip)
-
-(simpleclip-mode t)
+(use-package simpleclip
+  :defer t
+  :ensure simpleclip
+  :idle (simpleclip-mode t))
