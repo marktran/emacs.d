@@ -1,5 +1,3 @@
-(require-package 'diminish)
-
 (diminish 'visual-line-mode)
 (after-load 'abbrev (diminish 'abbrev-mode))
 (after-load 'company (diminish 'company-mode))
