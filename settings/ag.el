@@ -1,5 +1,5 @@
 (use-package ag
   :ensure ag
-  :config
+  :init
   (setq ag-reuse-buffers t
         ag-reuse-window t))
