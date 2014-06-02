@@ -1,6 +1,7 @@
-(require 'cl)
-
 (add-to-list 'load-path "~/.emacs.d/vendor")
+
+(require 'cl)
+(require 'use-package)
 
 (load-file "~/.emacs.d/packages.el")
 (mapc 'load (directory-files "~/.emacs.d/definitions" t "^[A-Za-z-]*\\.el"))
