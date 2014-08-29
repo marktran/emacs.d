@@ -31,5 +31,6 @@
                (lambda (arg) (ruby-end-of-block)) nil))
 
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+(add-hook 'enh-ruby-mode-hook 'rspec-mode)
 (add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 (add-hook 'enh-ruby-mode-hook 'run-coding-hook)
