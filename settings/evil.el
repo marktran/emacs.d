@@ -1,7 +1,7 @@
 (require-package 'evil)
 (require-package 'evil-leader)
 (require-package 'evil-numbers)
-(require-package 'surround)
+(require-package 'evil-surround)
 
 (setq evil-ex-search-vim-style-regexp t
       evil-leader/in-all-states t
@@ -15,7 +15,7 @@
 (evil-mode nil)
 (global-evil-leader-mode t)
 (evil-mode t)
-(global-surround-mode t)
+(global-evil-surround-mode t)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                               (comint-mode              . emacs)
