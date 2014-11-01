@@ -31,6 +31,7 @@
       ido-use-virtual-buffers nil)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
+(add-to-list 'ido-ignore-files "Icon$")
 
 (add-hook 'ido-setup-hook
           (gen-fill-keymap-hook ido-completion-map
