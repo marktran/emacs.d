@@ -4,6 +4,7 @@
 
 (setq magit-completing-read-function 'magit-ido-completing-read
       magit-remote-ref-format 'remote-slash-name
+      magit-restore-window-configuration t
       vc-handled-backends '(git))
 
 ;; full screen vc-annotate
