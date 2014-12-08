@@ -5,7 +5,7 @@
 
 (after-load 'ruby-end (diminish 'ruby-end-mode))
 
-(setq enh-ruby-bounce-deep-indent t
+(setq enh-ruby-deep-indent-paren nil
       enh-ruby-hanging-brace-indent-level 2
       enh-ruby-use-encoding-map nil
       rspec-use-rake-flag nil
