@@ -44,7 +44,7 @@
   "C" 'mc/mark-next-like-this
   "D" 'dash-at-point
   "E" 'eshell
-  "F" 'fiplr-find-file
+  "F" 'helm-projectile-find-file
   "G" 'magit-blame-mode
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
@@ -75,7 +75,7 @@
   "p k" 'projectile-kill-buffers
   "p R" 'projectile-regenerate-tags
   "p r" 'projectile-recentf
-  "p s" 'projectile-switch-project)
+  "p s" 'helm-projectile-switch-project)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
 (evil-leader/set-key-for-mode 'enh-ruby-mode "s" 'rspec-verify-single)
