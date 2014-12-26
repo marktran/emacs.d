@@ -6,7 +6,8 @@
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (setq projectile-completion-system 'grizzl
         projectile-enable-caching t
-        projectile-ignored-projects '("emacs.d" "color-theme-ujelly")
+        projectile-ignored-projects '("~/src/mark/color-theme-ujelly/"
+                                      "~/src/mark/emacs.d/")
         projectile-tags-command "ripper-tags -R -f TAGS"))
 
 (use-package helm-projectile
