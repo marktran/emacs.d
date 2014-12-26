@@ -74,7 +74,7 @@
   "p j" 'projectile-find-tag
   "p k" 'projectile-kill-buffers
   "p R" 'projectile-regenerate-tags
-  "p r" 'projectile-recentf
+  "p r" 'helm-projectile-recentf
   "p s" 'helm-projectile-switch-project)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
