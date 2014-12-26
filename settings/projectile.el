@@ -8,6 +8,7 @@
         projectile-enable-caching t
         projectile-ignored-projects '("~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/")
+        projectile-switch-project-action 'helm-projectile-find-file
         projectile-tags-command "ripper-tags -R -f TAGS"))
 
 (use-package helm-projectile
