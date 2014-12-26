@@ -24,6 +24,7 @@
                            "^\\*growl\\*"
                            "^\\*helm"
                            "^\\*magit"
+                           "TAGS"
                            (lambda (name)
                              (save-excursion
                                (equal major-mode 'dired-mode))))
