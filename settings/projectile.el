@@ -6,6 +6,7 @@
   (setq projectile-enable-caching t
         projectile-globally-ignored-buffers '("*Helm Find Files*"
                                               "*eshell*"
+                                              "*helm M-x*"
                                               "*helm projectile*"
                                               "*helm recentf*"
                                               "*magit-process*"
