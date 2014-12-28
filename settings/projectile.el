@@ -4,7 +4,10 @@
   :config
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (setq projectile-enable-caching t
-        projectile-globally-ignored-buffers '("*eshell*" "*helm projectile*" "TAGS")
+        projectile-globally-ignored-buffers '("*eshell*"
+                                              "*helm projectile*"
+                                              "*magit-process*"
+                                              "TAGS")
         projectile-globally-ignored-files '("TAGS")
         projectile-ignored-projects '("~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/")
