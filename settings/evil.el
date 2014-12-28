@@ -48,13 +48,13 @@
   "G" 'magit-blame-mode
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
-  "R" 'recentf-ido-find-file
+  "R" 'helm-recentf
   "a" 'ag-project
   "b" 'ido-switch-buffer
   "c" 'simpleclip-copy
   "d" 'dired-jump
   "e" 'er/expand-region
-  "f" 'ido-find-file
+  "f" 'helm-find-files
   "g" 'magit-status
   "k" 'kill-this-buffer
   "l" 'linum-mode
