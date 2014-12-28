@@ -4,8 +4,10 @@
   :config
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (setq projectile-enable-caching t
-        projectile-globally-ignored-buffers '("*eshell*"
+        projectile-globally-ignored-buffers '("*Helm Find Files*"
+                                              "*eshell*"
                                               "*helm projectile*"
+                                              "*helm recentf*"
                                               "*magit-process*"
                                               "TAGS")
         projectile-globally-ignored-files '("TAGS")
