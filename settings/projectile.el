@@ -1,6 +1,5 @@
 (use-package projectile
   :ensure t
-  :diminish projectile-mode
   :idle (projectile-global-mode)
   :config
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
