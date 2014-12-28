@@ -54,7 +54,7 @@
   "c" 'simpleclip-copy
   "d" 'dired-jump
   "e" 'er/expand-region
-  "f" 'helm-find-files
+  "f" 'ido-find-file
   "g" 'magit-status
   "k" 'kill-this-buffer
   "l" 'linum-mode
