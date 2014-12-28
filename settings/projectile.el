@@ -3,8 +3,9 @@
   :idle (projectile-global-mode)
   :config
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
-  (setq projectile-completion-system 'grizzl
-        projectile-enable-caching t
+  (setq projectile-enable-caching t
+        projectile-globally-ignored-buffers '("*helm projectile*" "TAGS")
+        projectile-globally-ignored-files '("TAGS")
         projectile-ignored-projects '("~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/")
         projectile-switch-project-action 'helm-projectile-find-file
