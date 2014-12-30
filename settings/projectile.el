@@ -14,6 +14,7 @@
         projectile-globally-ignored-files '("TAGS")
         projectile-ignored-projects '("~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/")
+        projectile-mode-line '(:eval (format " P/%s" (projectile-project-name)))
         projectile-switch-project-action 'helm-projectile-find-file
         projectile-tags-command "ripper-tags -R -f TAGS"))
 
