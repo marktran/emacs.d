@@ -12,7 +12,8 @@
                                               "*magit-process*"
                                               "TAGS")
         projectile-globally-ignored-files '("TAGS")
-        projectile-ignored-projects '("~/src/mark/color-theme-ujelly/"
+        projectile-ignored-projects '("/usr/local"
+                                      "~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/")
         projectile-mode-line '(:eval (format " P/%s" (projectile-project-name)))
         projectile-switch-project-action 'helm-projectile-find-file
