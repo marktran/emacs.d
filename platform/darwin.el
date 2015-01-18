@@ -8,7 +8,7 @@
 
 (defun browse-url-default-macosx-browser (url &optional new-window)
   (interactive (browse-url-interactive-arg "URL: "))
-  (start-process (concat "open " url) nil "open" "-g" url))
+  (start-process (concat "open " url) nil "open" url))
 
 (defun copy-from-osx ()
   (shell-command-to-string "pbpaste"))
