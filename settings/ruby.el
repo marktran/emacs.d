@@ -16,6 +16,8 @@
       ruby-end-insert-newline nil
       ruby-insert-encoding-magic-comment nil)
 
+  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))
