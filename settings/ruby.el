@@ -3,6 +3,7 @@
   :mode
   (("Capfile" . enh-ruby-mode)
    ("Gemfile" . enh-ruby-mode)
+   ("\\.rb" . enh-ruby-mode)
    ("\\.ru" . enh-ruby-mode))
 
   :config
