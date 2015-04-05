@@ -2,7 +2,9 @@
 
 (require 'magit)
 
-(setq magit-completing-read-function 'magit-ido-completing-read
+(setq magit-auto-revert-mode nil
+      magit-completing-read-function 'magit-ido-completing-read
+      magit-last-seen-setup-instructions "1.4.0"
       magit-remote-ref-format 'remote-slash-name
       magit-restore-window-configuration t
       vc-handled-backends '(git))
