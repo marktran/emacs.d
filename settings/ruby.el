@@ -7,14 +7,15 @@
    ("\\.ru" . enh-ruby-mode))
 
   :config
-  (setq enh-ruby-deep-indent-paren nil
-      enh-ruby-hanging-brace-indent-level 2
-      enh-ruby-use-encoding-map nil
-      rspec-use-rake-flag nil
-      ruby-deep-arglist nil
-      ruby-deep-indent-paren nil
-      ruby-end-insert-newline nil
-      ruby-insert-encoding-magic-comment nil)
+  (setq enh-ruby-add-encoding-comment-on-save nil
+        enh-ruby-deep-indent-paren nil
+        enh-ruby-hanging-brace-indent-level 2
+        enh-ruby-use-encoding-map nil
+        rspec-use-rake-flag nil
+        ruby-deep-arglist nil
+        ruby-deep-indent-paren nil
+        ruby-end-insert-newline nil
+        ruby-insert-encoding-magic-comment nil)
 
   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
