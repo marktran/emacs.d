@@ -32,6 +32,10 @@
 
 (fill-keymap evil-window-map
              "u"   'winner-undo
+             "C-h" 'evil-window-left
+             "C-l" 'evil-window-right
+             "C-j" 'evil-window-down
+             "C-k" 'evil-window-up
              "C-r" 'winner-redo
              "M-h" 'buf-move-left
              "M-j" 'buf-move-down
