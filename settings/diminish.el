@@ -4,7 +4,6 @@
 (after-load 'emmet-mode (diminish 'emmet-mode))
 (after-load 'eldoc (diminish 'eldoc-mode))
 (after-load 'hideshow (diminish 'hs-minor-mode))
-(after-load 'magit (diminish 'magit-auto-revert-mode))
 (after-load 'paredit (diminish 'paredit-mode))
 (after-load 'sackspace (diminish 'sackspace-mode))
 (after-load 'undo-tree (diminish 'undo-tree-mode))
