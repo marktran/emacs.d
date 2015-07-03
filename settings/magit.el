@@ -1,13 +1,18 @@
-(require-package 'magit)
+(use-package magit
+  :ensure t
 
-(require 'magit)
+  :config
+  (setq magit-auto-revert-mode nil
+        magit-completing-read-function 'magit-ido-completing-read
+        magit-remote-ref-format 'remote-slash-name
+        magit-restore-window-configuration t
+        vc-handled-backends '(git))
 
-(setq magit-auto-revert-mode nil
-      magit-completing-read-function 'magit-ido-completing-read
-      magit-last-seen-setup-instructions "1.4.0"
-      magit-remote-ref-format 'remote-slash-name
-      magit-restore-window-configuration t
-      vc-handled-backends '(git))
+  (evil-set-initial-state 'git-commit-mode 'emacs)
+  (evil-set-initial-state 'magit-popup-mode 'emacs)
+  (evil-set-initial-state 'magit-popup-sequence-mode 'emacs)
+  (evil-set-initial-state 'magit-refs-mode 'emacs)
+  (evil-set-initial-state 'magit-revision-mode 'emacs))
 
 ;; full screen vc-annotate
 ;; https://github.com/magnars/.emacs.d/blob/master/setup-magit.el
@@ -39,10 +44,3 @@
     ;; was a magit-status buffer.
     (when (eq 'magit-status-mode current-mode)
       (jump-to-register :magit-fullscreen))))
-
-;; use emacs state in the following modes
-(evil-set-initial-state 'git-commit-mode 'emacs)
-(evil-set-initial-state 'magit-popup-mode 'emacs)
-(evil-set-initial-state 'magit-popup-sequence-mode 'emacs)
-(evil-set-initial-state 'magit-refs-mode 'emacs)
-(evil-set-initial-state 'magit-revision-mode 'emacs)
