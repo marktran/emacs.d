@@ -115,6 +115,10 @@
   "Enable Normal state after expansion"
   (evil-normal-state))
 
+;; magit blame mode
+(evil-declare-key 'normal magit-blame-mode-map
+  "q" 'magit-blame-quit)
+
 ;; org mode
 (evil-declare-key 'normal org-mode-map
   "za"        'org-cycle
