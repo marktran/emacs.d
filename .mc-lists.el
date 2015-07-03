@@ -16,6 +16,8 @@
         evil-insert
         evil-use-register
         ruby-electric-quote
+        ruby-end-return
+        ruby-end-space
         ))
 
 (setq mc/cmds-to-run-once
