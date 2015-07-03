@@ -42,5 +42,6 @@
 
 ;; use emacs state in the following modes
 (evil-set-initial-state 'git-commit-mode 'emacs)
-(evil-set-initial-state 'magit-branch-manager-mode 'emacs)
 (evil-set-initial-state 'magit-popup-mode 'emacs)
+(evil-set-initial-state 'magit-popup-sequence-mode 'emacs)
+(evil-set-initial-state 'magit-refs-mode 'emacs)
