@@ -21,7 +21,8 @@
                               (comint-mode              . emacs)
                               (eshell-mode              . emacs)
                               (occur-mode               . normal)
-                              (sql-interactive-mode     . emacs))
+                              (sql-interactive-mode     . emacs)
+                              (text-mode                . emacs))
       do (evil-set-initial-state mode state))
 
 ;; key bindings
