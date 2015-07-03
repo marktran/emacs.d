@@ -45,8 +45,7 @@
 
 ;; evil leader
 (evil-leader/set-key
-  "A" 'ag
-  "C" 'mc/mark-next-like-this
+  "A" 'occur
   "D" 'dash-at-point
   "E" 'eshell
   "F" 'helm-projectile-find-file
@@ -63,14 +62,16 @@
   "g" 'magit-status
   "k" 'kill-this-buffer
   "l" 'linum-mode
-  "m" 'bookmark-jump
-  "o" 'occur
+  "o" 'bookmark-jump
   "r" 'rspec-rerun
   "t" 'ido-goto-symbol
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
   "y" 'bury-buffer
   "SPC" 'whitespace-cleanup
+
+  "m a" 'mc/mark-all-dwim
+  "m n" 'mc/mark-next-like-this
 
   "p b" 'projectile-switch-to-buffer
   "p D" 'projectile-dired
