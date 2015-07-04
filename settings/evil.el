@@ -45,7 +45,6 @@
 
 ;; evil leader
 (evil-leader/set-key
-  "A" 'occur
   "D" 'dash-at-point
   "E" 'eshell
   "F" 'helm-projectile-find-file
@@ -53,8 +52,7 @@
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
   "R" 'helm-recentf
-  "a" 'ag-project
-  "b" 'ido-switch-buffer
+  "b" 'helm-mini
   "c" 'simpleclip-copy
   "d" 'dired-jump
   "e" 'er/expand-region
@@ -63,28 +61,31 @@
   "k" 'kill-this-buffer
   "l" 'linum-mode
   "o" 'bookmark-jump
-  "r" 'rspec-rerun
   "t" 'ido-goto-symbol
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
   "y" 'bury-buffer
   "SPC" 'whitespace-cleanup
 
-  "m a" 'mc/mark-all-dwim
+  "ma" 'mc/mark-all-dwim
 
-  "p b" 'projectile-switch-to-buffer
-  "p D" 'projectile-dired
-  "p d" 'projectile-find-dir
-  "p e" 'project-explorer-open
-  "p j" 'projectile-find-tag
-  "p k" 'projectile-kill-buffers
-  "p R" 'projectile-regenerate-tags
-  "p r" 'helm-projectile-recentf
-  "p s" 'helm-projectile-switch-project)
+  "pb" 'projectile-switch-to-buffer
+  "pD" 'projectile-dired
+  "pd" 'projectile-find-dir
+  "pe" 'project-explorer-open
+  "pj" 'projectile-find-tag
+  "pk" 'projectile-kill-buffers
+  "pR" 'projectile-regenerate-tags
+  "pr" 'helm-projectile-recentf
+  "ps" 'helm-projectile-switch-project
+
+  "rr" 'rspec-rerun
+  "rs" 'rspec-verify-single
+
+  "sa" 'ag-project
+  "ss" 'helm-swoop)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
-(evil-leader/set-key-for-mode 'enh-ruby-mode "s" 'rspec-verify-single)
-(evil-leader/set-key-for-mode 'enh-ruby-mode "S" 'rspec-verify)
 
 (define-key evil-insert-state-map [remap newline] 'evil-ret-and-indent)
 
