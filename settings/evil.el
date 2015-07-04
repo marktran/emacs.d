@@ -71,7 +71,6 @@
   "SPC" 'whitespace-cleanup
 
   "m a" 'mc/mark-all-dwim
-  "m n" 'mc/mark-next-like-this
 
   "p b" 'projectile-switch-to-buffer
   "p D" 'projectile-dired
