@@ -1,4 +1,5 @@
 (use-package coffee-mode
-  :ensure coffee-mode
-  :init
+  :defer t
+
+  :config
   (setq coffee-tab-width 2))
