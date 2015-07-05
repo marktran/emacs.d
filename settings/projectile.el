@@ -1,7 +1,7 @@
 (use-package projectile
   :ensure t
-  :idle (projectile-global-mode)
-  :config
+
+  :init
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (setq projectile-enable-caching t
         projectile-globally-ignored-buffers '("*Helm Find Files*"
@@ -17,7 +17,10 @@
                                       "~/src/mark/emacs.d/")
         projectile-mode-line '(:eval (format " P/%s" (projectile-project-name)))
         projectile-switch-project-action 'helm-projectile-find-file
-        projectile-tags-command "ripper-tags -R -f TAGS"))
+        projectile-tags-command "ripper-tags -R -f TAGS")
+
+  :config
+  (projectile-global-mode))
 
 (use-package helm-projectile
   :ensure t)
