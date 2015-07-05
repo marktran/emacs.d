@@ -1,3 +1,5 @@
-(require-package 'window-numbering)
+(use-package window-numbering
+  :defer t
 
-(window-numbering-mode t)
+  :config
+  (window-numbering-mode t))
