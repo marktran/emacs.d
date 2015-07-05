@@ -1,1 +1,1 @@
-(require-package 'haml-mode)
+(use-package haml-mode :defer t)
