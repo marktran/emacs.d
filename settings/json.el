@@ -1,1 +1,1 @@
-(require-package 'json-mode)
+(use-package json-mode :defer t)
