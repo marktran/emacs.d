@@ -1,10 +1,17 @@
-(require-package 'flx-ido)
-(require-package 'ido-ubiquitous)
+(use-package flx-ido
+  :ensure t
+
+  :config
+  (flx-ido-mode t))
+
+(use-package ido-ubiquitous
+  :ensure t
+
+  :config
+  (ido-ubiquitous t))
 
 (ido-mode t)
 (ido-everywhere t)
-(ido-ubiquitous t)
-(flx-ido-mode t)
 
 (setq ido-auto-merge-work-directories-length 1
       ido-create-new-buffer 'always
