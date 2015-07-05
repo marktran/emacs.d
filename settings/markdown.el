@@ -1,1 +1,1 @@
-(require-package 'markdown-mode)
+(use-package markdown-mode :defer t)
