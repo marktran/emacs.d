@@ -1,5 +1,5 @@
 (use-package magit
-  :defer t
+  :ensure t
 
   :config
   (setq magit-auto-revert-mode nil
