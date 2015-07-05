@@ -1,1 +1,0 @@
-(electric-pair-mode t)
