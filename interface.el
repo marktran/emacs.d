@@ -1,4 +1,4 @@
-(require-package 'ujelly-theme)
+(use-package ujelly-theme :ensure t)
 
 (require 'uniquify)
 
