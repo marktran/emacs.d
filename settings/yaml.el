@@ -1,3 +1,5 @@
-(require-package 'yaml-mode)
+(use-package yaml-mode
+  :defer t
 
-(add-auto-mode 'yaml-mode "\\.ya?ml\\'")
+  :mode
+  ("\\.ya?ml\\'" . yaml-mode))
