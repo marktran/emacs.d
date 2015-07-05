@@ -1,4 +1,6 @@
-(require-package 'org '(8 t))
+(use-package org
+  :defer t
 
-(setq org-completion-use-ido t
-      org-log-done 'time)
+  :config
+  (setq org-completion-use-ido t
+        org-log-done 'time))
