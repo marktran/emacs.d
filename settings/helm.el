@@ -9,6 +9,9 @@
         helm-M-x-fuzzy-match t
         helm-move-to-line-cycle-in-source t))
 
+(use-package helm-ag
+  :defer t)
+
 (use-package helm-swoop
   :defer t
 
