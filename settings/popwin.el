@@ -5,7 +5,9 @@
   (setq popwin:special-display-config nil)
 
   :config
-  (add-to-list 'popwin:special-display-config '("*Help*" :width 80 :position right))
-  (add-to-list 'popwin:special-display-config '("^\*helm.+\*$" :height 30 :regexp t))
+  (add-to-list 'popwin:special-display-config
+               '("*Help*" :height 0.4 :dedicated t :stick t :position bottom))
+  (add-to-list 'popwin:special-display-config
+               '("^\*helm.+\*$" :height 0.4 :regexp t))
 
   (popwin-mode t))

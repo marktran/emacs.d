@@ -45,7 +45,6 @@
 
 ;; evil leader
 (evil-leader/set-key
-  "D" 'dash-at-point
   "E" 'eshell
   "F" 'helm-projectile-find-file
   "O" 'browse-url-of-file
@@ -65,6 +64,12 @@
 
   "gs" 'magit-status
   "gb" 'magit-blame
+
+  "hb" 'describe-bindings
+  "hd" 'dash-at-point
+  "hf" 'describe-function
+  "hk" 'describe-key
+  "hm" 'describe-mode
 
   "ma" 'mc/mark-all-dwim
 
@@ -86,7 +91,10 @@
   "ss" 'helm-swoop
 
   "tg" 'toggle-golden-ratio-mode
-  "tl" 'linum-mode)
+  "tl" 'linum-mode
+
+  "wpm" 'popwin:messages
+  "wpc" 'popwin:close-popup-window)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
 
