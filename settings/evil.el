@@ -57,9 +57,7 @@
   "e" 'er/expand-region
   "f" 'ido-find-file
   "k" 'kill-this-buffer
-  "l" 'linum-mode
   "o" 'bookmark-jump
-  "t" 'ido-goto-symbol
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
   "y" 'bury-buffer
@@ -80,11 +78,15 @@
   "pr" 'helm-projectile-recentf
   "ps" 'helm-projectile-switch-project
 
+  "rf" 'rspec-verify
   "rr" 'rspec-rerun
   "rs" 'rspec-verify-single
 
   "sa" 'helm-ag-project-root
-  "ss" 'helm-swoop)
+  "ss" 'helm-swoop
+
+  "tg" 'toggle-golden-ratio-mode
+  "tl" 'linum-mode)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
 
