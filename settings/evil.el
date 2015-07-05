@@ -1,7 +1,7 @@
-(require-package 'evil)
-(require-package 'evil-leader)
-(require-package 'evil-numbers)
-(require-package 'evil-surround)
+(use-package evil :ensure t)
+(use-package evil-leader :ensure t)
+(use-package evil-numbers :ensure t)
+(use-package evil-surround :ensure t)
 
 (setq evil-ex-search-vim-style-regexp t
       evil-leader/in-all-states t
