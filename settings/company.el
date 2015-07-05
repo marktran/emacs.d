@@ -1,9 +1,13 @@
-(require-package 'company)
-(require-package 'company-inf-ruby)
+(use-package company
+  :ensure t
 
-(setq company-idle-delay 0.2)
+  :config
+  (setq company-idle-delay 0.2)
+  (eval-after-load 'company '(add-to-list 'company-backends 'company-inf-ruby))
+  (add-hook 'enh-ruby-mode-hook 'company-mode))
 
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-inf-ruby))
+(use-package company-inf-ruby :ensure t)
 
-(add-hook 'enh-ruby-mode-hook 'company-mode)
+
+
+
