@@ -1,2 +1,6 @@
-(use-package smart-parens
-  :defer t)
+(use-package smartparens
+  :defer t
+  :diminish smartparens-mode
+
+  :config
+  (smartparens-global-mode))
