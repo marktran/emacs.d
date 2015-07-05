@@ -70,6 +70,7 @@
   "hf" 'describe-function
   "hk" 'describe-key
   "hm" 'describe-mode
+  "hv" 'describe-variable
 
   "ma" 'mc/mark-all-dwim
 
