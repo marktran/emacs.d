@@ -1,1 +1,1 @@
-(require-package 'goto-chg)
+(use-package goto-chg :defer t)
