@@ -1,17 +1,12 @@
-(require-package 'project-explorer)
+(use-package project-explorer
+  :defer t
 
-(require 'project-explorer)
+  :config
+  (setq pe/omit-regex "^\\.\\|^#\\|~$|^vendor$")
 
-(setq pe/omit-regex "^\\.\\|^#\\|~$|^vendor$")
+  (define-key project-explorer-mode-map (kbd "C-w h") 'windmove-left)
+  (define-key project-explorer-mode-map (kbd "C-w C-h") 'windmove-left)
+  (define-key project-explorer-mode-map (kbd "C-w l") 'windmove-right)
+  (define-key project-explorer-mode-map (kbd "C-w C-l") 'windmove-right)
 
-(after-load 'project-explorer
-  (define-key project-explorer-mode-map
-    (kbd "C-w h") 'windmove-left)
-  (define-key project-explorer-mode-map
-    (kbd "C-w C-h") 'windmove-left)
-  (define-key project-explorer-mode-map
-    (kbd "C-w l") 'windmove-right)
-  (define-key project-explorer-mode-map
-    (kbd "C-w C-l") 'windmove-right))
-
-(evil-set-initial-state 'project-explorer-mode 'emacs)
+  (evil-set-initial-state 'project-explorer-mode 'emacs))
