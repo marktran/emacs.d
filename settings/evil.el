@@ -48,7 +48,6 @@
   "D" 'dash-at-point
   "E" 'eshell
   "F" 'helm-projectile-find-file
-  "G" 'magit-blame-mode
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
   "R" 'helm-recentf
@@ -57,7 +56,6 @@
   "d" 'dired-jump
   "e" 'er/expand-region
   "f" 'ido-find-file
-  "g" 'magit-status
   "k" 'kill-this-buffer
   "l" 'linum-mode
   "o" 'bookmark-jump
@@ -66,6 +64,9 @@
   "x" 'simpleclip-cut
   "y" 'bury-buffer
   "SPC" 'whitespace-cleanup
+
+  "gs" 'magit-status
+  "gb" 'magit-blame
 
   "ma" 'mc/mark-all-dwim
 
@@ -82,7 +83,7 @@
   "rr" 'rspec-rerun
   "rs" 'rspec-verify-single
 
-  "sa" 'ag-project
+  "sa" 'helm-ag-project-root
   "ss" 'helm-swoop)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
@@ -115,10 +116,6 @@
 (defadvice emmet-expand-line (after evil-normal-state activate)
   "Enable Normal state after expansion"
   (evil-normal-state))
-
-;; magit blame mode
-(evil-declare-key 'normal magit-blame-mode-map
-  "q" 'magit-blame-quit)
 
 ;; org mode
 (evil-declare-key 'normal org-mode-map
