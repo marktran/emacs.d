@@ -1,1 +1,1 @@
-(require-package 'expand-region)
+(use-package expand-region :defer t)
