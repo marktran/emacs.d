@@ -1,15 +1,20 @@
-(use-package evil :ensure t)
-(use-package evil-leader :ensure t)
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-ex-search-vim-style-regexp t
+        evil-mode-line-format nil
+        evil-search-module 'evil-search
+        evil-want-C-u-scroll t)
+  (setq-default evil-shift-width 2))
+
+(use-package evil-leader
+  :ensure t
+  :config
+  (setq evil-leader/in-all-states t
+        evil-leader/leader "SPC"))
+
 (use-package evil-numbers :ensure t)
 (use-package evil-surround :ensure t)
-
-(setq evil-ex-search-vim-style-regexp t
-      evil-leader/in-all-states t
-      evil-leader/leader "SPC"
-      evil-mode-line-format nil
-      evil-search-module 'evil-search
-      evil-want-C-u-scroll t)
-(setq-default evil-shift-width 2)
 
 ;; https://github.com/cofi/evil-leader/issues/10
 (evil-mode nil)
