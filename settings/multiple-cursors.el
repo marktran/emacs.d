@@ -1,8 +1,9 @@
-(require-package 'multiple-cursors)
+(use-package multiple-cursors
+  :defer t
 
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-*") 'mc/mark-all-words-like-this)
+  :init
+  (add-hook 'multiple-cursors-mode-enabled-hook 'my-mc-evil-switch-to-emacs-state)
+  (add-hook 'multiple-cursors-mode-disabled-hook 'my-mc-evil-back-to-previous-state))
 
 ;;; Thanks to tkf on
 ;;; https://github.com/magnars/multiple-cursors.el/issues/19
@@ -23,8 +24,3 @@
           (t (message "Don't know how to handle previous state: %S"
                       my-mc-evil-previous-state)))
       (setq my-mc-evil-previous-state nil))))
-
-(add-hook 'multiple-cursors-mode-enabled-hook
-          'my-mc-evil-switch-to-emacs-state)
-(add-hook 'multiple-cursors-mode-disabled-hook
-          'my-mc-evil-back-to-previous-state)
