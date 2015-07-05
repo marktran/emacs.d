@@ -1,13 +1,16 @@
-(require-package 'dired+)
+(use-package dired
+  :defer t
 
-(require 'dired)
+  :config
+  (setq dired-listing-switches "-alh"
+        dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+        dired-recursive-copies 'always
+        dired-recursive-deletes 'always)
 
-(setq dired-listing-switches "-alh"
-      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
-      dired-recursive-copies 'always
-      dired-recursive-deletes 'always)
+  (define-key dired-mode-map (kbd "SPC") nil))
 
-;; set SPC to nil before evil makes dired-mode-map the overriding map
-(define-key dired-mode-map (kbd "SPC") nil)
+(use-package dired+
+  :defer t
 
-(diredp-toggle-find-file-reuse-dir t)
+  :config
+  (diredp-toggle-find-file-reuse-dir t))
