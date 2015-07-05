@@ -1,5 +1,5 @@
 (use-package magit
-  :ensure t
+  :defer t
 
   :config
   (setq magit-auto-revert-mode nil
@@ -12,7 +12,10 @@
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-popup-sequence-mode 'emacs)
   (evil-set-initial-state 'magit-refs-mode 'emacs)
-  (evil-set-initial-state 'magit-revision-mode 'emacs))
+  (evil-set-initial-state 'magit-revision-mode 'emacs)
+
+  (evil-make-overriding-map magit-blame-mode-map 'normal)
+  (add-hook 'magit-blame-mode-hook 'evil-normalize-keymaps))
 
 ;; full screen vc-annotate
 ;; https://github.com/magnars/.emacs.d/blob/master/setup-magit.el
