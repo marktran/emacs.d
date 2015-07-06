@@ -9,11 +9,10 @@
         helm-M-x-fuzzy-match t
         helm-move-to-line-cycle-in-source t))
 
-(use-package helm-ag
-  :defer t)
+(use-package helm-ag :ensure t)
 
 (use-package helm-swoop
-  :defer t
+  :ensure t
 
   :init
   (setq helm-swoop-pre-input-function (lambda () "")

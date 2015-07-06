@@ -1,1 +1,1 @@
-(use-package goto-chg :defer t)
+(use-package goto-chg :ensure t)

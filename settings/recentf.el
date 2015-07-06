@@ -1,5 +1,5 @@
 (use-package recentf
-  :defer t
+  :ensure t
 
   :config
   (add-to-list 'recentf-exclude (expand-file-name package-user-dir))

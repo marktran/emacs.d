@@ -1,5 +1,5 @@
 (use-package enh-ruby-mode
-  :defer t
+  :ensure t
   :mode
   (("Capfile" . enh-ruby-mode)
    ("Gemfile" . enh-ruby-mode)
@@ -24,15 +24,12 @@
   (add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))
 
-(use-package inf-ruby
-  :defer t)
+(use-package inf-ruby :ensure t)
+(use-package ruby-end :ensure t :diminish ruby-end-mode)
 
 (use-package rspec-mode
-  :defer t
+  :ensure t
 
   :config
   (setq rspec-compilation-buffer-name "*rspec-compilation*"))
 
-(use-package ruby-end
-  :defer t
-  :diminish ruby-end-mode)

@@ -1,5 +1,5 @@
 (use-package yasnippet
-  :defer t
+  :ensure t
 
   :mode ("\\.yasnippet\\'" . snippet-mode)
 

@@ -1,1 +1,1 @@
-(use-package json-mode :defer t)
+(use-package json-mode :ensure t)

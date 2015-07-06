@@ -1,5 +1,5 @@
 (use-package golden-ratio
-  :defer t
+  :ensure t
   :diminish golden-ratio-mode
 
   :config

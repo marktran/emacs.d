@@ -1,5 +1,5 @@
 (use-package dired
-  :defer t
+  :ensure t
 
   :config
   (setq dired-listing-switches "-alh"
@@ -10,7 +10,7 @@
   (define-key dired-mode-map (kbd "SPC") nil))
 
 (use-package dired+
-  :defer t
+  :ensure t
 
   :config
   (diredp-toggle-find-file-reuse-dir t))

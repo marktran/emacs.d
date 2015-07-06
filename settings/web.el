@@ -1,5 +1,5 @@
 (use-package web-mode
-  :defer t
+  :ensure t
   :mode
   (("\\.erb\\'" . web-mode)
    ("\\.html?\\'" . web-mode))

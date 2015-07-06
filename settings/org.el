@@ -1,5 +1,5 @@
 (use-package org
-  :defer t
+  :ensure t
 
   :config
   (setq org-completion-use-ido t

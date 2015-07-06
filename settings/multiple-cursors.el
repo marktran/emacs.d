@@ -1,5 +1,5 @@
 (use-package multiple-cursors
-  :defer t
+  :ensure t
 
   :init
   (add-hook 'multiple-cursors-mode-enabled-hook 'my-mc-evil-switch-to-emacs-state)

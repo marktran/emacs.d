@@ -1,5 +1,5 @@
 (use-package emmet-mode
-  :defer t
+  :ensure t
 
   :bind ("<backtab>" . emmet-expand-line)
 

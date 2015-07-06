@@ -1,5 +1,5 @@
 (use-package project-explorer
-  :defer t
+  :ensure t
 
   :config
   (setq pe/omit-regex "^\\.\\|^#\\|~$|^vendor$")

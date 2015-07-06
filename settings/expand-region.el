@@ -1,1 +1,1 @@
-(use-package expand-region :defer t)
+(use-package expand-region :ensure t)

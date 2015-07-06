@@ -1,5 +1,5 @@
 (use-package paredit
-  :defer t
+  :ensure t
 
   :config
   (dolist (hook '(emacs-lisp-mode-hook

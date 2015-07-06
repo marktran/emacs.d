@@ -1,5 +1,5 @@
 (use-package sass-mode
-  :defer t
+  :ensure t
   :mode
   (("\\.css\\'" . css-mode)
    ("\\.less\\'" . css-mode)
