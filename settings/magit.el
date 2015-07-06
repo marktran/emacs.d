@@ -6,6 +6,7 @@
         magit-completing-read-function 'magit-ido-completing-read
         magit-remote-ref-format 'remote-slash-name
         magit-restore-window-configuration t
+        magit-revert-buffers 'silent
         vc-handled-backends '(git))
 
   (evil-set-initial-state 'git-commit-mode 'emacs)
