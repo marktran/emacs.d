@@ -25,7 +25,6 @@
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))
 
 (use-package inf-ruby :ensure t)
-(use-package ruby-end :ensure t :diminish ruby-end-mode)
 
 (use-package rspec-mode
   :ensure t
