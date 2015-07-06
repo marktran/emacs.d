@@ -1,13 +1,9 @@
-(use-package dired
-  :ensure t
+(setq dired-listing-switches "-alh"
+      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+      dired-recursive-copies 'always
+      dired-recursive-deletes 'always)
 
-  :config
-  (setq dired-listing-switches "-alh"
-        dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
-        dired-recursive-copies 'always
-        dired-recursive-deletes 'always)
-
-  (define-key dired-mode-map (kbd "SPC") nil))
+(define-key dired-mode-map (kbd "SPC") nil)
 
 (use-package dired+
   :ensure t
