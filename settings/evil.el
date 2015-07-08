@@ -61,7 +61,7 @@
   "e" 'er/expand-region
   "f" 'ido-find-file
   "k" 'kill-this-buffer
-  "o" 'bookmark-jump
+  "o" 'helm-bookmarks
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
   "y" 'bury-buffer
