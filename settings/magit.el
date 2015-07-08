@@ -7,6 +7,10 @@
         magit-remote-ref-format 'remote-slash-name
         magit-restore-window-configuration t
         magit-revert-buffers 'silent
+        magit-status-buffer-switch-function
+        (lambda (buffer)
+          (pop-to-buffer buffer)
+          (delete-other-windows))
         vc-handled-backends '(git))
 
   (evil-set-initial-state 'git-commit-mode 'emacs)
@@ -18,33 +22,11 @@
   (evil-make-overriding-map magit-blame-mode-map 'normal)
   (add-hook 'magit-blame-mode-hook 'evil-normalize-keymaps))
 
-;; full screen vc-annotate
-;; https://github.com/magnars/.emacs.d/blob/master/setup-magit.el
-(defun vc-annotate-quit ()
-  "Restores the previous window configuration and kills the vc-annotate buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :vc-annotate-fullscreen))
 
-(after-load 'vc-annotate
-     (defadvice vc-annotate (around fullscreen activate)
-       (window-configuration-to-register :vc-annotate-fullscreen)
-       ad-do-it
-       (delete-other-windows))
-     (define-key vc-annotate-mode-map (kbd "q") 'vc-annotate-quit))
-
-;; full screen magit-status
-;; http://whattheemacsd.com/setup-magit.el-01.html
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
+(defadvice magit-log-current (around magit-fullscreen activate)
   ad-do-it
   (delete-other-windows))
 
-;; restore previously hidden windows
-(defadvice magit-mode-quit-window (around magit-restore-screen activate)
-  (let ((current-mode major-mode))
-    ad-do-it
-    ;; we only want to jump to register when the last seen buffer
-    ;; was a magit-status buffer.
-    (when (eq 'magit-status-mode current-mode)
-      (jump-to-register :magit-fullscreen))))
+(defadvice magit-log-buffer-file (around magit-fullscreen activate)
+  ad-do-it
+  (delete-other-windows))
