@@ -69,6 +69,8 @@
 
   "gs" 'magit-status
   "gb" 'magit-blame
+  "gl" 'magit-log-current
+  "gL" 'magit-log-buffer-file
 
   "hb" 'describe-bindings
   "hd" 'dash-at-point
