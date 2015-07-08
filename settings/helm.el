@@ -23,3 +23,15 @@
   :init
   (setq helm-swoop-pre-input-function (lambda () "")
         helm-swoop-split-with-multiple-windows t))
+
+(defun helm-swoop-region-or-symbol ()
+  "Call `helm-swoop' with default input."
+  (interactive)
+  (let ((helm-swoop-pre-input-function
+         (lambda ()
+           (if (region-active-p)
+               (buffer-substring-no-properties (region-beginning)
+                                               (region-end))
+             (let ((thing (thing-at-point 'symbol t)))
+               (if thing thing ""))))))
+    (call-interactively 'helm-swoop)))

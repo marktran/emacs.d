@@ -96,7 +96,8 @@
   "rs" 'rspec-verify-single
 
   "sa" 'helm-ag-project-root
-  "ss" 'helm-swoop
+  "ss" 'helm-swoop-region-or-symbol
+  "sS" 'helm-multi-swoop-all
 
   "tg" 'toggle-golden-ratio-mode
   "tl" 'linum-mode
