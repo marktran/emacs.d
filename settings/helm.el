@@ -11,7 +11,11 @@
         helm-move-to-line-cycle-in-source t
         helm-recentf-fuzzy-match t))
 
-(use-package helm-ag :ensure t)
+(use-package helm-ag
+  :ensure t
+
+  :config
+  (setq helm-ag-insert-at-point 'symbol))
 
 (use-package helm-swoop
   :ensure t
