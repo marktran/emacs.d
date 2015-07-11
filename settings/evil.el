@@ -55,17 +55,21 @@
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
   "R" 'helm-recentf
-  "b" 'helm-mini
   "c" 'simpleclip-copy
   "d" 'dired-jump
   "e" 'er/expand-region
   "f" 'ido-find-file
-  "k" 'kill-this-buffer
   "o" 'helm-bookmarks
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
-  "y" 'bury-buffer
   "SPC" 'whitespace-cleanup
+
+  "bb" 'helm-mini
+  "bd" 'delete-current-buffer-file
+  "bh" 'bury-buffer
+  "bk" 'kill-this-buffer
+  "br" 'rename-current-buffer-file
+  "bs" 'scratch
 
   "gs" 'magit-status
   "gb" 'magit-blame
