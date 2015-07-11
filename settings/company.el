@@ -7,7 +7,3 @@
   (add-hook 'enh-ruby-mode-hook 'company-mode))
 
 (use-package company-inf-ruby :ensure t)
-
-
-
-
