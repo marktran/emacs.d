@@ -62,7 +62,7 @@
   "o" 'helm-bookmarks
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
-  "SPC" 'whitespace-cleanup
+  "SPC" 'helm-mini
 
   "bb" 'helm-mini
   "bd" 'delete-current-buffer-file
@@ -70,6 +70,7 @@
   "bk" 'kill-this-buffer
   "br" 'rename-current-buffer-file
   "bs" 'scratch
+  "bw" 'whitespace-cleanup
 
   "gs" 'magit-status
   "gb" 'magit-blame
