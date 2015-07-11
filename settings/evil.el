@@ -77,12 +77,12 @@
   "gl" 'magit-log-current
   "gL" 'magit-log-buffer-file
 
-  "hb" 'describe-bindings
+  "hb" (with-ido-completion describe-bindings)
   "hd" 'dash-at-point
-  "hf" 'describe-function
-  "hk" 'describe-key
-  "hm" 'describe-mode
-  "hv" 'describe-variable
+  "hf" (with-ido-completion describe-function)
+  "hk" (with-ido-completion describe-key)
+  "hm" (with-ido-completion describe-mode)
+  "hv" (with-ido-completion describe-variable)
 
   "ma" 'mc/mark-all-dwim
 

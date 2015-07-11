@@ -32,3 +32,6 @@
           (gen-fill-keymap-hook ido-completion-map
                                 "C-h" 'ido-prev-match
                                 "C-l" 'ido-next-match))
+
+(use-package ido-occasional
+  :ensure t)
