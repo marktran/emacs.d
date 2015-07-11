@@ -4,4 +4,6 @@
 
   :config
   (setq-default show-trailing-whitespace nil)
-  (global-whitespace-cleanup-mode t))
+  (global-whitespace-cleanup-mode t)
+
+  (add-hook 'before-save-hook 'whitespace-cleanup))
