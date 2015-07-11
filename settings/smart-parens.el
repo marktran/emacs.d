@@ -6,7 +6,8 @@
   (require 'smartparens-config)
   (require 'smartparens-ruby)
 
-  (setq sp-show-pair-delay 0
+  (setq sp-highlight-pair-overlay nil
+        sp-show-pair-delay 0
         sp-show-pair-from-inside t
         sp-cancel-autoskip-on-backward-movement nil)
 
