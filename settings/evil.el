@@ -13,6 +13,7 @@
   (setq evil-leader/in-all-states t
         evil-leader/leader "SPC"))
 
+(use-package evil-matchit :ensure t)
 (use-package evil-numbers :ensure t)
 (use-package evil-surround :ensure t)
 
@@ -21,6 +22,7 @@
 (global-evil-leader-mode t)
 (evil-mode t)
 (global-evil-surround-mode t)
+(global-evil-matchit-mode t)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                               (comint-mode              . emacs)
