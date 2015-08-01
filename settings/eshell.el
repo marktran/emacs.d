@@ -26,3 +26,6 @@
                                (define-key eshell-mode-map (kbd "C-n") 'eshell-next-input)))
 
 (setenv "GEM_EDITOR" "emacsclient")
+
+(use-package eshell-autojump
+  :ensure t)
