@@ -5,7 +5,7 @@
   (setq magit-auto-revert-mode nil
         magit-branch-arguments (remove "--track" magit-branch-arguments)
         magit-completing-read-function 'magit-ido-completing-read
-        magit-push-always-verify "PP"
+        magit-push-always-verify nil
         magit-remote-ref-format 'remote-slash-name
         magit-restore-window-configuration t
         magit-revert-buffers 'silent
@@ -22,6 +22,7 @@
   (evil-set-initial-state 'magit-revision-mode 'emacs)
 
   (evil-make-overriding-map magit-blame-mode-map 'normal)
+  (add-to-list 'magit-no-confirm 'stage-all-changes)
   (add-hook 'magit-blame-mode-hook 'evil-normalize-keymaps))
 
 
