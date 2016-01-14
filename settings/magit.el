@@ -25,11 +25,7 @@
   (add-to-list 'magit-no-confirm 'stage-all-changes)
   (add-hook 'magit-blame-mode-hook 'evil-normalize-keymaps))
 
-
-(defadvice magit-log-current (around magit-fullscreen activate)
-  ad-do-it
-  (delete-other-windows))
-
-(defadvice magit-log-buffer-file (around magit-fullscreen activate)
-  ad-do-it
-  (delete-other-windows))
+(setq magit-post-display-buffer-hook
+      #'(lambda ()
+          (when (derived-mode-p 'magit-status-mode)
+            (delete-other-windows))))
