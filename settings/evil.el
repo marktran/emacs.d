@@ -13,6 +13,7 @@
   (setq evil-leader/in-all-states t
         evil-leader/leader "SPC"))
 
+(use-package evil-iedit-state :ensure t)
 (use-package evil-matchit :ensure t)
 (use-package evil-numbers :ensure t)
 (use-package evil-surround :ensure t)
@@ -103,6 +104,7 @@
   "rs" 'rspec-verify-single
 
   "sa" 'helm-ag-project-root
+  "se" 'evil-iedit-state/iedit-mode
   "ss" 'helm-swoop-region-or-symbol
   "sS" 'helm-multi-swoop-all
 
