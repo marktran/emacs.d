@@ -14,6 +14,7 @@
         evil-leader/leader "SPC"))
 
 (use-package evil-iedit-state :ensure t)
+(use-package evil-magit :ensure t)
 (use-package evil-matchit :ensure t)
 (use-package evil-numbers :ensure t)
 (use-package evil-surround :ensure t)
