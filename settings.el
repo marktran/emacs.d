@@ -21,5 +21,7 @@
 (c-set-offset 'case-label '+)
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 ;; load ~/.emacs.d/settings
 (mapc 'load (directory-files "~/.emacs.d/settings" t "^[A-Za-z-]*\\.el"))
