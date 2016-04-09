@@ -108,6 +108,7 @@
   "se" 'evil-iedit-state/iedit-mode
   "ss" 'helm-swoop-region-or-symbol
   "sS" 'helm-multi-swoop-all
+  "sv" 'avy-goto-word-1
 
   "tg" 'toggle-golden-ratio-mode
   "tl" 'linum-mode
