@@ -116,7 +116,8 @@
   "tl" 'linum-mode
 
   "wpm" 'popwin:messages
-  "wpc" 'popwin:close-popup-window)
+  "wpc" 'popwin:close-popup-window
+  "wpl" 'popwin:popup-last-buffer)
 
 (evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
 
