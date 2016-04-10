@@ -30,6 +30,7 @@
                               (comint-mode              . emacs)
                               (eshell-mode              . emacs)
                               (occur-mode               . emacs)
+                              (paradox-menu-mode        . emacs)
                               (sql-interactive-mode     . emacs)
                               (text-mode                . emacs))
       do (evil-set-initial-state mode state))
