@@ -12,3 +12,6 @@
 
 (load "~/.emacs.d/local.el" 'noerror)
 (load "~/.emacs.d/custom.el" 'noerror)
+
+(setq user-full-name "Mark Tran"
+      user-mail-address "mark.tran@gmail.com")
