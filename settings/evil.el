@@ -96,6 +96,7 @@
   "pe" 'project-explorer-open
   "pj" 'projectile-find-tag
   "pk" 'projectile-kill-buffers
+  "pl" 'paradox-list-packages
   "pR" 'projectile-regenerate-tags
   "pr" 'helm-projectile-recentf
   "ps" 'helm-projectile-switch-project

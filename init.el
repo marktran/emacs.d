@@ -10,5 +10,6 @@
 (load-file "~/.emacs.d/interface.el")
 (load-file "~/.emacs.d/platform.el")
 
+(load "~/.emacs.d/emacs.secrets" t)
 (load "~/.emacs.d/local.el" 'noerror)
 (load "~/.emacs.d/custom.el" 'noerror)
