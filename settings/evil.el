@@ -16,6 +16,7 @@
 (use-package evil-iedit-state :ensure t)
 (use-package evil-magit :ensure t)
 (use-package evil-matchit :ensure t)
+(use-package evil-nerd-commenter :ensure t)
 (use-package evil-numbers :ensure t)
 (use-package evil-surround :ensure t)
 
@@ -60,7 +61,6 @@
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
   "R" 'helm-recentf
-  "c" 'simpleclip-copy
   "d" 'dired-jump
   "e" 'er/expand-region
   "f" 'ido-find-file
@@ -76,6 +76,9 @@
   "br" 'rename-current-buffer-file
   "bs" 'scratch
   "bw" 'whitespace-cleanup
+
+  "cc" 'simpleclip-copy
+  "ci" 'evilnc-comment-or-uncomment-lines
 
   "gs" 'magit-status
   "gb" 'magit-blame
