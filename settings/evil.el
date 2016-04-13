@@ -71,6 +71,7 @@
 
   "bb" 'helm-mini
   "bd" 'delete-current-buffer-file
+  "be" 'eval-buffer
   "bh" 'bury-buffer
   "bk" 'kill-this-buffer
   "br" 'rename-current-buffer-file
