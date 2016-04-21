@@ -1,2 +1,1 @@
-(use-package buffer-move
-  :ensure t)
+(use-package buffer-move)

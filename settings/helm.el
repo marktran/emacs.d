@@ -1,6 +1,4 @@
 (use-package helm
-  :ensure t
-
   :config
   (setq helm-buffers-fuzzy-matching t
         helm-display-header-line nil
@@ -14,14 +12,10 @@
         helm-split-window-in-side-p t))
 
 (use-package helm-ag
-  :ensure t
-
   :config
   (setq helm-ag-insert-at-point 'symbol))
 
 (use-package helm-swoop
-  :ensure t
-
   :init
   (setq helm-swoop-pre-input-function (lambda () "")
         helm-swoop-split-with-multiple-windows t))

@@ -1,5 +1,4 @@
 (use-package enh-ruby-mode
-  :ensure t
   :mode
   (("Capfile" . enh-ruby-mode)
    ("Gemfile" . enh-ruby-mode)
@@ -23,10 +22,8 @@
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))
 
-(use-package inf-ruby :ensure t)
+(use-package inf-ruby)
 
 (use-package rspec-mode
-  :ensure t
-
   :config
   (setq rspec-compilation-buffer-name "*rspec-compilation*"))

@@ -1,1 +1,1 @@
-(use-package paradox :ensure t)
+(use-package paradox)

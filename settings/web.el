@@ -1,5 +1,4 @@
 (use-package web-mode
-  :ensure t
   :mode
   (("\\.erb\\'" . web-mode)
    ("\\.html?\\'" . web-mode))

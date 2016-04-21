@@ -1,5 +1,4 @@
-(use-package scratch
-  :ensure t)
+(use-package scratch)
 
 ;; http://www.emacswiki.org/emacs/RecreateScratchBuffer
 (save-excursion

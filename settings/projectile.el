@@ -1,8 +1,7 @@
 (use-package projectile
-  :ensure t
-
   :init
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
+
   (setq projectile-enable-caching t
         projectile-globally-ignored-buffers '("*Helm Find Files*"
                                               "*eshell*"
@@ -22,5 +21,4 @@
   :config
   (projectile-global-mode))
 
-(use-package helm-projectile
-  :ensure t)
+(use-package helm-projectile)

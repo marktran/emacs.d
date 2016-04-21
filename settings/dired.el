@@ -6,7 +6,5 @@
 (define-key dired-mode-map (kbd "SPC") nil)
 
 (use-package dired+
-  :ensure t
-
   :config
   (diredp-toggle-find-file-reuse-dir t))

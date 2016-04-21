@@ -49,5 +49,4 @@
 (set-display-table-slot standard-display-table 0 ?\ )
 
 (use-package ujelly-theme
-  :ensure t
   :config (load-theme 'ujelly t))

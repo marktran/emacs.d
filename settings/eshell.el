@@ -27,5 +27,4 @@
 
 (setenv "GEM_EDITOR" "emacsclient")
 
-(use-package eshell-autojump
-  :ensure t)
+(use-package eshell-autojump)

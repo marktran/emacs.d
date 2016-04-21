@@ -1,6 +1,4 @@
 (use-package magit
-  :ensure t
-
   :config
   (setq magit-auto-revert-mode nil
         magit-branch-arguments (remove "--track" magit-branch-arguments)

@@ -1,5 +1,4 @@
 (use-package whitespace-cleanup-mode
-  :ensure t
   :diminish whitespace-cleanup-mode
 
   :config

@@ -1,6 +1,4 @@
 (use-package multiple-cursors
-  :ensure t
-
   :init
   (add-hook 'multiple-cursors-mode-enabled-hook 'my-mc-evil-switch-to-emacs-state)
   (add-hook 'multiple-cursors-mode-disabled-hook 'my-mc-evil-back-to-previous-state))

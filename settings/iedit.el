@@ -1,1 +1,1 @@
-(use-package iedit :ensure t)
+(use-package iedit)

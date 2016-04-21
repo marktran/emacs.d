@@ -1,6 +1,4 @@
 (use-package yasnippet
-  :ensure t
-
   :mode ("\\.yasnippet\\'" . snippet-mode)
 
   :config

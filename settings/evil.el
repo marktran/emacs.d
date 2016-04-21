@@ -1,5 +1,4 @@
 (use-package evil
-  :ensure t
   :init
   (setq evil-ex-search-vim-style-regexp t
         evil-mode-line-format nil
@@ -8,17 +7,16 @@
   (setq-default evil-shift-width 2))
 
 (use-package evil-leader
-  :ensure t
   :config
   (setq evil-leader/in-all-states t
         evil-leader/leader "SPC"))
 
-(use-package evil-iedit-state :ensure t)
-(use-package evil-magit :ensure t)
-(use-package evil-matchit :ensure t)
-(use-package evil-nerd-commenter :ensure t)
-(use-package evil-numbers :ensure t)
-(use-package evil-surround :ensure t)
+(use-package evil-iedit-state)
+(use-package evil-magit)
+(use-package evil-matchit)
+(use-package evil-nerd-commenter)
+(use-package evil-numbers)
+(use-package evil-surround)
 
 ;; https://github.com/cofi/evil-leader/issues/10
 (evil-mode nil)

@@ -1,1 +1,1 @@
-(use-package haml-mode :ensure t)
+(use-package haml-mode)

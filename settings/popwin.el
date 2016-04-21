@@ -1,6 +1,4 @@
 (use-package popwin
-  :ensure t
-
   :init
   (setq popwin:special-display-config nil)
 

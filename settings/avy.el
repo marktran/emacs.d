@@ -1,1 +1,1 @@
-(use-package avy :ensure t)
+(use-package avy)

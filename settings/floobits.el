@@ -1,1 +1,1 @@
-(use-package floobits :ensure t)
+(use-package floobits)

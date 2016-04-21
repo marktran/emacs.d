@@ -1,6 +1,4 @@
 (use-package emmet-mode
-  :ensure t
-
   :bind ("<backtab>" . emmet-expand-line)
 
   :config
