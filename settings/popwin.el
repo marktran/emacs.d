@@ -8,6 +8,8 @@
   (add-to-list 'popwin:special-display-config
                '("^\*helm.+\*$" :height 0.4 :regexp t))
   (add-to-list 'popwin:special-display-config
+               '("^\*Minitest.+\*$" :height 0.4 :regexp t))
+  (add-to-list 'popwin:special-display-config
                '("*rspec-compilation*" :height 0.2 :dedicated t :stick t :noselect t :position bottom))
 
   (popwin-mode t))
