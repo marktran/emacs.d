@@ -36,4 +36,5 @@
 
   (ido-mode t))
 
+(use-package ido-completing-read+)
 (use-package ido-occasional)
