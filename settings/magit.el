@@ -23,7 +23,8 @@
 
         magit-push-always-verify nil
         magit-remote-ref-format 'remote-slash-name
-        magit-revert-buffers 'silent)
+        magit-revert-buffers 'silent
+        vc-handled-backends nil)
 
   (evil-set-initial-state 'git-commit-mode 'emacs)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
