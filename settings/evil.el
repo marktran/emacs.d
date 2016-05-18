@@ -61,7 +61,7 @@
   "R" 'helm-recentf
   "d" 'dired-jump
   "e" 'er/expand-region
-  "f" 'ido-find-file
+  "f" 'helm-find-files
   "o" 'helm-bookmarks
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
