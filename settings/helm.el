@@ -15,19 +15,6 @@
   :config
   (setq helm-ag-insert-at-point 'symbol))
 
-(use-package helm-swoop
-  :init
-  (setq helm-swoop-pre-input-function (lambda () "")
-        helm-swoop-split-with-multiple-windows t))
-
-(defun helm-swoop-region-or-symbol ()
-  "Call `helm-swoop' with default input."
-  (interactive)
-  (let ((helm-swoop-pre-input-function
-         (lambda ()
-           (if (region-active-p)
-               (buffer-substring-no-properties (region-beginning)
-                                               (region-end))
-             (let ((thing (thing-at-point 'symbol t)))
-               (if thing thing ""))))))
-    (call-interactively 'helm-swoop)))
+(use-package swiper-helm
+  :config
+  (setq swiper-helm-display-function 'helm-default-display-buffer))
