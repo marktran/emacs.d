@@ -1,5 +1,7 @@
 (use-package recentf
   :config
+  (recentf-mode)
+
   (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
   (add-to-list 'recentf-exclude "TAGS")
 
