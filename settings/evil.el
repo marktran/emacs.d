@@ -110,8 +110,7 @@
 
   "sa" 'helm-ag-project-root
   "se" 'evil-iedit-state/iedit-mode
-  "ss" 'helm-swoop-region-or-symbol
-  "sS" 'helm-multi-swoop-all
+  "ss" 'swiper
   "sv" 'avy-goto-word-1
 
   "tg" 'toggle-golden-ratio-mode
