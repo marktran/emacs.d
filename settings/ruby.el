@@ -22,6 +22,7 @@
 
   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
+  (add-hook 'ruby-mode-hook 'company-mode)
   (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))
