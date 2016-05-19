@@ -1,4 +1,5 @@
 (use-package paredit
+  :diminish paredit-mode
   :config
   (dolist (hook '(emacs-lisp-mode-hook
                   lisp-interaction-mode-hook

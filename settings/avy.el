@@ -1,1 +1,2 @@
-(use-package avy)
+(use-package avy
+  :commands avy-goto-word-1)

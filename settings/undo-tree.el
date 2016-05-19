@@ -1,4 +1,6 @@
-(global-undo-tree-mode t)
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :init (global-undo-tree-mode 1))
 
 ;; keep region when undoing in region
 ;; http://whattheemacsd.com/my-misc.el-02.html

@@ -1,1 +1,2 @@
-(use-package expand-region)
+(use-package expand-region
+  :commands er/expand-region)

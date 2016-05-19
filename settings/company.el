@@ -1,7 +1,7 @@
 (use-package company
+  :diminish company-mode
   :config
-  (setq company-idle-delay 0.2)
-  (eval-after-load 'company '(add-to-list 'company-backends 'company-inf-ruby))
-  (add-hook 'enh-ruby-mode-hook 'company-mode))
+  (use-package company-inf-ruby
+    :init (add-to-list 'company-backends 'company-inf-ruby))
 
-(use-package company-inf-ruby)
+  (setq company-idle-delay 0.2))

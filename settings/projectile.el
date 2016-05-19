@@ -1,4 +1,14 @@
 (use-package projectile
+  :commands
+  (projectile-dired
+   projectile-find-dir
+   projectile-find-tag
+   projectile-kill-buffers
+   projectile-invalidate-cache
+   projectile-regenerate-tags
+   projectile-run-eshell
+   projectile-switch-to-buffer)
+
   :init
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
 
@@ -21,4 +31,4 @@
   :config
   (projectile-global-mode))
 
-(use-package helm-projectile)
+(use-package helm-projectile :commands helm-projectile-find-file)

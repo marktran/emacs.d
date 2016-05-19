@@ -1,5 +1,7 @@
 (use-package elixir-mode
+  :mode "\\.ex\\'" "\\.exs\\'"
   :config
-  (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode)))
+  (require 'alchemist))
 
-(use-package alchemist)
+(use-package alchemist
+  :defer t)

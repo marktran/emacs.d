@@ -1,1 +1,2 @@
-(use-package paradox)
+(use-package paradox
+  :commands paradox-list-packages)

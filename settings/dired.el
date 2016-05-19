@@ -1,10 +1,15 @@
-(setq dired-listing-switches "-alh"
-      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
-      dired-recursive-copies 'always
-      dired-recursive-deletes 'always)
+(use-package dired
+  :ensure nil
+  :commands dired-jump
 
-(define-key dired-mode-map (kbd "SPC") nil)
+  :bind
+  (:map dired-mode-map
+        ("SPC" . nil))
 
-(use-package dired+
   :config
-  (diredp-toggle-find-file-reuse-dir t))
+  (use-package dired+ :config (diredp-toggle-find-file-reuse-dir t))
+
+  (setq dired-listing-switches "-alh"
+        dired-omit-files "^\\.?#\\|^\\.$\\|^\\.DS_Store$"
+        dired-recursive-copies 'always
+        dired-recursive-deletes 'always))

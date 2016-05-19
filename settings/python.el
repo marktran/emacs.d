@@ -1,2 +1,5 @@
-(setq py-python-command-args '("-colors" "NoColor"))
-(add-hook 'python-mode-hook 'run-coding-hook)
+(use-package python
+  :mode "\\.py\\'"
+
+  :config
+  (add-hook 'python-mode-hook 'run-coding-hook))

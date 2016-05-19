@@ -1,5 +1,9 @@
 (use-package magit
+  :commands (magit-blame magit-log-buffer-file magit-log-current magit-status)
+
   :config
+  (use-package evil-magit)
+
   (setq magit-auto-revert-mode nil
         magit-branch-arguments (remove "--track" magit-branch-arguments)
         magit-completing-read-function 'magit-ido-completing-read

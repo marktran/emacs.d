@@ -1,1 +1,2 @@
-(use-package json-mode)
+(use-package json-mode
+  :mode "\\.json\\'")

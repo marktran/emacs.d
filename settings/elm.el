@@ -1,1 +1,2 @@
-(use-package elm-mode)
+(use-package elm-mode
+  :mode "\\.elm\\'")

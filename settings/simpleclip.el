@@ -1,3 +1,2 @@
 (use-package simpleclip
-  :config
-  (simpleclip-mode t))
+  :commands (simpleclip-copy simpleclip-cut simpleclip-paste))

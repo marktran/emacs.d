@@ -1,4 +1,5 @@
 (use-package project-explorer
+  :commands (project-explorer-open)
   :config
   (setq pe/omit-regex "^\\.\\|^#\\|~$|^vendor$")
 

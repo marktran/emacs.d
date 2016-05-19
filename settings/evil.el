@@ -11,11 +11,10 @@
   (setq evil-leader/in-all-states t
         evil-leader/leader "SPC"))
 
-(use-package evil-iedit-state)
-(use-package evil-magit)
+(use-package evil-iedit-state :commands evil-iedit-state/iedit-mode)
 (use-package evil-matchit)
-(use-package evil-nerd-commenter)
-(use-package evil-numbers)
+(use-package evil-nerd-commenter :commands evilnc-comment-or-uncomment-lines)
+(use-package evil-numbers :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-t))
 (use-package evil-surround)
 
 ;; https://github.com/cofi/evil-leader/issues/10
@@ -63,6 +62,7 @@
   "e" 'er/expand-region
   "f" 'helm-find-files
   "o" 'helm-bookmarks
+  "c" 'simpleclip-copy
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
   "SPC" 'helm-mini
@@ -76,33 +76,30 @@
   "bs" 'scratch
   "bw" 'whitespace-cleanup
 
-  "cc" 'simpleclip-copy
-  "ci" 'evilnc-comment-or-uncomment-lines
-
   "gs" 'magit-status
   "gb" 'magit-blame
   "gl" 'magit-log-current
   "gL" 'magit-log-buffer-file
 
   "hb" (with-ido-completion describe-bindings)
-  "hd" 'dash-at-point
+  "hd" 'helm-descbinds
   "hf" (with-ido-completion describe-function)
   "hk" (with-ido-completion describe-key)
   "hm" (with-ido-completion describe-mode)
   "hv" (with-ido-completion describe-variable)
 
-  "ma" 'mc/mark-all-dwim
-
   "pb" 'projectile-switch-to-buffer
   "pD" 'projectile-dired
   "pd" 'projectile-find-dir
   "pe" 'project-explorer-open
+  "pi" 'projectile-invalidate-cache
   "pj" 'projectile-find-tag
   "pk" 'projectile-kill-buffers
   "pl" 'paradox-list-packages
+  "pp" 'helm-projectile-switch-project
   "pR" 'projectile-regenerate-tags
   "pr" 'helm-projectile-recentf
-  "ps" 'helm-projectile-switch-project
+  "ps" 'projectile-run-eshell
 
   "rf" 'rspec-verify
   "rr" 'rspec-rerun
@@ -120,7 +117,7 @@
   "wpc" 'popwin:close-popup-window
   "wpl" 'popwin:popup-last-buffer)
 
-(evil-leader/set-key-for-mode 'enh-ruby-mode "j" 'rspec-toggle-spec-and-target)
+(evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
 
 (define-key evil-insert-state-map [remap newline] 'evil-ret-and-indent)
 
@@ -140,8 +137,10 @@
   (define-key eshell-mode-map (kbd "C-w j") 'windmove-down)
   (define-key eshell-mode-map (kbd "C-w C-j") 'windmove-down)
   (define-key eshell-mode-map (kbd "C-w C-k") 'windmove-up)
+  (define-key eshell-mode-map (kbd "C-w C-o") 'delete-other-windows)
   (define-key eshell-mode-map (kbd "C-w k") 'windmove-up)
   (define-key eshell-mode-map (kbd "C-w c") 'delete-window)
+  (define-key eshell-mode-map (kbd "C-w u") 'winner-undo)
   (define-key eshell-mode-map (kbd "C-d") 'bury-buffer))
 
 (add-hook 'eshell-mode-hook 'eshell-evil-keys)

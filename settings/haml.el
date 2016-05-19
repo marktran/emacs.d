@@ -1,1 +1,2 @@
-(use-package haml-mode)
+(use-package haml-mode
+  :mode "\\.haml\\'")
