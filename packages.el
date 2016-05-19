@@ -5,4 +5,6 @@
 (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
   (package-refresh-contents))
 
+(setq use-package-verbose t)
+
 (package-initialize)
