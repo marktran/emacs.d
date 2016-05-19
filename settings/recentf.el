@@ -1,9 +1,6 @@
 (use-package recentf
-  :init
-  (recentf-mode 1)
-
+  :defer t
   :config
-
   (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
   (add-to-list 'recentf-exclude "TAGS")
   (add-to-list 'recentf-exclude "ido.last")
