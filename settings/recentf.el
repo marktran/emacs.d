@@ -9,4 +9,4 @@
 
   (setq recentf-auto-cleanup 'never
         recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list)
-        recentf-max-saved-items 100))
+        recentf-max-saved-items 150))
