@@ -82,6 +82,7 @@
   "gl" 'magit-log-current
   "gL" 'magit-log-buffer-file
 
+  "ha" 'helm-apropos
   "hb" (with-ido-completion describe-bindings)
   "hd" 'helm-descbinds
   "hf" (with-ido-completion describe-function)
