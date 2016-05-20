@@ -1,3 +1,3 @@
 (use-package window-numbering
   :config
-  (window-numbering-mode t))
+  (window-numbering-mode 1))
