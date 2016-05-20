@@ -83,11 +83,11 @@
   "gL" 'magit-log-buffer-file
 
   "ha" 'helm-apropos
-  "hb" (with-ido-completion describe-bindings)
+  "hb" 'describe-bindings
   "hd" 'helm-descbinds
   "hf" (with-ido-completion describe-function)
   "hk" (with-ido-completion describe-key)
-  "hm" (with-ido-completion describe-mode)
+  "hm" 'describe-mode
   "hv" (with-ido-completion describe-variable)
 
   "pb" 'projectile-switch-to-buffer
