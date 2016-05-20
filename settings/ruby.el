@@ -7,6 +7,7 @@
    ("\\.ru" . enh-ruby-mode))
 
   :config
+  (use-package smartparens-ruby :ensure smartparens)
   (use-package inf-ruby)
   (require 'rspec-mode)
 

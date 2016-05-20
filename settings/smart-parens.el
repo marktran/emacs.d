@@ -1,17 +1,17 @@
 (use-package smartparens
+  :defer 2
   :diminish smartparens-mode
 
   :config
-  (require 'smartparens-config)
-  (require 'smartparens-ruby)
+  (use-package smartparens-config :ensure smartparens)
 
   (setq sp-highlight-pair-overlay nil
         sp-show-pair-delay 0
         sp-show-pair-from-inside t
         sp-cancel-autoskip-on-backward-movement nil)
 
-  (smartparens-global-mode)
-  (show-smartparens-global-mode)
+  (smartparens-global-mode 1)
+  (show-smartparens-global-mode 1)
 
   (sp-with-modes '(elixir-mode)
     (sp-local-pair "->" "end"
