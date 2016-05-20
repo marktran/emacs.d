@@ -58,7 +58,8 @@
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
   "R" 'helm-recentf
-  "d" 'dired-jump
+  "d" 'helm-projectile-find-dir
+  "D" 'dired-jump
   "e" 'er/expand-region
   "f" 'helm-find-files
   "o" 'helm-bookmarks
