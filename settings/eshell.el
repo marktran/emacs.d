@@ -1,6 +1,5 @@
 (use-package eshell
   :commands eshell
-
   :config
   (setq eshell-aliases-file "~/.emacs.d/eshell/alias"
         eshell-banner-message ""
