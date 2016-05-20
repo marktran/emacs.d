@@ -1,10 +1,5 @@
-(use-package sass-mode
-  :mode
-  (("\\.css\\'" . css-mode)
-   ("\\.less\\'" . css-mode)
-   ("\\.scss\\'" . css-mode))
-
+(use-package css-mode
+  :mode "\\.css\\'"
   :config
-  (setq css-indent-offset 2))
-
-(add-hook 'css-mode-hook  'emmet-mode)
+  (setq css-indent-offset 2)
+  (add-hook 'css-mode-hook 'emmet-mode))
