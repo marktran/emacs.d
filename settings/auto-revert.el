@@ -2,7 +2,7 @@
 ;; http://whattheemacsd.com//sane-defaults.el-01.html
 (use-package auto-revert
   :ensure nil
-  :diminish auto-revert
+  :diminish auto-revert-mode
 
   :init
   (global-auto-revert-mode 1)
