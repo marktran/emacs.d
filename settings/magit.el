@@ -1,5 +1,8 @@
 (use-package magit
-  :commands (magit-blame magit-log-buffer-file magit-log-current magit-status)
+  :commands (magit-blame
+             magit-log-buffer-file
+             magit-log-current
+             magit-status)
 
   :config
   (use-package evil-magit)
