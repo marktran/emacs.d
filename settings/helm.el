@@ -1,4 +1,6 @@
 (use-package helm
+  :diminish helm-mode
+
   :commands (helm-mode
              helm-buffers
              helm-find-files
