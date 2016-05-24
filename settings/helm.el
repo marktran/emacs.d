@@ -1,15 +1,30 @@
 (use-package helm
-  :demand
-  :bind
-  (:map helm-map
-        ("<tab>" . helm-execute-persistent-action)
-        ("C-i" . helm-execute-persistent-action)
-        ("C-z" . helm-select-action))
+  :commands (helm-mode
+             helm-buffers
+             helm-find-files
+             helm-recentf)
+
+  :bind (:map helm-map
+              ("RET" . helm-maybe-exit-minibuffer)
+              ("<tab>" . helm-select-action)
+              ("C-i" . helm-select-action))
+  :bind (:map helm-find-files-map
+              ("RET" . helm-execute-persistent-action)
+              ("DEL" . dwim-helm-find-files-up-one-level-maybe)
+              ("<tab>" . helm-select-action)
+              ("C-i" . helm-select-action))
+  :bind (:map helm-read-file-map
+              ("RET" . helm-execute-persistent-action)
+              ("DEL" . dwim-helm-find-files-up-one-level-maybe)
+              ("<tab>" . helm-select-action)
+              ("C-i" . helm-select-action))
 
   :config
+  (require 'helm-config)
+  (helm-mode 1)
+
   (setq helm-buffers-fuzzy-matching t
         helm-display-header-line nil
-        helm-ff-auto-update-initial-value t
         helm-ff-transformer-show-only-basename nil
         helm-ls-git-show-abs-or-relative 'relative
         helm-M-x-fuzzy-match t
@@ -17,11 +32,14 @@
         helm-recentf-fuzzy-match t
         helm-split-window-in-side-p t)
 
-(use-package helm-buffers
-  :ensure nil
-  :defer t
-  :config
-  (add-to-list 'helm-boring-buffer-regexp-list "\\*eshell")))
+  (use-package helm-buffers
+    :ensure nil
+    :defer t
+    :config
+    (add-to-list 'helm-boring-buffer-regexp-list "\\*eshell"))
+
+  (advice-add 'helm-execute-persistent-action
+              :around #'dwim-helm-find-files-navigate-forward))
 
 (use-package helm-ag
   :commands (helm-ag-project-root)
