@@ -33,7 +33,6 @@
 
   (use-package helm-buffers
     :ensure nil
-    :defer t
     :config
     (add-to-list 'helm-boring-buffer-regexp-list "\\*eshell"))
 
