@@ -3,7 +3,8 @@
   (setq evil-ex-search-vim-style-regexp t
         evil-mode-line-format nil
         evil-search-module 'evil-search
-        evil-want-C-u-scroll t)
+        evil-want-C-u-scroll t
+        evil-want-Y-yank-to-eol t)
   (setq-default evil-shift-width 2))
 
 (use-package evil-leader
@@ -35,7 +36,6 @@
 
 ;; key bindings
 (fill-keymap evil-normal-state-map
-             "Y" (kbd "y$")
              "C-c +" 'evil-numbers/inc-at-pt
              "C-c -" 'evil-numbers/dec-at-pt)
 
