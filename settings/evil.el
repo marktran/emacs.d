@@ -85,10 +85,10 @@
   "ha" 'helm-apropos
   "hb" 'describe-bindings
   "hd" 'helm-descbinds
-  "hf" (with-ido-completion describe-function)
-  "hk" (with-ido-completion describe-key)
+  "hf" 'describe-function
+  "hk" 'describe-key
   "hm" 'describe-mode
-  "hv" (with-ido-completion describe-variable)
+  "hv" 'describe-variable
 
   "pb" 'projectile-switch-to-buffer
   "pD" 'projectile-dired
