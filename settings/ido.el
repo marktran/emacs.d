@@ -1,4 +1,6 @@
 (use-package ido
+  :disabled t
+
   :init
   (ido-mode 1)
 
