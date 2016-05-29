@@ -30,5 +30,3 @@
 
   :config
   (projectile-global-mode))
-
-(use-package helm-projectile :commands helm-projectile-find-file)
