@@ -9,7 +9,7 @@
 
   (setq magit-auto-revert-mode nil
         magit-branch-arguments (remove "--track" magit-branch-arguments)
-        magit-completing-read-function 'magit-ido-completing-read
+        magit-completing-read-function 'ivy-completing-read
 
         magit-display-buffer-function
         (lambda (buffer)

@@ -1,4 +1,6 @@
 (use-package helm
+  :disabled t
+
   :diminish helm-mode
 
   :bind (:map helm-map

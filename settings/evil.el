@@ -54,21 +54,20 @@
 ;; evil leader
 (evil-leader/set-key
   "E" 'eshell
-  "F" 'helm-projectile-find-file
+  "F" 'projectile-find-file
   "O" 'browse-url-of-file
   "Q" 'save-buffers-kill-emacs
-  "R" 'helm-recentf
-  "d" 'helm-projectile-find-dir
+  "R" 'ivy-recentf
+  "d" 'projectile-find-dir
   "D" 'dired-jump
   "e" 'er/expand-region
-  "f" 'helm-find-files
-  "o" 'helm-bookmarks
+  "f" 'counsel-find-file
+  "o" 'counsel-bookmark
   "c" 'simpleclip-copy
   "v" 'simpleclip-paste
   "x" 'simpleclip-cut
-  "SPC" 'helm-mini
+  "SPC" 'ivy-switch-buffer
 
-  "bb" 'helm-mini
   "bd" 'delete-current-buffer-file
   "be" 'eval-buffer
   "bh" 'bury-buffer
@@ -82,13 +81,12 @@
   "gl" 'magit-log-current
   "gL" 'magit-log-buffer-file
 
-  "ha" 'helm-apropos
   "hb" 'describe-bindings
-  "hd" 'helm-descbinds
-  "hf" 'describe-function
+  "hd" 'counsel-descbinds
+  "hf" 'counsel-describe-function
   "hk" 'describe-key
   "hm" 'describe-mode
-  "hv" 'describe-variable
+  "hv" 'counsel-describe-variable
 
   "pb" 'projectile-switch-to-buffer
   "pD" 'projectile-dired
@@ -98,16 +96,16 @@
   "pj" 'projectile-find-tag
   "pk" 'projectile-kill-buffers
   "pl" 'paradox-list-packages
-  "pp" 'helm-projectile-switch-project
+  "pp" 'projectile-switch-project
   "pR" 'projectile-regenerate-tags
-  "pr" 'helm-projectile-recentf
+  "pr" 'projectile-recentf
   "ps" 'projectile-run-eshell
 
   "rf" 'rspec-verify
   "rr" 'rspec-rerun
   "rs" 'rspec-verify-single
 
-  "sa" 'helm-ag-project-root
+  "sa" 'counsel-ag
   "se" 'evil-iedit-state/iedit-mode
   "ss" 'swiper
   "sv" 'avy-goto-word-1
