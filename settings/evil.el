@@ -105,7 +105,7 @@
   "rr" 'rspec-rerun
   "rs" 'rspec-verify-single
 
-  "sa" 'counsel-ag
+  "sa" 'counsel-ag-project-symbol
   "se" 'evil-iedit-state/iedit-mode
   "ss" 'swiper
   "sv" 'avy-goto-word-1
