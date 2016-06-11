@@ -14,8 +14,8 @@
   (general-define-key :prefix "SPC"
    "r" '(:ignore t :which-key "Ruby")
    "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
-   "r f" '(rspec-verify :which-key "Run file specs")
-   "r r" '(rspec-rerun :which-key "Re-run")
+   "r f" '(rspec-verify :which-key "Run specs in file")
+   "r r" '(rspec-rerun :which-key "Rerun specs")
    "r s" '(rspec-verify-single :which-key "Run spec at point"))
 
   (setq enh-ruby-add-encoding-comment-on-save nil
