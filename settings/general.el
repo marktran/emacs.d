@@ -1,6 +1,11 @@
 (use-package which-key
   :diminish which-key-mode
+
   :config
+  (setq which-key-idle-delay 0.5
+        which-key-show-prefix nil
+        which-key-sort-order 'which-key-prefix-then-key-order)
+
   (which-key-mode 1))
 
 (use-package general
