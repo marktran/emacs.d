@@ -21,5 +21,4 @@
                                (save-excursion
                                  (equal major-mode 'dired-mode))))
 
-        ivy-re-builders-alist '((t . ivy--regex-fuzzy))
-        ivy-use-virtual-buffers t))
+        ivy-re-builders-alist '((t . ivy--regex-fuzzy))))
