@@ -1,14 +1,4 @@
 (use-package projectile
-  :commands
-  (projectile-dired
-   projectile-find-dir
-   projectile-find-tag
-   projectile-kill-buffers
-   projectile-invalidate-cache
-   projectile-regenerate-tags
-   projectile-run-eshell
-   projectile-switch-to-buffer)
-
   :init
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
 
@@ -30,4 +20,17 @@
         projectile-tags-command "ripper-tags -R -f TAGS")
 
   :config
-  (projectile-global-mode))
+  (general-define-key :prefix "SPC"
+                      "p" '(:ignore t :which-key "Projectile")
+                      "p b" '(projectile-switch-to-buffer :which-key "Switch buffer")
+                      "p D" '(projectile-dired :which-key "Dired")
+                      "p d" '(projectile-find-dir :which-key "Find directory")
+                      "p i" '(projectile-invalidate-cache :which-key "Invalidate cache")
+                      "p j" '(projectile-find-tag :which-key "Find tag")
+                      "p k" '(projectile-kill-buffers :which-key "Kill [project] buffers")
+                      "p p" '(projectile-switch-project :which-key "Switch project")
+                      "p R" '(projectile-regenerate-tags :which-key "Regenerate tags")
+                      "p r" '(projectile-recentf :which-key "Recent [project] files")
+                      "p s" '(projectile-run-eshell :which-key "Eshell"))
+
+  (projectile-global-mode 1))

@@ -8,23 +8,15 @@
         evil-want-Y-yank-to-eol t)
   (setq-default evil-shift-width 2))
 
-(use-package evil-leader
-  :config
-  (setq evil-leader/in-all-states t
-        evil-leader/leader "SPC"))
-
 (use-package evil-iedit-state :commands evil-iedit-state/iedit-mode)
 (use-package evil-matchit)
 (use-package evil-nerd-commenter :commands evilnc-comment-or-uncomment-lines)
 (use-package evil-numbers :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-t))
 (use-package evil-surround)
 
-;; https://github.com/cofi/evil-leader/issues/10
-(evil-mode nil)
-(global-evil-leader-mode t)
-(evil-mode t)
-(global-evil-surround-mode t)
-(global-evil-matchit-mode t)
+(evil-mode 1)
+(global-evil-surround-mode 1)
+(global-evil-matchit-mode 1)
 
 (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                               (comint-mode              . emacs)
@@ -51,74 +43,6 @@
              "M-j" 'buf-move-down
              "M-k" 'buf-move-up
              "M-l" 'buf-move-right)
-
-;; evil leader
-(evil-leader/set-key
-  "E" 'eshell
-  "F" 'projectile-find-file
-  "O" 'browse-url-of-file
-  "Q" 'save-buffers-kill-emacs
-  "R" 'ivy-recentf
-  "d" 'projectile-find-dir
-  "D" 'dired-jump
-  "e" 'er/expand-region
-  "f" 'counsel-find-file
-  "o" 'counsel-bookmark
-  "c" 'simpleclip-copy
-  "v" 'simpleclip-paste
-  "x" 'simpleclip-cut
-  "SPC" 'ivy-switch-buffer
-
-  "bd" 'delete-current-buffer-file
-  "be" 'eval-buffer
-  "bh" 'bury-buffer
-  "bk" 'kill-this-buffer
-  "br" 'rename-current-buffer-file
-  "bs" 'scratch
-  "bw" 'whitespace-cleanup
-
-  "gs" 'magit-status
-  "gb" 'magit-blame
-  "gl" 'magit-log-current
-  "gL" 'magit-log-buffer-file
-
-  "hb" 'describe-bindings
-  "hd" 'counsel-descbinds
-  "hf" 'counsel-describe-function
-  "hk" 'describe-key
-  "hm" 'describe-mode
-  "hv" 'counsel-describe-variable
-
-  "pb" 'projectile-switch-to-buffer
-  "pD" 'projectile-dired
-  "pd" 'projectile-find-dir
-  "pe" 'project-explorer-open
-  "pi" 'projectile-invalidate-cache
-  "pj" 'projectile-find-tag
-  "pk" 'projectile-kill-buffers
-  "pl" 'paradox-list-packages
-  "pp" 'projectile-switch-project
-  "pR" 'projectile-regenerate-tags
-  "pr" 'projectile-recentf
-  "ps" 'projectile-run-eshell
-
-  "rf" 'rspec-verify
-  "rr" 'rspec-rerun
-  "rs" 'rspec-verify-single
-
-  "sa" 'counsel-ag-project-symbol
-  "se" 'evil-iedit-state/iedit-mode
-  "ss" 'swiper
-  "sv" 'avy-goto-word-1
-
-  "tg" 'toggle-golden-ratio-mode
-  "tl" 'linum-mode
-
-  "wpm" 'popwin:messages
-  "wpc" 'popwin:close-popup-window
-  "wpl" 'popwin:popup-last-buffer)
-
-(evil-leader/set-key-for-mode 'ruby-mode "j" 'rspec-toggle-spec-and-target)
 
 (define-key evil-insert-state-map [remap newline] 'evil-ret-and-indent)
 
@@ -175,3 +99,4 @@
   (kbd "M-J") 'org-metadown
   (kbd "M-K") 'org-metaup
   (kbd "M-L") 'org-metaright)
+

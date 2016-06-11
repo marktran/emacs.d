@@ -1,11 +1,14 @@
 (use-package magit
-  :commands (magit-blame
-             magit-log-buffer-file
-             magit-log-current
-             magit-status)
-
   :config
   (use-package evil-magit)
+
+  (general-define-key :prefix "SPC"
+   "g"  '(:ignore t :which-key "Magit")
+   "g b" '(magit-blame :which-key "Blame")
+   "g l" '(magit-log-current :which-key "Log")
+   "g L" '(magit-log-buffer-file :which-key "Log [for file]")
+   "g s" '(magit-status :which-key "Status"))
+
 
   (setq magit-auto-revert-mode nil
         magit-branch-arguments (remove "--track" magit-branch-arguments)
