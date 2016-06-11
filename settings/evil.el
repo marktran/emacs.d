@@ -3,6 +3,7 @@
   (setq evil-ex-search-vim-style-regexp t
         evil-mode-line-format nil
         evil-search-module 'evil-search
+        evil-symbol-word-search t
         evil-want-C-u-scroll t
         evil-want-Y-yank-to-eol t)
   (setq-default evil-shift-width 2))
