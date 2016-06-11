@@ -14,4 +14,4 @@
   (add-to-list 'popwin:special-display-config
                '("*swiper*" :height 0.4 :regexp t))
 
-  (popwin-mode t))
+  (popwin-mode 1))
