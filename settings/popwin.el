@@ -8,9 +8,11 @@
   (add-to-list 'popwin:special-display-config
                '("^\*[hH]+elm.*?\*$" :height 0.4 :regexp t))
   (add-to-list 'popwin:special-display-config
-               '("^\*Minitest.+\*$" :height 0.3 :regexp t))
+               '("^\*Minitest.+\*$" :height 0.4 :regexp t))
   (add-to-list 'popwin:special-display-config
-               '("*rspec-compilation*" :height 0.3 :dedicated t :stick t :noselect t :position bottom))
+               '("*alchemist test report*" :height 0.4 :dedicated t :stick t :noselect t :position bottom))
+  (add-to-list 'popwin:special-display-config
+               '("*rspec-compilation*" :height 0.4 :dedicated t :stick t :noselect t :position bottom))
   (add-to-list 'popwin:special-display-config
                '("*swiper*" :height 0.4 :regexp t))
 
