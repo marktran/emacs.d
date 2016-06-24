@@ -11,7 +11,8 @@
   (setq ivy-fixed-height-minibuffer t
         ivy-height 20
 
-        ivy-ignore-buffers `("^\\*Compile-Log\\*"
+        ivy-ignore-buffers `("^\\*alchemist test report\\*"
+                             "^\\*Compile-Log\\*"
                              "^\\*Completions\\*"
                              "^\\*Help\\*"
                              "^\\*Messages\\*"
