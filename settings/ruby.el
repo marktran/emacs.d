@@ -6,17 +6,19 @@
    ("\\.rb" . enh-ruby-mode)
    ("\\.ru" . enh-ruby-mode))
 
+  :general
+  (:keymaps 'enh-ruby-mode-map
+   :states 'normal
+   "r" '(:ignore t :which-key "Ruby")
+   "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
+   "r f" '(rspec-verify :which-key "Run specs in buffer")
+   "r r" '(rspec-rerun :which-key "Rerun specs")
+   "r s" '(rspec-verify-single :which-key "Run spec at point"))
+
   :config
   (use-package smartparens-ruby :ensure smartparens)
   (use-package inf-ruby)
   (use-package rspec-mode)
-
-  (general-define-key :prefix "SPC"
-   "r" '(:ignore t :which-key "Ruby")
-   "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
-   "r f" '(rspec-verify :which-key "Run specs in file")
-   "r r" '(rspec-rerun :which-key "Rerun specs")
-   "r s" '(rspec-verify-single :which-key "Run spec at point"))
 
   (setq enh-ruby-add-encoding-comment-on-save nil
         enh-ruby-deep-indent-paren nil
