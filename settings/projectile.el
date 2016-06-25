@@ -8,7 +8,8 @@
         projectile-globally-ignored-files '("TAGS")
         projectile-ignored-projects '("/usr/local"
                                       "~/src/mark/color-theme-ujelly/"
-                                      "~/src/mark/emacs.d/")
+                                      "~/src/mark/emacs.d/"
+                                      "~/src/mark/tilde")
         projectile-mode-line '(:eval (format " P/%s" (projectile-project-name)))
         projectile-tags-command "ripper-tags -R -f TAGS")
 
