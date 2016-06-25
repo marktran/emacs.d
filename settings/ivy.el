@@ -11,13 +11,15 @@
   (setq ivy-fixed-height-minibuffer t
         ivy-height 20
 
-        ivy-ignore-buffers `("^\\*alchemist test report\\*"
+        ivy-ignore-buffers `("^\\*alchemist-server\\*"
+                             "^\\*alchemist test report\\*"
                              "^\\*Compile-Log\\*"
                              "^\\*Completions\\*"
                              "^\\*Help\\*"
                              "^\\*Messages\\*"
                              "^\\*Warnings\\*"
                              "^\\*magit"
+                             "^\\*scratch\\*"
                              (lambda (name)
                                (save-excursion
                                  (equal major-mode 'dired-mode))))
