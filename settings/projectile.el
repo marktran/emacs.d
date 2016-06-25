@@ -1,14 +1,8 @@
 (use-package projectile
   :init
-  (add-hook 'enh-ruby-mode-hook 'projectile-mode)
-
   (setq projectile-completion-system 'ivy
         projectile-enable-caching t
-        projectile-globally-ignored-buffers '("*Helm Find Files*"
-                                              "*eshell*"
-                                              "*helm M-x*"
-                                              "*helm projectile*"
-                                              "*helm recentf*"
+        projectile-globally-ignored-buffers '("*eshell*"
                                               "*magit-process*"
                                               "TAGS")
         projectile-globally-ignored-files '("TAGS")
