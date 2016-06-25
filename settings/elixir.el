@@ -4,11 +4,13 @@
   :general
   (:keymaps 'elixir-mode-map
    :states 'normal
+   :prefix "SPC"
    "m" '(:ignore t :which-key "Elixir")
    "m c" '(alchemist-phoenix-find-controllers :which-key "Find controllers")
    "m m" '(alchemist-phoenix-find-models :which-key "Find models")
    "m r" '(alchemist-phoenix-router :which-key "Jump to router")
-   "m t" '(alchemist-phoenix-find-test :which-key "Find tests")
+   "m t" '(alchemist-project-find-test :which-key "Find tests")
+   "m v" '(alchemist-phoenix-find-views :which-key "Find views")
 
    "r" '(:ignore t :which-key "Elixir Tests")
    "j" '(alchemist-project-toggle-file-and-tests :which-key "Toggle source/test file")

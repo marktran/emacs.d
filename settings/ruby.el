@@ -9,6 +9,7 @@
   :general
   (:keymaps 'enh-ruby-mode-map
    :states 'normal
+   :prefix "SPC"
    "r" '(:ignore t :which-key "Ruby")
    "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
    "r f" '(rspec-verify :which-key "Run specs in buffer")

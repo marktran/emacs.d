@@ -4,4 +4,8 @@
 
   :config
   (setq emmet-indentation 2
-        emmet-preview-default nil))
+        emmet-preview-default nil)
+
+  (defadvice emmet-expand-line (after evil-normal-state activate)
+    "Enable Normal state after expansion"
+    (evil-normal-state)))

@@ -1,4 +1,4 @@
-(general-define-key
+(general-define-key :prefix "SPC"
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
  "d" '(projectile-find-dir :which-key "Find directory")
  "e" '(er/expand-region :which-key "Expand region")
@@ -11,13 +11,13 @@
  "R" '(ivy-recentf :which-key "Recent files")
  "SPC" '(ivy-switch-buffer :which-key "Switch buffer"))
 
-(general-define-key :keymaps 'visual
+(general-define-key :keymaps 'visual :prefix "SPC"
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
  "c" '(simpleclip-copy :which-key "Copy region")
  "v" '(simpleclip-paste :which-key "Paste")
  "x" '(simpleclip-cut :which-key "Cut region"))
 
-(general-define-key
+(general-define-key :prefix "SPC"
  "b" '(:ignore t :which-key "Buffer")
  "b d" '(delete-current-buffer-file :which-key "Delete file")
  "b e" '(eval-buffer :which-key "Eval buffer")
@@ -27,7 +27,7 @@
  "b s" '(scratch :which-key "Create scratch buffer")
  "b w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
 
-(general-define-key
+(general-define-key :prefix "SPC"
  "h" '(:ignore t :which-key "Help")
  "h a" '(describe-face :which-key "Describe face")
  "h b" '(describe-bindings :which-key "Describe bindings")
@@ -38,14 +38,14 @@
  "h p" '(describe-package :which-key "Describe package")
  "h v" '(counsel-describe-variable :which-key "Describe variable"))
 
-(general-define-key
+(general-define-key :prefix "SPC"
  "s" '(:ignore t :which-key "Search")
  "s a" '(counsel-ag-project-symbol :which-key "Search project")
  "s e" '(evil-iedit-state/iedit-mode :which-key "Iedit")
  "s s" '(swiper :which-key "Swiper")
  "s v" '(avy-goto-word-1 :which-key "Avy"))
 
-(general-define-key
+(general-define-key :prefix "SPC"
  "t" '(:ignore t :which-key "Toggle")
  "t g" '(toggle-golden-ratio-mode :which-key "Toggle Golden Ratio sizing")
  "t l" '(linum-mode :which-key "Toggle line numbers"))

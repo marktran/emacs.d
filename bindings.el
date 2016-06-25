@@ -5,9 +5,7 @@
 
 (use-package general
   :config
-  (setq general-default-global-prefix "SPC"
-        general-default-keymaps 'evil-normal-state-map
-        general-default-prefix "SPC"))
+  (setq general-default-keymaps 'evil-normal-state-map))
 
 (use-package which-key
   :diminish which-key-mode

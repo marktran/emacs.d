@@ -1,5 +1,25 @@
 (use-package eshell
   :commands eshell
+
+  :general
+  (:keymaps 'eshell-mode-map
+    "C-d" 'bury-buffer)
+
+  (:keymaps 'eshell-mode-map
+   :prefix "C-w"
+   "=" 'balance-windows
+   "h" 'windmove-left
+   "C-h" 'windmove-left
+   "l" 'windmove-right
+   "C-l" 'windmove-right
+   "j" 'windmove-down
+   "C-j" 'windmove-down
+   "k" 'windmove-up
+   "C-k" 'windmove-up
+   "C-o" 'delete-other-windows
+   "c" 'delete-window
+   "u" 'winner-undo)
+
   :config
   (setq eshell-aliases-file "~/.emacs.d/eshell/alias"
         eshell-banner-message ""
