@@ -29,5 +29,4 @@
    "M-K" 'org-metaup)
 
   :config
-  (setq org-completion-use-ido t
-        org-log-done 'time))
+  (setq org-log-done 'time))

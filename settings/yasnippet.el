@@ -6,6 +6,6 @@
   (yas-global-mode 1)
 
   :config
-  (setq yas-prompt-functions '(yas/ido-prompt)
+  (setq yas-prompt-functions 'yas-completing-prompt
         yas-use-menu 'abbreviate
         yas-verbosity 0))
