@@ -15,7 +15,7 @@
           (concat
            (propertize (host-name) 'face `(:foreground "#cf6a4c"))
            " "
-           (propertize (abbreviate-file-name (eshell/pwd)) 'face `(:foreground "#cd00cd"))
+           (propertize (fish-path (eshell/pwd) 20) 'face `(:foreground "#cd00cd"))
            " "))
         eshell-prompt-regexp "^[^ ]* [^ ]* "
         esehll-review-quick-commands t
