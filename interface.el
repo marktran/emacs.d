@@ -14,7 +14,6 @@
       inhibit-startup-message t
       initial-scratch-message nil
       isearch-lazy-highlight nil
-      linum-format "%3d "
       max-mini-window-height 0
       pop-up-windows nil
       show-paren-style 'parenthesis
