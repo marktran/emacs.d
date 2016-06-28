@@ -1,11 +1,11 @@
 (require 'uniquify)
 
-(column-number-mode t)
-(global-font-lock-mode t)
+(column-number-mode 1)
+(global-font-lock-mode 1)
 (global-hl-line-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode -1)
-(winner-mode t)
+(winner-mode 1)
 
 (setq display-time-24hr-format t
       display-time-default-load-average nil
