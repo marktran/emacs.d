@@ -18,6 +18,7 @@
                              "^\\*Help\\*"
                              "^\\*Messages\\*"
                              "^\\*Warnings\\*"
+                             "^\\*eshell"
                              "^\\*magit"
                              "^\\*scratch\\*"
                              (lambda (name)
