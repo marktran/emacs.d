@@ -9,7 +9,6 @@
         recentf-exclude (list (expand-file-name package-user-dir)
                               #'ignoramus-boring-p
                               ".bookmarks"
-                              "ido.last"
                               "recentf"
                               "TAGS")
 
