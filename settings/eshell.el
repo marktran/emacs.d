@@ -13,8 +13,6 @@
         eshell-prompt-function
         (lambda ()
           (concat
-           (propertize (host-name) 'face `(:foreground "#cf6a4c"))
-           " "
            (propertize (fish-path (eshell/pwd) 20) 'face `(:foreground "#cd00cd"))
            " "))
         eshell-prompt-regexp "^[^ ]* [^ ]* "
