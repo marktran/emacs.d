@@ -16,6 +16,25 @@
    "r r" '(rspec-rerun :which-key "Rerun specs")
    "r s" '(rspec-verify-single :which-key "Run spec at point"))
 
+  (:keymaps 'projectile-rails-mode-map
+   :states 'normal
+   :prefix "SPC"
+
+   "m" '(:ignore t :which-key "Ruby/Rails")
+   "m c" '(projectile-rails-find-controller :which-key "Find controller")
+   "m d" '(projectile-rails-find-migration :which-key "Find migration")
+   "m e" '(projectile-rails-find-environment :which-key "Find environment")
+   "m g" '(projectile-rails-goto-gemfile :which-key "Jump to Gemfile")
+   "m h" '(projectile-rails-find-helper :which-key "Find helper")
+   "m i" '(projectile-rails-find-initializer :which-key "Find initializer")
+   "m j" '(projectile-rails-find-javascript :which-key "Find javascript")
+   "m l" '(projectile-rails-find-lib :which-key "Find lib")
+   "m m" '(projectile-rails-find-model :which-key "Find model")
+   "m r" '(projectile-rails-goto-routes :which-key "Jump to routes")
+   "m s" '(projectile-rails-find-serializer :which-key "Find serializer")
+   "m t" '(projectile-rails-find-spec :which-key "Find spec")
+   "m v" '(projectile-rails-find-view :which-key "Find view"))
+
   :config
   (use-package smartparens-ruby :ensure smartparens)
   (use-package inf-ruby)
