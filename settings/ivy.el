@@ -21,6 +21,7 @@
                              "^\\*eshell"
                              "^\\*magit"
                              "^\\*scratch\\*"
+                             "^\\*rspec-compilation\\*"
                              (lambda (name)
                                (save-excursion
                                  (equal major-mode 'dired-mode))))
