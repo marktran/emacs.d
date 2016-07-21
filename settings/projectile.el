@@ -27,4 +27,8 @@
     "p r" '(projectile-recentf :which-key "Recent [project] files")
     "p s" '(projectile-run-eshell :which-key "Eshell"))
 
+  (use-package projectile-rails
+    :config
+    (add-hook 'projectile-mode-hook 'projectile-rails-on))
+
   (projectile-global-mode 1))
