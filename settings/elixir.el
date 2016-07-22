@@ -6,6 +6,7 @@
    :states 'normal
    :prefix "SPC"
    "m" '(:ignore t :which-key "Elixir")
+   "m a" '(alchemist-phoenix-find-channels :which-key "Find channels")
    "m c" '(alchemist-phoenix-find-controllers :which-key "Find controllers")
    "m m" '(alchemist-phoenix-find-models :which-key "Find models")
    "m r" '(alchemist-phoenix-router :which-key "Jump to router")
