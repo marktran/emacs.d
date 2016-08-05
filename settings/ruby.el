@@ -33,7 +33,8 @@
    "m r" '(projectile-rails-goto-routes :which-key "Jump to routes")
    "m s" '(projectile-rails-find-serializer :which-key "Find serializer")
    "m t" '(projectile-rails-find-spec :which-key "Find spec")
-   "m v" '(projectile-rails-find-view :which-key "Find view"))
+   "m v" '(projectile-rails-find-view :which-key "Find view")
+   "m w" '(projectile-rails-find-worker :which-key "Find worker"))
 
   :config
   (use-package smartparens-ruby :ensure smartparens)
