@@ -29,4 +29,5 @@
    "M-K" 'org-metaup)
 
   :config
-  (setq org-log-done 'time))
+  (setq org-log-done 'time
+        org-src-fontify-natively t))
