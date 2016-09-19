@@ -7,5 +7,3 @@
 
 (setq use-package-always-ensure t
       use-package-verbose t)
-
-(package-initialize)
