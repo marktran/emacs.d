@@ -8,7 +8,7 @@
  "D" '(dired-jump :which-key "Dired")
  "F" '(projectile-find-file :which-key "Find file [project]")
  "Q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
- "R" '(ivy-recentf :which-key "Recent files")
+ "R" '(counsel-recentf :which-key "Recent files")
  "SPC" '(ivy-switch-buffer :which-key "Switch buffer"))
 
 (general-define-key :keymaps 'visual :prefix "SPC"
