@@ -8,7 +8,8 @@
   (use-package flx)
   (use-package swiper)
 
-  (setq ivy-fixed-height-minibuffer t
+  (setq ivy-extra-directories nil
+        ivy-fixed-height-minibuffer t
         ivy-height 20
 
         ivy-ignore-buffers `("^\\*alchemist-server\\*"
