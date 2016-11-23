@@ -5,6 +5,7 @@
  "f" '(counsel-find-file :which-key "Find file")
  "o" '(counsel-bookmark :which-key "Bookmarks")
  "v" '(simpleclip-paste :which-key "Paste")
+ "y" '(counsel-yank-pop :which-key "Yank Pop")
  "D" '(dired-jump :which-key "Dired")
  "F" '(projectile-find-file :which-key "Find file [project]")
  "Q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
