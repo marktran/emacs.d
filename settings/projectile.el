@@ -29,6 +29,6 @@
 
   (use-package projectile-rails
     :config
-    (add-hook 'projectile-mode-hook 'projectile-rails-on))
+    (projectile-rails-global-mode 1))
 
   (projectile-global-mode 1))
