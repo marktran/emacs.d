@@ -13,10 +13,7 @@
  "SPC" '(ivy-switch-buffer :which-key "Switch buffer"))
 
 (general-define-key :keymaps 'visual :prefix "SPC"
- ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
- "c" '(simpleclip-copy :which-key "Copy region")
- "v" '(simpleclip-paste :which-key "Paste")
- "x" '(simpleclip-cut :which-key "Cut region"))
+ ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines"))
 
 (general-define-key :prefix "SPC"
  "b" '(:ignore t :which-key "Buffer")
