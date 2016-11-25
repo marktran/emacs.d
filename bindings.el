@@ -7,6 +7,8 @@
   :config
   (setq general-default-keymaps 'evil-normal-state-map))
 
+(use-package hydra)
+
 (use-package which-key
   :diminish which-key-mode
 
