@@ -12,6 +12,7 @@
    :prefix "SPC"
    "r" '(:ignore t :which-key "Ruby")
    "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
+   "r a" '(rspec-verify-all :which-key "Run all project specs")
    "r f" '(rspec-verify :which-key "Run specs in buffer")
    "r r" '(rspec-rerun :which-key "Rerun specs")
    "r s" '(rspec-verify-single :which-key "Run spec at point"))
