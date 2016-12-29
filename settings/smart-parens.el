@@ -1,5 +1,4 @@
 (use-package smartparens
-  :defer 2
   :diminish smartparens-mode
 
   :config
