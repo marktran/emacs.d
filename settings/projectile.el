@@ -19,6 +19,7 @@
     "p b" '(projectile-switch-to-buffer :which-key "Switch buffer")
     "p D" '(projectile-dired :which-key "Dired")
     "p d" '(projectile-find-dir :which-key "Find directory")
+    "p e" '(project-explorer-toggle :which-key "Project explorer")
     "p i" '(projectile-invalidate-cache :which-key "Invalidate cache")
     "p j" '(projectile-find-tag :which-key "Find tag")
     "p k" '(projectile-kill-buffers :which-key "Kill [project] buffers")
