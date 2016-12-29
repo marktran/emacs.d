@@ -2,6 +2,8 @@
   :commands eshell
 
   :config
+  (require 'em-rebind)
+
   (setq eshell-aliases-file "~/.emacs.d/eshell/alias"
         eshell-banner-message ""
         eshell-cmpl-cycle-completions nil
@@ -15,7 +17,7 @@
           (concat
            (propertize (fish-path (eshell/pwd) 20) 'face `(:foreground "#cd00cd"))
            " "))
-        eshell-prompt-regexp "^[^ ]* [^ ]* "
+        eshell-prompt-regexp "^[^ ]* "
         esehll-review-quick-commands t
         eshell-smart-space-goes-to-end t
         eshell-where-to-jump 'begin)
@@ -24,7 +26,10 @@
   (defun custom/eshell-keybindings ()
     (progn
       (general-define-key :keymaps 'eshell-mode-map
-        "C-d" 'bury-buffer)
+        "DEL" 'eshell-delete-backward-char
+        "C-d" 'bury-buffer
+        "C-n" 'eshell-next-input
+        "C-p" 'eshell-previous-input)
 
       (general-define-key :keymaps 'eshell-mode-map :prefix "C-w"
         "=" 'balance-windows
