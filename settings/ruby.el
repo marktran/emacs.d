@@ -47,11 +47,8 @@
         enh-ruby-hanging-brace-indent-level 2
         enh-ruby-use-encoding-map nil
         rspec-compilation-buffer-name "*rspec-compilation*"
-        rspec-spec-command "spring rspec"
-        rspec-use-bundler-when-possible nil
         rspec-use-opts-file-when-available nil
         rspec-use-rake-flag nil
-        rspec-use-spring-when-possible nil
         ruby-deep-arglist nil
         ruby-deep-indent-paren nil
         ruby-end-insert-newline nil
