@@ -5,8 +5,8 @@
 ;; Author: John Wiegley <jwiegley@gmail.com>
 ;; Maintainer: John Wiegley <jwiegley@gmail.com>
 ;; Created: 17 Jun 2012
-;; Modified: 26 Sep 2015
-;; Version: 2.1
+;; Modified: 17 Oct 2016
+;; Version: 2.3
 ;; Package-Requires: ((bind-key "1.0") (diminish "0.44"))
 ;; Keywords: dotemacs startup speed config package
 ;; URL: https://github.com/jwiegley/use-package
@@ -46,7 +46,8 @@
 (eval-when-compile (require 'cl))
 (eval-when-compile (require 'regexp-opt))
 
-(declare-function package-installed-p 'package)
+(declare-function package-installed-p "package")
+(declare-function package-read-all-archive-contents "package" ())
 
 (defgroup use-package nil
   "A use-package declaration for simplifying your `.emacs'."
@@ -76,6 +77,11 @@ The check is performed by looking for the module using `locate-library'."
 
 (defcustom use-package-always-defer nil
   "If non-nil, assume `:defer t` unless `:demand t` is given."
+  :type 'boolean
+  :group 'use-package)
+
+(defcustom use-package-always-demand nil
+  "If non-nil, assume `:demand t` unless `:defer t` is given."
   :type 'boolean
   :group 'use-package)
 
@@ -125,6 +131,7 @@ the user specified."
 
 (defcustom use-package-keywords
   '(:disabled
+    :preface
     :pin
     :ensure
     :if
@@ -132,7 +139,6 @@ the user specified."
     :unless
     :requires
     :load-path
-    :preface
     :no-require
     :bind
     :bind*
@@ -144,9 +150,9 @@ the user specified."
     :defines
     :functions
     :defer
+    :init
     :after
     :demand
-    :init
     :config
     :diminish
     :delight)
@@ -193,7 +199,7 @@ Must be set before loading use-package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Utility functions
+;;; Utility functions
 ;;
 
 (defun use-package-as-symbol (string-or-symbol)
@@ -212,8 +218,8 @@ convert it to a string and return that."
   "Return a form which will load or require NAME depending on
 whether it's a string or symbol."
   (if (stringp name)
-      `(load ,name 'noerror)
-    `(require ',name nil 'noerror)))
+      `(load ,name ',noerror)
+    `(require ',name nil ',noerror)))
 
 (defun use-package-expand (name label form)
   "FORM is a list of forms, so `((foo))' if only `foo' is being called."
@@ -298,7 +304,7 @@ This is in contrast to merely setting it to 0."
   (let (p)
     (while plist
       (if (not (eq property (car plist)))
-	  (setq p (plist-put p (car plist) (nth 1 plist))))
+          (setq p (plist-put p (car plist) (nth 1 plist))))
       (setq plist (cddr plist)))
     p))
 
@@ -350,12 +356,12 @@ This is in contrast to merely setting it to 0."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Keyword processing
+;;; Keyword processing
 ;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Normalization functions
+;;; Normalization functions
 ;;
 
 (defun use-package-normalize-plist (name input)
@@ -413,7 +419,7 @@ next value for the STATE."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :pin
+;;; :pin
 ;;
 
 (defun use-package-only-one (label args f)
@@ -483,7 +489,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :ensure
+;;; :ensure
 ;;
 (defvar package-archive-contents)
 (defun use-package-normalize/:ensure (name keyword args)
@@ -500,6 +506,9 @@ manually updated package."
 (defun use-package-ensure-elpa (package &optional no-refresh)
   (if (package-installed-p package)
       t
+    (if (and (not no-refresh)
+             (assoc package (bound-and-true-p package-pinned-packages)))
+        (package-read-all-archive-contents))
     (if (or (assoc package package-archive-contents) no-refresh)
         (package-install package)
       (progn
@@ -523,7 +532,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :if, :when and :unless
+;;; :if, :when and :unless
 ;;
 
 (defsubst use-package-normalize-value (label arg)
@@ -554,7 +563,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :requires
+;;; :requires
 ;;
 
 (defun use-package-as-one (label args f)
@@ -597,7 +606,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :load-path
+;;; :load-path
 ;;
 
 (defun use-package-normalize-paths (label arg &optional recursed)
@@ -631,7 +640,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :no-require
+;;; :no-require
 ;;
 
 (defun use-package-normalize-predicate (name keyword args)
@@ -648,7 +657,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :preface
+;;; :preface
 ;;
 
 (defun use-package-normalize-form (label args)
@@ -675,7 +684,7 @@ manually updated package."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :bind, :bind*
+;;; :bind, :bind*
 ;;
 
 (defsubst use-package-is-sympair (x &optional allow-vector)
@@ -744,7 +753,7 @@ may also be a string, as accepted by `define-key'."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :bind-keymap, :bind-keymap*
+;;; :bind-keymap, :bind-keymap*
 ;;
 
 (defalias 'use-package-normalize/:bind-keymap 'use-package-normalize-binder)
@@ -801,7 +810,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :interpreter
+;;; :interpreter
 ;;
 
 (defun use-package-normalize-mode (name keyword args)
@@ -824,7 +833,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :mode
+;;; :mode
 ;;
 
 (defalias 'use-package-normalize/:mode 'use-package-normalize-mode)
@@ -843,7 +852,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :commands
+;;; :commands
 ;;
 
 (defalias 'use-package-normalize/:commands 'use-package-normalize-symlist)
@@ -857,7 +866,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :defines
+;;; :defines
 ;;
 
 (defalias 'use-package-normalize/:defines 'use-package-normalize-symlist)
@@ -868,7 +877,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :functions
+;;; :functions
 ;;
 
 (defalias 'use-package-normalize/:functions 'use-package-normalize-symlist)
@@ -887,7 +896,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :defer
+;;; :defer
 ;;
 
 (defalias 'use-package-normalize/:defer 'use-package-normalize-predicate)
@@ -921,7 +930,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :after
+;;; :after
 ;;
 
 (defalias 'use-package-normalize/:after 'use-package-normalize-symlist)
@@ -947,7 +956,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :demand
+;;; :demand
 ;;
 
 (defalias 'use-package-normalize/:demand 'use-package-normalize-predicate)
@@ -958,7 +967,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :init
+;;; :init
 ;;
 
 (defalias 'use-package-normalize/:init 'use-package-normalize-forms)
@@ -978,7 +987,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :config
+;;; :config
 ;;
 
 (defalias 'use-package-normalize/:config 'use-package-normalize-forms)
@@ -1013,7 +1022,8 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :diminish
+;;; :diminish
+;;
 
 (defun use-package-normalize-diminish (name label arg &optional recursed)
   "Normalize the arguments to diminish down to a list of one of two forms:
@@ -1051,7 +1061,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; :delight
+;;; :delight
 ;;
 
 (defun use-package-normalize/:delight (name keyword args)
@@ -1077,7 +1087,7 @@ deferred until the prefix key sequence is pressed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; The main macro
+;;; The main macro
 ;;
 
 ;;;###autoload
@@ -1166,8 +1176,11 @@ this file.  Usage:
 
       (let ((body
              (macroexp-progn
-              (use-package-process-keywords name args*
-                (and use-package-always-defer '(:deferred t))))))
+              (use-package-process-keywords name
+                (if use-package-always-demand
+                    (append args* '(:demand t))
+                  args*)
+                (and use-package-always-defer (list :deferred t))))))
         (if use-package-debug
             (display-buffer
              (save-current-buffer
@@ -1185,6 +1198,7 @@ this file.  Usage:
 (provide 'use-package)
 
 ;; Local Variables:
+;; outline-regexp: ";;;\\(;* [^\s\t\n]\\|###autoload\\)\\|("
 ;; indent-tabs-mode: nil
 ;; End:
 
