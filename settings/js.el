@@ -1,5 +1,5 @@
 (use-package js-mode
   :ensure nil
   :mode "\\.js"
-  :config
+  :init
   (setq js-indent-level 2))
