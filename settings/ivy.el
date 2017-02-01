@@ -16,6 +16,7 @@
                              "^\\*alchemist test report\\*"
                              "^\\*Compile-Log\\*"
                              "^\\*Completions\\*"
+                             "^\\*Flycheck errors\\*"
                              "^\\*Help\\*"
                              "^\\*Messages\\*"
                              "^\\*Warnings\\*"
