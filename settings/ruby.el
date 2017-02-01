@@ -24,6 +24,7 @@
    "m" '(:ignore t :which-key "Ruby/Rails")
    "m c" '(projectile-rails-find-controller :which-key "Find controller")
    "m d" '(projectile-rails-find-migration :which-key "Find migration")
+   "m f" '(flycheck-list-errors :which-key "Flycheck errors")
    "m e" '(projectile-rails-find-environment :which-key "Find environment")
    "m g" '(projectile-rails-goto-gemfile :which-key "Jump to Gemfile")
    "m h" '(projectile-rails-find-helper :which-key "Find helper")
@@ -57,6 +58,7 @@
   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
   (add-hook 'enh-ruby-mode-hook 'company-mode)
+  (add-hook 'enh-ruby-mode-hook 'flycheck-mode)
   (add-hook 'enh-ruby-mode-hook 'whitespace-cleanup-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))

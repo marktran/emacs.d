@@ -4,6 +4,8 @@
 
   :config
   (add-to-list 'popwin:special-display-config
+               '("*Flycheck errors*" :height 0.4 :dedicated t :stick t :position bottom))
+  (add-to-list 'popwin:special-display-config
                '("*Help*" :height 0.4 :dedicated t :stick t :position bottom))
   (add-to-list 'popwin:special-display-config
                '("^\*[hH]+elm.*?\*$" :height 0.4 :regexp t))
