@@ -8,7 +8,7 @@
  "y" '(counsel-yank-pop :which-key "Yank Pop")
  "D" '(dired-jump :which-key "Dired")
  "F" '(projectile-find-file :which-key "Find file [project]")
- "Q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
+ "Q" '(restart-emacs :which-key "Restart Emacs")
  "R" '(counsel-recentf :which-key "Recent files")
  "SPC" '(ivy-switch-buffer :which-key "Switch buffer"))
 
