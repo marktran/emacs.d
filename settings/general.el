@@ -8,7 +8,6 @@
  "y" '(counsel-yank-pop :which-key "Yank Pop")
  "D" '(dired-jump :which-key "Dired")
  "F" '(projectile-find-file :which-key "Find file [project]")
- "Q" '(restart-emacs :which-key "Restart Emacs")
  "R" '(counsel-recentf :which-key "Recent files")
  "SPC" '(ivy-switch-buffer :which-key "Switch buffer"))
 
@@ -27,6 +26,13 @@
  "b r" '(rename-current-buffer-file :which-key "Rename file")
  "b s" '(scratch :which-key "Create scratch buffer")
  "b w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
+
+(general-define-key :prefix "SPC"
+  "E" '(:ignore t :which-key "Emacs")
+  "E l" '(paradox-list-packages :which-key "List packages")
+  "E q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
+  "E r" '(restart-emacs :which-key "Restart Emacs")
+  "E u" '(paradox-upgrade-packages :which-key "Upgrade packages"))
 
 (general-define-key :prefix "SPC"
  "h" '(:ignore t :which-key "Help")
