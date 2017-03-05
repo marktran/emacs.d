@@ -38,6 +38,9 @@
    "m v" '(projectile-rails-find-view :which-key "Find view")
    "m w" '(projectile-rails-find-worker :which-key "Find worker"))
 
+  :init
+  (rename-modeline "enh-ruby-mode" enh-ruby-mode "Ruby")
+
   :config
   (use-package smartparens-ruby :ensure smartparens)
   (use-package inf-ruby)
