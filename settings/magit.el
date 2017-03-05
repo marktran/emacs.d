@@ -2,6 +2,10 @@
   :config
   (use-package evil-magit)
 
+  (use-package magithub
+    :config
+    (magithub-feature-autoinject t))
+
   (general-define-key :prefix "SPC"
    "g"  '(:ignore t :which-key "Magit")
    "g b" '(magit-blame :which-key "Blame")
