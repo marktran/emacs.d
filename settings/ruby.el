@@ -1,7 +1,7 @@
 (use-package enh-ruby-mode
   :mode
   (("Capfile" . enh-ruby-mode)
-   ("Gemfile" . enh-ruby-mode)
+   ("Gemfile\\'" . enh-ruby-mode)
    ("Rakefile" . enh-ruby-mode)
    ("\\.rb" . enh-ruby-mode)
    ("\\.ru" . enh-ruby-mode))
