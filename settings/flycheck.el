@@ -1,1 +1,2 @@
-(use-package flycheck)
+(use-package flycheck
+  :diminish flycheck-mode)
