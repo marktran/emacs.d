@@ -10,7 +10,7 @@
                                       "~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/"
                                       "~/src/mark/tilde")
-        projectile-mode-line '(:eval (format " P/%s" (projectile-project-name)))
+        projectile-mode-line nil
         projectile-tags-command "ripper-tags -R -f TAGS")
 
   :config
