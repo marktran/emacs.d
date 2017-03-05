@@ -19,7 +19,9 @@
  "b d" '(delete-current-buffer-file :which-key "Delete file")
  "b e" '(eval-buffer :which-key "Eval buffer")
  "b h" '(bury-buffer :which-key "Hide buffer")
+ "b i" '(highlight-indentation-mode :which-key "Highlight indentation")
  "b k" '(kill-this-buffer :which-key "Kill buffer")
+ "b l" '(nlinum-mode :which-key "Toggle line numbers")
  "b m" '(bm-toggle :which-key "Toggle visual bookmark")
  "b n" '(bm-next :which-key "Next bookmark")
  "b p" '(bm-previous :which-key "Previous bookmark")
@@ -54,5 +56,4 @@
 
 (general-define-key :prefix "SPC"
  "t" '(:ignore t :which-key "Toggle")
- "t g" '(toggle-golden-ratio-mode :which-key "Toggle Golden Ratio sizing")
- "t l" '(nlinum-mode :which-key "Toggle line numbers"))
+ "t g" '(toggle-golden-ratio-mode :which-key "Toggle Golden Ratio sizing"))
