@@ -57,3 +57,17 @@
 (general-define-key :prefix "SPC"
  "t" '(:ignore t :which-key "Toggle")
  "t g" '(toggle-golden-ratio-mode :which-key "Toggle Golden Ratio sizing"))
+
+(general-define-key :keymaps 'evil-window-map
+  "u" 'winner-undo
+  "C-r" 'winner-redo
+
+  "C-h" 'evil-window-left
+  "C-j" 'evil-window-down
+  "C-l" 'evil-window-right
+  "C-k" 'evil-window-up
+
+  "M-h" 'buf-move-left
+  "M-j" 'buf-move-down
+  "M-l" 'buf-move-right
+  "M-k" 'buf-move-up)

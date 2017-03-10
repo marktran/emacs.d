@@ -11,20 +11,6 @@
   (evil-mode 1)
 
   :config
-  (general-define-key :keymaps 'evil-window-map
-    "u" 'winner-undo
-    "C-r" 'winner-redo
-
-    "C-h" 'evil-window-left
-    "C-j" 'evil-window-down
-    "C-l" 'evil-window-right
-    "C-k" 'evil-window-up
-
-    "M-h" 'buf-move-left
-    "M-j" 'buf-move-down
-    "M-l" 'buf-move-right
-    "M-k" 'buf-move-up)
-
   (use-package evil-iedit-state
     :commands evil-iedit-state/iedit-mode)
 
@@ -50,5 +36,3 @@
                                 (sql-interactive-mode     . emacs)
                                 (text-mode                . emacs))
         do (evil-set-initial-state mode state)))
-
-
