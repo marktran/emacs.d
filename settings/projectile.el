@@ -6,7 +6,12 @@
                                               "*magit-process*"
                                               "TAGS")
         projectile-globally-ignored-files '("TAGS")
-        projectile-globally-ignored-file-suffixes '(".gitkeep")
+        projectile-globally-ignored-file-suffixes '(".gif"
+                                                    ".gitkeep"
+                                                    ".jpeg"
+                                                    ".jpg"
+                                                    ".png"
+                                                    ".zip")
         projectile-ignored-projects '("/usr/local"
                                       "~/src/mark/color-theme-ujelly/"
                                       "~/src/mark/emacs.d/"
