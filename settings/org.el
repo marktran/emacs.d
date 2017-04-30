@@ -6,10 +6,10 @@
    :states 'normal
    "za" 'org-cycle
    "zA" 'org-shifttab
-   "zc" 'hide-subtree
-   "zm" 'hide-body
-   "zo" 'show-subtree
-   "zr" 'show-all
+   "zc" 'outline-hide-subtree
+   "zm" 'outline-hide-body
+   "zo" 'outline-show-subtree
+   "zr" 'outline-show-all
 
    "RET" 'org-open-at-point
    "M-j" 'org-shiftleft
