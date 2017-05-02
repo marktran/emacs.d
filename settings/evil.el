@@ -14,6 +14,10 @@
   (use-package evil-iedit-state
     :commands evil-iedit-state/iedit-mode)
 
+  (use-package evil-lion
+    :config
+    (evil-lion-mode 1))
+
   (use-package evil-matchit
     :init
     (global-evil-matchit-mode 1))
