@@ -12,12 +12,9 @@
                                                     ".jpg"
                                                     ".png"
                                                     ".zip")
-        projectile-ignored-projects '("/usr/local"
-                                      "~/src/mark/color-theme-ujelly/"
-                                      "~/src/mark/emacs.d/"
-                                      "~/src/mark/tilde")
         projectile-mode-line nil
-        projectile-tags-command "ripper-tags -R -f TAGS")
+        projectile-tags-command "ripper-tags -R -f TAGS"
+        projectile-track-known-projects-automatically nil)
 
   :config
   (general-define-key :prefix "SPC"
@@ -33,6 +30,9 @@
     "p R" '(projectile-regenerate-tags :which-key "Regenerate tags")
     "p r" '(projectile-recentf :which-key "Recent [project] files")
     "p s" '(projectile-run-eshell :which-key "Eshell"))
+
+  (mapc #'projectile-add-known-project
+        (mapcar #'file-name-as-directory (magit-list-repos)))
 
   (use-package projectile-rails
     :config
