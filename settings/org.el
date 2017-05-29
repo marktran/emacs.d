@@ -4,6 +4,14 @@
   :general
   (:keymaps 'org-mode-map
    :states 'normal
+   :prefix "SPC"
+
+   "m" '(:ignore t :which-key "Org")
+   "m l" '(org-insert-link :which-key "Insert link")
+   "m t" '(m/org-insert-todo-heading :which-key "Insert todo heading"))
+
+  (:keymaps 'org-mode-map
+   :states 'normal
    "za" 'org-cycle
    "zA" 'org-shifttab
    "zc" 'outline-hide-subtree
