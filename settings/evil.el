@@ -11,6 +11,14 @@
   (evil-mode 1)
 
   :config
+  (use-package evil-escape
+    :diminish evil-escape-mode
+
+    :config
+    (evil-escape-mode 1)
+
+    (setq-default evil-escape-key-sequence "jk"))
+
   (use-package evil-iedit-state
     :commands evil-iedit-state/iedit-mode)
 
