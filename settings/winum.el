@@ -14,7 +14,8 @@
    "M-8" '(winum-select-window-8)
    "M-9" '(winum-select-window-9))
 
-  :config
-  (setq winum-auto-setup-mode-line nil)
+  :init
+  (winum-mode 1)
 
-  (winum-mode 1))
+  :config
+  (setq winum-auto-setup-mode-line nil))
