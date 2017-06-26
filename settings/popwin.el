@@ -4,13 +4,11 @@
 
   :config
   (add-to-list 'popwin:special-display-config
+               '("^\*eshell .+\*$" :regexp t :height 0.5 :dedicated t :stick t :position bottom))
+  (add-to-list 'popwin:special-display-config
                '("*Flycheck errors*" :height 0.4 :dedicated t :stick t :position bottom))
   (add-to-list 'popwin:special-display-config
                '("*Help*" :height 0.4 :dedicated t :stick t :position bottom))
-  (add-to-list 'popwin:special-display-config
-               '("^\*[hH]+elm.*?\*$" :height 0.4 :regexp t))
-  (add-to-list 'popwin:special-display-config
-               '("^\*Minitest.+\*$" :height 0.4 :regexp t))
   (add-to-list 'popwin:special-display-config
                '("*alchemist test report*" :height 0.4 :dedicated t :stick t :noselect t :position bottom))
   (add-to-list 'popwin:special-display-config
