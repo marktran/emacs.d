@@ -8,7 +8,7 @@
  "y" '(counsel-yank-pop :which-key "Yank Pop")
  "D" '(dired-jump :which-key "Dired")
  "F" '(projectile-find-file :which-key "Find file [project]")
- "R" '(counsel-recentf :which-key "Recent files")
+ "R" '(projectile-recentf :which-key "Recent files [project]")
  "SPC" '(ivy-switch-buffer :which-key "Switch buffer"))
 
 (general-define-key :keymaps 'visual :prefix "SPC"
