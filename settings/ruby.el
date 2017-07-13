@@ -7,14 +7,23 @@
    ("\\.ru" . enh-ruby-mode))
 
   :general
-  (:keymaps 'enh-ruby-mode-map
+  (:keymaps 'minitest-mode-map
+   :states 'normal
+   :prefix "SPC"
+   "r" '(:ignore t :which-key "Ruby")
+   "r a" 'minitest-verify-all :which-key "Run all project tests"
+   "r f" '(minitest-verify :which-key "Run tests in file")
+   "r r" '(minitest-rerun :which-key "Rerun last test invocation")
+   "r s" '(minitest-verify-single :which-key "Run test at point"))
+
+  (:keymaps 'rspec-mode-map
    :states 'normal
    :prefix "SPC"
    "r" '(:ignore t :which-key "Ruby")
    "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
    "r a" '(rspec-verify-all :which-key "Run all project specs")
-   "r f" '(rspec-verify :which-key "Run specs in buffer")
-   "r r" '(rspec-rerun :which-key "Rerun specs")
+   "r f" '(rspec-verify :which-key "Run specs in file")
+   "r r" '(rspec-rerun :which-key "Rerun last spec invocation")
    "r s" '(rspec-verify-single :which-key "Run spec at point"))
 
   (:keymaps 'projectile-rails-mode-map
@@ -44,12 +53,15 @@
   :config
   (use-package smartparens-ruby :ensure smartparens)
   (use-package inf-ruby)
+  (use-package minitest)
   (use-package rspec-mode)
 
   (setq enh-ruby-add-encoding-comment-on-save nil
         enh-ruby-deep-indent-paren nil
         enh-ruby-hanging-brace-indent-level 2
         enh-ruby-use-encoding-map nil
+        minitest-use-spring t
+        rspec-autosave-buffer t
         rspec-compilation-buffer-name "*rspec-compilation*"
         rspec-use-opts-file-when-available nil
         rspec-use-rake-flag nil
