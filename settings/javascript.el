@@ -11,3 +11,8 @@
 
   :config
   (setq js2-basic-offset 2))
+
+(use-package prettier-js
+  :after js2-mode
+  :config
+  (setq prettier-args '("--no-semi" "all")))
