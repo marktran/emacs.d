@@ -7,6 +7,13 @@
    ("\\.ru" . enh-ruby-mode))
 
   :general
+  (:keymaps 'enh-ruby-mode-map
+   :states 'normal
+   :prefix "SPC"
+   "r" '(:ignore t :which-key "Ruby")
+   "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
+   "r r" '(rspec-rerun :which-key "Rerun last spec invocation"))
+
   (:keymaps 'minitest-mode-map
    :states 'normal
    :prefix "SPC"
@@ -20,7 +27,6 @@
    :states 'normal
    :prefix "SPC"
    "r" '(:ignore t :which-key "Ruby")
-   "j" '(rspec-toggle-spec-and-target :which-key "Toggle source/spec file")
    "r a" '(rspec-verify-all :which-key "Run all project specs")
    "r f" '(rspec-verify :which-key "Run specs in file")
    "r r" '(rspec-rerun :which-key "Rerun last spec invocation")
@@ -29,7 +35,6 @@
   (:keymaps 'projectile-rails-mode-map
    :states 'normal
    :prefix "SPC"
-
    "m" '(:ignore t :which-key "Ruby/Rails")
    "m c" '(projectile-rails-find-controller :which-key "Find controller")
    "m d" '(projectile-rails-find-migration :which-key "Find migration")
