@@ -28,4 +28,5 @@
                                (save-excursion
                                  (equal major-mode 'dired-mode))))
 
-        ivy-re-builders-alist '((t . ivy--regex-fuzzy))))
+        ivy-re-builders-alist '((t . ivy--regex-fuzzy))
+        ivy-use-selectable-prompt t))
