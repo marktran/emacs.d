@@ -4,10 +4,6 @@
   (ivy-mode 1)
 
   :config
-  (use-package counsel)
-  (use-package flx)
-  (use-package swiper)
-
   (setq ivy-extra-directories nil
         ivy-fixed-height-minibuffer t
         ivy-height 20
@@ -30,3 +26,14 @@
 
         ivy-re-builders-alist '((t . ivy--regex-fuzzy))
         ivy-use-selectable-prompt t))
+
+(use-package counsel
+  :after ivy
+  :config
+  (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|\\.gitkeep"))
+
+(use-package flx
+  :after counsel)
+
+(use-package swiper
+  :after counsel)
