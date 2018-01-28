@@ -23,7 +23,7 @@
    "r s" '(alchemist-mix-test-at-point :which-key "Run test at point")))
 
 (use-package alchemist
-  :ensure elixir-mode
+  :after elixir-mode
   :diminish alchemist-mode
   :diminish alchemist-phoenix-mode
 
