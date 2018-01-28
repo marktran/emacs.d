@@ -1,7 +1,4 @@
-(use-package js-mode
-  :ensure nil
-  :config
-  (setq-default js-indent-level 2))
+(setq-default js-indent-level 2)
 
 (use-package js2-mode
   :mode ("\\.js\\'" . js2-mode)
