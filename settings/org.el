@@ -39,3 +39,11 @@
   :config
   (setq org-log-done 'time
         org-src-fontify-natively t))
+
+(use-package evil-org
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme))))
