@@ -23,7 +23,7 @@
     "p D" '(projectile-dired :which-key "Dired")
     "p d" '(projectile-find-dir :which-key "Find directory")
     "p i" '(projectile-invalidate-cache :which-key "Invalidate cache")
-    "p j" '(projectile-find-tag :which-key "Find tag")
+    "p j" '(dumb-jump-go :which-key "Dumb jump")
     "p k" '(projectile-kill-buffers :which-key "Kill [project] buffers")
     "p p" '(projectile-switch-project :which-key "Switch project")
     "p R" '(projectile-regenerate-tags :which-key "Regenerate tags")
