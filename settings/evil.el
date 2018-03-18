@@ -11,35 +11,6 @@
   (evil-mode 1)
 
   :config
-  (use-package evil-escape
-    :diminish evil-escape-mode
-
-    :config
-    (evil-escape-mode 1)
-
-    (setq-default evil-escape-key-sequence "jk"))
-
-  (use-package evil-iedit-state
-    :commands evil-iedit-state/iedit-mode)
-
-  (use-package evil-lion
-    :config
-    (evil-lion-mode 1))
-
-  (use-package evil-matchit
-    :init
-    (global-evil-matchit-mode 1))
-
-  (use-package evil-nerd-commenter
-    :commands evilnc-comment-or-uncomment-lines)
-
-  (use-package evil-numbers
-    :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-t))
-
-  (use-package evil-surround
-    :init
-    (global-evil-surround-mode 1))
-
   (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                                 (comint-mode              . emacs)
                                 (eshell-mode              . emacs)
@@ -52,3 +23,39 @@
                                 (vue-mode                 . normal)
                                 (yaml-mode                . normal))
         do (evil-set-initial-state mode state)))
+
+(use-package evil-escape
+  :after evil
+  :diminish evil-escape-mode
+
+  :config
+  (evil-escape-mode 1)
+
+  (setq-default evil-escape-key-sequence "jk"))
+
+(use-package evil-iedit-state
+  :after evil
+  :commands evil-iedit-state/iedit-mode)
+
+(use-package evil-lion
+  :after evil
+  :config
+  (evil-lion-mode 1))
+
+(use-package evil-matchit
+  :after evil
+  :init
+  (global-evil-matchit-mode 1))
+
+(use-package evil-nerd-commenter
+  :after evil
+  :commands evilnc-comment-or-uncomment-lines)
+
+(use-package evil-numbers
+  :after evil
+  :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-t))
+
+(use-package evil-surround
+  :after evil
+  :init
+  (global-evil-surround-mode 1))
