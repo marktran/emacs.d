@@ -48,5 +48,7 @@
                                 (paradox-menu-mode        . emacs)
                                 (special-mode             . normal)
                                 (sql-interactive-mode     . emacs)
-                                (text-mode                . emacs))
+                                (text-mode                . emacs)
+                                (vue-mode                 . normal)
+                                (yaml-mode                . normal))
         do (evil-set-initial-state mode state)))
