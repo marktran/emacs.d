@@ -52,15 +52,15 @@
    "m v" '(projectile-rails-find-view :which-key "Find view")
    "m w" '(projectile-rails-find-worker :which-key "Find worker"))
 
+  (:keymaps 'projectile-rails-mode-map
+   :states 'visual
+   :prefix "SPC"
+   "h" '(ruby-hash-syntax-toggle :which-key "Convert hash style"))
+
   :init
   (rename-modeline "enh-ruby-mode" enh-ruby-mode "Ruby")
 
   :config
-  (use-package smartparens-ruby :ensure smartparens)
-  (use-package inf-ruby)
-  (use-package minitest)
-  (use-package rspec-mode)
-
   (setq enh-ruby-add-encoding-comment-on-save nil
         enh-ruby-deep-indent-paren nil
         enh-ruby-hanging-brace-indent-level 2
@@ -82,3 +82,19 @@
   (add-hook 'enh-ruby-mode-hook 'whitespace-cleanup-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'run-coding-hook))
+
+(use-package smartparens-ruby
+  :after enh-ruby-mode
+  :ensure smartparens)
+
+(use-package inf-ruby
+  :after enh-ruby-mode)
+
+(use-package minitest
+  :after enh-ruby-mode)
+
+(use-package rspec-mode
+  :after enh-ruby-mode)
+
+(use-package ruby-hash-syntax
+  :after enh-ruby-mode)
