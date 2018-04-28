@@ -51,6 +51,7 @@
  "s" '(:ignore t :which-key "Search")
  "s a" '(counsel-ag-project-symbol :which-key "Search project")
  "s e" '(evil-iedit-state/iedit-mode :which-key "Iedit")
+ "s r" '(projectile-replace :which-key "Projectile replace")
  "s s" '(swiper :which-key "Swiper")
  "s v" '(avy-goto-word-1 :which-key "Avy"))
 
