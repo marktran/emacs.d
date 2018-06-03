@@ -26,6 +26,7 @@
   (defun custom/eshell-keybindings ()
     (progn
       (general-define-key :keymaps 'eshell-mode-map
+        "TAB" 'completion-at-point
         "DEL" 'eshell-delete-backward-char
         "C-d" 'bury-buffer
         "C-n" 'eshell-next-input
