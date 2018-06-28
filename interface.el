@@ -7,6 +7,9 @@
 (show-paren-mode -1)
 (winner-mode 1)
 
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+
 (setq display-time-24hr-format t
       display-time-default-load-average nil
       Info-use-header-line nil
@@ -16,12 +19,12 @@
       isearch-lazy-highlight nil
       max-mini-window-height 0
       pop-up-windows nil
+      ring-bell-function 'ignore
       show-paren-style 'parenthesis
       show-paren-delay 0
       show-trailing-whitespace t
       uniquify-buffer-name-style 'forward
       uniquify-ignore-buffers-re "^\\*"
-      visible-bell t
       x-select-enable-clipboard t
       xterm-mouse-mode t)
 
