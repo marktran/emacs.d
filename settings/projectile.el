@@ -31,11 +31,9 @@
     "p s" '(projectile-run-eshell :which-key "Eshell")
     "p t" '(treemacs-projectile :which-key "Treemacs"))
 
-  (mapc #'projectile-add-known-project
-        (mapcar #'file-name-as-directory (magit-list-repos)))
-
-  (use-package projectile-rails
-    :config
-    (projectile-rails-global-mode 1))
-
   (projectile-global-mode 1))
+
+(use-package projectile-rails
+  :after projectile
+  :config
+  (projectile-rails-global-mode 1))
