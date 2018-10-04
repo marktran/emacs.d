@@ -1,3 +1,6 @@
+(use-package eldoc
+  :diminish eldoc-mode)
+
 (use-package emacs-lisp
   :ensure nil
 
