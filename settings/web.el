@@ -1,7 +1,15 @@
 (use-package web-mode
   :mode
   (("\\.erb\\'" . web-mode)
-   ("\\.html?\\'" . web-mode))
+   ("\\.html?\\'" . web-mode)
+   ("\\.tsx\\'" . web-mode))
+
+  :hook (web-mode . (lambda ()
+                      (when (and (buffer-file-name)
+                                 (string-equal "tsx" (file-name-extension (buffer-file-name))))
+                        (tide-setup)
+                        (flycheck-mode 1)
+                        (eldoc-mode 1))))
 
   :config
   (setq-default web-mode-comment-formats
