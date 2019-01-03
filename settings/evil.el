@@ -5,7 +5,8 @@
         evil-search-module 'evil-search
         evil-symbol-word-search t
         evil-want-C-u-scroll t
-        evil-want-Y-yank-to-eol t)
+        evil-want-Y-yank-to-eol t
+        evil-want-keybinding nil)
   (setq-default evil-shift-width 2)
 
   (evil-mode 1)
@@ -23,6 +24,13 @@
                                 (vue-mode                 . normal)
                                 (yaml-mode                . normal))
         do (evil-set-initial-state mode state)))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init 'dired)
+  (evil-collection-init 'ediff)
+  (evil-collection-init 'ivy))
 
 (use-package evil-escape
   :after evil
@@ -59,3 +67,5 @@
   :after evil
   :init
   (global-evil-surround-mode 1))
+
+(evil-collection-init 'evil-dired)
