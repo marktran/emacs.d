@@ -1,3 +1,5 @@
+*.sqlite
+
 .cache/
 auto-save-list/
 backups/
