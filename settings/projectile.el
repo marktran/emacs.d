@@ -33,6 +33,9 @@
 
   (projectile-global-mode 1))
 
+(use-package counsel-projectile
+  :after projectile)
+
 (use-package projectile-rails
   :after projectile
   :config
