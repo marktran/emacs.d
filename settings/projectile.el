@@ -1,4 +1,5 @@
 (use-package projectile
+  :diminish
   :init
   (setq projectile-completion-system 'ivy
         projectile-enable-caching t
