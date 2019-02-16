@@ -1,5 +1,7 @@
 (use-package typescript-mode
-  :hook ((typescript-mode . typescript/fmt-before-save-hook)))
+  :hook ((typescript-mode . typescript/fmt-before-save-hook))
+  :init
+  (setq typescript-indent-level 2))
 
 (use-package tide
   :after typescript-mode company flycheck
