@@ -26,8 +26,6 @@
             (get-buffer-window buffer))))
 
   :config
-  (setq magit-branch-arguments (remove "--track" magit-branch-arguments))
-
   (general-define-key :prefix "SPC"
    "g"  '(:ignore t :which-key "Magit")
    "g b" '(magit-blame :which-key "Blame")
