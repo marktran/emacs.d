@@ -9,6 +9,8 @@
   :config
   (setq js2-basic-offset 2))
 
+(use-package add-node-modules-path)
+
 (use-package prettier-js
   :after js2-mode
   :config
