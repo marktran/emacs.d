@@ -9,9 +9,6 @@
         sp-show-pair-from-inside t
         sp-cancel-autoskip-on-backward-movement nil)
 
-  (smartparens-global-mode 1)
-  (show-smartparens-global-mode 1)
-
   (sp-with-modes '(elixir-mode)
     (sp-local-pair "->" "end"
                    :when '(("RET"))
