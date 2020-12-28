@@ -2,8 +2,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
-(require 'cl)
-
 (load "~/.emacs.d/local.el" 'noerror)
 (load "~/.emacs.d/custom.el" 'noerror)
 
