@@ -42,8 +42,5 @@
   (add-to-list 'magit-no-confirm 'stage-all-changes)
   (add-hook 'magit-blame-mode-hook 'evil-normalize-keymaps))
 
-(use-package evil-magit
-  :after magit)
-
 (use-package forge
   :after magit)

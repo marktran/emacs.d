@@ -29,7 +29,8 @@
   :config
   (evil-collection-init 'dired)
   (evil-collection-init 'ediff)
-  (evil-collection-init 'ivy))
+  (evil-collection-init 'ivy)
+  (evil-collection-init 'magit))
 
 (use-package evil-escape
   :after evil
