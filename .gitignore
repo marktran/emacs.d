@@ -6,6 +6,7 @@ backups/
 elpa/
 eshell/
 project-explorer-cache/
+transient/
 url/
 vendor/
 
