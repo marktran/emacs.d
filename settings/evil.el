@@ -26,6 +26,7 @@
 
 (use-package evil-collection
   :after evil
+  :diminish evil-collection-unimpaired-mode
   :config
   (evil-collection-init 'dired)
   (evil-collection-init 'ediff)

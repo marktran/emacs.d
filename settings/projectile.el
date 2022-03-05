@@ -39,5 +39,6 @@
 
 (use-package projectile-rails
   :after projectile
+  :diminish projectile-rails-mode
   :config
   (projectile-rails-global-mode 1))
