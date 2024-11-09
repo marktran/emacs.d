@@ -22,5 +22,3 @@
 
   :config
   (setq lsp-ui-doc-use-webkit t))
-
-(use-package company-lsp :commands company-lsp)
