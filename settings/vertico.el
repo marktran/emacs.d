@@ -1,12 +1,21 @@
-(vertico-mode)
+(setq completion-ignored-extensions
+      (nconc completion-ignored-extensions '(".DS_Store")))
+
+(use-package vertico
+  :init
+  (vertico-mode))
 
 (use-package vertico-directory
   :after vertico
   :ensure nil
+
   :bind (:map vertico-map
          ("RET" . vertico-directory-enter)
          ("DEL" . vertico-directory-delete-char)
-         ("M-DEL" . vertico-directory-delete-word)))
+         ("M-DEL" . vertico-directory-delete-word))
+
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
