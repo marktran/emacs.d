@@ -1,5 +1,7 @@
 (use-package undo-tree
   :diminish undo-tree-mode
+  :custom
+  (undo-tree-auto-save-history nil)
   :init (global-undo-tree-mode 1))
 
 ;; keep region when undoing in region
