@@ -1,6 +1,7 @@
 (use-package magit
   :custom
   (magit-auto-revert-mode nil)
+  (magit-bury-buffer-function #'magit-restore-window-configuration)
   (magit-completing-read-function 'completing-read)
   (magit-prefer-remote-upstream t)
   (magit-push-always-verify nil)
