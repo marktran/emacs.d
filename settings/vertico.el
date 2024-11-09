@@ -32,6 +32,7 @@
 
   :config
   (add-to-list 'marginalia-annotator-registry '(file none marginalia-annotate-file))
+  (add-to-list 'marginalia-annotator-registry '(multi-category none marginalia-annotate-multi-category))
 
   :bind
   (("M-A" . marginalia-cycle))
