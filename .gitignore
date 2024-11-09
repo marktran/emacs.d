@@ -5,17 +5,8 @@ auto-save-list/
 backups/
 elpa/
 eshell/
-project-explorer-cache/
-transient/
-url/
+var/
 vendor/
 
-.bookmarks
-.visited-files
-ido.last
 local.el
 custom.el
-projectile-bookmarks.eld
-projectile.cache
-recentf
-smex-items
