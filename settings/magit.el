@@ -1,7 +1,7 @@
 (use-package magit
   :custom
   (magit-auto-revert-mode nil)
-  (magit-completing-read-function 'ivy-completing-read)
+  (magit-completing-read-function 'completing-read)
   (magit-prefer-remote-upstream t)
   (magit-push-always-verify nil)
   (magit-remote-ref-format 'remote-slash-name)

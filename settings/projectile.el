@@ -1,7 +1,7 @@
 (use-package projectile
   :diminish
   :init
-  (setq projectile-completion-system 'ivy
+  (setq projectile-completion-system 'default
         projectile-enable-caching t
         projectile-globally-ignored-buffers '("*eshell*"
                                               "*magit-process*"
