@@ -1,6 +1,5 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key [remap fill-paragraph] #'fill-or-unfill)
 
 (use-package general
