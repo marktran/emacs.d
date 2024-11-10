@@ -4,6 +4,9 @@
 (use-package emacs-lisp
   :ensure nil
 
+  :hook
+  (emacs-lisp-mode . show-paren-mode)
+
   :general
   (:keymaps 'emacs-lisp-mode-map
    :states 'normal
