@@ -9,6 +9,7 @@
                          "TAGS"))
   (recentf-keep '(file-remote-p file-readable-p))
   (recentf-max-saved-items 150)
+  (recentf-filename-handlers '(file-truename))  ;; Resolve symlinks
 
   :init
   (recentf-mode))
