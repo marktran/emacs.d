@@ -5,6 +5,7 @@ auto-save-list/
 backups/
 elpa/
 eshell/
+tree-sitter/
 var/
 vendor/
 
