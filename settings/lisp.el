@@ -10,12 +10,12 @@
   :general
   (:keymaps 'emacs-lisp-mode-map
    :states 'normal
-   :prefix "SPC"
-   "m" '(:ignore t :which-key "Emacs Lisp")
-   "m e" '(:ignore t :which-key "Eval [...]")
-   "m e b" '(eval-buffer :which-key "Eval buffer")
-   "m e e" '(eval-last-sexp :which-key "Eval sexp before point")
-   "m e r" '(eval-last-sexp :which-key "Eval region")))
+   :prefix "SPC m"
+   "" '(:ignore t :which-key "Emacs Lisp")
+   "e" '(:ignore t :which-key "Eval [...]")
+   "e b" '(eval-buffer :which-key "Eval buffer")
+   "e e" '(eval-last-sexp :which-key "Eval sexp before point")
+   "e r" '(eval-last-sexp :which-key "Eval region")))
 
 (use-package paredit
   :diminish paredit-mode
