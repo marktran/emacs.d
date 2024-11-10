@@ -19,8 +19,6 @@
 
   :config
   (general-define-key :prefix "SPC"
-    "p" '(:ignore t :which-key "Projectile")
-    "p b" '(projectile-switch-to-buffer :which-key "Switch buffer")
     "p D" '(projectile-dired :which-key "Dired")
     "p d" '(projectile-find-dir :which-key "Find directory")
     "p i" '(projectile-invalidate-cache :which-key "Invalidate cache")
