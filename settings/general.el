@@ -21,7 +21,7 @@
  "b h" '(bury-buffer :which-key "Hide buffer")
  "b i" '(highlight-indentation-mode :which-key "Highlight indentation")
  "b k" '(kill-this-buffer :which-key "Kill buffer")
- "b l" '(nlinum-mode :which-key "Toggle line numbers")
+ "b l" '(display-line-numbers-mode :which-key "Toggle line numbers")
  "b m" '(bm-toggle :which-key "Toggle visual bookmark")
  "b n" '(bm-next :which-key "Next bookmark")
  "b p" '(bm-previous :which-key "Previous bookmark")
