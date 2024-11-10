@@ -1,14 +1,17 @@
 (use-package org
   :mode ("\\.org\\'" . org-mode)
 
+  :custom
+  (org-log-done 'time)
+  (org-src-fontify-natively t)
+
   :general
   (:keymaps 'org-mode-map
    :states 'normal
-   :prefix "SPC"
-
-   "m" '(:ignore t :which-key "Org")
-   "m l" '(org-insert-link :which-key "Insert link")
-   "m t" '(m/org-insert-todo-heading :which-key "Insert todo heading"))
+   :prefix "SPC m"
+   "" '(:ignore t :which-key "Org")
+   "l" '(org-insert-link :which-key "Insert link")
+   "t" '(m/org-insert-todo-heading :which-key "Insert todo heading"))
 
   (:keymaps 'org-mode-map
    :states 'normal
@@ -34,16 +37,12 @@
    "M-H" 'org-metaleft
    "M-J" 'org-metadown
    "M-L" 'org-metaright
-   "M-K" 'org-metaup)
-
-  :config
-  (setq org-log-done 'time
-        org-src-fontify-natively t))
+   "M-K" 'org-metaup))
 
 (use-package evil-org
   :after org
+  :hook
+  (org-mode . evil-org-mode)
+
   :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme))))
+  (evil-org-set-key-theme))
