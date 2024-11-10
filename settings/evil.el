@@ -16,10 +16,8 @@
                         (eshell-mode              . emacs)
                         (occur-mode               . emacs)
                         (org-mode                 . normal)
-                        (paradox-menu-mode        . emacs)
                         (special-mode             . normal)
                         (sql-interactive-mode     . emacs)
-                        (vue-mode                 . normal)
                         (yaml-mode                . normal)))
     (cl-destructuring-bind (mode . state) mode-state
       (evil-set-initial-state mode state))))
