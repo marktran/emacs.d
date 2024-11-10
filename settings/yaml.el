@@ -1,2 +1,4 @@
 (use-package yaml-mode
-  :mode "\\.ya?ml\\'")
+  :mode "\\.ya?ml\\'"
+  :custom
+  (yaml-indent-offset 2))
