@@ -19,7 +19,6 @@
 
   :config
   (general-define-key :prefix "SPC"
-    "p D" '(projectile-dired :which-key "Dired")
     "p d" '(projectile-find-dir :which-key "Find directory")
     "p i" '(projectile-invalidate-cache :which-key "Invalidate cache")
     "p j" '(dumb-jump-go :which-key "Dumb jump")
@@ -27,7 +26,6 @@
     "p p" '(projectile-switch-project :which-key "Switch project")
     "p R" '(projectile-regenerate-tags :which-key "Regenerate tags")
     "p r" '(projectile-recentf :which-key "Recent [project] files")
-    "p s" '(projectile-run-eshell :which-key "Eshell")
     "p t" '(treemacs-projectile :which-key "Treemacs"))
 
   (projectile-global-mode 1))

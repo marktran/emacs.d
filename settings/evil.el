@@ -13,6 +13,7 @@
   :config
   (dolist (mode-state '((inferior-emacs-lisp-mode . emacs)
                         (comint-mode              . emacs)
+                        (eat-mode                 . emacs)
                         (eshell-mode              . emacs)
                         (occur-mode               . emacs)
                         (org-mode                 . normal)

@@ -1,7 +1,9 @@
 (use-package winum
+  :custom
+  (winum-auto-setup-mode-line nil)
+
   :general
   (:keymaps 'winum-keymap
-   "M-`" 'winum-select-window-by-number
    "M-0" 'winum-select-window-0-or-10
    "M-1" 'winum-select-window-1
    "M-2" 'winum-select-window-2
@@ -14,7 +16,4 @@
    "M-9" 'winum-select-window-9)
 
   :init
-  (winum-mode 1)
-
-  :config
-  (setq winum-auto-setup-mode-line nil))
+  (winum-mode 1))
