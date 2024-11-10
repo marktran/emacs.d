@@ -19,13 +19,12 @@
 
 (use-package paredit
   :diminish paredit-mode
-  :config
-  (dolist (hook '(emacs-lisp-mode-hook
-                  lisp-interaction-mode-hook
-                  lisp-mode-hook
-                  scheme-mode-hook
-                  slime-repl-mode-hook))
-    (add-hook hook 'paredit-mode)))
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  (lisp-interaction-mode . paredit-mode)
+  (lisp-mode . paredit-mode)
+  (scheme-mode . paredit-mode)
+  (slime-repl-mode . paredit-mode))
 
 ;; https://github.com/Fuco1/.emacs.d/blob/master/site-lisp/my-redef.el#L18
 ;; redefines the silly indent of keyword lists
