@@ -3,9 +3,9 @@
 
 (use-package emacs-lisp
   :ensure nil
-
   :hook
-  (emacs-lisp-mode . show-paren-mode)
+  ((emacs-lisp-mode . show-paren-mode)
+   (emacs-lisp-mode . (lambda () (setq mode-name "ELisp"))))
 
   :general
   (:keymaps 'emacs-lisp-mode-map
