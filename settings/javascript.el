@@ -1,5 +1,4 @@
 (use-package js
-  :mode "\\.js\\'"
   :custom
   (js-indent-level 2))
 
