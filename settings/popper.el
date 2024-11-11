@@ -6,6 +6,7 @@
      "^\\*Help\\*$"
      "\\*Messages\\*"
      "\\*Warning\\*"))
+  (popper-window-height 0.40)
 
   :general
   ("M-`" 'popper-cycle)
