@@ -1,5 +1,6 @@
 (use-package eat
   :custom
+  (eat-kill-buffer-on-exit t)
   (eat-query-before-killing-running-terminal nil)
 
   :general
