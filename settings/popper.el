@@ -14,7 +14,7 @@
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Help\\*$"
      "\\*Messages\\*"
-     "\\*Warning\\*"))
+     "\\*Warnings\\*"))
   (popper-window-height 0.40)
 
   :general
