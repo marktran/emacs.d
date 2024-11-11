@@ -54,10 +54,6 @@
  "s s" '(consult-line :which-key "Search for matching line")
  "s v" '(avy-goto-word-1 :which-key "Avy"))
 
-(general-define-key :prefix "SPC"
- "t" '(:ignore t :which-key "Toggle")
- "t g" '(toggle-golden-ratio-mode :which-key "Toggle Golden Ratio sizing"))
-
 (general-define-key :keymaps 'evil-window-map
   "u" 'winner-undo
   "C-r" 'winner-redo

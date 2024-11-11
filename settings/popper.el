@@ -13,7 +13,8 @@
    "M-`" 'popper-cycle)
 
   (:prefix "SPC t"
-   "p t" 'popper-toggle)
+   "" '(:ignore t :which-key "Toggle")
+   "p" '(popper-toggle :which-key "Popper"))
 
   :init
   (popper-mode 1)

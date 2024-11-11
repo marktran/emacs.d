@@ -2,6 +2,11 @@
   :defer t
   :diminish golden-ratio-mode
 
+  :general
+  (:prefix "SPC t"
+   "" '(:ignore t :which-key "Toggle")
+   "g" '(toggle-golden-ratio-mode :which-key "Golden ratio sizing"))
+
   :config
   (setq golden-ratio-extra-commands
         (append golden-ratio-extra-commands
