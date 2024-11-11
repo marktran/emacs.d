@@ -4,7 +4,8 @@
    '("^\\*eat\\*$" eat-mode
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Help\\*$"
-     "\\*Messages\\*"))
+     "\\*Messages\\*"
+     "\\*Warning\\*"))
 
   :general
   ("M-`" 'popper-toggle)

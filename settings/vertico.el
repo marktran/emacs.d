@@ -76,6 +76,6 @@
   ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
   ;; (orderless-component-separator #'orderless-escapable-split-on-space)
   (completion-styles '(orderless basic))
-  (orderless-matching-styles '(orderless-initialism orderless-literal orderless-regexp))
+  (orderless-matching-styles '(orderless-flex orderless-initialism orderless-literal orderless-regexp))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
