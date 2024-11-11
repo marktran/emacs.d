@@ -42,7 +42,6 @@
   :init
   (marginalia-mode))
 
-;; A few more useful configurations...
 (use-package emacs
   :after vertico
   :custom
