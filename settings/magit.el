@@ -26,22 +26,25 @@
             (set-window-buffer nil buffer)
             (get-buffer-window buffer))))
 
-  :config
-  (general-define-key :prefix "SPC"
-   "g"  '(:ignore t :which-key "Magit")
-   "g b" '(magit-blame :which-key "Blame")
-   "g l" '(magit-log-current :which-key "Log")
-   "g L" '(magit-log-buffer-file :which-key "Log [for file]")
-   "g s" '(magit-status :which-key "Status"))
+  :hook
+  (magit-blame-mode-hook . evil-normalize-keymaps)
 
+  :general
+  (:prefix "SPC g"
+   ""  '(:ignore t :which-key "Magit")
+   "b" '(magit-blame :which-key "Blame")
+   "l" '(magit-log-current :which-key "Log")
+   "L" '(magit-log-buffer-file :which-key "Log [for file]")
+   "s" '(magit-status :which-key "Status"))
+
+  :config
   (evil-set-initial-state 'git-commit-mode 'emacs)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-popup-sequence-mode 'emacs)
   (evil-set-initial-state 'magit-refs-mode 'emacs)
   (evil-set-initial-state 'magit-revision-mode 'emacs)
 
-  (add-to-list 'magit-no-confirm 'stage-all-changes)
-  (add-hook 'magit-blame-mode-hook 'evil-normalize-keymaps))
+  (add-to-list 'magit-no-confirm 'stage-all-changes))
 
 (use-package forge
   :after magit)
