@@ -5,4 +5,5 @@
 
   :general
   (:keymaps 'eat-semi-char-mode-map
-   "C-d" 'popper-toggle))
+   "C-d" 'popper-toggle
+   "M-`" 'popper-cycle))

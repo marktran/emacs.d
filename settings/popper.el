@@ -8,7 +8,7 @@
      "\\*Warning\\*"))
 
   :general
-  ("M-`" 'popper-toggle)
+  ("M-`" 'popper-cycle)
 
   (:prefix "SPC t"
    "p c" 'popper-cycle
