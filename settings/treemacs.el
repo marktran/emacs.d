@@ -14,6 +14,3 @@
 
 (use-package treemacs-evil
   :after treemacs evil)
-
-(use-package treemacs-projectile
-  :after treemacs projectile)
