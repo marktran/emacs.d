@@ -12,6 +12,7 @@
   (popper-reference-buffers
    '("^\\*eat\\*$" eat-mode
      "^\\*eshell.*\\*$" eshell-mode
+     "^\\*Compile-Log\\*$"
      "^\\*Help\\*$"
      "\\*Messages\\*"
      "\\*Warnings\\*"))
@@ -30,4 +31,3 @@
 
   ;; `C-g' can deactivate region
   (advice-add #'keyboard-quit :before #'popper-close-window-hack))
-
