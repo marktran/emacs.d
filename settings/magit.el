@@ -1,4 +1,7 @@
 (use-package magit
+  :hook
+  (magit-blame-mode-hook . evil-normalize-keymaps)
+
   :custom
   (magit-auto-revert-mode nil)
   (magit-bury-buffer-function #'magit-restore-window-configuration)
@@ -24,9 +27,6 @@
             (set-window-dedicated-p nil nil)
             (set-window-buffer nil buffer)
             (get-buffer-window buffer))))
-
-  :hook
-  (magit-blame-mode-hook . evil-normalize-keymaps)
 
   :general
   (:prefix "SPC g"
