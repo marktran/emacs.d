@@ -12,4 +12,6 @@
    "" '(:ignore t :which-key "Project")
    "b" 'consult-project-buffer
    "D" 'project-dired
+   "f" 'project-find-file
+   "p" 'project-switch-project
    "s" 'project-eat-shell))
