@@ -7,7 +7,6 @@
   (magit-push-always-verify nil)
   (magit-remote-ref-format 'remote-slash-name)
   (magit-revert-buffers 'silent)
-  (vc-handled-backends nil)
 
   (magit-display-buffer-function
         (lambda (buffer)
