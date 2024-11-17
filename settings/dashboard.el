@@ -1,13 +1,13 @@
 (use-package dashboard
   :custom
-  (dashboard-startup-banner 'logo)
+  (dashboard-banner-logo-title "Happy Hacking!")
+  (dashboard-startup-banner "~/.emacs.d/vendor/emacs-logo.svg")
   (dashboard-center-content t)
   (dashboard-items '((projects . 4)
                      (recents . 4)
                      (bookmarks . 4)))
   (dashboard-set-file-icons t)
   (dashboard-set-heading-icons t)
-
   (dashboard-footer-messages
         '("The man who moves a mountain begins by carrying away small stones."
           "The superior man is modest in his speech, but exceeds in his actions."
