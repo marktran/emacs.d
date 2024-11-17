@@ -14,8 +14,8 @@
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Compile-Log\\*$"
      "^\\*Help\\*$"
-     "\\*Messages\\*"
-     "\\*Warnings\\*"))
+     "^\\*Messages\\*$"
+     "^\\*Warnings\\*$"))
   (popper-window-height 0.40)
 
   :general
