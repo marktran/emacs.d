@@ -1,5 +1,16 @@
+(defun display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
 (use-package emacs
   :after vertico
+
+  :hook
+  (emacs-startup-hook 'display-startup-time)
+
   :custom
   ;; Support opening new minibuffers from inside existing minibuffers.
   (enable-recursive-minibuffers t)
