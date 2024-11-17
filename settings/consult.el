@@ -4,6 +4,7 @@
                            "*Backtrace*"
                            "*Compile-Log*"
                            "*Completions*"
+                           "*dashboard*"
                            "*eat*"
                            "*eshell"
                            "*Messages*"
