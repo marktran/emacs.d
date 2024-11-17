@@ -1,8 +1,8 @@
 (use-package whitespace-cleanup-mode
   :diminish whitespace-cleanup-mode
-  :commands whitespace-cleanup
 
-  :config
-  (setq-default show-trailing-whitespace nil)
+  :hook
+  (before-save . whitespace-clean)
 
-  (add-hook 'before-save-hook 'whitespace-cleanup))
+  :custom
+  (show-trailing-whitespace nil))
