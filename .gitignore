@@ -1,4 +1,5 @@
 *.sqlite
+.last-package-update-day
 
 .cache/
 auto-save-list/
