@@ -53,6 +53,6 @@
 ;; http://stackoverflow.com/questions/8370778/remove-glyph-at-end-of-truncated-lines
 (set-display-table-slot standard-display-table 0 ?\ )
 
-(use-package ujelly-theme
+(use-package modus-themes
   :config
-  (load-theme 'ujelly t))
+  (load-theme 'modus-vivendi t))
