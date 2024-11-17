@@ -53,9 +53,6 @@
 (use-package orderless
   :after vertico
   :custom
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
   (completion-styles '(orderless partial-completion))
   (orderless-matching-styles '(orderless-initialism orderless-literal orderless-regexp))
   (completion-category-defaults nil)
