@@ -14,4 +14,15 @@
           "The strength of a nation derives from the integrity of the home."))
 
   :config
-  (dashboard-setup-startup-hook))
+  (dashboard-setup-startup-hook)
+
+  (general-define-key
+   :keymaps 'dashboard-mode-map
+   :states 'normal
+   "p" 'dashboard-jump-to-projects
+   "r" 'dashboard-jump-to-recents
+   "1" 'dashboard-section-1
+   "2" 'dashboard-section-2
+   "3" 'dashboard-section-3
+   "4" 'dashboard-section-4
+   "5" 'dashboard-section-5))
