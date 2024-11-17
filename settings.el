@@ -14,7 +14,9 @@
               truncate-lines t)
 
 (c-set-offset 'case-label '+)
-(fset 'yes-or-no-p 'y-or-n-p)
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (fset 'yes-or-no-p 'y-or-n-p))
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
