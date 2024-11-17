@@ -1,13 +1,11 @@
 (general-define-key :prefix "SPC"
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
- "d" '(projectile-find-dir :which-key "Find directory")
  "e" '(er/expand-region :which-key "Expand region")
  "f" '(find-file :which-key "Find file")
  "o" '(consult-bookmark :which-key "Bookmarks")
  "v" '(simpleclip-paste :which-key "Paste")
  "y" '(consult-yank-pop :which-key "Yank Pop")
  "D" '(dired-jump :which-key "Dired")
- "F" '(projectile-find-file :which-key "Find file [project]")
  "R" '(consult-recent-file :which-key "Recent files")
  "SPC" '(consult-buffer :which-key "Switch buffer"))
 
@@ -50,7 +48,6 @@
  "s" '(:ignore t :which-key "Search")
  "s a" '(consult-ripgrep :which-key "Search project")
  "s e" '(evil-iedit-state/iedit-mode :which-key "Iedit")
- "s r" '(projectile-replace :which-key "Projectile replace")
  "s s" '(consult-line :which-key "Search for matching line")
  "s v" '(avy-goto-word-1 :which-key "Avy"))
 
