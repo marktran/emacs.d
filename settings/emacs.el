@@ -24,9 +24,6 @@
   ;; `completion-at-point' is often bound to M-TAB.
   (tab-always-indent 'complete)
 
-  :config
-  (set-face-attribute 'default nil :family "Berkeley Mono" :height 125)
-
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.

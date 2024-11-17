@@ -1,5 +1,7 @@
 (require 'uniquify)
 
+(set-face-attribute 'default nil :family "Berkeley Mono" :height 125)
+
 (column-number-mode 1)
 (global-font-lock-mode 1)
 (global-hl-line-mode -1)
