@@ -11,6 +11,7 @@
   (:prefix "SPC p"
    "" '(:ignore t :which-key "Project")
    "b" 'consult-project-buffer
+   "d" 'project-find-dir
    "D" 'project-dired
    "f" 'project-find-file
    "p" 'project-switch-project
