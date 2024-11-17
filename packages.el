@@ -4,6 +4,7 @@
   (package-refresh-contents))
 
 (setq use-package-always-ensure t
+      use-package-compute-statistics t
       use-package-verbose t)
 
 (unless (package-installed-p 'use-package)
