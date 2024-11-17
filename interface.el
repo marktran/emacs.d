@@ -5,10 +5,14 @@
 (global-hl-line-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode -1)
+(set-fringe-mode '(8 . 0))
 (winner-mode 1)
 
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'tooltip-mode) (tooltip-mode -1))
+
+(setq-default cursor-in-non-selected-windows nil)
 
 (setq display-time-24hr-format t
       display-time-default-load-average nil
