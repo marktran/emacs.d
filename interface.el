@@ -56,5 +56,12 @@
 (set-display-table-slot standard-display-table 0 ?\ )
 
 (use-package modus-themes
+  :custom
+  (modus-themes-common-palette-overrides
+      '(
+        (border-mode-line-active bg-mode-line-active)
+        (border-mode-line-inactive bg-mode-line-inactive)
+        (fringe unspecified)))
+
   :config
   (load-theme 'modus-vivendi t))
