@@ -13,11 +13,11 @@
   (:keymaps 'emacs-lisp-mode-map
    :states 'normal
    :prefix "SPC ,"
-   "" '(:ignore t :which-key "Emacs Lisp")
-   "e" '(:ignore t :which-key "Eval [...]")
-   "e b" '(eval-buffer :which-key "Eval buffer")
-   "e e" '(eval-last-sexp :which-key "Eval sexp before point")
-   "e r" '(eval-region :which-key "Eval region")))
+   "" '(:ignore t :which-key "ELisp")
+   "b" '(eval-buffer :which-key "Eval buffer")
+   "d" '(eval-defun :which-key "Eval Defun")
+   "e" '(eval-last-sexp :which-key "Eval sexp before point")
+   "r" '(eval-region :which-key "Eval region")))
 
 (use-package paredit
   :ensure t
