@@ -12,7 +12,8 @@
 
   :custom
   (popper-reference-buffers
-   '("^\\*eat\\*$" eat-mode
+   '("^\\*Backtrace\\*$" backtrace-mode
+     "^\\*eat\\*$" eat-mode
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Compile-Log\\*$"
      help-mode

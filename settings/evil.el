@@ -10,6 +10,9 @@
   (evil-want-Y-yank-to-eol t)         ; Make Y behave like Vim (yank to end of line)
   (evil-want-keybinding nil)          ; Avoid conflicts with Evil Collection
 
+  :hook
+  ((backtrace-mode . evil-normal-state))
+
   :config
   (evil-mode 1)
 
