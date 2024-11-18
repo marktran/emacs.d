@@ -6,4 +6,7 @@
   (show-trailing-whitespace nil)
 
   :hook
-  (before-save . whitespace-clean))
+  (before-save . whitespace-clean)
+
+  :config
+  (whitespace-cleanup-mode 1))
