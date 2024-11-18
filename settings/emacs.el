@@ -46,4 +46,15 @@
    "q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
    "r" '(restart-emacs :which-key "Restart Emacs")
    "t" '(consult-theme :which-key "Switch Theme")
-   "u" '(package-upgrade-all :which-key "Upgrade all packages")))
+   "u" '(package-upgrade-all :which-key "Upgrade all packages"))
+
+  :general
+  (:prefix "SPC h"
+   "" '(:ignore t :which-key "Help")
+   "a" '(describe-face :which-key "Describe face")
+   "b" '(describe-bindings :which-key "Describe bindings")
+   "f" '(describe-function :which-key "Describe function")
+   "k" '(describe-key :which-key "Describe key")
+   "m" '(describe-mode :which-key "Describe mode")
+   "p" '(describe-package :which-key "Describe package")
+   "v" '(describe-variable :which-key "Describe variable")))

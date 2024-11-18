@@ -1,19 +1,32 @@
 (use-package evil
   :ensure t
 
-  :init
-  (setq-default evil-shift-width 2)
-
   :custom
-  (evil-ex-search-vim-style-regexp t)   ; Use Vim-style regular expressions in searches
-  (evil-mode-line-format nil)           ; Disable mode line indicator for Evil
-  (evil-symbol-word-search t)           ; Treat symbols as words in searches
-  (evil-want-C-u-scroll t)              ; Enable Vim-like C-u scrolling
-  (evil-want-Y-yank-to-eol t)           ; Make Y behave like Vim (yank to end of line)
-  (evil-want-keybinding nil)            ; Avoid conflicts with Evil Collection
+  (evil-ex-search-vim-style-regexp t) ; Use Vim-style regular expressions in searches
+  (evil-mode-line-format nil)         ; Disable mode line indicator for Evil
+  (evil-shift-width 2)                ; Set the width for `>>` and `<<` commands
+  (evil-symbol-word-search t)         ; Treat symbols as words in searches
+  (evil-want-C-u-scroll t)            ; Enable Vim-like C-u scrolling
+  (evil-want-Y-yank-to-eol t)         ; Make Y behave like Vim (yank to end of line)
+  (evil-want-keybinding nil)          ; Avoid conflicts with Evil Collection
 
   :config
   (evil-mode 1)
+
+  (general-define-key
+   :keymaps 'evil-window-map
+   "u" 'winner-undo
+   "C-r" 'winner-redo
+
+   "C-h" 'evil-window-left
+   "C-j" 'evil-window-down
+   "C-l" 'evil-window-right
+   "C-k" 'evil-window-up
+
+   "M-h" 'buf-move-left
+   "M-j" 'buf-move-down
+   "M-l" 'buf-move-right
+   "M-k" 'buf-move-up)
 
   ;; Set initial states for specific modes
   (dolist (mode-state '((inferior-emacs-lisp-mode . emacs)
