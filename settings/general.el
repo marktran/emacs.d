@@ -1,11 +1,11 @@
 (general-define-key :prefix "SPC"
+ "." '(dired-jump :which-key "Dired")
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
  "e" '(er/expand-region :which-key "Expand region")
  "f" '(find-file :which-key "Find file")
  "o" '(consult-bookmark :which-key "Bookmarks")
  "v" '(simpleclip-paste :which-key "Paste")
  "y" '(consult-yank-pop :which-key "Yank Pop")
- "D" '(dired-jump :which-key "Dired")
  "R" '(consult-recent-file :which-key "Recent files")
  "SPC" '(consult-buffer :which-key "Switch buffer"))
 
