@@ -5,7 +5,7 @@
   (winum-auto-setup-mode-line nil)
 
   :general
-  (:keymaps 'winum-keymap
+  (:keymaps 'global
    "M-0" 'winum-select-window-0-or-10
    "M-1" 'winum-select-window-1
    "M-2" 'winum-select-window-2
