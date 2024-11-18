@@ -3,7 +3,7 @@
 
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
-  (dired-listing-switches "-alhF")
+  (dired-listing-switches "-AFhlv")
   (dired-omit-files "^\\.?#\\|^\\.$\\|\\.DS_Store$\\|\\.gitkeep$")
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'always)
