@@ -8,6 +8,7 @@
 (menu-bar-mode -1)
 (show-paren-mode -1)
 (set-fringe-mode '(8 . 0))
+(pixel-scroll-precision-mode 1)
 (winner-mode 1)
 
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
