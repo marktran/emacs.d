@@ -1,9 +1,10 @@
 (use-package golden-ratio
   :ensure t
   :diminish golden-ratio-mode
+  :commands (toggle-golden-ratio-mode)
 
-  :custom
-  (golden-ratio-extra-commands
+  :config
+  (setq golden-ratio-extra-commands
         (append golden-ratio-extra-commands
                 '(evil-window-left
                   evil-window-right
