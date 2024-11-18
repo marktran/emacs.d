@@ -15,7 +15,7 @@
    '("^\\*eat\\*$" eat-mode
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Compile-Log\\*$"
-     "^\\*Help\\*$"
+     help-mode
      "^\\*Messages\\*$"
      "^\\*Warnings\\*$"))
   (popper-window-height 0.40)
