@@ -1,5 +1,6 @@
 (require 'uniquify)
 
+(global-set-key (kbd "s-F") 'toggle-frame-fullscreen)
 (set-face-attribute 'default nil :family "Berkeley Mono" :height 125)
 
 (column-number-mode 1)
