@@ -5,7 +5,8 @@
   (vertico-count 15)
 
   :hook
-  (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  ((after-init . vertico-mode)
+   (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
   :general
   (:keymaps 'vertico-map
@@ -14,7 +15,6 @@
    "M-DEL" 'vertico-directory-delete-word)
 
   :config
-  (vertico-mode)
   (require 'vertico-directory))
 
 (use-package vertico-posframe
