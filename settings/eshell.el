@@ -1,4 +1,6 @@
 (use-package eshell
+  :ensure nil
+
   :custom
   (eshell-aliases-file "~/.emacs.d/eshell/alias")
   (eshell-banner-message "")
@@ -18,9 +20,6 @@
   (eshell-smart-space-goes-to-end t)
   (eshell-where-to-jump 'begin)
 
-  :config
-  (require 'em-rebind)
-
   :general
   (:keymaps 'eshell-mode-map
    "TAB" 'completion-at-point
@@ -28,7 +27,7 @@
    "C-d" 'bury-buffer
    "C-n" 'eshell-next-input
    "C-p" 'eshell-previous-input)
-  
+
   (:keymaps 'eshell-mode-map :prefix "C-w"
    "=" 'balance-windows
    "h" 'windmove-left
@@ -41,4 +40,7 @@
    "C-k" 'windmove-up
    "C-o" 'delete-other-windows
    "c" 'delete-window
-   "u" 'winner-undo))
+   "u" 'winner-undo)
+
+  :config
+  (require 'em-rebind))

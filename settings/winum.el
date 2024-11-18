@@ -1,4 +1,6 @@
 (use-package winum
+  :ensure t
+
   :custom
   (winum-auto-setup-mode-line nil)
 
@@ -15,5 +17,5 @@
    "M-8" 'winum-select-window-8
    "M-9" 'winum-select-window-9)
 
-  :init
+  :config
   (winum-mode 1))

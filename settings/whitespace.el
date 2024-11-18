@@ -1,8 +1,9 @@
 (use-package whitespace-cleanup-mode
+  :ensure t
   :diminish whitespace-cleanup-mode
 
-  :hook
-  (before-save . whitespace-clean)
-
   :custom
-  (show-trailing-whitespace nil))
+  (show-trailing-whitespace nil)
+
+  :hook
+  (before-save . whitespace-clean))

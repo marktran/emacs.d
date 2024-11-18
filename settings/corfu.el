@@ -1,8 +1,13 @@
 (use-package corfu
+  :ensure t
+
+  :init
+  (global-corfu-mode)
+
   :custom
-  (corfu-auto t)          ;; Enable auto completion
-  (corfu-auto-prefix 2)   ;; Complete after 2 characters
-  (corfu-auto-delay 0.0)  ;; No delay for completions
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto-prefix 2)          ;; Complete after 2 characters
+  (corfu-auto-delay 0.0)         ;; No delay for completions
   (corfu-preview-current nil)    ;; Disable preview
   (corfu-preselect 'first)       ;; Preselect first candidate
   (corfu-on-exact-match nil)     ;; Don't auto-confirm if exact match
@@ -15,22 +20,24 @@
    "TAB"     #'corfu-next
    [tab]     #'corfu-next
    "S-TAB"   #'corfu-previous
-   [backtab] #'corfu-previous)
+   [backtab] #'corfu-previous))
 
-  :init
-  (global-corfu-mode))
-
-;; Optional but recommended: Enable icons in completions
+;; Enable icons in completions
 (use-package kind-icon
+  :ensure t
   :after corfu
+
   :custom
   (kind-icon-default-face 'corfu-default)
+
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;; Enable indentation and completion using TAB
 (use-package cape
+  :ensure t
   :after corfu
+
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))

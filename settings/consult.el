@@ -1,4 +1,6 @@
 (use-package consult
+  :ensure t
+
   :custom
   (consult-buffer-filter '("\\` "
                            "*Backtrace*"

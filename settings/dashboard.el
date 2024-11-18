@@ -1,4 +1,6 @@
 (use-package dashboard
+  :ensure t
+
   :custom
   (dashboard-banner-logo-title "Happy Hacking!")
   (dashboard-startup-banner "~/.emacs.d/vendor/emacs-logo.svg")

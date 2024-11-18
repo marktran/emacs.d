@@ -1,4 +1,5 @@
 (use-package css-mode
-  :mode "\\.css"
-  :config
-  (setq css-indent-offset 2))
+  :ensure nil
+
+  :custom
+  (css-indent-offset 2))

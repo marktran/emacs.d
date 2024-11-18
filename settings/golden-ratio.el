@@ -1,14 +1,9 @@
 (use-package golden-ratio
-  :defer t
+  :ensure t
   :diminish golden-ratio-mode
 
-  :general
-  (:prefix "SPC t"
-   "" '(:ignore t :which-key "Toggle")
-   "g" '(toggle-golden-ratio-mode :which-key "Golden ratio sizing"))
-
-  :config
-  (setq golden-ratio-extra-commands
+  :custom
+  (golden-ratio-extra-commands
         (append golden-ratio-extra-commands
                 '(evil-window-left
                   evil-window-right
@@ -28,4 +23,9 @@
                   winum-select-window-6
                   winum-select-window-7
                   winum-select-window-8
-                  winum-select-window-9))))
+                  winum-select-window-9)))
+
+  :general
+  (:prefix "SPC t"
+   "" '(:ignore t :which-key "Toggle")
+   "g" '(toggle-golden-ratio-mode :which-key "Golden ratio sizing")))

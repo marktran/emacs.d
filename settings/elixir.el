@@ -1,5 +1,5 @@
 (use-package elixir-mode
-  :mode "\\.ex\\'" "\\.exs\\'"
+  :ensure t
 
   :general
   (:keymaps 'elixir-mode-map
@@ -22,10 +22,14 @@
    "r r" '(alchemist-mix-rerun-last-test :which-key "Rerun tests")
    "r s" '(alchemist-mix-test-at-point :which-key "Run test at point")))
 
-(use-package alchemist
-  :after elixir-mode
-  :diminish alchemist-mode
-  :diminish alchemist-phoenix-mode
+(with-eval-after-load 'smartparens
+  (sp-with-modes '(elixir-mode)
+    (sp-local-pair "->" "end"
+                   :when '(("RET"))
+                   :post-handlers '(:add sp-elixir-do-end-close-action)
+                   :actions '(insert))
 
-  :config
-  (add-hook 'alchemist-mode-hook 'company-mode))
+    (sp-local-pair "do" "end"
+                   :when '(("SPC" "RET"))
+                   :post-handlers '(:add sp-elixir-do-end-close-action)
+                   :actions '(insert))))

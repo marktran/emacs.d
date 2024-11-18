@@ -1,4 +1,5 @@
 (use-package tramp
-  :config
-  (setq tramp-default-method "ssh"))
+  :ensure nil
 
+  :custom
+  (tramp-default-method "ssh"))

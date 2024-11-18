@@ -1,7 +1,8 @@
 (use-package bookmark
   :ensure nil
-  :defer t
-  :config
+
+  :init
   (setq bookmark-default-file "~/.emacs.d/.bookmarks")
 
-  (add-hook 'bookmark-after-jump-hook 'end-of-buffer))
+  :hook
+  (bookmark-after-jump . end-of-buffer))

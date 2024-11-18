@@ -1,1 +1,5 @@
-(setq windmove-wrap-around t)
+(use-package windmove
+  :ensure nil
+
+  :custom
+  (windmove-wrap-around t))

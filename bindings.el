@@ -3,17 +3,21 @@
 (global-set-key [remap fill-paragraph] #'fill-or-unfill)
 
 (use-package general
-  :config
-  (setq general-default-keymaps 'evil-normal-state-map))
+  :ensure t
+  :custom
+  (general-default-keymaps 'evil-normal-state-map))
 
-(use-package hydra)
+(use-package hydra
+  :ensure t)
 
 (use-package which-key
+  :ensure t
   :diminish which-key-mode
 
-  :config
-  (setq which-key-idle-delay 0.5
-        which-key-show-prefix nil
-        which-key-sort-order 'which-key-prefix-then-key-order)
+  :custom
+  (which-key-idle-delay 0.5)
+  (which-key-show-prefix nil)
+  (which-key-sort-order 'which-key-prefix-then-key-order)
 
+  :config
   (which-key-mode 1))

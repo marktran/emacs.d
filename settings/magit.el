@@ -1,6 +1,5 @@
 (use-package magit
-  :hook
-  (magit-blame-mode-hook . evil-normalize-keymaps)
+  :ensure t
 
   :custom
   (magit-auto-revert-mode nil)
@@ -28,6 +27,9 @@
             (set-window-buffer nil buffer)
             (get-buffer-window buffer))))
 
+  :hook
+  (magit-blame-mode-hook . evil-normalize-keymaps)
+
   :general
   (:prefix "SPC g"
    ""  '(:ignore t :which-key "Magit")
@@ -44,6 +46,3 @@
   (evil-set-initial-state 'magit-revision-mode 'emacs)
 
   (add-to-list 'magit-no-confirm 'stage-all-changes))
-
-(use-package forge
-  :after magit)

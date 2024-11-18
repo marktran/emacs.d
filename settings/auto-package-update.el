@@ -1,4 +1,6 @@
 (use-package auto-package-update
+  :ensure t
+
   :custom
   (auto-package-update-at-startup nil)
   (auto-package-update-interval 7)

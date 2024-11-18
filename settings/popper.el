@@ -8,6 +8,8 @@
           (delete-window window)))))
 
 (use-package popper
+  :ensure t
+
   :custom
   (popper-reference-buffers
    '("^\\*eat\\*$" eat-mode
@@ -26,8 +28,8 @@
    "" '(:ignore t :which-key "Toggle")
    "p" '(popper-toggle :which-key "Popper"))
 
-  :init
+  :config
   (popper-mode 1)
 
-  ;; `C-g' can deactivate region
+  ;; Ensure `C-g` closes popper windows
   (advice-add #'keyboard-quit :before #'popper-close-window-hack))

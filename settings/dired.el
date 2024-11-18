@@ -1,6 +1,5 @@
 (use-package dired
   :ensure nil
-  :commands (dired dired-jump)
 
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
@@ -16,9 +15,11 @@
    "SPC" 'general-prefix-map))
 
 (use-package dired-x
-  :after dired
   :ensure nil
+  :after dired
+
   :diminish dired-omit-mode
+
   :config
   (defun diminish-dired-omit-mode ()
     "Diminish dired-omit-mode in the mode line."

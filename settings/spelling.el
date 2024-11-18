@@ -1,4 +1,6 @@
 (use-package jinx
+  :ensure t
+
   :hook
   (text-mode . jinx-mode)
 

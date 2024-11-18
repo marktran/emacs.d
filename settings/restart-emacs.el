@@ -1,1 +1,2 @@
-(use-package restart-emacs)
+(use-package restart-emacs
+  :ensure t)

@@ -1,4 +1,6 @@
 (use-package enh-ruby-mode
+  :ensure t
+
   :mode
   (("Capfile" . enh-ruby-mode)
    ("Gemfile\\'" . enh-ruby-mode)
@@ -8,13 +10,6 @@
 
   :interpreter
   ("ruby" . enh-ruby-mode)
-
-  :hook
-  ((enh-ruby-mode . company-mode)
-   (enh-ruby-mode . flycheck-mode)
-   (enh-ruby-mode . whitespace-cleanup-mode)
-   (enh-ruby-mode . inf-ruby-minor-mode)
-   (enh-ruby-mode . run-coding-hook))
 
   :custom
   (enh-ruby-add-encoding-comment-on-save nil)
@@ -30,6 +25,12 @@
   (ruby-deep-indent-paren nil)
   (ruby-end-insert-newline nil)
   (ruby-insert-encoding-magic-comment nil)
+
+  :hook
+  ((enh-ruby-mode . company-mode)
+   (enh-ruby-mode . flycheck-mode)
+   (enh-ruby-mode . whitespace-cleanup-mode)
+   (enh-ruby-mode . inf-ruby-minor-mode))
 
   :general
   (:major-modes 'enh-ruby-mode
@@ -90,18 +91,18 @@
   :init
   (rename-modeline "enh-ruby-mode" enh-ruby-mode "Ruby"))
 
-(use-package smartparens-ruby
-  :after enh-ruby-mode
-  :ensure smartparens)
-
 (use-package inf-ruby
+  :ensure t
   :after enh-ruby-mode)
 
 (use-package minitest
+  :ensure t
   :after enh-ruby-mode)
 
 (use-package rspec-mode
+  :ensure t
   :after enh-ruby-mode)
 
 (use-package ruby-hash-syntax
+  :ensure t
   :after enh-ruby-mode)

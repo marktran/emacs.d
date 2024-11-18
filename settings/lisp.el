@@ -1,8 +1,10 @@
 (use-package eldoc
+  :ensure nil
   :diminish eldoc-mode)
 
 (use-package emacs-lisp
   :ensure nil
+
   :hook
   ((emacs-lisp-mode . show-paren-mode)
    (emacs-lisp-mode . (lambda () (setq mode-name "ELisp"))))
@@ -10,21 +12,23 @@
   :general
   (:keymaps 'emacs-lisp-mode-map
    :states 'normal
-   :prefix "SPC m"
+   :prefix "SPC ,"
    "" '(:ignore t :which-key "Emacs Lisp")
    "e" '(:ignore t :which-key "Eval [...]")
    "e b" '(eval-buffer :which-key "Eval buffer")
    "e e" '(eval-last-sexp :which-key "Eval sexp before point")
-   "e r" '(eval-last-sexp :which-key "Eval region")))
+   "e r" '(eval-region :which-key "Eval region")))
 
 (use-package paredit
+  :ensure t
   :diminish paredit-mode
+
   :hook
   ((emacs-lisp-mode . paredit-mode)
-  (lisp-interaction-mode . paredit-mode)
-  (lisp-mode . paredit-mode)
-  (scheme-mode . paredit-mode)
-  (slime-repl-mode . paredit-mode)))
+   (lisp-interaction-mode . paredit-mode)
+   (lisp-mode . paredit-mode)
+   (scheme-mode . paredit-mode)
+   (slime-repl-mode . paredit-mode)))
 
 ;; https://github.com/Fuco1/.emacs.d/blob/master/site-lisp/my-redef.el#L18
 ;; redefines the silly indent of keyword lists
