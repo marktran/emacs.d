@@ -22,7 +22,7 @@
   ((next-error . (pulsar-pulse-line-red pulsar-recenter-top pulsar-reveal-entry)))
 
   :general
-  ("SPC l" 'pulsar-pulse-line)
+  ("SPC l" '(pulsar-pulse-line :which-key "Pulse Line"))
 
   :config
   (pulsar-global-mode 1))

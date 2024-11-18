@@ -10,9 +10,9 @@
   :general
   (:prefix "SPC p"
    "" '(:ignore t :which-key "Project")
-   "b" 'consult-project-buffer
-   "d" 'project-find-dir
-   "D" 'project-dired
-   "f" 'project-find-file
-   "p" 'project-switch-project
-   "s" 'project-eat-shell))
+   "." '(project-dired :which-key "Dired")
+   "b" '(consult-project-buffer :which-key "Switch Buffer")
+   "d" '(project-find-dir :which-key "Find Directory")
+   "f" '(project-find-file :which-key "Find File")
+   "p" '(project-switch-project :which-key "Switch Project")
+   "s" '(project-eat-shell :which-key "Shell")))
