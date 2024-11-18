@@ -20,6 +20,9 @@
      "^\\*Warnings\\*$"))
   (popper-window-height 0.40)
 
+  :hook
+  (after-init . popper-mode)
+
   :general
   (:keymaps 'popper-mode-map
    "M-`" 'popper-cycle)
@@ -29,7 +32,5 @@
    "p" '(popper-toggle :which-key "Popper"))
 
   :config
-  (popper-mode 1)
-
   ;; Ensure `C-g` closes popper windows
   (advice-add #'keyboard-quit :before #'popper-close-window-hack))
