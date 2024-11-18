@@ -24,6 +24,22 @@
   (tab-always-indent 'complete)
 
   :general
+  (:prefix "SPC b"
+   "" '(:ignore t :which-key "Buffer")
+   "d" '(delete-current-buffer-file :which-key "Delete file")
+   "e" '(eval-buffer :which-key "Eval buffer")
+   "h" '(bury-buffer :which-key "Hide buffer")
+   "i" '(highlight-indentation-mode :which-key "Highlight indentation")
+   "k" '(kill-this-buffer :which-key "Kill buffer")
+   "l" '(display-line-numbers-mode :which-key "Toggle line numbers")
+   "m" '(bm-toggle :which-key "Toggle visual bookmark")
+   "n" '(bm-next :which-key "Next bookmark")
+   "p" '(bm-previous :which-key "Previous bookmark")
+   "r" '(rename-current-buffer-file :which-key "Rename file")
+   "s" '(scratch :which-key "Create scratch buffer")
+   "w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
+
+  :general
   (:prefix "SPC E"
    "" '(:ignore t :which-key "Emacs")
    "l" '(package-list-packages :which-key "List packages")

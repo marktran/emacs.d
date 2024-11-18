@@ -13,21 +13,6 @@
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines"))
 
 (general-define-key :prefix "SPC"
- "b" '(:ignore t :which-key "Buffer")
- "b d" '(delete-current-buffer-file :which-key "Delete file")
- "b e" '(eval-buffer :which-key "Eval buffer")
- "b h" '(bury-buffer :which-key "Hide buffer")
- "b i" '(highlight-indentation-mode :which-key "Highlight indentation")
- "b k" '(kill-this-buffer :which-key "Kill buffer")
- "b l" '(display-line-numbers-mode :which-key "Toggle line numbers")
- "b m" '(bm-toggle :which-key "Toggle visual bookmark")
- "b n" '(bm-next :which-key "Next bookmark")
- "b p" '(bm-previous :which-key "Previous bookmark")
- "b r" '(rename-current-buffer-file :which-key "Rename file")
- "b s" '(scratch :which-key "Create scratch buffer")
- "b w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
-
-(general-define-key :prefix "SPC"
  "h" '(:ignore t :which-key "Help")
  "h a" '(describe-face :which-key "Describe face")
  "h b" '(describe-bindings :which-key "Describe bindings")
