@@ -28,13 +28,6 @@
  "b w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
 
 (general-define-key :prefix "SPC"
-  "E" '(:ignore t :which-key "Emacs")
-  "E l" '(paradox-list-packages :which-key "List packages")
-  "E q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
-  "E r" '(restart-emacs :which-key "Restart Emacs")
-  "E u" '(paradox-upgrade-packages :which-key "Upgrade packages"))
-
-(general-define-key :prefix "SPC"
  "h" '(:ignore t :which-key "Help")
  "h a" '(describe-face :which-key "Describe face")
  "h b" '(describe-bindings :which-key "Describe bindings")
