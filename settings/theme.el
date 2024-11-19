@@ -1,3 +1,6 @@
+(use-package ef-themes
+  :ensure t)
+
 (use-package modus-themes
   :ensure t
 
