@@ -30,6 +30,7 @@
 
   ;; Set initial states for specific modes
   (dolist (mode-state '((inferior-emacs-lisp-mode . emacs)
+                        (calendar-mode            . emacs)
                         (comint-mode              . emacs)
                         (eat-mode                 . emacs)
                         (eshell-mode              . emacs)
@@ -47,9 +48,20 @@
   :diminish evil-collection-unimpaired-mode
 
   :config
+  (evil-collection-init 'calendar)
+  (evil-collection-init 'consult)
+  (evil-collection-init 'corfu)
+  (evil-collection-init 'dashboard)
   (evil-collection-init 'dired)
+  (evil-collection-init 'eat)
   (evil-collection-init 'ediff)
-  (evil-collection-init 'magit))
+  (evil-collection-init 'eglot)
+  (evil-collection-init 'embark)
+  (evil-collection-init 'eshell)
+  (evil-collection-init 'help)
+  (evil-collection-init 'info)
+  (evil-collection-init 'magit)
+  (evil-collection-init 'org))
 
 (use-package evil-escape
   :ensure t
