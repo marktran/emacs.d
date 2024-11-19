@@ -1,4 +1,6 @@
 (use-package modus-themes
+  :ensure t
+
   :custom
   (modus-themes-common-palette-overrides
       '(
