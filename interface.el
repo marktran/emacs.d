@@ -20,6 +20,7 @@
 
 (setq display-time-24hr-format t
       display-time-default-load-average nil
+      frame-title-format nil
       Info-use-header-line nil
       inhibit-startup-echo-area-message ""
       inhibit-startup-message t
