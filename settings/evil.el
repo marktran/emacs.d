@@ -60,19 +60,7 @@
   (evil-collection-init 'eshell)
   (evil-collection-init 'help)
   (evil-collection-init 'info)
-  (evil-collection-init 'magit)
-  (evil-collection-init 'org))
-
-(use-package evil-escape
-  :ensure t
-  :after evil
-  :diminish evil-escape-mode
-
-  :custom
-  (evil-escape-key-sequence "jk")
-
-  :config
-  (evil-escape-mode 1))
+  (evil-collection-init 'magit))
 
 (use-package evil-iedit-state
   :ensure t
@@ -95,11 +83,6 @@
   :ensure t
   :after evil
   :commands evilnc-comment-or-uncomment-lines)
-
-(use-package evil-numbers
-  :ensure t
-  :after evil
-  :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-t))
 
 (use-package evil-surround
   :ensure t
