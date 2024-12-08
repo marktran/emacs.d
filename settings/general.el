@@ -3,9 +3,9 @@
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
  "e" '(er/expand-region :which-key "Expand region")
  "f" '(find-file :which-key "Find file")
- "o" '(consult-bookmark :which-key "Bookmarks")
  "y" '(consult-yank-pop :which-key "Yank Pop")
  "R" '(consult-recent-file :which-key "Recent files")
+ "RET" '(consult-bookmark :which-key "Bookmarks")
  "SPC" '(consult-buffer :which-key "Switch buffer"))
 
 (general-define-key :keymaps 'visual :prefix "SPC"
