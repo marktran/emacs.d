@@ -12,7 +12,7 @@
         (fringe unspecified)))
 
   :config
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-vivendi-deuteranopia t))
 
 (use-package pulsar
   :ensure t
