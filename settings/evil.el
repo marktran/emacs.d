@@ -11,8 +11,6 @@
   (evil-want-keybinding nil)          ; Avoid conflicts with Evil Collection
 
   :config
-  (evil-mode 1)
-
   (general-define-key
    :keymaps 'evil-window-map
    "u" 'winner-undo
@@ -40,7 +38,9 @@
                         (sql-interactive-mode     . emacs)
                         (yaml-mode                . normal)))
     (cl-destructuring-bind (mode . state) mode-state
-      (evil-set-initial-state mode state))))
+      (evil-set-initial-state mode state)))
+
+  (evil-mode 1))
 
 (use-package evil-collection
   :ensure t
