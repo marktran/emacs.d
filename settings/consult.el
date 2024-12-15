@@ -9,6 +9,7 @@
                            "*dashboard*"
                            "*eat*"
                            "*eshell"
+                           "*Help*"
                            "*Messages*"
                            "*scratch*"
                            "magit-process:"))
