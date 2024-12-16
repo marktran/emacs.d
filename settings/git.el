@@ -12,6 +12,7 @@
 
 (use-package magit
   :ensure t
+  :diminish with-editor-mode
 
   :custom
   (magit-auto-revert-mode nil)
