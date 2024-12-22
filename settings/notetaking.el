@@ -47,3 +47,6 @@
 
   :config
   (evil-org-set-key-theme))
+
+(use-package denote
+  :ensure t)
