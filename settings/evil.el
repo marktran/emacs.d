@@ -89,5 +89,3 @@
   :after evil
   :init
   (global-evil-surround-mode 1))
-
-(evil-collection-init 'evil-dired)
