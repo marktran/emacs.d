@@ -44,9 +44,8 @@
 
   :config
   (marginalia-mode 1)
-  (add-to-list 'marginalia-annotator-registry
-               '(file none marginalia-annotate-file))
-  (add-to-list 'marginalia-annotator-registry '(multi-category none marginalia-annotate-multi-category)))
+  (setq marginalia-annotator-registry
+        (assq-delete-all 'file marginalia-annotator-registry)))
 
 (use-package orderless
   :ensure t
