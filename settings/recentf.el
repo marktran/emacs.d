@@ -10,7 +10,7 @@
                          "recentf"
                          "TAGS"))
   (recentf-keep '(file-remote-p file-readable-p))
-  (recentf-max-saved-items 150)
+  (recentf-max-saved-items 15)
   (recentf-filename-handlers '(file-truename))  ;; Resolve symlinks
 
   :config
