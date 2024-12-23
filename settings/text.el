@@ -12,16 +12,18 @@
   :ensure t
   :diminish jinx-mode
 
+  :custom
+  (jinx-ispell-program "aspell")
+  (jinx-ispell-dictionary "en_US")
+
   :hook
   (text-mode . jinx-mode)
 
-  :custom
-  (jinx-ispell-program "aspell")
-  (jinx-ispell-dictionary "en_US"))
+  :config
+  (add-to-list 'jinx-exclude-regexps '(t "\\(?:\\(?:\\w+/\\)+\\w+\\.[[:alpha:]]+\\)")))
 
 (use-package text-mode
   :ensure nil
 
   :hook
-  ((text-mode . turn-on-auto-fill)
-   (text-mode . flyspell-mode)))
+  ((text-mode . turn-on-auto-fill)))
