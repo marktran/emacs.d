@@ -35,5 +35,14 @@
 (use-package spacious-padding
   :ensure t
 
+  :custom
+  spacious-padding-widths '(:internal-border-width 15
+                            :header-line-width 4
+                            :mode-line-width 2
+                            :tab-width 4
+                            :right-divider-width 30
+                            :scroll-bar-width 8
+                            :fringe-width 8)
+
   :config
   (spacious-padding-mode))
