@@ -17,13 +17,6 @@
   :config
   (require 'vertico-directory))
 
-(use-package vertico-posframe
-  :ensure t
-  :after vertico
-
-  :config
-  (vertico-posframe-mode))
-
 (use-package completion
   :ensure nil
   :custom
