@@ -1,3 +1,6 @@
+(use-package beframe
+  :ensure t)
+
 (use-package ef-themes
   :ensure t)
 
