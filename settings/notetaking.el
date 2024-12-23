@@ -42,6 +42,14 @@
    "M-L" 'org-metaright
    "M-K" 'org-metaup))
 
+(use-package org-autolist
+  :ensure t
+  :after org
+  :diminish org-autolist-mode
+
+  :hook
+  (org-mode . org-autolist-mode))
+
 (use-package evil-org
   :ensure t
   :after org
@@ -71,7 +79,7 @@
   :custom
   (denote-directory (expand-file-name "~/Documents/denote"))
   (denote-dired-directories-include-subdirectories t)
-  (denote-known-keywords '("interview" "meeting"))
+  (denote-known-keywords '("meeting" "person"))
   (denote-rename-buffer-mode t)
 
   :hook
