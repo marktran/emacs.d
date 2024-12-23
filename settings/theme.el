@@ -31,3 +31,9 @@
 
   :config
   (pulsar-global-mode 1))
+
+(use-package spacious-padding
+  :ensure t
+
+  :config
+  (spacious-padding-mode))
