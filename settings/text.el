@@ -1,6 +1,6 @@
 (use-package flyspell
   :ensure nil
-  :diminish flyspell-mode)
+  :diminish)
 
 (use-package ispell
   :ensure nil
@@ -10,7 +10,7 @@
 
 (use-package jinx
   :ensure t
-  :diminish jinx-mode
+  :diminish
 
   :custom
   (jinx-ispell-program "aspell")
