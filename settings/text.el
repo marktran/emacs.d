@@ -27,3 +27,10 @@
 
   :hook
   ((text-mode . turn-on-auto-fill)))
+
+(use-package typo
+  :ensure t
+  :diminish
+
+  :hook
+  (text-mode . typo-mode))
