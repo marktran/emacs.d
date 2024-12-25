@@ -45,8 +45,11 @@
 
   :config
   (marginalia-mode 1)
-  (setq marginalia-annotator-registry
-        (assq-delete-all 'file marginalia-annotator-registry)))
+  (advice-add #'marginalia-cycle :after
+              (lambda ()
+                (let ((inhibit-message t))
+                  (customize-save-variable 'marginalia-annotator-registry
+                                           marginalia-annotator-registry)))))
 
 (use-package orderless
   :ensure t
