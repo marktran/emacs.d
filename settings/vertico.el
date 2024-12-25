@@ -35,7 +35,7 @@
   :demand t
 
   :custom
-  (marginalia-align 'right)
+  (marginalia-align 'left)
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   (marginalia-max-relative-age 0)
 
