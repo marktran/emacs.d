@@ -99,6 +99,7 @@ In all other cases, fall back to `org-yank'."
 
 (use-package org
   :ensure nil
+  :demand t
 
   :custom
   (org-log-done 'time)
