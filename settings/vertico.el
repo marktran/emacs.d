@@ -1,12 +1,12 @@
 (use-package vertico
   :ensure t
+  :demand t
 
   :custom
   (vertico-count 15)
 
   :hook
-  ((after-init . vertico-mode)
-   (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  (rfn-eshadow-update-overlay . vertico-directory-tidy)
 
   :general
   (:keymaps 'vertico-map
@@ -15,6 +15,7 @@
    "M-DEL" 'vertico-directory-delete-word)
 
   :config
+  (vertico-mode 1)
   (require 'vertico-directory))
 
 (use-package completion
@@ -31,7 +32,7 @@
 
 (use-package marginalia
   :ensure t
-  :after vertico
+  :demand t
 
   :custom
   (marginalia-align 'right)
