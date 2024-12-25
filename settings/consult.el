@@ -13,4 +13,6 @@
                            "*Messages*"
                            "*scratch*"
                            "magit-process:"))
-  (consult-preview-max-count 15))
+  (consult-narrow-key "<")
+  (consult-preview-max-count 15)
+  (consult-widen-key ">"))
