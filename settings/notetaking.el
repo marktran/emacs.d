@@ -176,6 +176,12 @@ In all other cases, fall back to `org-yank'."
 (use-package consult-notes
   :ensure t
 
+  :custom-face
+  (consult-notes-name ((t (:inherit marginalia-file-priv-rare))))
+  (consult-notes-sep ((t (:inherit completions-group-title))))
+  (consult-notes-size ((t (:inherit marginalia-size))))
+  (consult-notes-time ((t (:inherit marginalia-modified))))
+
   :config
   (consult-notes-denote-mode))
 
