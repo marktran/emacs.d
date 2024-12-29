@@ -25,7 +25,7 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 
 ;; Set initial frame size and position
 (setq initial-frame-alist
-      '((width . 150)      ;; Number of columns
+      '((width . 105)      ;; Number of columns
         (height . 75)      ;; Number of rows
         (fullscreen . nil))) ;; Set to 'maximized, 'fullscreen, or 'nil
 
