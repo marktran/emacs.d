@@ -20,7 +20,10 @@
   (text-mode . jinx-mode)
 
   :config
-  (add-to-list 'jinx-exclude-regexps '(t "\\(?:\\(?:\\w+/\\)+\\w+\\.[[:alpha:]]+\\)")))
+  (setq jinx-exclude-regexps
+        (append jinx-exclude-regexps
+                '((t "\\(?:\\(?:\\w+/\\)+\\w+\\.[[:alpha:]]+\\)") ;; Match file paths like "dir/file.ext"
+                  (t "\\<\\w+\\.el\\>")))))                       ;; Match Emacs Lisp files like "beframe.el"
 
 (use-package text-mode
   :ensure nil
