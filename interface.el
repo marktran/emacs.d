@@ -43,17 +43,6 @@
                 (line-number-mode
                  ("%l" (column-number-mode ":%c")))))
 
-(setq-default mode-line-format '("%e"
-                         mode-line-modified
-                         " "
-                         mode-line-buffer-identification
-                         " "
-                         mode-line-position
-                         " "
-                         mode-line-modes
-                         mode-line-misc-info
-                         mode-line-end-spaces))
-
 ;; remove $ at end of truncated lines
 ;; http://stackoverflow.com/questions/8370778/remove-glyph-at-end-of-truncated-lines
 (set-display-table-slot standard-display-table 0 ?\ )
