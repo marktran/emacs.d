@@ -111,13 +111,6 @@ In all other cases, fall back to `org-yank'."
   :general
   (:keymaps 'org-mode-map
    :states 'normal
-   :prefix "SPC m"
-   "" '(:ignore t :which-key "Org")
-   "l" '(org-insert-link :which-key "Insert link")
-   "t" '(m/org-insert-todo-heading :which-key "Insert todo heading"))
-
-  (:keymaps 'org-mode-map
-   :states 'normal
    "za" 'org-cycle
    "zA" 'org-shifttab
    "zc" 'outline-hide-subtree
