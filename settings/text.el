@@ -22,8 +22,9 @@
   :config
   (setq jinx-exclude-regexps
         (append jinx-exclude-regexps
-                '((t "\\(?:\\(?:\\w+/\\)+\\w+\\.[[:alpha:]]+\\)") ;; Match file paths like "dir/file.ext"
-                  (t "\\<\\w+\\.el\\>")))))                       ;; Match Emacs Lisp files like "beframe.el"
+                '((t "\\(?:\\(?:\\w+/\\)+\\w+\\.[[:alpha:]]+\\)") ;; Ignore file paths like "dir/file.ext"
+                  (t "\\<\\w+\\.el\\>")                           ;; Ignore Emacs Lisp files like "beframe.el"
+                  (t "\\b[A-Z][a-z]+\\b")))))                     ;; Ignore proper nouns (capitalized words)
 
 (use-package text-mode
   :ensure nil
