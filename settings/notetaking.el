@@ -201,8 +201,8 @@ In all other cases, fall back to `org-yank'."
   :config
   (setq denote-dired-directories (list denote-directory)))
 
-(use-package denote-journal-extras
-  :ensure nil
+(use-package denote-journal
+  :ensure t
 
   :custom
   (denote-journal-extras-directory (expand-file-name "journal" denote-directory))
