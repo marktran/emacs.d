@@ -30,7 +30,7 @@
    "e" '(eval-buffer :which-key "Eval buffer")
    "h" '(bury-buffer :which-key "Hide buffer")
    "i" '(highlight-indentation-mode :which-key "Highlight indentation")
-   "k" '(kill-this-buffer :which-key "Kill buffer")
+   "k" '((lambda () (interactive) (kill-this-buffer)) :which-key "Kill buffer")
    "l" '(display-line-numbers-mode :which-key "Toggle line numbers")
    "m" '(bm-toggle :which-key "Toggle visual bookmark")
    "n" '(bm-next :which-key "Next bookmark")
