@@ -1,1 +1,2 @@
-(use-package bm)
+(use-package bm
+  :ensure t)
