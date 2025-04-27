@@ -1,3 +1,7 @@
+(setq native-comp-enable-subprocess t)
+(setq native-comp-deferred-compilation t)
+(setq native-comp-async-report-warnings-errors nil)
+
 (defun restore-mode-line ()
   (setq-default mode-line-format
                 '("%e"
