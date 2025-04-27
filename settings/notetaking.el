@@ -194,7 +194,7 @@ In all other cases, fall back to `org-yank'."
   (:prefix "SPC n"
    "" '(:ignore t :which-key "Notes")
    "c" '(denote-create-note :which-key "Create note")
-   "d" '(denote-journal-extras-new-or-existing-entry :which-key "Jump to daily entry")
+   "d" '(denote-journal-new-or-existing-entry :which-key "Jump to daily entry")
    "f" '(consult-notes :which-key "Find notes")
    "s" '(consult-denote-grep :which-key "Search notes"))
 
