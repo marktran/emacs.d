@@ -12,4 +12,5 @@
   (treemacs-follow-mode 1))
 
 (use-package treemacs-evil
+  :ensure t
   :after (treemacs evil))
