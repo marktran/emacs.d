@@ -4,6 +4,7 @@
 .cache/
 auto-save-list/
 backups/
+eln-cache/
 elpa/
 eshell/
 tree-sitter/
