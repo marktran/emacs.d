@@ -1,5 +1,8 @@
 (use-package ef-themes
-  :ensure t)
+  :ensure t
+
+  :config
+  (load-theme 'ef-dark t))
 
 (use-package modus-themes
   :ensure t
@@ -9,10 +12,7 @@
       '(
         (border-mode-line-active bg-mode-line-active)
         (border-mode-line-inactive bg-mode-line-inactive)
-        (fringe unspecified)))
-
-  :config
-  (load-theme 'modus-vivendi-deuteranopia t))
+        (fringe unspecified))))
 
 (use-package pulsar
   :ensure t
