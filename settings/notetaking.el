@@ -182,7 +182,7 @@ In all other cases, fall back to `org-yank'."
   :ensure t
 
   :custom
-  (denote-directory (expand-file-name "~/Documents/denote"))
+  (denote-directory (expand-file-name "~/Dropbox/Documents/denote"))
   (denote-dired-directories-include-subdirectories t)
   (denote-known-keywords '("meeting" "person"))
   (denote-rename-buffer-mode t)
