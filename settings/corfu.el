@@ -22,17 +22,6 @@
    "S-TAB"   #'corfu-previous
    [backtab] #'corfu-previous))
 
-;; Enable icons in completions
-(use-package kind-icon
-  :ensure t
-  :after corfu
-
-  :custom
-  (kind-icon-default-face 'corfu-default)
-
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
 ;; Enable indentation and completion using TAB
 (use-package cape
   :ensure t
