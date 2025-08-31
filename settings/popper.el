@@ -29,7 +29,7 @@
    "M-`" 'popper-cycle)
 
   (:prefix "SPC t"
-   "" '(:ignore t :which-key "Toggle")
+   "" '(:ignore t :which-key "Toggles")
    "p" '(popper-toggle :which-key "Popper"))
 
   :config

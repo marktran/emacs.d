@@ -31,7 +31,6 @@
    "h" '(bury-buffer :which-key "Hide buffer")
    "i" '(highlight-indentation-mode :which-key "Highlight indentation")
    "k" '((lambda () (interactive) (kill-this-buffer)) :which-key "Kill buffer")
-   "l" '(display-line-numbers-mode :which-key "Toggle line numbers")
    "m" '(bm-toggle :which-key "Toggle visual bookmark")
    "n" '(bm-next :which-key "Next bookmark")
    "p" '(bm-previous :which-key "Previous bookmark")
@@ -57,4 +56,9 @@
    "k" '(describe-key :which-key "Describe key")
    "m" '(describe-mode :which-key "Describe mode")
    "p" '(describe-package :which-key "Describe package")
-   "v" '(describe-variable :which-key "Describe variable")))
+   "v" '(describe-variable :which-key "Describe variable"))
+
+  :general
+  (:prefix "SPC t"
+   "" '(:ignore t :which-key "Toggles")
+   "l" '(display-line-numbers-mode :which-key "Toggle line numbers")))

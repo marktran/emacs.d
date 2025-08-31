@@ -28,5 +28,5 @@
 
   :general
   (:prefix "SPC t"
-   "" '(:ignore t :which-key "Toggle")
+   "" '(:ignore t :which-key "Toggles")
    "g" '(toggle-golden-ratio-mode :which-key "Golden ratio sizing")))
