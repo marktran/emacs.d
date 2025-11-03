@@ -40,7 +40,7 @@
                             :header-line-width 4
                             :mode-line-width 2
                             :tab-width 4
-                            :right-divider-width 20
+                            :right-divider-width 1
                             :scroll-bar-width 8
                             :fringe-width 8)
 
