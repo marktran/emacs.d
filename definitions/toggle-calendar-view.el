@@ -148,10 +148,3 @@ more space for the larger calendar display."
   (calendar)
   (setq calendar-view-mode '12-month)
   (calendar-regenerate-12-month))
-
-(with-eval-after-load 'calendar
-  (with-eval-after-load 'general
-    (general-define-key
-     :states '(emacs normal)
-     :keymaps 'calendar-mode-map
-     "<tab>" 'toggle-calendar-view)))
