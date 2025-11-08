@@ -15,15 +15,15 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'tooltip-mode) (tooltip-mode -1))
 
+;; Clear minibuffer after startup
+(add-hook 'emacs-startup-hook (lambda () (message "")))
+
 (setq-default cursor-in-non-selected-windows nil)
 
 (setq display-time-24hr-format t
       display-time-default-load-average nil
       frame-title-format nil
       Info-use-header-line nil
-      inhibit-startup-echo-area-message ""
-      inhibit-startup-message t
-      initial-scratch-message nil
       isearch-lazy-highlight nil
       max-mini-window-height 0
       pop-up-windows nil
