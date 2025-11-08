@@ -33,6 +33,34 @@
   "Generate a calendar for MONTH and YEAR at column position COL (0, 1, or 2)."
   (calendar-generate-month month year (calendar--calculate-column-position col)))
 
+(defun calendar--mark-date-in-month (day month-index)
+  "Mark DAY in the month at MONTH-INDEX (0-11) with holiday face."
+  (let* ((inhibit-read-only t)
+         (row (/ month-index 3))
+         (col (mod month-index 3))
+         (row-start-line (* row calendar-row-height))
+         (col-start (calendar--calculate-column-position col))
+         (col-end (+ col-start calendar-month-content-width)))
+    (save-excursion
+      (goto-char (point-min))
+      (forward-line row-start-line)
+      ;; Skip past month name and day headers (2 lines)
+      (forward-line 2)
+      ;; Search for the day within this month's area
+      (let ((search-limit (+ row-start-line calendar-row-height))
+            (current-line (+ row-start-line 2)))
+        (while (and (< current-line search-limit) (not (eobp)))
+          (move-to-column col-start)
+          (let ((line-start (point)))
+            (move-to-column col-end)
+            (let ((line-end (point)))
+              (goto-char line-start)
+              (when (re-search-forward (format "\\b%d\\b" day) line-end t)
+                (put-text-property (match-beginning 0) (match-end 0)
+                                   'face 'holiday))))
+          (forward-line 1)
+          (setq current-line (1+ current-line)))))))
+
 (defun calendar--highlight-today-in-buffer ()
   "Search the calendar buffer and highlight today's date."
   (let* ((today (calendar-current-date))
@@ -123,6 +151,24 @@ technique works correctly for laying out the 4×3 grid."
           (narrow-to-region (point-max) (point-max)))
         (widen)
         (goto-char (point-min))
+        ;; Mark holidays for all 12 months
+        (dotimes (i 12)
+          (let* ((m base-month)
+                 (y base-year))
+            (calendar-increment-month m y i)
+            ;; Bind displayed-month and displayed-year for holiday functions
+            (let ((displayed-month m)
+                  (displayed-year y))
+              ;; Compute holidays for this month by evaluating calendar-holidays
+              (dolist (holiday-descriptor calendar-holidays)
+                (let ((holiday-dates (eval holiday-descriptor)))
+                  (when holiday-dates
+                    (dolist (holiday holiday-dates)
+                      (let* ((date (car holiday))
+                             (day (calendar-extract-day date))
+                             (hmonth (calendar-extract-month date)))
+                        (when (= hmonth m)
+                          (calendar--mark-date-in-month day i))))))))))
         (set-buffer-modified-p nil))
       (calendar--highlight-today-in-buffer))
     (display-buffer calendar-buffer)))
