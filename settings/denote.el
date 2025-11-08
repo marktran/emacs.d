@@ -38,8 +38,8 @@
   (calendar-mode . denote-journal-calendar-mode)
 
   :custom
-  (denote-journal-extras-directory (expand-file-name "journal" denote-directory))
-  (denote-journal-extras-title-format 'day-date-month-year)
+  (denote-journal-directory (expand-file-name "daily" denote-directory))
+  (denote-journal-title-format 'day-date-month-year)
 
   :config
   (with-eval-after-load 'evil
