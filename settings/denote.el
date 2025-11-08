@@ -20,7 +20,7 @@
   :ensure t
 
   :custom
-  (denote-directory (expand-file-name "~/Dropbox/Documents/org"))
+  (denote-directory (expand-file-name "~/Dropbox/org"))
   (denote-dired-directories-include-subdirectories t)
   (denote-known-keywords '("meeting" "person"))
   (denote-rename-buffer-mode t)
