@@ -3,6 +3,7 @@
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
  "e" '(er/expand-region :which-key "Expand region")
  "f" '(find-file :which-key "Find file")
+ "p" '(disproject-dispatch :which-key "Project")
  "y" '(consult-yank-pop :which-key "Yank Pop")
  "R" '(consult-recent-file :which-key "Recent files")
  "RET" '(consult-bookmark :which-key "Bookmarks")
@@ -10,6 +11,14 @@
 
 (general-define-key :keymaps 'visual :prefix "SPC"
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines"))
+
+(general-define-key :prefix "SPC n"
+ "" '(:ignore t :which-key "Notes")
+ "c" '(toggle-calendar :which-key "Toggle calendar")
+ "d" '(denote-journal-new-or-existing-entry :which-key "Jump to daily entry")
+ "f" '(consult-notes :which-key "Find notes")
+ "n" '(denote-create-note :which-key "Create note")
+ "s" '(consult-denote-grep :which-key "Search notes"))
 
 (general-define-key :prefix "SPC s"
  "" '(:ignore t :which-key "Search")

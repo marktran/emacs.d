@@ -11,9 +11,4 @@
   :ensure t
 
   :custom
-  (disproject-shell-command 'project-eat-shell)
-
-  :config
-  (general-define-key
-   :prefix "SPC"
-   "p" 'disproject-dispatch))
+  (disproject-shell-command 'project-eat-shell))
