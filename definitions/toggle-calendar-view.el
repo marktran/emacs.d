@@ -21,7 +21,7 @@
   "Column position boundary between columns 1 and 2.")
 
 ;;; State variable
-(defvar calendar-view-mode '3-month
+(defvar-local calendar-view-mode '3-month
   "Current calendar view mode, either '3-month or '12-month.")
 
 ;;; Helper functions
@@ -116,7 +116,8 @@ Reuses the existing calendar buffer for efficiency."
         (calendar--generate-month-at-column month year i)
         (calendar-increment-month month year 1))
       (goto-char (point-min))
-      (set-buffer-modified-p nil))))
+      (set-buffer-modified-p nil))
+    (pop-to-buffer calendar-buffer)))
 
 (defun calendar-regenerate-12-month ()
   "Regenerate the calendar buffer with 12-month view in a 4×3 grid.
@@ -171,21 +172,23 @@ technique works correctly for laying out the 4×3 grid."
                           (calendar--mark-date-in-month day i))))))))))
         (set-buffer-modified-p nil))
       (calendar--highlight-today-in-buffer))
-    (display-buffer calendar-buffer)))
+    (pop-to-buffer calendar-buffer)))
 
 (defun toggle-calendar-view ()
   "Toggle between 3-month and 12-month calendar views.
 When switching to 12-month view, delete other windows to provide
 more space for the larger calendar display."
   (interactive)
-  (if (eq calendar-view-mode '3-month)
-      (let ((win (selected-window)))
-        (setq calendar-view-mode '12-month)
-        (delete-other-windows)
-        (calendar-regenerate-12-month)
-        (select-window win))
-    (setq calendar-view-mode '3-month)
-    (calendar-regenerate-3-month)))
+  (let ((cal-buf (get-buffer calendar-buffer)))
+    (when cal-buf
+      (with-current-buffer cal-buf
+        (if (eq calendar-view-mode '3-month)
+            (progn
+              (setq calendar-view-mode '12-month)
+              (delete-other-windows)
+              (calendar-regenerate-12-month))
+          (setq calendar-view-mode '3-month)
+          (calendar-regenerate-3-month))))))
 
 (defun calendar-12-month ()
   "Display a 12-month calendar view."
