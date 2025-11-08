@@ -3,5 +3,4 @@
 
 (use-package use-package
   :custom
-  (use-package-compute-statistics t)
-  (use-package-verbose t))
+  (use-package-compute-statistics t))
