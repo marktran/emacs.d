@@ -23,6 +23,9 @@
   (read-extended-command-predicate #'command-completion-default-include-p)
   (tab-always-indent 'complete)
 
+  :config
+  (electric-pair-mode 1)
+
   :general
   (:prefix "SPC b"
    "" '(:ignore t :which-key "Buffer")
