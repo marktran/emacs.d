@@ -20,7 +20,7 @@
      help-mode
      "^\\*Messages\\*$"
      "^\\*Warnings\\*$"))
-  (popper-window-height 0.50)
+  (popper-window-height 0.70)
 
   :hook
   (after-init . popper-mode)
