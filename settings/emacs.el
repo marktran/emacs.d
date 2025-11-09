@@ -12,6 +12,15 @@
           (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
+  ;; Suppress progress messages ending with "..." or "...done" in the minibuffer
+  (advice-add 'message :around
+              (lambda (orig-fun format-string &rest args)
+                (if (and format-string
+                         (stringp format-string)
+                         (string-match-p "\\.\\.\\.$\\|\\.\\.\\. ?done\\'" format-string))
+                    nil
+                  (apply orig-fun format-string args))))
+
   ;; Do not allow the cursor in the minibuffer prompt.
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
