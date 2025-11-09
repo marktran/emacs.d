@@ -2,7 +2,9 @@
   :ensure t
 
   :config
-  (load-theme 'ef-dark t))
+  (if (getenv "EMACS_WRITING_MODE")
+      (load-theme 'ef-light t)
+    (load-theme 'ef-dark t)))
 
 (use-package modus-themes
   :ensure t
@@ -43,6 +45,7 @@
                                :right-divider-width 1
                                :scroll-bar-width 8
                                :fringe-width 8))
+  (spacious-padding-subtle-mode-line (when (getenv "EMACS_WRITING_MODE") t))
 
   :config
   (spacious-padding-mode))
