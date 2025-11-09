@@ -1,6 +1,7 @@
 (general-define-key :prefix "SPC"
  "." '(dired-jump :which-key "Dired")
  ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
+ "c" '(org-capture :which-key "Capture")
  "e" '(er/expand-region :which-key "Expand region")
  "f" '(find-file :which-key "Find file")
  "p" '(disproject-dispatch :which-key "Project")
@@ -14,6 +15,7 @@
 
 (general-define-key :prefix "SPC n"
  "" '(:ignore t :which-key "Notes")
+ "a" '((lambda () (interactive) (org-agenda nil "n")) :which-key "Agenda")
  "c" '(toggle-calendar :which-key "Toggle calendar")
  "d" '(denote-journal-new-or-existing-entry :which-key "Jump to daily entry")
  "f" '(consult-notes :which-key "Find notes")
