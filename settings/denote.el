@@ -31,8 +31,13 @@
   :config
   (setq denote-dired-directories (list denote-directory)))
 
+(use-package denote-org
+  :ensure t
+  :after denote)
+
 (use-package denote-journal
   :ensure t
+  :after denote
 
   :hook
   (calendar-mode . denote-journal-calendar-mode)
