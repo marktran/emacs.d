@@ -16,10 +16,11 @@
      "^\\*eat\\*$" eat-mode
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Compile-Log\\*$"
+     calendar-mode
      help-mode
      "^\\*Messages\\*$"
      "^\\*Warnings\\*$"))
-  (popper-window-height 0.40)
+  (popper-window-height 0.50)
 
   :hook
   (after-init . popper-mode)

@@ -185,7 +185,6 @@ more space for the larger calendar display."
         (if (eq calendar-view-mode '3-month)
             (progn
               (setq calendar-view-mode '12-month)
-              (delete-other-windows)
               (calendar-regenerate-12-month))
           (setq calendar-view-mode '3-month)
           (calendar-regenerate-3-month))))))
