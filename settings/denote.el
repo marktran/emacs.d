@@ -44,6 +44,7 @@
 
   :custom
   (denote-journal-directory (expand-file-name "daily" denote-directory))
+  (denote-journal-keyword "daily")
   (denote-journal-title-format 'day-date-month-year)
 
   :config
