@@ -20,7 +20,14 @@
      help-mode
      "^\\*Messages\\*$"
      "^\\*Warnings\\*$"))
-  (popper-window-height 0.70)
+  (popper-window-height
+   (lambda (win)
+     (with-current-buffer (window-buffer win)
+       (let* ((ratio (pcase major-mode
+                       ('calendar-mode 0.70)
+                       (_ 0.40)))
+              (height (floor (* (frame-height) ratio))))
+         (fit-window-to-buffer win height height)))))
 
   :hook
   (after-init . popper-mode)
