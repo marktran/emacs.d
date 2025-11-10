@@ -1,3 +1,9 @@
+(defun eat-send-backspace ()
+  "Send backspace character to eat terminal."
+  (interactive)
+  (when (bound-and-true-p eat-terminal)
+    (eat-term-send-string eat-terminal "\C-h")))
+
 (use-package eat
   :ensure t
 
@@ -8,6 +14,7 @@
 
   :general
   (:keymaps 'eat-semi-char-mode-map
+   "<backspace>" 'eat-send-backspace
    "<home>" 'beginning-of-buffer
    "<end>" 'end-of-buffer
    "<prior>" 'evil-scroll-up
