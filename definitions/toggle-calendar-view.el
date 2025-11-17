@@ -33,8 +33,8 @@
   "Generate a calendar for MONTH and YEAR at column position COL (0, 1, or 2)."
   (calendar-generate-month month year (calendar--calculate-column-position col)))
 
-(defun calendar--mark-date-in-month (day month-index)
-  "Mark DAY in the month at MONTH-INDEX (0-11) with holiday face."
+(defun calendar--mark-date-in-month-with-face (day month-index face)
+  "Mark DAY in the month at MONTH-INDEX (0-11) with FACE."
   (let* ((inhibit-read-only t)
          (row (/ month-index 3))
          (col (mod month-index 3))
@@ -57,9 +57,13 @@
               (goto-char line-start)
               (when (re-search-forward (format "\\b%d\\b" day) line-end t)
                 (put-text-property (match-beginning 0) (match-end 0)
-                                   'face 'holiday))))
+                                   'face face))))
           (forward-line 1)
           (setq current-line (1+ current-line)))))))
+
+(defun calendar--mark-date-in-month (day month-index)
+  "Mark DAY in the month at MONTH-INDEX (0-11) with holiday face."
+  (calendar--mark-date-in-month-with-face day month-index 'holiday))
 
 (defun calendar--highlight-today-in-buffer ()
   "Search the calendar buffer and highlight today's date."
@@ -170,8 +174,18 @@ technique works correctly for laying out the 4×3 grid."
                              (hmonth (calendar-extract-month date)))
                         (when (= hmonth m)
                           (calendar--mark-date-in-month day i))))))))))
-        (set-buffer-modified-p nil))
-      (calendar--highlight-today-in-buffer))
+        ;; Mark today's date
+        (let* ((today (calendar-current-date))
+               (today-day (calendar-extract-day today))
+               (today-month (calendar-extract-month today))
+               (today-year (calendar-extract-year today)))
+          (dotimes (i 12)
+            (let* ((m base-month)
+                   (y base-year))
+              (calendar-increment-month m y i)
+              (when (and (= m today-month) (= y today-year))
+                (calendar--mark-date-in-month-with-face today-day i 'calendar-today)))))
+        (set-buffer-modified-p nil)))
     (pop-to-buffer calendar-buffer)))
 
 (defun toggle-calendar-view ()

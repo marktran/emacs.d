@@ -16,6 +16,7 @@
      (holiday-fixed 12 25 "Christmas Day")))
 
   (calendar-mark-holidays-flag t)
+  (calendar-today-visible-hook 'calendar-mark-today)
   (calendar-mode-line-format nil)
 
   :config
