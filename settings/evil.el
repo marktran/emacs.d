@@ -28,7 +28,7 @@
 
   ;; Set initial states for specific modes
   (dolist (mode-state '((inferior-emacs-lisp-mode . emacs)
-                        (calendar-mode            . emacs)
+                        (calendar-mode            . normal)
                         (comint-mode              . emacs)
                         (eat-mode                 . emacs)
                         (eshell-mode              . emacs)

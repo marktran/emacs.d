@@ -18,7 +18,14 @@
   (calendar-mark-holidays-flag t)
   (calendar-mode-line-format nil)
 
-  :general
-  (:keymaps 'calendar-mode-map
-   :states '(emacs normal)
-   "<tab>" 'toggle-calendar-view))
+  :config
+  (defun m/setup-calendar-evil-bindings ()
+    "Override evil-collection calendar bindings to restore j/k for line movement."
+    (evil-define-key 'normal calendar-mode-map
+      "j" 'evil-next-line
+      "k" 'evil-previous-line
+      "n" 'calendar-forward-week
+      "p" 'calendar-backward-week
+      (kbd "<tab>") 'toggle-calendar-view))
+
+  (add-hook 'calendar-mode-hook #'m/setup-calendar-evil-bindings))
