@@ -24,7 +24,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
-(load "~/.emacs.d/local.el" 'noerror)
 (load "~/.emacs.d/custom.el" 'noerror)
 
 (load-file "~/.emacs.d/packages.el")
@@ -36,3 +35,5 @@
 
 (setq user-full-name "Mark Tran"
       user-mail-address "mark.tran@gmail.com")
+
+(load "~/.emacs.d/local.el" 'noerror)
