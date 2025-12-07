@@ -17,17 +17,19 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
   (set-face-attribute 'mode-line nil :background "#000000" :foreground "#ffffff" :box 'unspecified)
   (add-hook 'after-make-frame-functions #'re-enable-frame-theme))
 
-(push '(menu-bar-lines . 0) default-frame-alist)
-(push '(tool-bar-lines . 0) default-frame-alist)
-(push '(vertical-scroll-bars) default-frame-alist)
-(when (featurep 'ns)
-  (push '(ns-transparent-titlebar . t) default-frame-alist))
 
 ;; Set initial frame size and position
 (setq initial-frame-alist
-      '((width . 105)      ;; Number of columns
+      '((menu-bar-lines . 0)
+        (tool-bar-lines . 0)
+        (vertical-scroll-bars)
+        (width . 105)      ;; Number of columns
         (height . 75)      ;; Number of rows
         (fullscreen . nil))) ;; Set to 'maximized, 'fullscreen, or 'nil
+
+;; Add ns-specific settings if on macOS
+(when (featurep 'ns)
+  (push '(ns-transparent-titlebar . t) initial-frame-alist))
 
 ;; Apply the same settings to subsequent frames
 (setq default-frame-alist initial-frame-alist)
