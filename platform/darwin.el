@@ -1,5 +1,3 @@
-(add-to-list 'default-frame-alist '(font . "Berkeley Mono-14"))
-
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t
       dired-use-ls-dired t

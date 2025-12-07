@@ -1,5 +1,3 @@
-(add-to-list 'default-frame-alist '(font . "Berkeley Mono-20"))
-
 (let ((user-bin (expand-file-name "~/bin")))
   (setenv "PATH" (concat user-bin ":" (getenv "PATH")))
   (add-to-list 'exec-path user-bin))
