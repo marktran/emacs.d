@@ -26,10 +26,10 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
                   (/ (* display-width 25.4) display-mm-width)
                 0)))
     (cond
-     ;; High-DPI displays (>= 2560px width or >= 150 DPI)
-     ((or (>= display-width 2560) (>= dpi 150))
+     ;; High DPI displays (>= 150 DPI) - small, dense screens
+     ((>= dpi 150)
       10)
-     ;; Medium resolution (1920-2559px or 120-149 DPI)
+     ;; Large/medium displays (< 150 DPI with >= 1920px OR 120-149 DPI)
      ((or (>= display-width 1920) (>= dpi 120))
       14)
      ;; Lower resolution displays
