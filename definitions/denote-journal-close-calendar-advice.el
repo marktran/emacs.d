@@ -1,3 +1,5 @@
+(defvar denote-journal--origin-window)
+
 (defun denote-journal-close-calendar-advice (orig-fun &rest args)
   "Open journal in origin window and close calendar popup."
   (let ((calendar-window (get-buffer-window "*Calendar*")))

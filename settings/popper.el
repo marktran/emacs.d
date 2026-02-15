@@ -23,11 +23,18 @@
   (popper-window-height
    (lambda (win)
      (with-current-buffer (window-buffer win)
-       (let* ((ratio (pcase major-mode
-                       ('calendar-mode 0.70)
-                       (_ 0.40)))
-              (height (floor (* (frame-height) ratio))))
-         (fit-window-to-buffer win height height)))))
+       (pcase major-mode
+         ('calendar-mode
+          (if (eq calendar-view-mode '12-month)
+              (let ((height (floor (* (frame-height) 0.95))))
+                (fit-window-to-buffer win height height))
+            (fit-window-to-buffer
+             win
+             (if (boundp 'calendar-row-height) (+ calendar-row-height 2) 12)
+             8)))
+         (_
+          (let ((height (floor (* (frame-height) 0.40))))
+            (fit-window-to-buffer win height height)))))))
 
   :hook
   (after-init . popper-mode)
