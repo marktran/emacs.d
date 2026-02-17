@@ -1,5 +1,6 @@
 (use-package gptel
   :ensure t
+  :commands (gptel)
 
   :config
   (gptel-make-openai "OpenAI"
