@@ -9,7 +9,6 @@ elpa/
 eshell/
 tree-sitter/
 var/
-assets/
 
 local.el
 custom.el
