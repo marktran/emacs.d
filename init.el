@@ -22,8 +22,6 @@
 
 (add-hook 'after-init-hook #'restore-mode-line)
 
-(add-to-list 'load-path "~/.emacs.d/vendor")
-
 (load "~/.emacs.d/custom.el" 'noerror)
 
 (load-file "~/.emacs.d/packages.el")

@@ -3,7 +3,7 @@
 
   :custom
   (dashboard-banner-logo-title "Happy Hacking!")
-  (dashboard-startup-banner "~/.emacs.d/vendor/emacs-logo.svg")
+  (dashboard-startup-banner "~/.emacs.d/assets/emacs-logo.svg")
   (dashboard-center-content t)
   (dashboard-items '((projects . 4)
                      (recents . 4)
