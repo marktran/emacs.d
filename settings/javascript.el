@@ -1,4 +1,4 @@
-(use-package javascript-ts-mode
+(use-package js
   :ensure nil
 
   :custom
