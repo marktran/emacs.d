@@ -1,5 +1,4 @@
-;; Emacs 27 introduces early-init.el, which is run before init.el,
-;; before package and UI initialization happens.
+;; This file runs before init.el, ahead of package and UI initialization.
 
 (defun re-enable-frame-theme (_frame)
   "Re-enable active theme, if any, upon FRAME creation.
