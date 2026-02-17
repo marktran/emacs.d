@@ -1,5 +1,6 @@
 (use-package treemacs
   :ensure t
+  :commands (treemacs treemacs-select-window treemacs-add-and-display-current-project-exclusively)
 
   :custom
   (treemacs-file-event-delay 5000)
