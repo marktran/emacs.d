@@ -97,50 +97,6 @@ In all other cases, fall back to `org-yank'."
      (t
       (call-interactively 'org-yank)))))
 
-(use-package org
-  :ensure nil
-  :demand t
-
-  :custom
-  (org-log-done 'time)
-  (org-src-fontify-natively t)
-
-  :hook
-  (org-mode . visual-line-mode)
-
-  :general
-  (:keymaps 'org-mode-map
-   :states 'normal
-   "za" 'org-cycle
-   "zA" 'org-shifttab
-   "zc" 'outline-hide-subtree
-   "zm" 'outline-hide-body
-   "zo" 'outline-show-subtree
-   "zr" 'outline-show-all
-
-   "RET" 'org-open-at-point
-   "M-j" 'org-shiftleft
-   "M-k" 'org-shiftright
-   "M-H" 'org-metaleft
-   "M-J" 'org-metadown
-   "M-L" 'org-metaright
-   "M-K" 'org-metaup)
-
-  (:keymaps 'org-mode-map
-   :states 'visual
-   :keymaps 'org-mode-map
-   "s-v" 'org-insert-link-dwim)
-
-  (:keymaps 'org-mode-map
-   :states 'insert
-   "s-v" 'org-yank-dwim
-   "M-j" 'org-shiftleft
-   "M-k" 'org-shiftright
-   "M-H" 'org-metaleft
-   "M-J" 'org-metadown
-   "M-L" 'org-metaright
-   "M-K" 'org-metaup))
-
 (use-package org-autolist
   :ensure t
   :after org

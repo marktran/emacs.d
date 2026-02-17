@@ -1,6 +1,17 @@
 (use-package calendar
   :ensure nil
 
+  :preface
+  (defun m/setup-calendar-evil-bindings ()
+    "Override evil-collection calendar bindings to restore j/k for line movement."
+    (when (fboundp 'evil-define-key)
+      (evil-define-key 'normal calendar-mode-map
+        "j" 'evil-next-line
+        "k" 'evil-previous-line
+        "n" 'calendar-forward-week
+        "p" 'calendar-backward-week
+        (kbd "<tab>") 'toggle-calendar-view)))
+
   :custom
   (calendar-holidays
    '((holiday-fixed 1 1 "New Year's Day")
@@ -19,14 +30,5 @@
   (calendar-today-visible-hook 'calendar-mark-today)
   (calendar-mode-line-format nil)
 
-  :config
-  (defun m/setup-calendar-evil-bindings ()
-    "Override evil-collection calendar bindings to restore j/k for line movement."
-    (evil-define-key 'normal calendar-mode-map
-      "j" 'evil-next-line
-      "k" 'evil-previous-line
-      "n" 'calendar-forward-week
-      "p" 'calendar-backward-week
-      (kbd "<tab>") 'toggle-calendar-view))
-
-  (add-hook 'calendar-mode-hook #'m/setup-calendar-evil-bindings))
+  :hook
+  (calendar-mode . m/setup-calendar-evil-bindings))

@@ -1,4 +1,8 @@
-(defun popper-close-window-hack (&rest _)
+(use-package popper
+  :ensure t
+
+  :preface
+  (defun popper-close-window-hack (&rest _)
     "Close popper window via `C-g'."
     (when (and (called-interactively-p 'interactive)
                (not (region-active-p))
@@ -6,9 +10,6 @@
       (let ((window (caar popper-open-popup-alist)))
         (when (window-live-p window)
           (delete-window window)))))
-
-(use-package popper
-  :ensure t
 
   :custom
   (popper-reference-buffers

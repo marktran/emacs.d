@@ -1,1 +1,5 @@
-(add-hook 'comint-mode-hook 'turn-on-visual-line-mode)
+(use-package comint
+  :ensure nil
+
+  :hook
+  (comint-mode . visual-line-mode))

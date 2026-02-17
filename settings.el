@@ -4,7 +4,6 @@
       custom-file "~/.emacs.d/custom.el"
       delete-selection-mode 1
       disabled-command-function nil
-      global-auto-revert-non-file-buffers t
       kill-buffer-query-functions (remq 'process-kill-buffer-query-function
                                         kill-buffer-query-functions))
 

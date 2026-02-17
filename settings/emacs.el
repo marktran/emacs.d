@@ -24,13 +24,15 @@
   ;; Do not allow the cursor in the minibuffer prompt.
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
   :custom
   (enable-recursive-minibuffers t)
   ; Hide irrelevant M-x commands
   (read-extended-command-predicate #'command-completion-default-include-p)
   (tab-always-indent 'complete)
+
+  :hook
+  (minibuffer-setup . cursor-intangible-mode)
 
   :config
   (electric-pair-mode 1)

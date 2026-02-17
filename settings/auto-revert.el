@@ -1,6 +1,11 @@
-;; auto refresh buffers
+;; Auto refresh buffers.
 ;; http://whattheemacsd.com//sane-defaults.el-01.html
-(global-auto-revert-mode 1)
+(use-package autorevert
+  :ensure nil
 
-(setq auto-revert-verbose nil
-      global-auto-revert-non-file-buffers t)
+  :custom
+  (auto-revert-verbose nil)
+  (global-auto-revert-non-file-buffers t)
+
+  :config
+  (global-auto-revert-mode 1))

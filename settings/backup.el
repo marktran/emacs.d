@@ -1,5 +1,9 @@
-(if (not (file-exists-p "~/.emacs.d/backups"))
-    (make-directory "~/.emacs.d/backups" t))
+(use-package files
+  :ensure nil
 
-(setq backup-by-copying t
-      backup-directory-alist '(("." . "~/.emacs.d/backups")))
+  :init
+  (make-directory "~/.emacs.d/backups" t)
+
+  :custom
+  (backup-by-copying t)
+  (backup-directory-alist '(("." . "~/.emacs.d/backups"))))

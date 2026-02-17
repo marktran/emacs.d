@@ -27,10 +27,12 @@
   :ensure t
   :after corfu
 
+  :preface
+  (defun m/cape-add-dabbrev ()
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
 
-  ;; Add dabbrev only in prog-mode buffers
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              (add-to-list 'completion-at-point-functions #'cape-dabbrev))))
+  :hook
+  (prog-mode . m/cape-add-dabbrev))

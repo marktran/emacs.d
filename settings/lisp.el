@@ -1,8 +1,4 @@
-(use-package eldoc
-  :ensure nil
-  :diminish eldoc-mode)
-
-(use-package emacs-lisp
+(use-package elisp-mode
   :ensure nil
 
   :hook
@@ -38,8 +34,8 @@
 ;; after
 ;;   (:foo bar
 ;;    :baz qux)
-(eval-after-load "lisp-mode"
-  '(defun lisp-indent-function (indent-point state)
+(with-eval-after-load 'lisp-mode
+  (defun lisp-indent-function (indent-point state)
      "This function is the normal value of the variable `lisp-indent-function'.
 The function `calculate-lisp-indent' calls this to determine
 if the arguments of a Lisp function call should be indented specially.
@@ -108,7 +104,7 @@ Lisp function does not specify a special indentation."
                       (and (null method)
                            (> (length function) 3)
                            (string-match "\\`def" function)))
-                  (lisp-indent-defform state indent-point))
+                 (lisp-indent-defform state indent-point))
                  ((integerp method)
                   (lisp-indent-specform method state
                                         indent-point normal-indent))

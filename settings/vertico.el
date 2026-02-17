@@ -20,9 +20,8 @@
 
 (use-package completion
   :ensure nil
-  :custom
-  (completion-ignored-extensions
-   (nconc completion-ignored-extensions '(".DS_Store"))))
+  :init
+  (add-to-list 'completion-ignored-extensions ".DS_Store"))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
