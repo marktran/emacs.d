@@ -27,7 +27,7 @@
 (load "~/.emacs.d/custom.el" 'noerror)
 
 (load-file "~/.emacs.d/packages.el")
-(mapc 'load (directory-files "~/.emacs.d/definitions" t "^[A-Za-z-]*\\.el"))
+(mapc 'load (directory-files "~/.emacs.d/lisp" t "^[A-Za-z-]*\\.el"))
 (load-file "~/.emacs.d/bindings.el")
 (load-file "~/.emacs.d/settings.el")
 (load-file "~/.emacs.d/interface.el")
