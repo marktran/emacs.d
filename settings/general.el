@@ -8,6 +8,7 @@
  "y" '(consult-yank-pop :which-key "Yank Pop")
  "R" '(consult-recent-file :which-key "Recent files")
  "RET" '(consult-bookmark :which-key "Bookmarks")
+ "a" '(gptel :which-key "AI chat")
  "SPC" '(consult-buffer :which-key "Switch buffer"))
 
 (general-define-key :keymaps 'visual :prefix "SPC"

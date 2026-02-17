@@ -1,10 +1,14 @@
 (use-package gptel
   :ensure t
 
-  :custom
-  (gptel-model 'claude-3-sonnet-20240229)
-
   :config
-  (setq gptel-backend (gptel-make-anthropic "Claude"
-                        :stream t
-                        :key (getenv "ANTHROPIC_API_KEY"))))
+  (gptel-make-openai "OpenAI"
+    :stream t
+    :key #'gptel-api-key-from-auth-source
+    :models (gptel-backend-models (gptel-get-backend "ChatGPT")))
+  (gptel-make-anthropic "Claude"
+    :stream t
+    :key #'gptel-api-key-from-auth-source)
+
+  (setq gptel-backend (gptel-get-backend "OpenAI")
+        gptel-model 'gpt-5.2))
