@@ -185,5 +185,8 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
             (set-dynamic-font (selected-frame))))
 (add-hook 'after-make-frame-functions #'set-dynamic-font)
 
+;; Wayland sleep/resume blur hack is isolated in a dedicated module.
+(load "~/.emacs.d/lisp/hacks/wayland-resume-hack.el" 'noerror)
+
 ; Avoid flash of light
 (avoid-initial-flash-of-light)
