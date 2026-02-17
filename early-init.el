@@ -19,11 +19,18 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 
 (defvar m/font-size-overrides
   '(("Studio Display" . 12)
+    ("ATNA40HQ02" . 10)
     ("eDP" . 10)
     ("Built-in" . 10)
     ("Retina" . 10)
     ("Color LCD" . 10))
   "Monitor name regex overrides for font size.")
+
+(defconst m/default-font-family "Berkeley Mono"
+  "Default font family used during startup.")
+
+(defconst m/default-font-size 10
+  "Default font size used during startup.")
 
 (defvar m/monitor-font-size-cache (make-hash-table :test #'equal)
   "Cache font sizes keyed by monitor identity.")
@@ -150,12 +157,13 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
          (target (or frame nil)))
     (unless (equal (face-attribute 'default :height target) height)
       (set-face-attribute 'default target
-                          :family "Berkeley Mono"
+                          :family m/default-font-family
                           :height height)))) ;; height is in 1/10pt
 
 ;; Set initial frame size and position
 (setq initial-frame-alist
-      '((menu-bar-lines . 0)
+      `((font . ,(format "%s-%d" m/default-font-family m/default-font-size))
+        (menu-bar-lines . 0)
         (tool-bar-lines . 0)
         (vertical-scroll-bars)
         (width . 105)      ;; Number of columns
@@ -168,9 +176,11 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 
 ;; Apply the same settings to subsequent frames
 (setq default-frame-alist initial-frame-alist)
+(set-face-attribute 'default nil
+                    :family m/default-font-family
+                    :height (* m/default-font-size 10))
 
 ;; Apply dynamic font sizing
-(set-dynamic-font)
 (add-hook 'window-setup-hook
           (lambda ()
             (set-dynamic-font (selected-frame))))
