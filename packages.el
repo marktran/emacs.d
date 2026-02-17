@@ -3,4 +3,5 @@
 
 (use-package use-package
   :custom
+  (use-package-always-ensure t)
   (use-package-compute-statistics t))
