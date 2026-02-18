@@ -68,8 +68,10 @@ If FORCE is non-nil, refresh even when signature appears unchanged."
                      (when (frame-live-p frame)
                        (delete-frame frame t))
                      (when (frame-live-p origin-frame)
-                       (select-frame-set-input-focus origin-frame)))
-                   temp origin))))
+                       (select-frame-set-input-focus origin-frame)
+                       (m/refresh-frame-display-state origin-frame t)))
+                   temp origin)
+      t)))
 
 (defun m/replace-selected-frame ()
   "Replace selected GUI frame with a newly created one, preserving window state."
@@ -142,8 +144,8 @@ Some setups pass only the boolean, others include extra metadata."
           (cancel-timer m/recovery-focus-timer)
           (setq m/recovery-focus-timer nil))
         ;; Retry because compositor/output state can settle in phases post-resume.
-        (run-at-time 1.4 nil #'m/recover-wayland-after-resume)
-        (run-at-time 2.6 nil #'m/recover-wayland-after-resume)))))
+        (run-at-time 1.4 nil #'m/run-pending-resume-recovery)
+        (run-at-time 2.6 nil #'m/run-pending-resume-recovery)))))
 
 (defun m/install-resume-refresh-hook ()
   "Install logind DBus resume refresh hook when available."
