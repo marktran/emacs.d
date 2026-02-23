@@ -18,6 +18,7 @@
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Compile-Log\\*$"
      calendar-mode
+     weather-mode
      help-mode
      "^\\*Messages\\*$"
      "^\\*Warnings\\*$"))
@@ -33,6 +34,8 @@
              win
              (if (boundp 'calendar-row-height) (+ calendar-row-height 2) 12)
              8)))
+         ('weather-mode
+          (fit-window-to-buffer win 12 8))
          (_
           (let ((height (floor (* (frame-height) 0.40))))
             (fit-window-to-buffer win height height)))))))
