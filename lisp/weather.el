@@ -74,11 +74,27 @@
 (defvar weather--icon-cache nil
   "Hash table of icon-name -> image descriptor.")
 
-(defun weather--icon-cache ()
+(defun weather--ensure-icon-cache ()
   "Return the icon cache hash table, creating it if needed."
   (unless (hash-table-p weather--icon-cache)
     (setq weather--icon-cache (make-hash-table :test 'equal)))
   weather--icon-cache)
+
+(defun weather--forecast-cache-valid-p ()
+  "Return non-nil when `weather--forecast-cache' can be reused."
+  (and (numberp weather-cache-duration)
+       (> weather-cache-duration 0)
+       (plist-get weather--forecast-cache :data)
+       (equal (plist-get weather--forecast-cache :location) weather-location)
+       (equal (plist-get weather--forecast-cache :units) weather-units)
+       (let ((cached-at (plist-get weather--forecast-cache :time)))
+         (and (numberp cached-at)
+              (< (- (float-time) cached-at) weather-cache-duration)))))
+
+(defun weather--cached-forecast-data ()
+  "Return cached forecast data when available and still valid."
+  (when (weather--forecast-cache-valid-p)
+    (plist-get weather--forecast-cache :data)))
 
 ;;; Layout constants
 
@@ -160,7 +176,7 @@ ICON-NAME corresponds to OpenWeatherMap icon codes.")
 
 (defun weather--fetch-icon (icon-name col)
   "Fetch icon for ICON-NAME and place it at column COL in the weather buffer."
-  (let ((cached (gethash icon-name (weather--icon-cache))))
+  (let ((cached (gethash icon-name (weather--ensure-icon-cache))))
     (if cached
         (weather--place-icon cached col)
       (url-retrieve
@@ -173,7 +189,7 @@ ICON-NAME corresponds to OpenWeatherMap icon codes.")
                   (img (create-image raw 'png t :width icon-px :ascent 'center)))
              (kill-buffer)
              (when img
-               (puthash icon-name img (weather--icon-cache))
+               (puthash icon-name img (weather--ensure-icon-cache))
                (weather--place-icon img col)))))
        nil t t))))
 
@@ -247,36 +263,58 @@ Uses cache when available."
 
 ;;; Forecast fetching
 
+(defun weather--fahrenheit-p ()
+  "Return non-nil when weather output is configured in Fahrenheit."
+  (string= weather-units "fahrenheit"))
+
+(defun weather--temperature-unit-char ()
+  "Return the unit character used in rendered temperatures."
+  (if (weather--fahrenheit-p) "F" "C"))
+
+(defun weather--wind-speed-unit ()
+  "Return the wind speed unit label."
+  (if (weather--fahrenheit-p) "mph" "km/h"))
+
+(defun weather--temperature-unit-query-param ()
+  "Return the Open-Meteo query fragment for configured temperature units."
+  (if (weather--fahrenheit-p) "&temperature_unit=fahrenheit" ""))
+
+(defun weather--forecast-url (lat lon)
+  "Return Open-Meteo forecast URL for LAT and LON."
+  (format (concat "https://api.open-meteo.com/v1/forecast?"
+                  "latitude=%s&longitude=%s"
+                  "&current=temperature_2m,weathercode"
+                  "&daily=temperature_2m_max,temperature_2m_min,"
+                  "precipitation_sum,weathercode,windspeed_10m_max"
+                  "&forecast_days=5&timezone=auto%s")
+          lat lon (weather--temperature-unit-query-param)))
+
+(defun weather--parse-forecast-data (data)
+  "Return (CURRENT . DAILY) forecast data extracted from API DATA."
+  (when-let ((daily (and data (cdr (assoc 'daily data)))))
+    (cons (cdr (assoc 'current data)) daily)))
+
+(defun weather--cache-forecast-data (forecast)
+  "Store FORECAST in the forecast cache for current location and units."
+  (setq weather--forecast-cache
+        (list :data forecast
+              :time (float-time)
+              :location weather-location
+              :units weather-units)))
+
 (defun weather--fetch-forecast (lat lon callback)
   "Fetch 5-day forecast for LAT/LON, calling CALLBACK with (current . daily) data."
-  (let ((temp-unit (if (string= weather-units "fahrenheit") "&temperature_unit=fahrenheit" "")))
-    (weather--url-retrieve
-     (format (concat "https://api.open-meteo.com/v1/forecast?"
-                     "latitude=%s&longitude=%s"
-                     "&current=temperature_2m,weathercode"
-                     "&daily=temperature_2m_max,temperature_2m_min,"
-                     "precipitation_sum,weathercode,windspeed_10m_max"
-                     "&forecast_days=5&timezone=auto%s")
-             lat lon temp-unit)
-     (lambda (data)
-       (if-let ((daily (and data (cdr (assoc 'daily data)))))
-           (let ((current (cdr (assoc 'current data))))
-             (setq weather--forecast-cache
-                   (list :data (cons current daily)
-                         :time (float-time)
-                         :location weather-location
-                         :units weather-units))
-             (funcall callback (cons current daily)))
-         (message "Weather: no forecast data returned")
-         (funcall callback nil))))))
+  (weather--url-retrieve
+   (weather--forecast-url lat lon)
+   (lambda (data)
+     (if-let ((forecast (weather--parse-forecast-data data)))
+         (progn
+           (weather--cache-forecast-data forecast)
+           (funcall callback forecast))
+       (message "Weather: no forecast data returned")
+       (funcall callback nil)))))
 
 ;;; Rendering
-
-(defun weather--pad-center (str width)
-  "Center STR within WIDTH characters."
-  (let* ((len (string-width str))
-         (pad (max 0 (/ (- width len) 2))))
-    (concat (make-string pad ?\s) str)))
 
 (defun weather--pad-to (str width)
   "Center STR in exactly WIDTH characters, padding both sides."
@@ -298,90 +336,111 @@ Uses cache when available."
           (insert padded)))))
   (insert "\n"))
 
-(defun weather--render (data)
-  "Render DATA ((current . daily) cons) into the weather buffer."
-  (let* ((current (car data))
-         (daily (cdr data))
-         (cur-temp (cdr (assoc 'temperature_2m current)))
-         (cur-code (cdr (assoc 'weathercode current)))
-         (dates (cdr (assoc 'time daily)))
+(defun weather--row-has-content-p (strings)
+  "Return non-nil if STRINGS has at least one non-empty string."
+  (cl-some (lambda (s) (not (string-empty-p s))) strings))
+
+(defun weather--column-values (columns key)
+  "Return values for KEY from each plist in COLUMNS."
+  (mapcar (lambda (column) (plist-get column key)) columns))
+
+(defun weather--icon-placeholders (count)
+  "Return COUNT fixed-width icon placeholders."
+  (cl-loop for i below count
+           collect (weather--icon-placeholder i)))
+
+(defun weather--format-current-summary (current)
+  "Return formatted summary string for CURRENT weather alist."
+  (let ((cur-temp (cdr (assoc 'temperature_2m current)))
+        (cur-code (cdr (assoc 'weathercode current))))
+    (when cur-temp
+      (format "  %d°%s %s"
+              (round cur-temp)
+              (weather--temperature-unit-char)
+              (nth 1 (weather--wmo-lookup cur-code))))))
+
+(defun weather--build-daily-columns (daily)
+  "Return per-day column plist data built from DAILY forecast alist."
+  (let* ((dates (cdr (assoc 'time daily)))
          (highs (cdr (assoc 'temperature_2m_max daily)))
          (lows (cdr (assoc 'temperature_2m_min daily)))
          (precip (cdr (assoc 'precipitation_sum daily)))
          (codes (cdr (assoc 'weathercode daily)))
          (winds (cdr (assoc 'windspeed_10m_max daily)))
-         (unit-char (if (string= weather-units "fahrenheit") "F" "C"))
-         (wind-unit (if (string= weather-units "fahrenheit") "mph" "km/h"))
-         (day-headers '())
-         (icon-names '())
-         (descs '())
-         (high-strs '())
-         (low-strs '())
-         (precip-strs '())
-         (wind-strs '()))
-    ;; Build column data
-    (dotimes (i (length dates))
-      (let* ((date-str (aref dates i))
-             (time (date-to-time (concat date-str "T00:00:00")))
-             (day-name (format-time-string "%a" time))
-             (date-short (format-time-string "%m/%d" time))
-             (wmo (weather--wmo-lookup (aref codes i))))
-        (push (format "%s %s" day-name date-short) day-headers)
-        (push (nth 0 wmo) icon-names)
-        (push (nth 1 wmo) descs)
-        (push (format "H: %d°%s" (round (aref highs i)) unit-char) high-strs)
-        (push (format "L: %d°%s" (round (aref lows i)) unit-char) low-strs)
-        (let ((p (aref precip i))
-              (w (round (aref winds i))))
-          (push (if (> p 0) (format "%.1fmm" p) "") precip-strs)
-          (push (if (>= w 20) (format "%d %s" w wind-unit) "") wind-strs))))
-    (setq day-headers (nreverse day-headers)
-          icon-names (nreverse icon-names)
-          descs (nreverse descs)
-          high-strs (nreverse high-strs)
-          low-strs (nreverse low-strs)
-          precip-strs (nreverse precip-strs)
-          wind-strs (nreverse wind-strs))
-    ;; Only include rows if any day has data
-    (unless (cl-some (lambda (s) (not (string-empty-p s))) precip-strs)
-      (setq precip-strs nil))
-    (unless (cl-some (lambda (s) (not (string-empty-p s))) wind-strs)
-      (setq wind-strs nil))
-    ;; Render buffer
+         (unit-char (weather--temperature-unit-char))
+         (wind-unit (weather--wind-speed-unit)))
+    (cl-loop for i below (length dates)
+             for date-str = (aref dates i)
+             for time = (date-to-time (concat date-str "T00:00:00"))
+             for wmo = (weather--wmo-lookup (aref codes i))
+             for precip-amount = (aref precip i)
+             for wind-speed = (round (aref winds i))
+             collect
+             (list :day-header (format "%s %s"
+                                       (format-time-string "%a" time)
+                                       (format-time-string "%m/%d" time))
+                   :icon-name (nth 0 wmo)
+                   :description (nth 1 wmo)
+                   :high (format "H: %d°%s" (round (aref highs i)) unit-char)
+                   :low (format "L: %d°%s" (round (aref lows i)) unit-char)
+                   :precipitation (if (> precip-amount 0)
+                                      (format "%.1fmm" precip-amount)
+                                    "")
+                   :wind (if (>= wind-speed 20)
+                             (format "%d %s" wind-speed wind-unit)
+                           "")))))
+
+(defun weather--build-row-specs (columns)
+  "Return visible row specs for rendered COLUMNS data."
+  (let* ((icon-names (weather--column-values columns :icon-name))
+         (rows (list
+                (list :strings (weather--column-values columns :day-header)
+                      :face 'weather-day-header)
+                (list :strings (weather--icon-placeholders (length icon-names)))
+                (list :strings (weather--column-values columns :description))
+                (list :strings (weather--column-values columns :high)
+                      :face 'weather-temp-high)
+                (list :strings (weather--column-values columns :low)
+                      :face 'weather-temp-low)
+                (list :strings (weather--column-values columns :precipitation)
+                      :face 'weather-precipitation
+                      :optional t)
+                (list :strings (weather--column-values columns :wind)
+                      :optional t))))
+    (cl-remove-if
+     (lambda (row)
+       (and (plist-get row :optional)
+            (not (weather--row-has-content-p (plist-get row :strings)))))
+     rows)))
+
+(defun weather--insert-rows (rows)
+  "Insert ROWS, where each row is a plist with :strings and optional :face."
+  (dolist (row rows)
+    (weather--insert-row (plist-get row :strings)
+                         (plist-get row :face))))
+
+(defun weather--render (data)
+  "Render DATA ((current . daily) cons) into the weather buffer."
+  (let* ((current (car data))
+         (daily (cdr data))
+         (columns (weather--build-daily-columns daily))
+         (icon-names (weather--column-values columns :icon-name))
+         (rows (weather--build-row-specs columns))
+         (current-summary (weather--format-current-summary current)))
     (let ((buf (get-buffer-create weather-buffer-name)))
       (with-current-buffer buf
         (let ((inhibit-read-only t))
           (erase-buffer)
           (weather-mode)
-          ;; Title
-          (insert (propertize (format "  %s" weather-location) 'face 'weather-day-header))
-          (when cur-temp
-            (insert (format "  %d°%s %s"
-                            (round cur-temp) unit-char
-                            (nth 1 (weather--wmo-lookup cur-code)))))
+          (insert (propertize (format "  %s" weather-location)
+                              'face 'weather-day-header))
+          (when current-summary
+            (insert current-summary))
           (insert "\n\n")
-          ;; Day headers
-          (weather--insert-row day-headers 'weather-day-header)
-          ;; Icon placeholders
-          (weather--insert-row
-           (cl-loop for i below (length icon-names)
-                    collect (weather--icon-placeholder i)))
-          ;; Descriptions
-          (weather--insert-row descs)
-          ;; High temps
-          (weather--insert-row high-strs 'weather-temp-high)
-          ;; Low temps
-          (weather--insert-row low-strs 'weather-temp-low)
-          ;; Precipitation (only if any day has rain)
-          (when precip-strs
-            (weather--insert-row precip-strs 'weather-precipitation))
-          ;; Wind (only if any day is particularly windy)
-          (when wind-strs
-            (weather--insert-row wind-strs))
+          (weather--insert-rows rows)
           (goto-char (point-min))
           (set-buffer-modified-p nil)))
       (pop-to-buffer buf)
-      ;; Fetch icons async
       (weather--fetch-icons icon-names))))
 
 ;;; Mode definition
@@ -395,20 +454,26 @@ Uses cache when available."
 ;;; Entry point
 
 ;;;###autoload
-(defun weather ()
-  "Display a 5-day weather forecast for `weather-location'."
-  (interactive)
-  (setq weather--forecast-cache nil)
-  (message "Weather: fetching forecast for %s..." weather-location)
-  (weather--geocode
-   weather-location
-   (lambda (coords)
-     (when coords
-       (weather--fetch-forecast
-        (car coords) (cdr coords)
-        (lambda (daily)
-          (when daily
-            (weather--render daily))))))))
+(defun weather (&optional force-refresh)
+  "Display a 5-day weather forecast for `weather-location'.
+
+With prefix argument FORCE-REFRESH, ignore cached forecast data."
+  (interactive "P")
+  (if-let ((cached-data (and (not force-refresh)
+                             (weather--cached-forecast-data))))
+      (progn
+        (message "Weather: using cached forecast for %s..." weather-location)
+        (weather--render cached-data))
+    (message "Weather: fetching forecast for %s..." weather-location)
+    (weather--geocode
+     weather-location
+     (lambda (coords)
+       (when coords
+         (weather--fetch-forecast
+          (car coords) (cdr coords)
+          (lambda (daily)
+            (when daily
+              (weather--render daily)))))))))
 
 (provide 'weather)
 ;;; weather.el ends here
