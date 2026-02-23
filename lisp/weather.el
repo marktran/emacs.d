@@ -279,6 +279,10 @@ Uses cache when available."
   "Return the Open-Meteo query fragment for configured temperature units."
   (if (weather--fahrenheit-p) "&temperature_unit=fahrenheit" ""))
 
+(defun weather--wind-speed-unit-query-param ()
+  "Return the Open-Meteo query fragment for configured wind speed units."
+  (if (weather--fahrenheit-p) "&wind_speed_unit=mph" "&wind_speed_unit=kmh"))
+
 (defun weather--forecast-url (lat lon)
   "Return Open-Meteo forecast URL for LAT and LON."
   (format (concat "https://api.open-meteo.com/v1/forecast?"
@@ -286,8 +290,10 @@ Uses cache when available."
                   "&current=temperature_2m,weathercode"
                   "&daily=temperature_2m_max,temperature_2m_min,"
                   "precipitation_sum,weathercode,windspeed_10m_max"
-                  "&forecast_days=5&timezone=auto%s")
-          lat lon (weather--temperature-unit-query-param)))
+                  "&forecast_days=5&timezone=auto%s%s")
+          lat lon
+          (weather--temperature-unit-query-param)
+          (weather--wind-speed-unit-query-param)))
 
 (defun weather--parse-forecast-data (data)
   "Return (CURRENT . DAILY) forecast data extracted from API DATA."
