@@ -17,18 +17,18 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
   (add-hook 'after-make-frame-functions #'re-enable-frame-theme))
 
 (defvar m/font-size-overrides
-  '(("Studio Display" . 12)
+  '(("Studio.?Display" . 14)
     ("ATNA40HQ02" . 10)
     ("eDP" . 10)
-    ("Built-in" . 10)
-    ("Retina" . 10)
-    ("Color LCD" . 10))
+    ("Built-in" . 14)
+    ("Retina" . 14)
+    ("Color LCD" . 14))
   "Monitor name regex overrides for font size.")
 
 (defconst m/default-font-family "Berkeley Mono"
   "Default font family used during startup.")
 
-(defconst m/default-font-size 10
+(defconst m/default-font-size 14
   "Default font size used during startup.")
 
 (defvar m/monitor-font-size-cache (make-hash-table :test #'equal)
@@ -108,33 +108,38 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 
 (defun calculate-font-size (&optional frame)
   "Calculate appropriate font size based on display characteristics."
-  (pcase-let* ((`(,display-width . ,dpi) (m/monitor-width-and-dpi frame))
-               (name (m/monitor-name frame))
-               (mm-width (m/monitor-mm-width frame))
-               (override (m/font-size-override-for-monitor name)))
+  (let* ((name (m/monitor-name frame))
+         (override (m/font-size-override-for-monitor name)))
     (cond
      ;; Explicit monitor overrides by name.
      (override
       override)
-     ;; Small laptop panels.
-     ((and (numberp mm-width) (> mm-width 0) (<= mm-width 320))
-      10)
-     ;; Large external monitors.
-     ((and (numberp mm-width) (>= mm-width 500))
-      12)
-     ;; High DPI displays.
-     ((and dpi (>= dpi 170))
-      10)
-     ;; Medium DPI displays.
-     ((and dpi (>= dpi 120))
-      12)
-     ;; Fallbacks when DPI is unavailable (common early in Wayland startup).
-     ((and (null dpi) display-width (>= display-width 2560))
-      10)
-     ((and (null dpi) display-width (>= display-width 1920))
-      12)
-     ;; Lower resolution displays
-     (t 12))))
+     ;; macOS can report no monitor name/EDID; keep base font stable there.
+     ((featurep 'ns)
+      m/default-font-size)
+     (t
+      (pcase-let* ((`(,display-width . ,dpi) (m/monitor-width-and-dpi frame))
+                   (mm-width (m/monitor-mm-width frame)))
+        (cond
+         ;; Small laptop panels.
+         ((and (numberp mm-width) (> mm-width 0) (<= mm-width 320))
+          m/default-font-size)
+         ;; Large external monitors.
+         ((and (numberp mm-width) (>= mm-width 500))
+          12)
+         ;; High DPI displays.
+         ((and dpi (>= dpi 170))
+          m/default-font-size)
+         ;; Medium DPI displays.
+         ((and dpi (>= dpi 120))
+          12)
+         ;; Fallbacks when DPI is unavailable (common early in Wayland startup).
+         ((and (null dpi) display-width (>= display-width 2560))
+          m/default-font-size)
+         ((and (null dpi) display-width (>= display-width 1920))
+          12)
+         ;; Lower resolution displays
+         (t 12)))))))
 
 (defun m/frame-font-size (&optional frame)
   "Return a stable font size for FRAME's monitor."
