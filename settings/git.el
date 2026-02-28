@@ -56,6 +56,5 @@
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-popup-sequence-mode 'emacs)
   (evil-set-initial-state 'magit-refs-mode 'emacs)
-  (evil-set-initial-state 'magit-revision-mode 'emacs)
 
   (add-to-list 'magit-no-confirm 'stage-all-changes))
