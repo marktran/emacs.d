@@ -5,7 +5,8 @@
   (javascript-ts-mode-indent-offset 2)
 
   :hook
-  (javascript-ts-mode . add-node-modules-path))
+  ((javascript-ts-mode . add-node-modules-path)
+   (javascript-ts-mode . oxfmt-on-save-mode)))
 
 (use-package typescript-ts-mode
   :ensure nil
@@ -14,21 +15,22 @@
   (typescript-ts-mode-indent-offset 2)
 
   :hook
-  (typescript-ts-mode . add-node-modules-path)
+  ((typescript-ts-mode . add-node-modules-path)
+   (typescript-ts-mode . oxfmt-on-save-mode))
 
   :general
   (:keymaps 'typescript-ts-mode-map
    :states 'normal
    :prefix "SPC"
-   "b f" '(prettier-js :which-key "Format")))
+   "b f" '(oxfmt-buffer :which-key "Format")))
 
-(use-package prettier
-  :ensure t
+(use-package reformatter
+  :ensure t)
 
-  :hook
-  ((javascript-ts-mode . prettier-mode)
-   (typescript-ts-mode . prettier-mode)))
-
+(reformatter-define oxfmt
+  :program "oxfmt"
+  :args (list "--stdin-filepath" input-file)
+  :input-file (reformatter-temp-file))
 
 (use-package add-node-modules-path
   :ensure t)
