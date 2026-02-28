@@ -2,4 +2,7 @@
   :ensure nil
 
   :init
-  (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
+  (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
+
+  :custom
+  (flymake-indicator-type nil))
