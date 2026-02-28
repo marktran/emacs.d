@@ -3,7 +3,7 @@
 
   :custom
   (treesit-auto-install t)
-  (treesit-auto-langs '(html javascript json tsx typescript yaml))
+  (treesit-auto-langs '(html javascript tsx typescript yaml))
 
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
