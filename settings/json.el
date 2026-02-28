@@ -1,18 +1,11 @@
-(use-package apheleia
+(use-package flymake-collection
   :ensure t
-  :diminish apheleia-mode
-  :commands (apheleia-mode apheleia-format-buffer)
+  :commands flymake-collection-jq)
 
-  :hook
-  ((json-ts-mode . apheleia-mode)
-   (json-mode . apheleia-mode))
-
-  :config
-  ;; Force 2-space JSON formatting regardless of mode-specific indent vars.
-  (setf (alist-get 'jq-json apheleia-formatters)
-        '("jq" "-M" "--indent" "2" "."))
-  (setf (alist-get 'json-ts-mode apheleia-mode-alist) 'jq-json
-        (alist-get 'json-mode apheleia-mode-alist) 'jq-json))
+(defun m/json-enable-flymake-jq ()
+  "Enable Flymake diagnostics for JSON using jq backend."
+  (add-hook 'flymake-diagnostic-functions #'flymake-collection-jq nil t)
+  (flymake-mode 1))
 
 (use-package json-ts-mode
   :ensure nil
@@ -21,7 +14,9 @@
   (json-ts-mode-indent-offset 2)
 
   :hook
-  (json-ts-mode . flymake-mode)
+  (((json-ts-mode json-mode) . add-node-modules-path)
+   ((json-ts-mode json-mode) . m/json-enable-flymake-jq)
+   ((json-ts-mode json-mode) . apheleia-mode))
 
   :general
   (:keymaps 'json-ts-mode-map
@@ -36,8 +31,7 @@
   (json-reformat:indent-width 2)
 
   :hook
-  ((json-mode . flymake-mode)
-   (json-mode . (lambda () (setq-local js-indent-level 2))))
+  (json-mode . (lambda () (setq-local js-indent-level 2)))
 
   :general
   (:keymaps 'json-mode-map
