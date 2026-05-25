@@ -7,6 +7,7 @@
  '(inhibit-startup-echo-area-message "mark")
  '(inhibit-startup-screen t)
  '(package-selected-packages nil)
+ '(spacious-padding-subtle-frame-lines (when (getenv "EMACS_WRITING_MODE") t) nil nil "Customized with use-package spacious-padding")
  '(warning-suppress-log-types '((treesit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
