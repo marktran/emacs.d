@@ -14,7 +14,7 @@
   :custom
   (popper-reference-buffers
    '("^\\*Backtrace\\*$" backtrace-mode
-     "^\\*eat\\*$" eat-mode
+     "^\\*ghostel\\*$" ghostel-mode
      "^\\*eshell.*\\*$" eshell-mode
      "^\\*Compile-Log\\*$"
      calendar-mode

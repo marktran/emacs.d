@@ -1,8 +1,8 @@
-(defun project-eat-shell ()
-  "Open an `eat-mode` shell in the project root directory."
+(defun project-ghostel-shell ()
+  "Open a `ghostel-mode` terminal in the project root directory."
   (interactive)
   (let ((default-directory (project-root (project-current t))))
-    (eat)))
+    (ghostel)))
 
 (use-package project
   :ensure nil)
@@ -11,4 +11,4 @@
   :ensure t
 
   :custom
-  (disproject-shell-command 'project-eat-shell))
+  (disproject-shell-command 'project-ghostel-shell))
