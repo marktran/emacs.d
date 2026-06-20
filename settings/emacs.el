@@ -27,9 +27,12 @@
 
   :custom
   (enable-recursive-minibuffers t)
+  (inhibit-startup-screen t)
+  (inhibit-startup-echo-area-message "mark")
   ; Hide irrelevant M-x commands
   (read-extended-command-predicate #'command-completion-default-include-p)
   (tab-always-indent 'complete)
+  (warning-suppress-log-types '((treesit)))
 
   :hook
   (minibuffer-setup . cursor-intangible-mode)

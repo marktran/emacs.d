@@ -46,6 +46,7 @@
                                :scroll-bar-width 8
                                :fringe-width 8))
   (spacious-padding-subtle-mode-line (when (getenv "EMACS_WRITING_MODE") t))
+  (spacious-padding-subtle-frame-lines (when (getenv "EMACS_WRITING_MODE") t))
 
   :config
   (spacious-padding-mode))
