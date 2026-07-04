@@ -59,6 +59,7 @@
   (evil-collection-init 'eshell)
   (evil-collection-init 'help)
   (evil-collection-init 'info)
+  (evil-collection-init 'org-agenda)
   (evil-collection-init 'magit))
 
 (use-package evil-iedit-state
