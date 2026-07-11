@@ -50,9 +50,8 @@
         elfeed-show-refresh-function #'m/elfeed-show-refresh)
 
   :custom
-  (elfeed-feeds
-   '(("https://sive.rs/articles.xml" :title "Derek Sivers" derek-sivers)
-     ("https://boz.com/rss.xml" :title "Andrew Bosworth" andrew-bosworth)))
+  (elfeed-feeds '("feedbin:"))
+  (elfeed-search-filter "+unread")
   (elfeed-search-sort-order 'descending)
 
   :hook
@@ -60,4 +59,8 @@
    (elfeed-show-mode . m/elfeed-show-use-default-font))
 
   :general
-  ("SPC r" '(elfeed :which-key "RSS reader")))
+  ("SPC r" '(elfeed :which-key "RSS reader"))
+
+  :config
+  (load-file "~/.emacs.d/lib/elfeed-feedbin.el")
+  (elfeed-feedbin-enable))
