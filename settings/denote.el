@@ -4,8 +4,27 @@
   :config
   (consult-denote-mode))
 
+(defun m/consult-notes-denote-display-keywords-right (keywords)
+  "Display Denote KEYWORDS against the right edge of the minibuffer."
+  (if keywords
+      (let* ((text (concat consult-notes-denote-display-keywords-indicator
+                           (mapconcat #'identity keywords " ")))
+             (offset (1+ (string-width text))))
+        (concat (propertize " " 'display
+                            `(space :align-to (- right ,offset)))
+                text))
+    ""))
+
 (use-package consult-notes
   :ensure t
+
+  :custom
+  (consult-notes-denote-title-margin 2)
+  (consult-notes-denote-display-keywords-width 32)
+  (consult-notes-denote-display-keywords-function
+   #'m/consult-notes-denote-display-keywords-right)
+  (consult-notes-denote-dir nil)
+  (consult-notes-denote-annotate-function #'ignore)
 
   :custom-face
   (consult-notes-name ((t (:inherit marginalia-file-priv-rare))))
