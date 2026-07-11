@@ -3,26 +3,44 @@
   :commands elfeed
 
   :preface
-  (defconst m/elfeed-search-buffer-name "Elfeed"
+  (defconst m/elfeed-search-buffer-name "List"
     "Name of the Elfeed search buffer.")
 
-  (defun m/elfeed-search-buffer (_orig)
-    "Return the Elfeed search buffer using its configured name."
-    (get-buffer-create m/elfeed-search-buffer-name))
+  (defconst m/elfeed-show-buffer-name "View"
+    "Name of the Elfeed entry buffer.")
 
-  (defun m/elfeed-search-update (_orig &optional method)
-    "Update the Elfeed search buffer, looking it up by configured name."
-    (when elfeed-search--update-timer
-      (cancel-timer elfeed-search--update-timer)
-      (setq elfeed-search--update-timer nil))
-    (when-let* ((buffer (get-buffer m/elfeed-search-buffer-name)))
-      (if method
-          (elfeed-search--update-immediately
-           buffer (if (keywordp method) method :force))
-        (setf elfeed-search--update-timer
-              (run-at-time elfeed-search-update-delay nil
-                           #'elfeed-search--update-immediately
-                           buffer)))))
+  (defun m/elfeed-search-buffer (orig)
+    "Return Elfeed's search buffer, renamed for display."
+    (or (get-buffer m/elfeed-search-buffer-name)
+        (let ((buffer (funcall orig)))
+          (with-current-buffer buffer
+            (rename-buffer m/elfeed-search-buffer-name))
+          buffer)))
+
+  (defun m/elfeed-search-update (orig &rest args)
+    "Run ORIG against the renamed Elfeed search buffer with ARGS."
+    (if-let* ((buffer (get-buffer m/elfeed-search-buffer-name)))
+        (unwind-protect
+            (progn
+              ;; `elfeed-search-update' looks up this internal name directly.
+              (with-current-buffer buffer
+                (rename-buffer "*elfeed-search*"))
+              (apply orig args))
+          (when (buffer-live-p buffer)
+            (with-current-buffer buffer
+              (rename-buffer m/elfeed-search-buffer-name))))
+      (apply orig args)))
+
+  (defun m/elfeed-show-buffer-name (orig entry)
+    "Return Elfeed's show buffer name for ENTRY, replacing the default."
+    (let ((name (funcall orig entry)))
+      (if (not (equal name "*elfeed-entry*"))
+          name
+        (unless (get-buffer m/elfeed-show-buffer-name)
+          (when-let* ((buffer (get-buffer name)))
+            (with-current-buffer buffer
+              (rename-buffer m/elfeed-show-buffer-name))))
+        m/elfeed-show-buffer-name)))
 
   (defun m/elfeed-search-print-entry (entry)
     "Print ENTRY as title and feed."
@@ -66,6 +84,10 @@
     "Render entry content using the default fixed-pitch font."
     (setq-local shr-use-fonts nil))
 
+  (defun m/elfeed-set-mode-name ()
+    "Display the current Elfeed major mode as Elfeed."
+    (setq-local mode-name "Elfeed"))
+
   :init
   (setq elfeed-search-print-entry-function #'m/elfeed-search-print-entry
         elfeed-show-refresh-function #'m/elfeed-show-refresh)
@@ -77,7 +99,9 @@
 
   :hook
   ((elfeed-search-mode . m/elfeed-search-restore-leader)
-   (elfeed-show-mode . m/elfeed-show-use-default-font))
+   (elfeed-search-mode . m/elfeed-set-mode-name)
+   (elfeed-show-mode . m/elfeed-show-use-default-font)
+   (elfeed-show-mode . m/elfeed-set-mode-name))
 
   :general
   ("SPC r" '(elfeed :which-key "RSS reader"))
@@ -85,5 +109,6 @@
   :config
   (advice-add 'elfeed-search-buffer :around #'m/elfeed-search-buffer)
   (advice-add 'elfeed-search-update :around #'m/elfeed-search-update)
+  (advice-add 'elfeed-show--buffer-name :around #'m/elfeed-show-buffer-name)
   (load-file "~/.emacs.d/lib/elfeed-feedbin.el")
   (elfeed-feedbin-enable))
