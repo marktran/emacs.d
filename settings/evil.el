@@ -55,6 +55,7 @@
   (evil-collection-init 'dired)
   (evil-collection-init 'ediff)
   (evil-collection-init 'eglot)
+  (evil-collection-init 'elfeed)
   (evil-collection-init 'embark)
   (evil-collection-init 'eshell)
   (evil-collection-init 'help)
