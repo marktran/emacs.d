@@ -1,6 +1,7 @@
 ;;; weather.el --- 5-day weather forecast via Open-Meteo -*- lexical-binding: t; -*-
 
 (require 'url)
+(require 'url-http)
 (require 'json)
 (require 'cl-lib)
 
@@ -11,9 +12,10 @@
   :group 'applications
   :prefix "weather-")
 
-(defcustom weather-location "Portland"
-  "City name for weather forecasts."
-  :type 'string
+(defcustom weather-location nil
+  "City name for weather forecasts, or nil to detect it from the public IP."
+  :type '(choice (const :tag "Automatic (IP-based)" nil)
+                 (string :tag "City"))
   :group 'weather)
 
 (defcustom weather-units "fahrenheit"
@@ -69,7 +71,10 @@
   "Alist of (CITY . (LAT . LON)) cached geocode results.")
 
 (defvar weather--forecast-cache nil
-  "Plist (:data DATA :time TIME :location LOC :units UNITS) of cached forecast.")
+  "Plist containing cached forecast data and its request metadata.")
+
+(defvar weather--display-location nil
+  "Resolved location name displayed with the current forecast.")
 
 (defvar weather--icon-cache nil
   "Hash table of icon-name -> image descriptor.")
@@ -94,6 +99,8 @@
 (defun weather--cached-forecast-data ()
   "Return cached forecast data when available and still valid."
   (when (weather--forecast-cache-valid-p)
+    (setq weather--display-location
+          (plist-get weather--forecast-cache :display-location))
     (plist-get weather--forecast-cache :data)))
 
 ;;; Layout constants
@@ -240,6 +247,40 @@ CALLBACK receives one argument: the parsed JSON object, or nil on error."
 
 ;;; Geocoding
 
+(defun weather--wttr-first-value (area key)
+  "Return the first nested value for KEY in a wttr.in AREA object."
+  (when-let* ((values (cdr (assoc key area)))
+              ((> (length values) 0)))
+    (cdr (assoc 'value (aref values 0)))))
+
+(defun weather--parse-ip-location (data)
+  "Return a location plist parsed from wttr.in JSON DATA."
+  (when-let* ((areas (and data (cdr (assoc 'nearest_area data))))
+              ((> (length areas) 0))
+              (area (aref areas 0))
+              (label (weather--wttr-first-value area 'areaName))
+              (lat-value (cdr (assoc 'latitude area)))
+              (lon-value (cdr (assoc 'longitude area))))
+    (list :label label
+          :latitude (if (stringp lat-value)
+                        (string-to-number lat-value)
+                      lat-value)
+          :longitude (if (stringp lon-value)
+                         (string-to-number lon-value)
+                       lon-value))))
+
+(defun weather--geolocate-by-ip (callback)
+  "Detect the public IP's approximate location and call CALLBACK with it."
+  ;; wttr.in rejects the HTTP/1.1 request produced by Emacs's URL library.
+  (let ((url-http-version "1.0"))
+    (weather--url-retrieve
+     "https://wttr.in/?format=j1"
+     (lambda (data)
+       (if-let ((location (weather--parse-ip-location data)))
+           (funcall callback location)
+         (message "Weather: could not detect location from public IP")
+         (funcall callback nil))))))
+
 (defun weather--geocode (city callback)
   "Geocode CITY to (LAT . LON), calling CALLBACK with the result.
 Uses cache when available."
@@ -260,6 +301,20 @@ Uses cache when available."
                (funcall callback (cons lat lon)))
            (message "Weather: could not geocode \"%s\"" city)
            (funcall callback nil)))))))
+
+(defun weather--resolve-location (location callback)
+  "Resolve LOCATION and call CALLBACK with a location plist.
+When LOCATION is nil, detect the approximate location from the public IP."
+  (if (and (stringp location) (not (string-empty-p location)))
+      (weather--geocode
+       location
+       (lambda (coords)
+         (funcall callback
+                  (when coords
+                    (list :label location
+                          :latitude (car coords)
+                          :longitude (cdr coords))))))
+    (weather--geolocate-by-ip callback)))
 
 ;;; Forecast fetching
 
@@ -306,6 +361,7 @@ Uses cache when available."
         (list :data forecast
               :time (float-time)
               :location weather-location
+              :display-location weather--display-location
               :units weather-units)))
 
 (defun weather--fetch-forecast (lat lon callback)
@@ -438,7 +494,10 @@ Uses cache when available."
         (let ((inhibit-read-only t))
           (erase-buffer)
           (weather-mode)
-          (insert (propertize (format "  %s" weather-location)
+          (insert (propertize (format "  %s"
+                                      (or weather--display-location
+                                          weather-location
+                                          "Current location"))
                               'face 'weather-day-header))
           (when current-summary
             (insert current-summary))
@@ -468,15 +527,20 @@ With prefix argument FORCE-REFRESH, ignore cached forecast data."
   (if-let ((cached-data (and (not force-refresh)
                              (weather--cached-forecast-data))))
       (progn
-        (message "Weather: using cached forecast for %s..." weather-location)
+        (message "Weather: using cached forecast for %s..."
+                 (or weather--display-location weather-location "current location"))
         (weather--render cached-data))
-    (message "Weather: fetching forecast for %s..." weather-location)
-    (weather--geocode
+    (message (if weather-location
+                 (format "Weather: fetching forecast for %s..." weather-location)
+               "Weather: detecting location from public IP..."))
+    (weather--resolve-location
      weather-location
-     (lambda (coords)
-       (when coords
+     (lambda (location)
+       (when location
+         (setq weather--display-location (plist-get location :label))
          (weather--fetch-forecast
-          (car coords) (cdr coords)
+          (plist-get location :latitude)
+          (plist-get location :longitude)
           (lambda (daily)
             (when daily
               (weather--render daily)))))))))
