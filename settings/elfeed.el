@@ -3,6 +3,27 @@
   :commands elfeed
 
   :preface
+  (defconst m/elfeed-search-buffer-name "Elfeed"
+    "Name of the Elfeed search buffer.")
+
+  (defun m/elfeed-search-buffer (_orig)
+    "Return the Elfeed search buffer using its configured name."
+    (get-buffer-create m/elfeed-search-buffer-name))
+
+  (defun m/elfeed-search-update (_orig &optional method)
+    "Update the Elfeed search buffer, looking it up by configured name."
+    (when elfeed-search--update-timer
+      (cancel-timer elfeed-search--update-timer)
+      (setq elfeed-search--update-timer nil))
+    (when-let* ((buffer (get-buffer m/elfeed-search-buffer-name)))
+      (if method
+          (elfeed-search--update-immediately
+           buffer (if (keywordp method) method :force))
+        (setf elfeed-search--update-timer
+              (run-at-time elfeed-search-update-delay nil
+                           #'elfeed-search--update-immediately
+                           buffer)))))
+
   (defun m/elfeed-search-print-entry (entry)
     "Print ENTRY as title and feed."
     (let* ((title (or (elfeed-meta--title entry)
@@ -62,5 +83,7 @@
   ("SPC r" '(elfeed :which-key "RSS reader"))
 
   :config
+  (advice-add 'elfeed-search-buffer :around #'m/elfeed-search-buffer)
+  (advice-add 'elfeed-search-update :around #'m/elfeed-search-update)
   (load-file "~/.emacs.d/lib/elfeed-feedbin.el")
   (elfeed-feedbin-enable))
