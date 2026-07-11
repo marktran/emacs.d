@@ -24,6 +24,13 @@
                    'mouse-face 'highlight
                    'follow-link [elfeed-feed]))))
 
+  (defun m/elfeed-search-restore-leader ()
+    "Let the global General SPC leader apply in Elfeed search buffers."
+    (general-define-key
+     :states 'normal
+     :keymaps 'elfeed-search-mode-map
+     "SPC" nil))
+
   (defun m/elfeed-show-refresh ()
     "Render an Elfeed entry without the Tags header."
     (elfeed-show-refresh--mail-style)
@@ -49,7 +56,8 @@
   (elfeed-search-sort-order 'descending)
 
   :hook
-  (elfeed-show-mode . m/elfeed-show-use-default-font)
+  ((elfeed-search-mode . m/elfeed-search-restore-leader)
+   (elfeed-show-mode . m/elfeed-show-use-default-font))
 
   :general
   ("SPC r" '(elfeed :which-key "RSS reader")))
