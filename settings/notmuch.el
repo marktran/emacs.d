@@ -809,7 +809,8 @@ Dired does."
   ;; Ef themes use a wavy underline for deleted tags. Restore Notmuch's
   ;; strike-through convention while preserving the theme's foreground color.
   (custom-set-faces
-   '(notmuch-tag-deleted ((t (:underline nil :strike-through t)))))
+   '(notmuch-tag-deleted ((t (:underline nil :strike-through t))))
+   '(shr-text ((t (:inherit default)))))
 
   (advice-add 'notmuch-search-append-result
               :around #'m/notmuch-search-group-result)
