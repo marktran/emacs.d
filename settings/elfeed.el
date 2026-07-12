@@ -7,16 +7,16 @@
 ;; filtering the name `elfeed-show--buffer-name' returns.
 ;;
 ;; The listing shows only title and feed, filtered to unread and sorted
-;; newest first.  `B' opens entries in the browser, `U' toggles unread
-;; without moving point (also on visual selections in the Index), and `d'
-;; and `u' scroll.  Entry views drop the Tags header and render with the
-;; default fixed-pitch font.  Both modes display `Elfeed' as their
-;; major-mode name.
+;; newest first.  `r' fetches feeds, `B' opens entries in the browser, `U'
+;; toggles unread without moving point (also on visual selections in the
+;; Index), and `d' and `u' scroll.  Entry views drop the Tags header and
+;; render with the default fixed-pitch font.  Both modes display `Elfeed' as
+;; their major-mode name.
 ;;
 ;; Evil bindings are applied from `evil-collection-setup-hook' because
 ;; evil-collection's Elfeed setup registers after this file's `:config'
-;; and binds `SPC', `U', `u', and `d' itself.  Unbinding `SPC' in the
-;; search buffer lets the global General leader through.
+;; and binds `SPC', `U', `u', `d', `g r', and `g R' itself.  Unbinding
+;; `SPC' in the search buffer lets the global General leader through.
 ;;
 ;; Feedbin supplies subscriptions, entries, and unread/starred state via
 ;; `lib/elfeed-feedbin.el'; the sole entry in `elfeed-feeds' is the
@@ -93,6 +93,9 @@ would clobber bindings made there."
         (kbd "B") #'elfeed-search-browse-url
         (kbd "U") #'m/elfeed-search-toggle-unread
         (kbd "d") #'evil-scroll-down
+        (kbd "g r") nil
+        (kbd "g R") nil
+        (kbd "r") #'elfeed-search-fetch
         (kbd "u") #'evil-scroll-up)
       (evil-define-key 'visual elfeed-search-mode-map
         (kbd "U") #'m/elfeed-search-toggle-unread)
