@@ -39,58 +39,6 @@
 ;; propagate to Gmail during synchronization. The dashboard, search, and
 ;; message views all display `Notmuch' as their major-mode name.
 
-(declare-function dashboard-center-text "dashboard-widgets" (start end))
-(declare-function dashboard-insert-banner-title "dashboard-widgets" ())
-(declare-function dashboard-insert-heading "dashboard-widgets"
-                  (heading &optional shortcut icon))
-(declare-function evil-insert-state "evil-states" ())
-(declare-function evil-local-set-key "evil-core" (state key def))
-(declare-function notmuch-apply-face "notmuch-lib"
-                  (object face &optional below start end))
-(declare-function notmuch-interactive-region "notmuch-lib" ())
-(declare-function notmuch-refresh-all-buffers "notmuch-lib" ())
-(declare-function notmuch-hello-nice-number "notmuch-hello" (n))
-(declare-function notmuch-hello-query-counts "notmuch-hello"
-                  (query-list &rest options))
-(declare-function notmuch-hello-search "notmuch-hello" (widget &rest event))
-(declare-function notmuch-hello-widget-search "notmuch-hello"
-                  (widget &rest ignore))
-(declare-function notmuch-sanitize "notmuch-lib" (str))
-(declare-function notmuch-search "notmuch"
-                  (&optional query oldest-first hide-excluded target-thread
-                             target-line no-display))
-(declare-function notmuch-search-get-tags-region "notmuch" (beg end))
-(declare-function notmuch-search-next-thread "notmuch" ())
-(declare-function notmuch-search-refresh-view "notmuch" ())
-(declare-function notmuch-search-tag "notmuch"
-                  (tag-changes &optional beg end only-matched))
-(declare-function notmuch-show-clean-address "notmuch-show" (address))
-(declare-function notmuch-show-get-prop "notmuch-show" (prop &optional props))
-(declare-function notmuch-show-get-tags "notmuch-show" ())
-(declare-function notmuch-show-mapc "notmuch-show" (function))
-(declare-function notmuch-show-message-extent "notmuch-show" ())
-(declare-function notmuch-show-next-thread "notmuch-show"
-                  (&optional show previous))
-(declare-function notmuch-show-spaces-n "notmuch-show" (n))
-(declare-function notmuch-show-tag "notmuch-show" (tag-changes))
-(declare-function notmuch-show-tag-all "notmuch-show" (tag-changes))
-(declare-function notmuch-show-toggle-part-invisibility "notmuch-show"
-                  (&optional button))
-(declare-function notmuch-tag-format-tag "notmuch-tag"
-                  (tags orig-tags tag))
-(declare-function notmuch-tree-archive-thread-then-next "notmuch-tree" ())
-(declare-function widget-field-buffer "wid-edit" (widget))
-(declare-function widget-field-start "wid-edit" (widget))
-
-(defvar dashboard-banner-logo-title)
-(defvar goto-address-mail-face)
-(defvar goto-address-url-regexp)
-(defvar notmuch-saved-search-sort-function)
-(defvar notmuch-saved-searches)
-(defvar notmuch-search-hide-excluded)
-(defvar notmuch-search-oldest-first)
-(defvar notmuch-search-query-string)
-
 (use-package notmuch
   :ensure t
   :after dashboard
