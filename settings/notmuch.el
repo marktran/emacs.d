@@ -834,5 +834,13 @@ Dired does."
             #'m/notmuch-truncate-plain-text-links t)
   (add-hook 'notmuch-show-hook #'m/notmuch-name-show-buffer))
 
+(use-package consult-notmuch
+  :ensure t
+  :after (consult notmuch)
+  :commands (consult-notmuch consult-notmuch-address consult-notmuch-tree)
+
+  :general
+  ("SPC s m" '(consult-notmuch :which-key "Search mail")))
+
 (with-eval-after-load 'evil-collection
   (evil-collection-init 'notmuch))
