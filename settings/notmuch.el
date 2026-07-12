@@ -1,6 +1,4 @@
-;;; notmuch.el --- Gmail mail with Notmuch on Linux -*- lexical-binding: t; -*-
-
-;;; Commentary:
+;;; notmuch.el --- Gmail with Notmuch on Linux
 
 ;; Emacs frontend settings for the local Notmuch mail index. System
 ;; installation, Gmail authorization, background synchronization, and
@@ -40,8 +38,6 @@
 ;; Notmuch's internal `deleted' tag so deletions
 ;; propagate to Gmail during synchronization. The dashboard, search, and
 ;; message views all display `Notmuch' as their major-mode name.
-
-;;; Code:
 
 (declare-function dashboard-center-text "dashboard-widgets" (start end))
 (declare-function dashboard-insert-banner-title "dashboard-widgets" ())
@@ -101,25 +97,31 @@
   :commands notmuch
 
   :preface
+  (defconst m/notmuch-mailboxes
+    '(("Inbox"   "tag:inbox"   "g i" grouped)
+      ("Trash"   "tag:trash"   "g #" grouped show-excluded)
+      ("Spam"    "tag:spam"    "g !" grouped show-excluded)
+      ("Sent"    "tag:sent"    "g t")
+      ("Starred" "tag:flagged" "g s")
+      ("Drafts"  "tag:draft"   "g d"))
+    "Gmail mailboxes as (NAME QUERY KEY . FLAGS) entries.
+NAME is the search buffer name, QUERY the exact Notmuch query, and KEY
+the binding that opens the mailbox. The `grouped' flag groups results
+by month and year, and `show-excluded' includes messages with excluded
+tags.")
+
   (defun m/notmuch-search-buffer-title (orig query &optional type)
     "Give exact mailbox QUERY values concise names.
 Call ORIG with QUERY and TYPE for all other searches."
-    (cond
-     ((equal query "tag:inbox") "Inbox")
-     ((equal query "tag:trash") "Trash")
-     ((equal query "tag:spam") "Spam")
-     ((equal query "tag:sent") "Sent")
-     ((equal query "tag:flagged") "Starred")
-     ((equal query "tag:draft") "Drafts")
-     (t (funcall orig query type))))
+    (or (car (seq-find (lambda (mailbox) (equal (nth 1 mailbox) query))
+                       m/notmuch-mailboxes))
+        (funcall orig query type)))
 
-  (defconst m/notmuch-mailbox-buffer-names
-    '("Inbox" "Trash" "Spam" "Sent" "Starred" "Drafts")
-    "Notmuch search buffers that use the mailbox layout.")
-
-  (defconst m/notmuch-grouped-mailbox-buffer-names
-    '("Inbox" "Trash" "Spam")
-    "Notmuch mailbox buffers that group results by month and year.")
+  (defun m/notmuch-bind-keys (states bindings)
+    "Locally bind BINDINGS, a list of (KEY . COMMAND) pairs, in Evil STATES."
+    (pcase-dolist (`(,key . ,command) bindings)
+      (dolist (state states)
+        (evil-local-set-key state (kbd key) command))))
 
   (defvar-local m/notmuch-search-group-by-month nil
     "Whether the current search groups results by month.")
@@ -188,15 +190,13 @@ Right-align the field when RIGHT-ALIGN is non-nil."
 
   (defun m/notmuch-mailbox-layout ()
     "Use the three-column layout in mailbox and search buffers."
-    (when (or (member (buffer-name) m/notmuch-mailbox-buffer-names)
-              (string-prefix-p "Search: " (buffer-name)))
-      (setq-local m/notmuch-search-group-by-month
-                  (not (null (member
-                              (buffer-name)
-                              m/notmuch-grouped-mailbox-buffer-names))))
-      (setq-local m/notmuch-search-last-month nil)
-      (setq-local notmuch-search-result-format
-                  '((m/notmuch-search-format-mailbox-result . "")))))
+    (let ((mailbox (assoc (buffer-name) m/notmuch-mailboxes)))
+      (when (or mailbox (string-prefix-p "Search: " (buffer-name)))
+        (setq-local m/notmuch-search-group-by-month
+                    (and (memq 'grouped mailbox) t))
+        (setq-local m/notmuch-search-last-month nil)
+        (setq-local notmuch-search-result-format
+                    '((m/notmuch-search-format-mailbox-result . ""))))))
 
   (defun m/notmuch-search-group-result (orig result)
     "Call ORIG with RESULT, adding month metadata in mailbox views."
@@ -235,13 +235,13 @@ Right-align the field when RIGHT-ALIGN is non-nil."
         (when (buffer-live-p buffer)
           (with-current-buffer buffer
             (let ((inhibit-read-only t)
-                  (message "End of search results.\n"))
-              (when (and (>= (- (point-max) (length message)) (point-min))
+                  (suffix "End of search results.\n"))
+              (when (and (>= (- (point-max) (length suffix)) (point-min))
                          (equal (buffer-substring-no-properties
-                                 (- (point-max) (length message))
+                                 (- (point-max) (length suffix))
                                  (point-max))
-                                message))
-                (delete-region (- (point-max) (length message))
+                                suffix))
+                (delete-region (- (point-max) (length suffix))
                                (point-max)))))))))
 
   (defvar-local m/notmuch-dashboard-search-widget nil
@@ -351,67 +351,48 @@ Right-align the field when RIGHT-ALIGN is non-nil."
 
   (defun m/notmuch-hello-set-local-bindings ()
     "Set local Evil bindings for the Notmuch dashboard."
-    (evil-local-set-key 'normal (kbd "/")
-                        #'m/notmuch-hello-focus-search)
-    (evil-local-set-key 'normal (kbd "q") #'quit-window))
+    (m/notmuch-bind-keys '(normal)
+                         '(("/" . m/notmuch-hello-focus-search)
+                           ("q" . quit-window))))
 
-  (defun m/notmuch-open-mailbox (query &optional show-excluded)
-    "Open the mailbox matching QUERY and kill the previous Notmuch buffer.
-Show excluded messages when SHOW-EXCLUDED is non-nil. Preserve a previous
-buffer that is visible in more than one window, as Dired does."
-    (let* ((origin (current-buffer))
+  (defun m/notmuch-open-mailbox (name)
+    "Open the Gmail mailbox NAME and kill the previous Notmuch buffer.
+Preserve a previous buffer that is visible in more than one window, as
+Dired does."
+    (let* ((mailbox (assoc name m/notmuch-mailboxes))
+           (origin (current-buffer))
            (kill-origin
             (and (derived-mode-p 'notmuch-hello-mode
                                  'notmuch-search-mode
                                  'notmuch-show-mode)
                  (< (length (get-buffer-window-list origin)) 2))))
-      (notmuch-search query
+      (notmuch-search (nth 1 mailbox)
                       (default-value 'notmuch-search-oldest-first)
-                      (and (not show-excluded)
+                      (and (not (memq 'show-excluded mailbox))
                            (default-value 'notmuch-search-hide-excluded)))
       (when (and kill-origin
                  (buffer-live-p origin)
                  (not (eq origin (current-buffer))))
         (kill-buffer origin))))
 
-  (defun m/notmuch-open-inbox ()
-    "Open the Gmail Inbox."
-    (interactive)
-    (m/notmuch-open-mailbox "tag:inbox"))
+  (defun m/notmuch-open-mailbox-command (name)
+    "Return the command symbol that opens the mailbox NAME."
+    (intern (format "m/notmuch-open-%s" (downcase name))))
 
-  (defun m/notmuch-open-trash ()
-    "Open Gmail Trash."
-    (interactive)
-    (m/notmuch-open-mailbox "tag:trash" t))
-
-  (defun m/notmuch-open-spam ()
-    "Open Gmail Spam."
-    (interactive)
-    (m/notmuch-open-mailbox "tag:spam" t))
-
-  (defun m/notmuch-open-sent ()
-    "Open Gmail Sent."
-    (interactive)
-    (m/notmuch-open-mailbox "tag:sent"))
-
-  (defun m/notmuch-open-starred ()
-    "Open Gmail Starred."
-    (interactive)
-    (m/notmuch-open-mailbox "tag:flagged"))
-
-  (defun m/notmuch-open-drafts ()
-    "Open Gmail Drafts."
-    (interactive)
-    (m/notmuch-open-mailbox "tag:draft"))
+  ;; Define `m/notmuch-open-inbox' and friends for each mailbox.
+  (dolist (mailbox m/notmuch-mailboxes)
+    (let ((name (car mailbox)))
+      (defalias (m/notmuch-open-mailbox-command name)
+        (lambda ()
+          (interactive)
+          (m/notmuch-open-mailbox name))
+        (format "Open Gmail %s." name))))
 
   (defun m/notmuch-set-mailbox-bindings ()
     "Set Gmail-style mailbox bindings in the current Notmuch buffer."
-    (evil-local-set-key 'normal (kbd "g i") #'m/notmuch-open-inbox)
-    (evil-local-set-key 'normal (kbd "g #") #'m/notmuch-open-trash)
-    (evil-local-set-key 'normal (kbd "g !") #'m/notmuch-open-spam)
-    (evil-local-set-key 'normal (kbd "g t") #'m/notmuch-open-sent)
-    (evil-local-set-key 'normal (kbd "g s") #'m/notmuch-open-starred)
-    (evil-local-set-key 'normal (kbd "g d") #'m/notmuch-open-drafts))
+    (dolist (mailbox m/notmuch-mailboxes)
+      (evil-local-set-key 'normal (kbd (nth 2 mailbox))
+                          (m/notmuch-open-mailbox-command (car mailbox)))))
 
   (defun m/notmuch-sync-start ()
     "Start a requested asynchronous Gmail synchronization."
@@ -479,16 +460,16 @@ buffer that is visible in more than one window, as Dired does."
         (when m/notmuch-sync-pending
           (m/notmuch-sync-request)))))
 
-  (defun m/notmuch-unread-tag-change (tags)
-    "Return the tag change that toggles `unread' in TAGS."
-    (list (if (member "unread" tags) "-unread" "+unread")))
+  (defun m/notmuch-toggle-tag-change (tag tags)
+    "Return the tag change that toggles TAG in TAGS."
+    (list (concat (if (member tag tags) "-" "+") tag)))
 
   (defun m/notmuch-search-toggle-unread (beg end)
     "Toggle unread for the selected threads between BEG and END."
     (interactive (notmuch-interactive-region))
     (notmuch-search-tag
-     (m/notmuch-unread-tag-change
-      (notmuch-search-get-tags-region beg end))
+     (m/notmuch-toggle-tag-change
+      "unread" (notmuch-search-get-tags-region beg end))
      beg end))
 
   (defun m/notmuch-show-toggle-unread ()
@@ -498,7 +479,7 @@ buffer that is visible in more than one window, as Dired does."
       (notmuch-show-mapc
        (lambda ()
          (setq tags (append (notmuch-show-get-tags) tags))))
-      (notmuch-show-tag-all (m/notmuch-unread-tag-change tags))))
+      (notmuch-show-tag-all (m/notmuch-toggle-tag-change "unread" tags))))
 
   (defun m/notmuch-search-finish-move (beg end)
     "Update the search view after moving threads between BEG and END."
@@ -509,58 +490,54 @@ buffer that is visible in more than one window, as Dired does."
       (when (= beg end)
         (notmuch-search-next-thread))))
 
+  (defun m/notmuch-search-move (tag-changes beg end)
+    "Apply TAG-CHANGES between BEG and END, sync, and update the view."
+    (notmuch-search-tag tag-changes beg end)
+    (m/notmuch-sync-request)
+    (m/notmuch-search-finish-move beg end))
+
+  (defun m/notmuch-show-move (tag-changes)
+    "Apply TAG-CHANGES to the whole thread, sync, and show the next thread."
+    (notmuch-show-tag-all tag-changes)
+    (m/notmuch-sync-request)
+    (notmuch-show-next-thread t))
+
   (defun m/notmuch-search-archive (beg end)
     "Archive the selected threads between BEG and END in Gmail."
     (interactive (notmuch-interactive-region))
-    (notmuch-search-tag '("-inbox") beg end)
-    (m/notmuch-sync-request)
-    (m/notmuch-search-finish-move beg end))
+    (m/notmuch-search-move '("-inbox") beg end))
 
   (defun m/notmuch-show-archive ()
     "Archive all displayed messages in the current Gmail thread."
     (interactive)
-    (notmuch-show-tag-all '("-inbox"))
-    (m/notmuch-sync-request)
-    (notmuch-show-next-thread t))
+    (m/notmuch-show-move '("-inbox")))
 
   (defun m/notmuch-search-trash (beg end)
     "Move the selected threads between BEG and END to Gmail Trash."
     (interactive (notmuch-interactive-region))
-    (notmuch-search-tag '("+trash" "-inbox" "-unread") beg end)
-    (m/notmuch-sync-request)
-    (m/notmuch-search-finish-move beg end))
+    (m/notmuch-search-move '("+trash" "-inbox" "-unread") beg end))
 
   (defun m/notmuch-show-trash ()
     "Move all displayed messages in the current thread to Gmail Trash."
     (interactive)
-    (notmuch-show-tag-all '("+trash" "-inbox" "-unread"))
-    (m/notmuch-sync-request)
-    (notmuch-show-next-thread t))
+    (m/notmuch-show-move '("+trash" "-inbox" "-unread")))
 
   (defun m/notmuch-search-spam (beg end)
     "Move the selected threads between BEG and END to Gmail Spam."
     (interactive (notmuch-interactive-region))
-    (notmuch-search-tag '("+spam" "-inbox" "-unread" "-trash") beg end)
-    (m/notmuch-sync-request)
-    (m/notmuch-search-finish-move beg end))
+    (m/notmuch-search-move '("+spam" "-inbox" "-unread" "-trash") beg end))
 
   (defun m/notmuch-show-spam ()
     "Move all displayed messages in the current thread to Gmail Spam."
     (interactive)
-    (notmuch-show-tag-all '("+spam" "-inbox" "-unread" "-trash"))
-    (m/notmuch-sync-request)
-    (notmuch-show-next-thread t))
-
-  (defun m/notmuch-star-tag-change (tags)
-    "Return the tag change that toggles Gmail Starred in TAGS."
-    (list (if (member "flagged" tags) "-flagged" "+flagged")))
+    (m/notmuch-show-move '("+spam" "-inbox" "-unread" "-trash")))
 
   (defun m/notmuch-search-star (beg end)
     "Toggle Starred on the selected threads between BEG and END."
     (interactive (notmuch-interactive-region))
     (notmuch-search-tag
-     (m/notmuch-star-tag-change
-      (notmuch-search-get-tags-region beg end))
+     (m/notmuch-toggle-tag-change
+      "flagged" (notmuch-search-get-tags-region beg end))
      beg end)
     (m/notmuch-sync-request))
 
@@ -568,50 +545,37 @@ buffer that is visible in more than one window, as Dired does."
     "Toggle Starred on the current message."
     (interactive)
     (notmuch-show-tag
-     (m/notmuch-star-tag-change (notmuch-show-get-tags)))
+     (m/notmuch-toggle-tag-change "flagged" (notmuch-show-get-tags)))
     (m/notmuch-sync-request))
-
-  (defun m/notmuch-search ()
-    "Prompt for a new Notmuch search."
-    (interactive)
-    (call-interactively #'notmuch-search))
-
-  (defun m/notmuch-disabled-archive-binding ()
-    "Do nothing where an alternate archive binding used to exist."
-    (interactive))
 
   (defun m/notmuch-inhibit-archive-bindings (keys)
     "Prevent KEYS from invoking alternate archive commands."
     (dolist (key keys)
-      (local-set-key (kbd key) #'m/notmuch-disabled-archive-binding)
+      (local-set-key (kbd key) #'ignore)
       (dolist (state '(normal visual))
-        (evil-local-set-key
-         state (kbd key) #'m/notmuch-disabled-archive-binding))))
+        (evil-local-set-key state (kbd key) #'ignore))))
 
   (defun m/notmuch-search-set-local-bindings ()
     "Set local Evil bindings for a Notmuch search view."
-    (evil-local-set-key 'normal (kbd "#") #'m/notmuch-search-trash)
-    (evil-local-set-key 'visual (kbd "#") #'m/notmuch-search-trash)
-    (evil-local-set-key 'normal (kbd "!") #'m/notmuch-search-spam)
-    (evil-local-set-key 'visual (kbd "!") #'m/notmuch-search-spam)
-    (evil-local-set-key 'normal (kbd "U") #'m/notmuch-search-toggle-unread)
-    (evil-local-set-key 'visual (kbd "U") #'m/notmuch-search-toggle-unread)
-    (evil-local-set-key 'normal (kbd "s") #'m/notmuch-search-star)
-    (evil-local-set-key 'visual (kbd "s") #'m/notmuch-search-star)
-    (evil-local-set-key 'normal (kbd "e") #'m/notmuch-search-archive)
-    (evil-local-set-key 'visual (kbd "e") #'m/notmuch-search-archive)
-    (evil-local-set-key 'normal (kbd "/") #'m/notmuch-search)
+    (m/notmuch-bind-keys '(normal visual)
+                         '(("#" . m/notmuch-search-trash)
+                           ("!" . m/notmuch-search-spam)
+                           ("U" . m/notmuch-search-toggle-unread)
+                           ("s" . m/notmuch-search-star)
+                           ("e" . m/notmuch-search-archive)))
+    (m/notmuch-bind-keys '(normal) '(("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a")))
 
   (defun m/notmuch-show-set-local-bindings ()
     "Set local Evil bindings for a Notmuch message view."
-    (evil-local-set-key 'normal (kbd "#") #'m/notmuch-show-trash)
-    (evil-local-set-key 'normal (kbd "!") #'m/notmuch-show-spam)
-    (evil-local-set-key 'normal (kbd "H") #'m/notmuch-show-toggle-html)
-    (evil-local-set-key 'normal (kbd "U") #'m/notmuch-show-toggle-unread)
-    (evil-local-set-key 'normal (kbd "s") #'m/notmuch-show-star)
-    (evil-local-set-key 'normal (kbd "e") #'m/notmuch-show-archive)
-    (evil-local-set-key 'normal (kbd "/") #'m/notmuch-search)
+    (m/notmuch-bind-keys '(normal)
+                         '(("#" . m/notmuch-show-trash)
+                           ("!" . m/notmuch-show-spam)
+                           ("H" . m/notmuch-show-toggle-html)
+                           ("U" . m/notmuch-show-toggle-unread)
+                           ("s" . m/notmuch-show-star)
+                           ("e" . m/notmuch-show-archive)
+                           ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X"))
     (local-set-key (kbd "SPC") #'scroll-up-command))
 
@@ -623,15 +587,16 @@ buffer that is visible in more than one window, as Dired does."
 
   (defun m/notmuch-tree-set-local-bindings ()
     "Set local Evil bindings for a Notmuch tree view."
-    (evil-local-set-key 'normal (kbd "e") #'m/notmuch-tree-archive)
-    (evil-local-set-key 'normal (kbd "/") #'m/notmuch-search)
+    (m/notmuch-bind-keys '(normal)
+                         '(("e" . m/notmuch-tree-archive)
+                           ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X")))
 
   (defun m/notmuch-set-scroll-bindings ()
     "Use consistent Evil scrolling in Notmuch content views."
-    (dolist (state '(normal visual))
-      (evil-local-set-key state (kbd "d") #'evil-scroll-down)
-      (evil-local-set-key state (kbd "u") #'evil-scroll-up)))
+    (m/notmuch-bind-keys '(normal visual)
+                         '(("d" . evil-scroll-down)
+                           ("u" . evil-scroll-up))))
 
   (defun m/notmuch-show-html-button ()
     "Return the HTML alternative button in the current message, if any."
@@ -908,5 +873,3 @@ buffer that is visible in more than one window, as Dired does."
 
 (with-eval-after-load 'evil-collection
   (evil-collection-init 'notmuch))
-
-;;; notmuch.el ends here
