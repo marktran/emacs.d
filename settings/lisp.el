@@ -3,7 +3,9 @@
 
   :hook
   ((emacs-lisp-mode . show-paren-mode)
-   (emacs-lisp-mode . (lambda () (setq mode-name "ELisp"))))
+   (emacs-lisp-mode . (lambda ()
+                        (setq mode-name "ELisp")
+                        (setq-local sentence-end-double-space nil))))
 
   :general
   (:keymaps 'emacs-lisp-mode-map
