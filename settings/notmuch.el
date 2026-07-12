@@ -15,8 +15,9 @@
 ;; counts. Inbox, Trash, and Spam are grouped by month and year. Today's
 ;; messages show their time; older messages use `Month Day'.
 ;; Message summary lines display the sender as `From:' and comma-separated tags
-;; as `Labels:'. `U' toggles read/unread, `s' toggles Starred, `e' archives, and
-;; `d' and `u' scroll down and up. `g i', `g #', `g !', `g t', `g s',
+;; as `Labels:'. `U' toggles read/unread, `s' toggles Starred, `e' archives,
+;; `l' edits labels on the current message, and `d' and `u' scroll down and up.
+;; `g i', `g #', `g !', `g t', `g s',
 ;; and `g d' open Inbox, Trash, Spam, Sent, Starred, and Drafts, replacing the
 ;; current Notmuch buffer. `/` starts an ad hoc search from content views.
 ;; `r' invokes `notmuch-sync' and refreshes the view; normal background
@@ -534,6 +535,7 @@ Dired does."
                            ("U" . m/notmuch-show-toggle-unread)
                            ("s" . m/notmuch-show-star)
                            ("e" . m/notmuch-show-archive)
+                           ("l" . notmuch-show-tag)
                            ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X"))
     (local-set-key (kbd "SPC") #'scroll-up-command))
