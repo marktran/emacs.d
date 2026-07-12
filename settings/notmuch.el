@@ -331,8 +331,11 @@ Right-align the field when RIGHT-ALIGN is non-nil."
     (rename-buffer "View"))
 
   (defun m/notmuch-set-mode-name ()
-    "Display the current Notmuch major mode as `Notmuch'."
-    (setq-local mode-name "Notmuch"))
+    "Display a concise mode line in the current Notmuch buffer."
+    (setq-local mode-name "Notmuch"
+                mode-line-modified nil
+                mode-line-mule-info nil
+                mode-line-remote nil))
 
   (defun m/notmuch-show-use-header-address-faces ()
     "Keep address buttonization from overriding message header faces."
