@@ -383,9 +383,9 @@ Dired does."
   (dolist (mailbox m/notmuch-mailboxes)
     (let ((name (car mailbox)))
       (defalias (m/notmuch-open-mailbox-command name)
-        (lambda ()
-          (interactive)
-          (m/notmuch-open-mailbox name))
+        `(lambda ()
+           (interactive)
+           (m/notmuch-open-mailbox ,name))
         (format "Open Gmail %s." name))))
 
   (defun m/notmuch-set-mailbox-bindings ()
