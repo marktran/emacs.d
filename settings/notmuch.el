@@ -26,8 +26,10 @@
 ;;
 ;; Plain text is preferred when a message provides multiple alternatives and
 ;; inherits the normal Emacs font, Berkeley Mono. Long HTTP links retain their
-;; full targets but display a compact path. `H' toggles the current message's
-;; HTML alternative inline when its richer rendering is needed.
+;; full targets but display a compact path. `B' opens the current message's—or
+;; selected search thread's—HTML alternative in the browser, while `H' toggles
+;; it inline. Browser views strip query parameters from remote image URLs and
+;; route those images through wsrv.nl.
 ;;
 ;; Composing and replying use Message mode and the `notmuch-sendmail' helper.
 ;; Gmail creates the Sent copy, so this configuration deliberately disables
@@ -523,7 +525,9 @@ Dired does."
                            ("U" . m/notmuch-search-toggle-unread)
                            ("s" . m/notmuch-search-star)
                            ("e" . m/notmuch-search-archive)))
-    (m/notmuch-bind-keys '(normal) '(("/" . notmuch-search)))
+    (m/notmuch-bind-keys '(normal)
+                         '(("B" . m/notmuch-search-browse-html)
+                           ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a")))
 
   (defun m/notmuch-show-set-local-bindings ()
@@ -531,6 +535,7 @@ Dired does."
     (m/notmuch-bind-keys '(normal)
                          '(("#" . m/notmuch-show-trash)
                            ("!" . m/notmuch-show-spam)
+                           ("B" . m/notmuch-show-browse-html)
                            ("H" . m/notmuch-show-toggle-html)
                            ("U" . m/notmuch-show-toggle-unread)
                            ("s" . m/notmuch-show-star)
@@ -559,8 +564,10 @@ Dired does."
                          '(("d" . evil-scroll-down)
                            ("u" . evil-scroll-up))))
 
-  (defun m/notmuch-show-html-button ()
-    "Return the HTML alternative button in the current message, if any."
+  (defun m/notmuch-show-html-button (&optional text-only)
+    "Return the HTML alternative button in the current message, if any.
+When TEXT-ONLY is non-nil, require a `text/html' part rather than a
+`multipart/related' wrapper."
     (let* ((extent (notmuch-show-message-extent))
            (position (car extent))
            button)
@@ -571,10 +578,159 @@ Dired does."
           (let* ((part (get-text-property (button-start button)
                                           :notmuch-part))
                  (type (plist-get part :computed-type)))
-            (when (member type '("text/html" "multipart/related"))
+            (when (if text-only
+                      (equal type "text/html")
+                    (member type '("text/html" "multipart/related")))
               (throw 'found button)))
           (setq position (button-end button)))
         nil)))
+
+  (defconst m/notmuch-browser-buffer-lifetime 60
+    "Seconds to retain an HTML part after opening it in the browser.")
+
+  (defconst m/notmuch-image-proxy-url "https://wsrv.nl/?url="
+    "Image proxy used by the Notmuch browser view.")
+
+  (defun m/notmuch-strip-url-query (url)
+    "Return URL without its query, preserving a fragment when present."
+    (if-let* ((query-start (string-match-p "?" url)))
+        (let ((fragment-start (string-match-p "#" url query-start)))
+          (concat (substring url 0 query-start)
+                  (if fragment-start (substring url fragment-start) "")))
+      url))
+
+  (defun m/notmuch-proxy-image-url (url)
+    "Strip URL's query and route a remote image through wsrv.nl."
+    (let ((case-fold-search t)
+          source)
+      (cond
+       ((string-prefix-p "//" url)
+        (setq source (concat "https:" url)))
+       ((string-match-p "\\`https?://" url)
+        (setq source url)))
+      (if source
+          (concat m/notmuch-image-proxy-url
+                  (url-hexify-string (m/notmuch-strip-url-query source)))
+        url)))
+
+  (defun m/notmuch-remove-html-attribute (tag attribute)
+    "Return TAG without ATTRIBUTE, preserving all other markup."
+    (let ((case-fold-search t))
+      (replace-regexp-in-string
+       (concat "[[:space:]]+" attribute "[[:space:]]*=[[:space:]]*"
+               "\\(?:\"[^\"]*\"\\|'[^']*'\\|[^[:space:]>]+\\)")
+       "" tag t t)))
+
+  (defun m/notmuch-rewrite-image-tag (tag)
+    "Proxy TAG's remote src and remove its srcset attribute."
+    (let* ((case-fold-search t)
+           (tag (m/notmuch-remove-html-attribute tag "srcset"))
+           (source-regexp
+            (concat
+             "\\([[:space:]]+src[[:space:]]*=[[:space:]]*\\)"
+             "\\(?:\\(\"\\)\\([^\"]*\\)\""
+             "\\|\\('\\)\\([^']*\\)'"
+             "\\|\\([^[:space:]>]+\\)\\)")))
+      (if (not (string-match source-regexp tag))
+          tag
+        (let* ((source (or (match-string 3 tag)
+                           (match-string 5 tag)
+                           (match-string 6 tag)))
+               (proxied (m/notmuch-proxy-image-url source)))
+          (if (equal source proxied)
+              tag
+            (let ((quote (cond ((match-beginning 2) "\"")
+                               ((match-beginning 4) "'")
+                               (t "\""))))
+              (concat (substring tag 0 (match-beginning 0))
+                      (match-string 1 tag) quote proxied quote
+                      (substring tag (match-end 0)))))))))
+
+  (defun m/notmuch-rewrite-image-urls ()
+    "Proxy remote image URLs without reserializing the HTML document."
+    (save-excursion
+      (goto-char (point-min))
+      (let ((case-fold-search t)
+            (tag-regexp
+             "<\\(img\\|source\\)\\(?:[^>\"']\\|\"[^\"]*\"\\|'[^']*'\\)*>"))
+        (while (re-search-forward tag-regexp nil t)
+          (let* ((name (downcase (match-string 1)))
+                 (tag (match-string 0))
+                 (rewritten
+                  (save-match-data
+                    (if (equal name "img")
+                        (m/notmuch-rewrite-image-tag tag)
+                      ;; A picture element falls back to its rewritten img.
+                      (m/notmuch-remove-html-attribute tag "srcset")))))
+            (replace-match rewritten t t))))))
+
+  (defun m/notmuch-browse-html-handle (handle)
+    "Open MIME HANDLE in the browser from an independently managed buffer."
+    (let ((buffer (generate-new-buffer " *notmuch HTML browser*")))
+      (condition-case error
+          (progn
+            (with-current-buffer buffer
+              (set-buffer-multibyte nil)
+              (mm-insert-part handle)
+              (mm-add-meta-html-tag handle)
+              (m/notmuch-rewrite-image-urls)
+              (browse-url-of-buffer))
+            (run-at-time m/notmuch-browser-buffer-lifetime nil
+                         #'kill-buffer buffer)
+            buffer)
+        (error
+         (kill-buffer buffer)
+         (signal (car error) (cdr error))))))
+
+  (defun m/notmuch-show-browse-html-button (button)
+    "Open the text/html part represented by BUTTON in the browser."
+    (save-excursion
+      (goto-char (button-start button))
+      (notmuch-show-apply-to-current-part-handle
+       #'m/notmuch-browse-html-handle)))
+
+  (defun m/notmuch-show-browse-html ()
+    "Open the current message's HTML alternative in the browser."
+    (interactive)
+    (if-let* ((button (m/notmuch-show-html-button t)))
+        (m/notmuch-show-browse-html-button button)
+      (user-error "This message has no HTML alternative")))
+
+  (defun m/notmuch-show-first-html-button ()
+    "Return the first text/html button in the current Notmuch thread."
+    (let (button)
+      (notmuch-show-mapc
+       (lambda ()
+         (unless button
+           (setq button (m/notmuch-show-html-button t)))))
+      button))
+
+  (defun m/notmuch-search-browse-html ()
+    "Open an HTML alternative from the selected search thread."
+    (interactive)
+    (let ((thread-id (notmuch-search-find-thread-id))
+          (query notmuch-search-query-string)
+          (parent (current-buffer))
+          buffer)
+      (unless thread-id
+        (user-error "No thread at point"))
+      (save-window-excursion
+        (unwind-protect
+            (progn
+              (let ((notmuch-show-hook
+                     (remove #'m/notmuch-name-show-buffer notmuch-show-hook))
+                    (notmuch-show-only-matching-messages t))
+                (setq buffer
+                      (notmuch-show thread-id nil parent query
+                                    " *notmuch HTML source*")))
+              (unless (buffer-live-p buffer)
+                (user-error "Could not load the selected thread"))
+              (with-current-buffer buffer
+                (if-let* ((button (m/notmuch-show-first-html-button)))
+                    (m/notmuch-show-browse-html-button button)
+                  (user-error "This thread has no HTML alternative"))))
+          (when (buffer-live-p buffer)
+            (kill-buffer buffer))))))
 
   (defun m/notmuch-show-toggle-html ()
     "Toggle the HTML alternative for the message at point."
@@ -807,6 +963,7 @@ Dired does."
   :config
   ;; Share Elfeed's bold, underlined date-separator styling.
   (require 'elfeed-search)
+  (require 'url-util)
 
   ;; Ef themes use a wavy underline for deleted tags. Restore Notmuch's
   ;; strike-through convention while preserving the theme's foreground color.
