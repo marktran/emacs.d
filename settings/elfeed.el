@@ -9,9 +9,10 @@
 ;; The listing shows only title and feed, filtered to unread and sorted
 ;; newest first.  `r' fetches feeds, `B' opens entries in the browser, `U'
 ;; toggles unread without moving point (also on visual selections in the
-;; Index), and `d' and `u' scroll.  Entry views drop the Tags header and
-;; render with the default fixed-pitch font.  Both modes display `Elfeed' as
-;; their major-mode name.
+;; Index), and `d' and `u' scroll.  In an entry view, `SPC' scrolls down and
+;; advances to the next unread entry at the end.  Entry views drop the Tags
+;; header and render with the default fixed-pitch font.  Both modes display
+;; `Elfeed' as their major-mode name.
 ;;
 ;; Evil bindings are applied from `evil-collection-setup-hook' because
 ;; evil-collection's Elfeed setup registers after this file's `:config'
@@ -100,6 +101,7 @@ would clobber bindings made there."
       (evil-define-key 'visual elfeed-search-mode-map
         (kbd "U") #'m/elfeed-search-toggle-unread)
       (evil-define-key 'normal elfeed-show-mode-map
+        (kbd "SPC") #'elfeed-show-scroll-up-or-next
         (kbd "B") #'elfeed-show-visit
         (kbd "d") #'evil-scroll-down
         (kbd "u") #'evil-scroll-up)))
@@ -131,6 +133,7 @@ would clobber bindings made there."
   :custom
   (elfeed-feeds '("feedbin:"))
   (elfeed-search-filter "+unread")
+  (elfeed-search-remain-on-entry '(show))
   (elfeed-search-sort-order 'descending)
 
   :hook
