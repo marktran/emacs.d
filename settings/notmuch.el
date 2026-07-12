@@ -28,8 +28,7 @@
 ;; inherits the normal Emacs font, Berkeley Mono. Long HTTP links retain their
 ;; full targets but display a compact path. `B' opens the current message's—or
 ;; selected search thread's—HTML alternative in the browser, while `H' toggles
-;; it inline. Browser views strip query parameters from remote image URLs and
-;; route those images through wsrv.nl.
+;; it inline. Browser views route remote image URLs through wsrv.nl.
 ;;
 ;; Composing and replying use Message mode and the `notmuch-sendmail' helper.
 ;; Gmail creates the Sent copy, so this configuration deliberately disables
@@ -591,16 +590,8 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
   (defconst m/notmuch-image-proxy-url "https://wsrv.nl/?url="
     "Image proxy used by the Notmuch browser view.")
 
-  (defun m/notmuch-strip-url-query (url)
-    "Return URL without its query, preserving a fragment when present."
-    (if-let* ((query-start (string-match-p "?" url)))
-        (let ((fragment-start (string-match-p "#" url query-start)))
-          (concat (substring url 0 query-start)
-                  (if fragment-start (substring url fragment-start) "")))
-      url))
-
   (defun m/notmuch-proxy-image-url (url)
-    "Strip URL's query and route a remote image through wsrv.nl."
+    "Route a remote image URL through wsrv.nl."
     (let ((case-fold-search t)
           source)
       (cond
@@ -610,7 +601,7 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
         (setq source url)))
       (if source
           (concat m/notmuch-image-proxy-url
-                  (url-hexify-string (m/notmuch-strip-url-query source)))
+                  (url-hexify-string (xml-substitute-special source)))
         url)))
 
   (defun m/notmuch-remove-html-attribute (tag attribute)
@@ -964,6 +955,7 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
   ;; Share Elfeed's bold, underlined date-separator styling.
   (require 'elfeed-search)
   (require 'url-util)
+  (require 'xml)
 
   ;; Ef themes use a wavy underline for deleted tags. Restore Notmuch's
   ;; strike-through convention while preserving the theme's foreground color.
