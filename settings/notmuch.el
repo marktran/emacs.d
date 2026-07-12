@@ -7,9 +7,10 @@
 ;; troubleshooting are documented in the parent dotfiles repository at
 ;; docs/EMACS.md.
 ;;
-;; `SPC m' opens the Notmuch home screen in `Dashboard'. It shares the main
-;; Emacs dashboard's centered title and section styling. `/'
-;; moves to its search box and enters Insert state. Inbox, Trash, Spam, Sent,
+;; `SPC m' opens the Inbox directly. `M-x notmuch' opens the optional Notmuch
+;; home screen in `Dashboard', which shares the main Emacs dashboard's centered
+;; title and section styling. `/` moves to its search box and enters Insert
+;; state. Inbox, Trash, Spam, Sent,
 ;; Starred, and Drafts searches use matching buffer names; other queries use
 ;; `Search: query', and opened threads use `View'.
 ;; Mailbox and ad hoc search results show From, Subject, and Date without thread
@@ -872,7 +873,7 @@ buffer that is visible in more than one window, as Dired does."
    (notmuch-tree-mode . m/notmuch-tree-set-local-bindings))
 
   :general
-  ("SPC m" '(notmuch :which-key "Mail"))
+  ("SPC m" '(m/notmuch-open-inbox :which-key "Mail inbox"))
 
   :config
   ;; Share Elfeed's bold, underlined date-separator styling.
