@@ -1,4 +1,26 @@
-(declare-function evil-local-set-key "evil-core" (state key def))
+;;; elfeed.el --- Feedbin RSS reading with Elfeed
+
+;; `SPC r' opens the Elfeed search listing in a buffer named `Index';
+;; entries open in `View'.  Elfeed hard-codes its internal buffer names, so
+;; `Index' comes from overriding `elfeed-search-buffer' and redirecting the
+;; direct lookup inside `elfeed-search-update', while `View' comes from
+;; filtering the name `elfeed-show--buffer-name' returns.
+;;
+;; The listing shows only title and feed, filtered to unread and sorted
+;; newest first.  `B' opens entries in the browser, `U' toggles unread
+;; without moving point (also on visual selections in the Index), and `d'
+;; and `u' scroll.  Entry views drop the Tags header and render with the
+;; default fixed-pitch font.  Both modes display `Elfeed' as their
+;; major-mode name.
+;;
+;; Evil bindings are applied from `evil-collection-setup-hook' because
+;; evil-collection's Elfeed setup registers after this file's `:config'
+;; and binds `SPC', `U', `u', and `d' itself.  Unbinding `SPC' in the
+;; search buffer lets the global General leader through.
+;;
+;; Feedbin supplies subscriptions, entries, and unread/starred state via
+;; `lib/elfeed-feedbin.el'; the sole entry in `elfeed-feeds' is the
+;; synthetic `feedbin:' URL that triggers synchronization.
 
 (use-package elfeed
   :ensure t
@@ -11,38 +33,28 @@
   (defconst m/elfeed-show-buffer-name "View"
     "Name of the Elfeed entry buffer.")
 
-  (defun m/elfeed-search-buffer (orig)
-    "Return Elfeed's search buffer, renamed for display."
-    (or (get-buffer m/elfeed-search-buffer-name)
-        (let ((buffer (funcall orig)))
-          (with-current-buffer buffer
-            (rename-buffer m/elfeed-search-buffer-name))
-          buffer)))
+  (defun m/elfeed-search-buffer ()
+    "Create and return the renamed Elfeed search buffer."
+    (get-buffer-create m/elfeed-search-buffer-name))
 
   (defun m/elfeed-search-update (orig &rest args)
-    "Run ORIG against the renamed Elfeed search buffer with ARGS."
-    (if-let* ((buffer (get-buffer m/elfeed-search-buffer-name)))
-        (unwind-protect
-            (progn
-              ;; `elfeed-search-update' looks up this internal name directly.
-              (with-current-buffer buffer
-                (rename-buffer "*elfeed-search*"))
-              (apply orig args))
-          (when (buffer-live-p buffer)
-            (with-current-buffer buffer
-              (rename-buffer m/elfeed-search-buffer-name))))
-      (apply orig args)))
+    "Run ORIG with ARGS against the renamed Elfeed search buffer.
+`elfeed-search-update' looks up Elfeed's internal buffer name
+directly, so redirect that lookup to `m/elfeed-search-buffer-name'."
+    (let ((real-get-buffer (symbol-function 'get-buffer)))
+      (cl-letf (((symbol-function 'get-buffer)
+                 (lambda (buffer-or-name)
+                   (funcall real-get-buffer
+                            (if (equal buffer-or-name "*elfeed-search*")
+                                m/elfeed-search-buffer-name
+                              buffer-or-name)))))
+        (apply orig args))))
 
-  (defun m/elfeed-show-buffer-name (orig entry)
-    "Return Elfeed's show buffer name for ENTRY, replacing the default."
-    (let ((name (funcall orig entry)))
-      (if (not (equal name "*elfeed-entry*"))
-          name
-        (unless (get-buffer m/elfeed-show-buffer-name)
-          (when-let* ((buffer (get-buffer name)))
-            (with-current-buffer buffer
-              (rename-buffer m/elfeed-show-buffer-name))))
-        m/elfeed-show-buffer-name)))
+  (defun m/elfeed-show-buffer-name (name)
+    "Return the renamed Elfeed entry buffer name in place of NAME."
+    (if (equal name "*elfeed-entry*")
+        m/elfeed-show-buffer-name
+      name))
 
   (defun m/elfeed-search-print-entry (entry)
     "Print ENTRY as title and feed."
@@ -65,32 +77,29 @@
                    'mouse-face 'highlight
                    'follow-link [elfeed-feed]))))
 
-  (defun m/elfeed-search-restore-leader ()
-    "Let the global General SPC leader apply in Elfeed search buffers."
-    (general-define-key
-     :states 'normal
-     :keymaps 'elfeed-search-mode-map
-     "SPC" nil))
-
   (defun m/elfeed-search-toggle-unread ()
     "Toggle unread on the selected entries without moving point."
     (interactive)
     (let ((elfeed-search-remain-on-entry t))
       (elfeed-search-toggle-all 'unread)))
 
-  (defun m/elfeed-search-set-local-bindings ()
-    "Set local Evil bindings for an Elfeed search buffer."
-    (evil-local-set-key 'normal (kbd "B") #'elfeed-search-browse-url)
-    (evil-local-set-key 'normal (kbd "U") #'m/elfeed-search-toggle-unread)
-    (evil-local-set-key 'visual (kbd "U") #'m/elfeed-search-toggle-unread)
-    (evil-local-set-key 'normal (kbd "d") #'evil-scroll-down)
-    (evil-local-set-key 'normal (kbd "u") #'evil-scroll-up))
-
-  (defun m/elfeed-show-set-local-bindings ()
-    "Set local Evil bindings for an Elfeed entry buffer."
-    (evil-local-set-key 'normal (kbd "B") #'elfeed-show-visit)
-    (evil-local-set-key 'normal (kbd "d") #'evil-scroll-down)
-    (evil-local-set-key 'normal (kbd "u") #'evil-scroll-up))
+  (defun m/elfeed-set-evil-bindings (mode _keymaps)
+    "Set Evil bindings for Elfeed once evil-collection has set up MODE.
+evil-collection's Elfeed setup runs after this file's `:config' and
+would clobber bindings made there."
+    (when (eq mode 'elfeed)
+      (evil-define-key 'normal elfeed-search-mode-map
+        (kbd "SPC") nil ; let the global General SPC leader through
+        (kbd "B") #'elfeed-search-browse-url
+        (kbd "U") #'m/elfeed-search-toggle-unread
+        (kbd "d") #'evil-scroll-down
+        (kbd "u") #'evil-scroll-up)
+      (evil-define-key 'visual elfeed-search-mode-map
+        (kbd "U") #'m/elfeed-search-toggle-unread)
+      (evil-define-key 'normal elfeed-show-mode-map
+        (kbd "B") #'elfeed-show-visit
+        (kbd "d") #'evil-scroll-down
+        (kbd "u") #'evil-scroll-up)))
 
   (defun m/elfeed-show-refresh ()
     "Render an Elfeed entry without the Tags header."
@@ -111,6 +120,8 @@
     (setq-local mode-name "Elfeed"))
 
   :init
+  (add-hook 'evil-collection-setup-hook #'m/elfeed-set-evil-bindings)
+  ;; Plain defvars, not defcustoms, so `:custom' would not apply them.
   (setq elfeed-search-print-entry-function #'m/elfeed-search-print-entry
         elfeed-show-refresh-function #'m/elfeed-show-refresh)
 
@@ -120,10 +131,7 @@
   (elfeed-search-sort-order 'descending)
 
   :hook
-  ((elfeed-search-mode . m/elfeed-search-restore-leader)
-   (elfeed-search-mode . m/elfeed-search-set-local-bindings)
-   (elfeed-search-mode . m/elfeed-set-mode-name)
-   (elfeed-show-mode . m/elfeed-show-set-local-bindings)
+  ((elfeed-search-mode . m/elfeed-set-mode-name)
    (elfeed-show-mode . m/elfeed-show-use-default-font)
    (elfeed-show-mode . m/elfeed-set-mode-name))
 
@@ -131,8 +139,13 @@
   ("SPC r" '(elfeed :which-key "RSS reader"))
 
   :config
-  (advice-add 'elfeed-search-buffer :around #'m/elfeed-search-buffer)
+  (advice-add 'elfeed-search-buffer :override #'m/elfeed-search-buffer)
   (advice-add 'elfeed-search-update :around #'m/elfeed-search-update)
-  (advice-add 'elfeed-show--buffer-name :around #'m/elfeed-show-buffer-name)
-  (load-file "~/.emacs.d/lib/elfeed-feedbin.el")
+  (advice-add 'elfeed-show--buffer-name :filter-return #'m/elfeed-show-buffer-name))
+
+(use-package elfeed-feedbin
+  :ensure nil
+  :load-path "lib"
+  :after elfeed
+  :config
   (elfeed-feedbin-enable))
