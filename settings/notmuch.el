@@ -19,7 +19,8 @@
 ;; as `Labels:'. `U' toggles read/unread, `s' toggles Starred, `e' archives, and
 ;; `d' and `u' scroll down and up. `g i', `g #', `g !', `g t', `g s',
 ;; and `g d' open Inbox, Trash, Spam, Sent, Starred, and Drafts, replacing the
-;; current Notmuch buffer. `G' invokes `notmuch-sync' and refreshes the view;
+;; current Notmuch buffer. `/` starts an ad hoc search from content views. `G'
+;; invokes `notmuch-sync' and refreshes the view;
 ;; normal background synchronization does not require Emacs to be running.
 ;; Search results are newest-first.
 ;;
@@ -569,6 +570,11 @@ buffer that is visible in more than one window, as Dired does."
      (m/notmuch-star-tag-change (notmuch-show-get-tags)))
     (m/notmuch-sync-request))
 
+  (defun m/notmuch-search ()
+    "Prompt for a new Notmuch search."
+    (interactive)
+    (call-interactively #'notmuch-search))
+
   (defun m/notmuch-disabled-archive-binding ()
     "Do nothing where an alternate archive binding used to exist."
     (interactive))
@@ -593,6 +599,7 @@ buffer that is visible in more than one window, as Dired does."
     (evil-local-set-key 'visual (kbd "s") #'m/notmuch-search-star)
     (evil-local-set-key 'normal (kbd "e") #'m/notmuch-search-archive)
     (evil-local-set-key 'visual (kbd "e") #'m/notmuch-search-archive)
+    (evil-local-set-key 'normal (kbd "/") #'m/notmuch-search)
     (m/notmuch-inhibit-archive-bindings '("a")))
 
   (defun m/notmuch-show-set-local-bindings ()
@@ -603,6 +610,7 @@ buffer that is visible in more than one window, as Dired does."
     (evil-local-set-key 'normal (kbd "U") #'m/notmuch-show-toggle-unread)
     (evil-local-set-key 'normal (kbd "s") #'m/notmuch-show-star)
     (evil-local-set-key 'normal (kbd "e") #'m/notmuch-show-archive)
+    (evil-local-set-key 'normal (kbd "/") #'m/notmuch-search)
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X"))
     (local-set-key (kbd "SPC") #'scroll-up-command))
 
@@ -613,8 +621,9 @@ buffer that is visible in more than one window, as Dired does."
     (m/notmuch-sync-request))
 
   (defun m/notmuch-tree-set-local-bindings ()
-    "Make `e' the only archive binding in a Notmuch tree view."
+    "Set local Evil bindings for a Notmuch tree view."
     (evil-local-set-key 'normal (kbd "e") #'m/notmuch-tree-archive)
+    (evil-local-set-key 'normal (kbd "/") #'m/notmuch-search)
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X")))
 
   (defun m/notmuch-set-scroll-bindings ()
