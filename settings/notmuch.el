@@ -19,7 +19,7 @@
 ;; `d' and `u' scroll down and up. `g i', `g #', `g !', `g t', `g s',
 ;; and `g d' open Inbox, Trash, Spam, Sent, Starred, and Drafts, replacing the
 ;; current Notmuch buffer. `/` starts an ad hoc search from content views.
-;; `g R' invokes `notmuch-sync' and refreshes the view; normal background
+;; `r' invokes `notmuch-sync' and refreshes the view; normal background
 ;; synchronization does not require Emacs to be running.
 ;; Search results are newest-first.
 ;;
@@ -344,6 +344,14 @@ Dired does."
     (dolist (mailbox m/notmuch-mailboxes)
       (evil-local-set-key 'normal (kbd (nth 2 mailbox))
                           (m/notmuch-open-mailbox-command (car mailbox)))))
+
+  (defun m/notmuch-set-refresh-bindings (mode _keymaps)
+    "Set concise refresh bindings after evil-collection sets up MODE."
+    (when (eq mode 'notmuch)
+      (evil-define-key 'normal notmuch-common-keymap
+        (kbd "g r") nil
+        (kbd "g R") nil
+        (kbd "r") #'notmuch-poll-and-refresh-this-buffer)))
 
   (defun m/notmuch-sync-start ()
     "Start a requested asynchronous Gmail synchronization."
@@ -728,6 +736,9 @@ Dired does."
           (when-let* ((buffer (get-buffer "*notmuch-hello*")))
             (with-current-buffer buffer
               (rename-buffer "Dashboard")))))))
+
+  :init
+  (add-hook 'evil-collection-setup-hook #'m/notmuch-set-refresh-bindings)
 
   :custom
   (mail-user-agent 'notmuch-user-agent)
