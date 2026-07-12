@@ -1,9 +1,11 @@
+(declare-function evil-local-set-key "evil-core" (state key def))
+
 (use-package elfeed
   :ensure t
   :commands elfeed
 
   :preface
-  (defconst m/elfeed-search-buffer-name "List"
+  (defconst m/elfeed-search-buffer-name "Index"
     "Name of the Elfeed search buffer.")
 
   (defconst m/elfeed-show-buffer-name "View"
@@ -70,6 +72,26 @@
      :keymaps 'elfeed-search-mode-map
      "SPC" nil))
 
+  (defun m/elfeed-search-toggle-unread ()
+    "Toggle unread on the selected entries without moving point."
+    (interactive)
+    (let ((elfeed-search-remain-on-entry t))
+      (elfeed-search-toggle-all 'unread)))
+
+  (defun m/elfeed-search-set-local-bindings ()
+    "Set local Evil bindings for an Elfeed search buffer."
+    (evil-local-set-key 'normal (kbd "B") #'elfeed-search-browse-url)
+    (evil-local-set-key 'normal (kbd "U") #'m/elfeed-search-toggle-unread)
+    (evil-local-set-key 'visual (kbd "U") #'m/elfeed-search-toggle-unread)
+    (evil-local-set-key 'normal (kbd "d") #'evil-scroll-down)
+    (evil-local-set-key 'normal (kbd "u") #'evil-scroll-up))
+
+  (defun m/elfeed-show-set-local-bindings ()
+    "Set local Evil bindings for an Elfeed entry buffer."
+    (evil-local-set-key 'normal (kbd "B") #'elfeed-show-visit)
+    (evil-local-set-key 'normal (kbd "d") #'evil-scroll-down)
+    (evil-local-set-key 'normal (kbd "u") #'evil-scroll-up))
+
   (defun m/elfeed-show-refresh ()
     "Render an Elfeed entry without the Tags header."
     (elfeed-show-refresh--mail-style)
@@ -99,7 +121,9 @@
 
   :hook
   ((elfeed-search-mode . m/elfeed-search-restore-leader)
+   (elfeed-search-mode . m/elfeed-search-set-local-bindings)
    (elfeed-search-mode . m/elfeed-set-mode-name)
+   (elfeed-show-mode . m/elfeed-show-set-local-bindings)
    (elfeed-show-mode . m/elfeed-show-use-default-font)
    (elfeed-show-mode . m/elfeed-set-mode-name))
 
