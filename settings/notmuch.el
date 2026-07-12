@@ -18,9 +18,9 @@
 ;; as `Labels:'. `U' toggles read/unread, `s' toggles Starred, `e' archives, and
 ;; `d' and `u' scroll down and up. `g i', `g #', `g !', `g t', `g s',
 ;; and `g d' open Inbox, Trash, Spam, Sent, Starred, and Drafts, replacing the
-;; current Notmuch buffer. `/` starts an ad hoc search from content views. `G'
-;; invokes `notmuch-sync' and refreshes the view;
-;; normal background synchronization does not require Emacs to be running.
+;; current Notmuch buffer. `/` starts an ad hoc search from content views.
+;; `g R' invokes `notmuch-sync' and refreshes the view; normal background
+;; synchronization does not require Emacs to be running.
 ;; Search results are newest-first.
 ;;
 ;; Plain text is preferred when a message provides multiple alternatives and
