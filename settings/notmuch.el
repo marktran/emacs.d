@@ -20,7 +20,8 @@
 ;; scroll down and up.
 ;; `g i', `g #', `g !', `g t', `g s',
 ;; and `g d' open Inbox, Trash, Spam, Sent, Starred, and Drafts, replacing the
-;; current Notmuch buffer. `/` starts an ad hoc search from content views.
+;; current Notmuch buffer. `TAB' switches between Inbox and Starred. `/` starts
+;; an ad hoc search from content views.
 ;; `r' invokes `notmuch-sync' and refreshes the view; normal background
 ;; synchronization does not require Emacs to be running.
 ;; Search results are newest-first.
@@ -340,11 +341,28 @@ Dired does."
            (m/notmuch-open-mailbox ,name))
         (format "Open Gmail %s." name))))
 
+  (defun m/notmuch-toggle-inbox-starred ()
+    "Switch between the Gmail Inbox and Starred mailboxes."
+    (interactive)
+    (let ((query
+           (cond
+            ((derived-mode-p 'notmuch-search-mode)
+             notmuch-search-query-string)
+            ((derived-mode-p 'notmuch-show-mode)
+             notmuch-show-query-context)
+            ((derived-mode-p 'notmuch-tree-mode)
+             notmuch-tree-query-context))))
+      (m/notmuch-open-mailbox
+       (if (equal query "tag:inbox") "Starred" "Inbox"))))
+
   (defun m/notmuch-set-mailbox-bindings ()
     "Set Gmail-style mailbox bindings in the current Notmuch buffer."
     (dolist (mailbox m/notmuch-mailboxes)
       (evil-local-set-key 'normal (kbd (nth 2 mailbox))
-                          (m/notmuch-open-mailbox-command (car mailbox)))))
+                          (m/notmuch-open-mailbox-command (car mailbox))))
+    (m/notmuch-bind-keys '(normal)
+                         '(("TAB" . m/notmuch-toggle-inbox-starred)
+                           ("<tab>" . m/notmuch-toggle-inbox-starred))))
 
   (defun m/notmuch-set-refresh-bindings (mode _keymaps)
     "Set concise refresh bindings after evil-collection sets up MODE."
@@ -553,7 +571,9 @@ Dired does."
   (defun m/notmuch-tree-set-local-bindings ()
     "Set local Evil bindings for a Notmuch tree view."
     (m/notmuch-bind-keys '(normal)
-                         '(("e" . m/notmuch-tree-archive)
+                         '(("TAB" . m/notmuch-toggle-inbox-starred)
+                           ("<tab>" . m/notmuch-toggle-inbox-starred)
+                           ("e" . m/notmuch-tree-archive)
                            ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X")))
 
