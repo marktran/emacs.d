@@ -32,9 +32,10 @@
 ;; selected search thread's—HTML alternative in the browser, while `H' toggles
 ;; it inline. Browser views route remote image URLs through wsrv.nl.
 ;;
-;; Composing and replying use Message mode and the `notmuch-sendmail' helper.
-;; Gmail creates the Sent copy, so this configuration deliberately disables
-;; Notmuch's local Fcc to avoid duplicates.
+;; `c' starts a new message, `C-RET' sends it, and `C-<' discards the current
+;; draft. Composing and replying use Message mode and the `notmuch-sendmail'
+;; helper. Gmail creates the Sent copy, so this configuration deliberately
+;; disables Notmuch's local Fcc to avoid duplicates.
 ;;
 ;; Gmail labels appear as Notmuch tags. Archiving removes `inbox'. `#' moves
 ;; selected threads to `trash', while `!' moves them to `spam'; both request an
@@ -362,7 +363,8 @@ Dired does."
                           (m/notmuch-open-mailbox-command (car mailbox))))
     (m/notmuch-bind-keys '(normal)
                          '(("TAB" . m/notmuch-toggle-inbox-starred)
-                           ("<tab>" . m/notmuch-toggle-inbox-starred))))
+                           ("<tab>" . m/notmuch-toggle-inbox-starred)
+                           ("c" . notmuch-mua-new-mail))))
 
   (defun m/notmuch-set-refresh-bindings (mode _keymaps)
     "Set concise refresh bindings after evil-collection sets up MODE."
@@ -562,6 +564,17 @@ Dired does."
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X"))
     (local-set-key (kbd "SPC") #'scroll-up-command))
 
+  (defun m/notmuch-message-set-local-bindings ()
+    "Set local bindings for composing a Notmuch message."
+    (let ((bindings
+           '(("C-<return>" . notmuch-mua-send-and-exit)
+             ("C-RET" . notmuch-mua-send-and-exit)
+             ("C-<" . message-kill-buffer)
+             ("C-S-," . message-kill-buffer))))
+      (pcase-dolist (`(,key . ,command) bindings)
+        (local-set-key (kbd key) command))
+      (m/notmuch-bind-keys '(normal insert) bindings)))
+
   (defun m/notmuch-tree-archive ()
     "Archive the current Notmuch tree thread and select the next one."
     (interactive)
@@ -573,6 +586,7 @@ Dired does."
     (m/notmuch-bind-keys '(normal)
                          '(("TAB" . m/notmuch-toggle-inbox-starred)
                            ("<tab>" . m/notmuch-toggle-inbox-starred)
+                           ("c" . notmuch-mua-new-mail)
                            ("e" . m/notmuch-tree-archive)
                            ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X")))
@@ -955,6 +969,7 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
   ((notmuch-hello-mode . m/notmuch-hello-set-local-bindings)
    (notmuch-hello-mode . m/notmuch-set-mailbox-bindings)
    (notmuch-hello-mode . m/notmuch-set-mode-name)
+   (notmuch-message-mode . m/notmuch-message-set-local-bindings)
    (notmuch-search-mode . m/notmuch-mailbox-layout)
    (notmuch-search-mode . m/notmuch-set-mailbox-bindings)
    (notmuch-search-mode . m/notmuch-search-set-local-bindings)
