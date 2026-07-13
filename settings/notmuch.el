@@ -63,6 +63,10 @@ the binding that opens the mailbox. The `grouped' flag groups results
 by month and year, and `show-excluded' includes messages with excluded
 tags.")
 
+  (defun m/notmuch-mailbox-flag-p (mailbox flag)
+    "Return non-nil when the `m/notmuch-mailboxes' entry MAILBOX has FLAG."
+    (memq flag (nthcdr 3 mailbox)))
+
   (defun m/notmuch-search-buffer-title (orig query &optional type)
     "Give exact mailbox QUERY values concise names.
 Call ORIG with QUERY and TYPE for all other searches."
@@ -144,7 +148,7 @@ Right-align the field when RIGHT-ALIGN is non-nil."
     (let ((mailbox (assoc (buffer-name) m/notmuch-mailboxes)))
       (when (or mailbox (string-prefix-p "Search: " (buffer-name)))
         (setq-local m/notmuch-search-group-by-month
-                    (and (memq 'grouped mailbox) t))
+                    (and (m/notmuch-mailbox-flag-p mailbox 'grouped) t))
         (setq-local m/notmuch-search-last-month nil)
         (setq-local notmuch-search-result-format
                     '((m/notmuch-search-format-mailbox-result . ""))))))
@@ -185,15 +189,14 @@ Right-align the field when RIGHT-ALIGN is non-nil."
       (prog1 (funcall orig proc msg)
         (when (buffer-live-p buffer)
           (with-current-buffer buffer
-            (let ((inhibit-read-only t)
-                  (suffix "End of search results.\n"))
-              (when (and (>= (- (point-max) (length suffix)) (point-min))
+            (let* ((inhibit-read-only t)
+                   (suffix "End of search results.\n")
+                   (start (- (point-max) (length suffix))))
+              (when (and (>= start (point-min))
                          (equal (buffer-substring-no-properties
-                                 (- (point-max) (length suffix))
-                                 (point-max))
+                                 start (point-max))
                                 suffix))
-                (delete-region (- (point-max) (length suffix))
-                               (point-max)))))))))
+                (delete-region start (point-max)))))))))
 
   (defvar-local m/notmuch-dashboard-search-widget nil
     "Search widget in the current Notmuch dashboard buffer.")
@@ -322,7 +325,8 @@ Dired does."
                  (< (length (get-buffer-window-list origin)) 2))))
       (notmuch-search (nth 1 mailbox)
                       (default-value 'notmuch-search-oldest-first)
-                      (and (not (memq 'show-excluded mailbox))
+                      (and (not (m/notmuch-mailbox-flag-p
+                                 mailbox 'show-excluded))
                            (default-value 'notmuch-search-hide-excluded)))
       (when (and kill-origin
                  (buffer-live-p origin)
@@ -356,15 +360,18 @@ Dired does."
       (m/notmuch-open-mailbox
        (if (equal query "tag:inbox") "Starred" "Inbox"))))
 
+  (defconst m/notmuch-shared-view-bindings
+    '(("TAB" . m/notmuch-toggle-inbox-starred)
+      ("<tab>" . m/notmuch-toggle-inbox-starred)
+      ("c" . notmuch-mua-new-mail))
+    "Evil bindings shared by every Notmuch view.")
+
   (defun m/notmuch-set-mailbox-bindings ()
     "Set Gmail-style mailbox bindings in the current Notmuch buffer."
     (dolist (mailbox m/notmuch-mailboxes)
       (evil-local-set-key 'normal (kbd (nth 2 mailbox))
                           (m/notmuch-open-mailbox-command (car mailbox))))
-    (m/notmuch-bind-keys '(normal)
-                         '(("TAB" . m/notmuch-toggle-inbox-starred)
-                           ("<tab>" . m/notmuch-toggle-inbox-starred)
-                           ("c" . notmuch-mua-new-mail))))
+    (m/notmuch-bind-keys '(normal) m/notmuch-shared-view-bindings))
 
   (defun m/notmuch-set-refresh-bindings (mode _keymaps)
     "Set concise refresh bindings after evil-collection sets up MODE."
@@ -444,13 +451,17 @@ Dired does."
     "Return the tag change that toggles TAG in TAGS."
     (list (concat (if (member tag tags) "-" "+") tag)))
 
+  (defun m/notmuch-search-toggle-tag (tag beg end)
+    "Toggle TAG on the selected threads between BEG and END."
+    (notmuch-search-tag
+     (m/notmuch-toggle-tag-change
+      tag (notmuch-search-get-tags-region beg end))
+     beg end))
+
   (defun m/notmuch-search-toggle-unread (beg end)
     "Toggle unread for the selected threads between BEG and END."
     (interactive (notmuch-interactive-region))
-    (notmuch-search-tag
-     (m/notmuch-toggle-tag-change
-      "unread" (notmuch-search-get-tags-region beg end))
-     beg end))
+    (m/notmuch-search-toggle-tag "unread" beg end))
 
   (defun m/notmuch-show-toggle-unread ()
     "Toggle unread for all messages in the current thread."
@@ -482,43 +493,50 @@ Dired does."
     (m/notmuch-sync-request)
     (notmuch-show-next-thread t))
 
+  (defconst m/notmuch-archive-tag-changes '("-inbox")
+    "Tag changes that archive a Gmail thread.")
+
+  (defconst m/notmuch-trash-tag-changes '("+trash" "-inbox" "-unread")
+    "Tag changes that move a Gmail thread to Trash.")
+
+  (defconst m/notmuch-spam-tag-changes
+    '("+spam" "-inbox" "-unread" "-trash")
+    "Tag changes that move a Gmail thread to Spam.")
+
   (defun m/notmuch-search-archive (beg end)
     "Archive the selected threads between BEG and END in Gmail."
     (interactive (notmuch-interactive-region))
-    (m/notmuch-search-move '("-inbox") beg end))
+    (m/notmuch-search-move m/notmuch-archive-tag-changes beg end))
 
   (defun m/notmuch-show-archive ()
     "Archive all displayed messages in the current Gmail thread."
     (interactive)
-    (m/notmuch-show-move '("-inbox")))
+    (m/notmuch-show-move m/notmuch-archive-tag-changes))
 
   (defun m/notmuch-search-trash (beg end)
     "Move the selected threads between BEG and END to Gmail Trash."
     (interactive (notmuch-interactive-region))
-    (m/notmuch-search-move '("+trash" "-inbox" "-unread") beg end))
+    (m/notmuch-search-move m/notmuch-trash-tag-changes beg end))
 
   (defun m/notmuch-show-trash ()
     "Move all displayed messages in the current thread to Gmail Trash."
     (interactive)
-    (m/notmuch-show-move '("+trash" "-inbox" "-unread")))
+    (m/notmuch-show-move m/notmuch-trash-tag-changes))
 
   (defun m/notmuch-search-spam (beg end)
     "Move the selected threads between BEG and END to Gmail Spam."
     (interactive (notmuch-interactive-region))
-    (m/notmuch-search-move '("+spam" "-inbox" "-unread" "-trash") beg end))
+    (m/notmuch-search-move m/notmuch-spam-tag-changes beg end))
 
   (defun m/notmuch-show-spam ()
     "Move all displayed messages in the current thread to Gmail Spam."
     (interactive)
-    (m/notmuch-show-move '("+spam" "-inbox" "-unread" "-trash")))
+    (m/notmuch-show-move m/notmuch-spam-tag-changes))
 
   (defun m/notmuch-search-star (beg end)
     "Toggle Starred on the selected threads between BEG and END."
     (interactive (notmuch-interactive-region))
-    (notmuch-search-tag
-     (m/notmuch-toggle-tag-change
-      "flagged" (notmuch-search-get-tags-region beg end))
-     beg end)
+    (m/notmuch-search-toggle-tag "flagged" beg end)
     (m/notmuch-sync-request))
 
   (defun m/notmuch-show-star ()
@@ -583,11 +601,9 @@ Dired does."
 
   (defun m/notmuch-tree-set-local-bindings ()
     "Set local Evil bindings for a Notmuch tree view."
+    (m/notmuch-bind-keys '(normal) m/notmuch-shared-view-bindings)
     (m/notmuch-bind-keys '(normal)
-                         '(("TAB" . m/notmuch-toggle-inbox-starred)
-                           ("<tab>" . m/notmuch-toggle-inbox-starred)
-                           ("c" . notmuch-mua-new-mail)
-                           ("e" . m/notmuch-tree-archive)
+                         '(("e" . m/notmuch-tree-archive)
                            ("/" . notmuch-search)))
     (m/notmuch-inhibit-archive-bindings '("a" "A" "x" "X")))
 
@@ -626,13 +642,10 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
 
   (defun m/notmuch-proxy-image-url (url)
     "Route a remote image URL through wsrv.nl."
-    (let ((case-fold-search t)
-          source)
-      (cond
-       ((string-prefix-p "//" url)
-        (setq source (concat "https:" url)))
-       ((string-match-p "\\`https?://" url)
-        (setq source url)))
+    (let* ((case-fold-search t)
+           (source (cond
+                    ((string-prefix-p "//" url) (concat "https:" url))
+                    ((string-match-p "\\`https?://" url) url))))
       (if source
           (concat m/notmuch-image-proxy-url
                   (url-hexify-string (xml-substitute-special source)))
