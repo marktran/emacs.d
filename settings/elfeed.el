@@ -2,9 +2,10 @@
 
 ;; `SPC r' opens the Elfeed search listing in a buffer named `Index';
 ;; entries open in `View'.  Elfeed hard-codes its internal buffer names, so
-;; `Index' comes from overriding `elfeed-search-buffer' and redirecting the
-;; direct lookup inside `elfeed-search-update', while `View' comes from
-;; filtering the name `elfeed-show--buffer-name' returns.
+;; both renames map through the `m/elfeed-buffer-names' table: `Index' by
+;; overriding `elfeed-search-buffer' and redirecting the direct lookup
+;; inside `elfeed-search-update', and `View' by filtering the name
+;; `elfeed-show--buffer-name' returns.
 ;;
 ;; The listing shows only title and feed, filtered to unread and sorted
 ;; newest first.  `r' fetches feeds, `B' opens entries in the browser, `U'
@@ -28,34 +29,32 @@
   :commands elfeed
 
   :preface
-  (defconst m/elfeed-search-buffer-name "Index"
-    "Name of the Elfeed search buffer.")
+  (defconst m/elfeed-buffer-names
+    '(("*elfeed-search*" . "Index")
+      ("*elfeed-entry*" . "View"))
+    "Renames for Elfeed's hard-coded buffer names.")
 
-  (defconst m/elfeed-show-buffer-name "View"
-    "Name of the Elfeed entry buffer.")
+  (defun m/elfeed-rename-buffer (buffer-or-name)
+    "Return the rename for Elfeed's internal BUFFER-OR-NAME.
+Return BUFFER-OR-NAME unchanged when it has no rename."
+    (or (and (stringp buffer-or-name)
+             (cdr (assoc buffer-or-name m/elfeed-buffer-names)))
+        buffer-or-name))
 
   (defun m/elfeed-search-buffer ()
     "Create and return the renamed Elfeed search buffer."
-    (get-buffer-create m/elfeed-search-buffer-name))
+    (get-buffer-create (m/elfeed-rename-buffer "*elfeed-search*")))
 
   (defun m/elfeed-search-update (orig &rest args)
     "Run ORIG with ARGS against the renamed Elfeed search buffer.
 `elfeed-search-update' looks up Elfeed's internal buffer name
-directly, so redirect that lookup to `m/elfeed-search-buffer-name'."
+directly, so redirect `get-buffer' through `m/elfeed-rename-buffer'."
     (let ((real-get-buffer (symbol-function 'get-buffer)))
       (cl-letf (((symbol-function 'get-buffer)
                  (lambda (buffer-or-name)
                    (funcall real-get-buffer
-                            (if (equal buffer-or-name "*elfeed-search*")
-                                m/elfeed-search-buffer-name
-                              buffer-or-name)))))
+                            (m/elfeed-rename-buffer buffer-or-name)))))
         (apply orig args))))
-
-  (defun m/elfeed-show-buffer-name (name)
-    "Return the renamed Elfeed entry buffer name in place of NAME."
-    (if (equal name "*elfeed-entry*")
-        m/elfeed-show-buffer-name
-      name))
 
   (defun m/elfeed-search-print-entry (entry)
     "Print ENTRY as title and feed."
@@ -112,9 +111,9 @@ would clobber bindings made there."
     (let ((inhibit-read-only t))
       (save-excursion
         (goto-char (point-min))
-        (let ((header-end (save-excursion (search-forward "\n\n" nil t))))
+        (when-let* ((header-end (save-excursion (search-forward "\n\n" nil t))))
           (when (re-search-forward "^Tags:.*\n" header-end t)
-            (delete-region (match-beginning 0) (match-end 0)))))))
+            (replace-match ""))))))
 
   (defun m/elfeed-show-use-default-font ()
     "Render entry content using the default fixed-pitch font."
@@ -147,7 +146,7 @@ would clobber bindings made there."
   :config
   (advice-add 'elfeed-search-buffer :override #'m/elfeed-search-buffer)
   (advice-add 'elfeed-search-update :around #'m/elfeed-search-update)
-  (advice-add 'elfeed-show--buffer-name :filter-return #'m/elfeed-show-buffer-name))
+  (advice-add 'elfeed-show--buffer-name :filter-return #'m/elfeed-rename-buffer))
 
 (use-package elfeed-feedbin
   :ensure nil
