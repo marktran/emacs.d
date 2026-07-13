@@ -16,7 +16,8 @@
 ;; messages show their time; older messages use a zero-padded `Month DD'.
 ;; Message summary lines display the sender as `From:' and comma-separated tags
 ;; as `Labels:'. `U' toggles read/unread, `s' toggles Starred, `e' archives,
-;; `l' edits labels on the current message, and `d' and `u' scroll down and up.
+;; `l' edits labels on the current message or selected threads, and `d' and `u'
+;; scroll down and up.
 ;; `g i', `g #', `g !', `g t', `g s',
 ;; and `g d' open Inbox, Trash, Spam, Sent, Starred, and Drafts, replacing the
 ;; current Notmuch buffer. `/` starts an ad hoc search from content views.
@@ -521,7 +522,8 @@ Dired does."
                            ("!" . m/notmuch-search-spam)
                            ("U" . m/notmuch-search-toggle-unread)
                            ("s" . m/notmuch-search-star)
-                           ("e" . m/notmuch-search-archive)))
+                           ("e" . m/notmuch-search-archive)
+                           ("l" . notmuch-search-tag)))
     (m/notmuch-bind-keys '(normal)
                          '(("B" . m/notmuch-search-browse-html)
                            ("/" . notmuch-search)))
