@@ -13,7 +13,7 @@
 ;; `Search: query', and opened threads use `View'.
 ;; Mailbox and ad hoc search results show From, Subject, and Date without thread
 ;; counts. Inbox, Trash, and Spam are grouped by month and year. Today's
-;; messages show their time; older messages use `Month Day'.
+;; messages show their time; older messages use a zero-padded `Month DD'.
 ;; Message summary lines display the sender as `From:' and comma-separated tags
 ;; as `Labels:'. `U' toggles read/unread, `s' toggles Starred, `e' archives,
 ;; `l' edits labels on the current message, and `d' and `u' scroll down and up.
@@ -105,14 +105,12 @@ Right-align the field when RIGHT-ALIGN is non-nil."
                   'help-echo (and truncated text))))
 
   (defun m/notmuch-search-date (timestamp)
-    "Format TIMESTAMP as a time today or as `Month Day' otherwise."
+    "Format TIMESTAMP as a time today or as zero-padded `Month DD'."
     (let ((time (seconds-to-time timestamp)))
       (if (equal (format-time-string "%Y-%m-%d" time)
                  (format-time-string "%Y-%m-%d"))
           (format-time-string "%H:%M" time)
-        (format "%s %d"
-                (format-time-string "%B" time)
-                (string-to-number (format-time-string "%d" time))))))
+        (format-time-string "%B %d" time))))
 
   (defun m/notmuch-search-format-mailbox-result (_format result)
     "Format a mailbox RESULT as From, Subject, and Date."
