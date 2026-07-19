@@ -47,7 +47,7 @@
    "m" '(bm-toggle :which-key "Toggle visual bookmark")
    "n" '(bm-next :which-key "Next bookmark")
    "p" '(bm-previous :which-key "Previous bookmark")
-   "r" '(rename-current-buffer-file :which-key "Rename file")
+   "r" '(rename-visited-file :which-key "Rename file")
    "s" '(scratch :which-key "Create scratch buffer")
    "w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
 

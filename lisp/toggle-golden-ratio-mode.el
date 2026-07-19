@@ -4,6 +4,5 @@
       (progn
         (golden-ratio-mode -1)
         (balance-windows))
-    (progn
-      (golden-ratio-mode 1)
-      (golden-ratio))))
+    (golden-ratio-mode 1)
+    (golden-ratio)))
