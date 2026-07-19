@@ -26,6 +26,7 @@
 
 (load-file "~/.emacs.d/packages.el")
 (mapc 'load (directory-files "~/.emacs.d/lisp" t "\\.el\\'"))
+(load "~/.emacs.d/lisp/hacks/ignore-nil-mouse-events.el" 'noerror)
 (load-file "~/.emacs.d/bindings.el")
 (load-file "~/.emacs.d/settings.el")
 (load-file "~/.emacs.d/interface.el")
