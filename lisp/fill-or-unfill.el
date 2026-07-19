@@ -3,7 +3,7 @@
   "Like `fill-paragraph', but unfill if used twice."
   (interactive)
   (let ((fill-column
-         (if (eq last-command 'endless/fill-or-unfill)
+         (if (eq last-command 'fill-or-unfill)
              (progn (setq this-command nil)
                     (point-max))
            fill-column)))
