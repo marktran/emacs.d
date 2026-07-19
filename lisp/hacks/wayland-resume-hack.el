@@ -7,12 +7,77 @@
 ;; - m/monitor-font-size-cache
 ;; - set-dynamic-font
 
+;; Why this hack exists — analysis as of 2026-05 (Emacs 30.2 PGTK,
+;; GTK 3.24.52, Hyprland 0.55.2, Arch/Omarchy, eDP-1 2880x1800 @ scale 2):
+;;
+;; Symptom: after suspend/resume (or DPMS off/on), PGTK frames render
+;; blurry on scaled Wayland outputs until their wl_surface is recreated.
+;;
+;; Root cause is Hyprland <-> GTK3 interaction, not Emacs:
+;;
+;; - On Wayland, a window's buffer scale is decided inside GDK:
+;;   gdkwindow-wayland.c:window_update_scale() takes the max scale of
+;;   the wl_outputs the surface has *entered*, driven entirely by
+;;   compositor-sent wl_surface.enter/leave events; with no entered
+;;   outputs it keeps the stale impl->scale.  GTK 3.24 (final series,
+;;   maintenance-only) has no wl_surface.preferred_buffer_scale or
+;;   fractional-scale-v1 support — those are GTK4-only.
+;; - After DPMS/suspend, Hyprland sometimes fails to replay
+;;   wl_surface.enter when outputs come back, so GDK's scale sits stale
+;;   and the compositor upscales the buffer -> blur.
+;; - Emacs already handles scale *changes* correctly:
+;;   pgtkfns.c:update_watched_scale_factor() polls FRAME_SCALE_FACTOR
+;;   once per second per frame (scale_factor_atimer) and force-recreates
+;;   the cairo surface on change.  That code is identical on emacs-30
+;;   and master, so there is no upstream fix to pick up.  When the bug
+;;   hits, the stale state lives inside GDK, and GTK3 exposes no API to
+;;   force a buffer scale; the only in-process remedy is destroying and
+;;   recreating the wl_surface — which is exactly what
+;;   m/replace-selected-frame and m/nudge-wayland-surfaces do.
+;;
+;; Patching Emacs instead?  Technically possible: in
+;; update_watched_scale_factor, compare gtk_widget_get_scale_factor()
+;; (GDK's surface scale) with pgtk_frame_scale_factor() (the real
+;; monitor scale) and hide/show the outer widget on mismatch to force
+;; wl_surface recreation.  But that is the same hack one layer down with
+;; the same flicker, has poor odds upstream (it papers over a compositor
+;; bug in toolkit-owned territory), and means carrying a patched
+;; emacs-wayland package through every update.  Elisp is the right layer
+;; for this workaround.
+;;
+;; Upstream status:
+;; - Not an Emacs bug: never tracked in Emacs debbugs, and etc/PROBLEMS
+;;   does not mention it.
+;; - Hyprland: issue #6560 "monitor on/off makes windows blurry" was
+;;   fixed 2024-10 (verified against Emacs at the time); #1839 and
+;;   #6928 were closed as duplicates.  The fix later regressed (reports
+;;   on 0.51.x/0.52.x through 2025-11); now collected in discussion
+;;   #12439, where I reported the Emacs case (2025-12).  Still
+;;   reproducible on 0.55.2.  The maintainer asked for a bisect — that
+;;   is the path to a real fix.
+;;   https://github.com/hyprwm/Hyprland/issues/6560
+;;   https://github.com/hyprwm/Hyprland/discussions/12439
+;;
+;; Compositor-level mitigation: re-applying the monitor rules after
+;; wake forces Hyprland to re-announce outputs so every GTK3 app
+;; recomputes its scale at once; wired into hypridle's after_sleep_cmd
+;; via tilde:nix/files/hypr/scripts/hypr-reapply-monitors.  To give that
+;; a fair test (the DBus handler here otherwise replaces the frame on
+;; every resume, masking the result), automatic recovery is disabled by
+;; default: m/aggressive-wayland-resume-recovery is nil, and
+;; M-x m/recover-wayland-after-resume remains as the manual fallback.
+;; Set it back to t if blur returns and the compositor fix is not
+;; enough.
+
 (defvar m/frame-display-signatures (make-hash-table :test #'eq)
   "Cache display signatures keyed by frame object.")
 
-(defvar m/aggressive-wayland-resume-recovery t
+(defvar m/aggressive-wayland-resume-recovery nil
   "If non-nil, run configured recovery after resume on standalone PGTK Emacs.
-This is a pragmatic hack for blur/scale glitches after sleep.")
+This is a pragmatic hack for blur/scale glitches after sleep.
+Disabled by default since the compositor-level mitigation in hypridle
+(hypr-reapply-monitors) should make it unnecessary; set to t if blur
+returns, or run \\[m/recover-wayland-after-resume] manually.")
 
 (defvar m/prepare-for-sleep-dbus-handle nil
   "DBus registration handle for login1 PrepareForSleep signal.")
