@@ -530,9 +530,9 @@ With prefix argument FORCE-REFRESH, ignore cached forecast data."
         (message "Weather: using cached forecast for %s..."
                  (or weather--display-location weather-location "current location"))
         (weather--render cached-data))
-    (message (if weather-location
-                 (format "Weather: fetching forecast for %s..." weather-location)
-               "Weather: detecting location from public IP..."))
+    (if weather-location
+        (message "Weather: fetching forecast for %s..." weather-location)
+      (message "Weather: detecting location from public IP..."))
     (weather--resolve-location
      weather-location
      (lambda (location)
