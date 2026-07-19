@@ -27,18 +27,17 @@
    "M-k" 'buf-move-up)
 
   ;; Set initial states for specific modes
-  (dolist (mode-state '((inferior-emacs-lisp-mode . emacs)
-                        (calendar-mode            . normal)
-                        (comint-mode              . emacs)
-                        (ghostel-mode             . emacs)
-                        (eshell-mode              . emacs)
-                        (occur-mode               . emacs)
-                        (org-mode                 . normal)
-                        (special-mode             . normal)
-                        (sql-interactive-mode     . emacs)
-                        (yaml-mode                . normal)))
-    (cl-destructuring-bind (mode . state) mode-state
-      (evil-set-initial-state mode state)))
+  (pcase-dolist (`(,mode . ,state) '((inferior-emacs-lisp-mode . emacs)
+                                     (calendar-mode            . normal)
+                                     (comint-mode              . emacs)
+                                     (ghostel-mode             . emacs)
+                                     (eshell-mode              . emacs)
+                                     (occur-mode               . emacs)
+                                     (org-mode                 . normal)
+                                     (special-mode             . normal)
+                                     (sql-interactive-mode     . emacs)
+                                     (yaml-mode                . normal)))
+    (evil-set-initial-state mode state))
 
   (evil-mode 1))
 
@@ -48,20 +47,8 @@
   :diminish evil-collection-unimpaired-mode
 
   :config
-  (evil-collection-init 'calendar)
-  (evil-collection-init 'consult)
-  (evil-collection-init 'corfu)
-  (evil-collection-init 'dashboard)
-  (evil-collection-init 'dired)
-  (evil-collection-init 'ediff)
-  (evil-collection-init 'eglot)
-  (evil-collection-init 'elfeed)
-  (evil-collection-init 'embark)
-  (evil-collection-init 'eshell)
-  (evil-collection-init 'help)
-  (evil-collection-init 'info)
-  (evil-collection-init 'org-agenda)
-  (evil-collection-init 'magit))
+  (evil-collection-init '(calendar consult corfu dashboard dired ediff eglot
+                          elfeed embark eshell help info org-agenda magit)))
 
 (use-package evil-iedit-state
   :ensure t
@@ -77,7 +64,7 @@
 (use-package evil-matchit
   :ensure t
   :after evil
-  :init
+  :config
   (global-evil-matchit-mode 1))
 
 (use-package evil-nerd-commenter
@@ -88,5 +75,5 @@
 (use-package evil-surround
   :ensure t
   :after evil
-  :init
+  :config
   (global-evil-surround-mode 1))
