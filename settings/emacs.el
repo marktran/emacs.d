@@ -12,24 +12,20 @@
           (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  ;; Suppress progress messages ending with "..." or "...done" in the minibuffer
-  (advice-add 'message :around
-              (lambda (orig-fun format-string &rest args)
-                (if (and format-string
-                         (stringp format-string)
-                         (string-match-p "\\.\\.\\.$\\|\\.\\.\\. ?done\\'" format-string))
-                    nil
-                  (apply orig-fun format-string args))))
-
-  ;; Do not allow the cursor in the minibuffer prompt.
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
+  ;; Suppress progress messages ending with "..." or "...done"
+  (defun message-not-progress-p (format-string &rest _args)
+    (not (and (stringp format-string)
+              (string-match-p "\\.\\.\\.\\(?: ?done\\)?$" format-string))))
+  (advice-add 'message :before-while #'message-not-progress-p)
 
   :custom
   (enable-recursive-minibuffers t)
   (inhibit-startup-screen t)
-  (inhibit-startup-echo-area-message "mark")
-  ; Hide irrelevant M-x commands
+  (inhibit-startup-echo-area-message (user-login-name))
+  ;; Do not allow the cursor in the minibuffer prompt.
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt))
+  ;; Hide irrelevant M-x commands
   (read-extended-command-predicate #'command-completion-default-include-p)
   (tab-always-indent 'complete)
   (warning-suppress-log-types '((treesit)))
@@ -47,7 +43,7 @@
    "e" '(eval-buffer :which-key "Eval buffer")
    "h" '(bury-buffer :which-key "Hide buffer")
    "i" '(highlight-indentation-mode :which-key "Highlight indentation")
-   "k" '((lambda () (interactive) (kill-this-buffer)) :which-key "Kill buffer")
+   "k" '(kill-current-buffer :which-key "Kill buffer")
    "m" '(bm-toggle :which-key "Toggle visual bookmark")
    "n" '(bm-next :which-key "Next bookmark")
    "p" '(bm-previous :which-key "Previous bookmark")
@@ -55,7 +51,6 @@
    "s" '(scratch :which-key "Create scratch buffer")
    "w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
 
-  :general
   (:prefix "SPC E"
    "" '(:ignore t :which-key "Emacs")
    "l" '(package-list-packages :which-key "List packages")
@@ -64,7 +59,6 @@
    "t" '(consult-theme :which-key "Switch Theme")
    "u" '(package-upgrade-all :which-key "Upgrade all packages"))
 
-  :general
   (:prefix "SPC h"
    "" '(:ignore t :which-key "Help")
    "a" '(describe-face :which-key "Describe face")
@@ -75,7 +69,6 @@
    "p" '(describe-package :which-key "Describe package")
    "v" '(describe-variable :which-key "Describe variable"))
 
-  :general
   (:prefix "SPC t"
    "" '(:ignore t :which-key "Toggles")
    "l" '(display-line-numbers-mode :which-key "Toggle line numbers")))
