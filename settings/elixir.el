@@ -21,15 +21,3 @@
    "r f" '(alchemist-mix-test-this-buffer :which-key "Run tests in buffer")
    "r r" '(alchemist-mix-rerun-last-test :which-key "Rerun tests")
    "r s" '(alchemist-mix-test-at-point :which-key "Run test at point")))
-
-(with-eval-after-load 'smartparens
-  (sp-with-modes '(elixir-mode)
-    (sp-local-pair "->" "end"
-                   :when '(("RET"))
-                   :post-handlers '(:add sp-elixir-do-end-close-action)
-                   :actions '(insert))
-
-    (sp-local-pair "do" "end"
-                   :when '(("SPC" "RET"))
-                   :post-handlers '(:add sp-elixir-do-end-close-action)
-                   :actions '(insert))))
