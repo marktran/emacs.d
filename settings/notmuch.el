@@ -5,7 +5,7 @@
 ;; troubleshooting are documented in the parent dotfiles repository at
 ;; docs/EMACS.md.
 ;;
-;; `SPC m' opens the Inbox directly. `M-x notmuch' opens the optional Notmuch
+;; `SPC e' opens the Inbox directly. `M-x notmuch' opens the optional Notmuch
 ;; home screen in `Dashboard', which shares the main Emacs dashboard's centered
 ;; title and section styling. `/` moves to its search box and enters Insert
 ;; state. Inbox, Trash, Spam, Sent,
@@ -997,7 +997,7 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
    (notmuch-tree-mode . m/notmuch-tree-set-local-bindings))
 
   :general
-  ("SPC m" '(m/notmuch-open-inbox :which-key "Mail inbox"))
+  ("SPC e" '(m/notmuch-open-inbox :which-key "Email"))
 
   :config
   ;; Share Elfeed's bold, underlined date-separator styling.
@@ -1039,7 +1039,7 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
   :commands (consult-notmuch consult-notmuch-address consult-notmuch-tree)
 
   :general
-  ("SPC s m" '(consult-notmuch :which-key "Search mail")))
+  ("SPC s e" '(consult-notmuch :which-key "Search email")))
 
 (with-eval-after-load 'evil-collection
   (evil-collection-init 'notmuch))

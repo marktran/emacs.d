@@ -13,9 +13,9 @@
    ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
    "a" '(embark-act :which-key "Actions")
    "c" '(toggle-calendar :which-key "Toggle calendar")
-   "e" '(er/expand-region :which-key "Expand region")
    "f" '(find-file :which-key "Find file")
    "p" '(disproject-dispatch :which-key "Project")
+   "v" '(er/expand-region :which-key "Expand region")
    "y" '(consult-yank-pop :which-key "Yank Pop")
    "R" '(consult-recent-file :which-key "Recent files")
    "RET" '(consult-bookmark :which-key "Bookmarks")
@@ -35,7 +35,7 @@
   (general-define-key :prefix "SPC s"
    "" '(:ignore t :which-key "Search")
    "a" '(consult-ripgrep :which-key "Search project")
-   "e" '(evil-iedit-state/iedit-mode :which-key "Iedit")
+   "i" '(evil-iedit-state/iedit-mode :which-key "Iedit")
    "s" '(consult-line :which-key "Search for matching line")
    "v" '(avy-goto-word-1 :which-key "Avy")))
 

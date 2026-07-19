@@ -51,13 +51,10 @@
    "s" '(scratch :which-key "Create scratch buffer")
    "w" '(whitespace-cleanup :which-key "Cleanup whitespace"))
 
-  (:prefix "SPC E"
+  (:prefix "SPC q"
    "" '(:ignore t :which-key "Emacs")
-   "l" '(package-list-packages :which-key "List packages")
    "q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
-   "r" '(restart-emacs :which-key "Restart Emacs")
-   "t" '(consult-theme :which-key "Switch Theme")
-   "u" '(package-upgrade-all :which-key "Upgrade all packages"))
+   "r" '(restart-emacs :which-key "Restart Emacs"))
 
   (:prefix "SPC h"
    "" '(:ignore t :which-key "Help")
@@ -71,4 +68,5 @@
 
   (:prefix "SPC t"
    "" '(:ignore t :which-key "Toggles")
-   "l" '(display-line-numbers-mode :which-key "Toggle line numbers")))
+   "l" '(display-line-numbers-mode :which-key "Toggle line numbers")
+   "t" '(consult-theme :which-key "Switch theme")))
