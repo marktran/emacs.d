@@ -64,14 +64,25 @@
 ;;   connector rescan, no output events) and cannot trigger the bug;
 ;;   historical "blur on every wake" was really "every morning wake".
 ;; - The overnight wake showed no output churn and no blur either.
-;; - Conclusion: fixed upstream between 0.53 and 0.55.  The v0.54.0
-;;   commit d91952c5 ("wayland/output: return all bound wl_output
-;;   instances in outputResourceFrom") fixes the co-reported Firefox
-;;   case (Firefox binds wl_output multiple times; enter events only
-;;   reached the first bind).  GTK3 binds once, so the Emacs fix lies
-;;   elsewhere in the 0.53-0.55 output/DRM overhauls.
+;; - Root fix identified: aquamarine d83c97f "drm: remove an
+;;   unnecessary reset after VT switching" (2025-12-16, released in
+;;   aquamarine v0.11.0, installed here 2026-05-09).  Before it,
+;;   restoreAfterVT() — which runs on EVERY resume from suspend —
+;;   called impl->reset(), deactivating every CRTC at the kernel level
+;;   and forcing a full display re-enable on each wake; combined with
+;;   Hyprland 0.5x output-lifecycle bugs this churned wl_output state
+;;   and desynced GDK's buffer scale.  Hence "blur on every wake".
+;;   Verified on 0.55.2/aq 0.12.0 with a synthetic morning-wake repro
+;;   (dpms off + udevadm trigger on the drm card while disabled):
+;;   connector rescan + crtc release + re-modeset now run with zero
+;;   client-visible protocol traffic.
+;; - The co-reported Firefox case was additionally fixed by Hyprland
+;;   d91952c5 "wayland/output: return all bound wl_output instances in
+;;   outputResourceFrom" (v0.54.0): Firefox binds wl_output multiple
+;;   times; enter events only reached the first bind.  GTK3 binds once.
 ;; - This hack had been auto-firing on every resume, masking the
-;;   upstream fix for months — the cost of unconditional workarounds.
+;;   upstream fix since 2026-05 — the cost of unconditional
+;;   workarounds.
 ;;
 ;; Current stance: automatic recovery is off
 ;; (m/aggressive-wayland-resume-recovery is nil);
