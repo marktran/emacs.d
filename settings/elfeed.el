@@ -1,26 +1,26 @@
 ;;; elfeed.el --- Feedbin RSS reading with Elfeed
 
 ;; `SPC r' opens the Elfeed search listing in a buffer named `Index';
-;; entries open in `View'.  Elfeed hard-codes its internal buffer names, so
+;; entries open in `View'. Elfeed hard-codes its internal buffer names, so
 ;; both renames are advice: `Index' overrides `elfeed-search-buffer' and
 ;; redirects the one direct `get-buffer' lookup inside
 ;; `elfeed-search-update'; `View' overrides `elfeed-show--buffer-name'.
 ;;
 ;; The listing shows only title and feed, filtered to unread and sorted
-;; newest first.  Starred titles end in `*' in both the listing and entry
-;; view.  `r' fetches feeds and `B' opens entries in the browser.  `s'
+;; newest first. Starred titles end in `*' in both the listing and entry
+;; view.  `r' fetches feeds and `B' opens entries in the browser. `s'
 ;; toggles the Feedbin star and `U' toggles unread without moving point;
 ;; both work on visual selections in the Index.
 ;; `TAB' switches between unread Index entries and all Starred entries
-;; (shown as `Starred' in the mode line).  `d' and `u' scroll.  In an
+;; (shown as `Starred' in the mode line). `d' and `u' scroll. In an
 ;; entry view, `SPC' scrolls down and advances to the next unread entry at
 ;; the end.
 ;; Entry views drop the Tags header and render with the default fixed-pitch
-;; font.  Both modes display `Elfeed' as their major-mode name.
+;; font. Both modes display `Elfeed' as their major-mode name.
 ;;
 ;; Evil bindings are applied from `evil-collection-setup-hook' because
 ;; evil-collection's Elfeed setup registers after this file's `:config'
-;; and binds `SPC', `U', `u', `d', `g r', and `g R' itself.  Unbinding
+;; and binds `SPC', `U', `u', `d', `g r', and `g R' itself. Unbinding
 ;; `SPC' in the search buffer lets the global General leader through.
 ;;
 ;; Feedbin supplies subscriptions, entries, and unread/starred state via
