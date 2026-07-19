@@ -50,24 +50,37 @@
 ;;   does not mention it.
 ;; - Hyprland: issue #6560 "monitor on/off makes windows blurry" was
 ;;   fixed 2024-10 (verified against Emacs at the time); #1839 and
-;;   #6928 were closed as duplicates.  The fix later regressed (reports
-;;   on 0.51.x/0.52.x through 2025-11); now collected in discussion
-;;   #12439, where I reported the Emacs case (2025-12).  Still
-;;   reproducible on 0.55.2.  The maintainer asked for a bisect — that
-;;   is the path to a real fix.
+;;   #6928 were closed as duplicates.  Reports continued on
+;;   0.51.x/0.52.x, collected in discussion #12439, where I reported
+;;   the Emacs case (2025-12, on 0.52.x).
 ;;   https://github.com/hyprwm/Hyprland/issues/6560
 ;;   https://github.com/hyprwm/Hyprland/discussions/12439
 ;;
-;; Compositor-level mitigation: re-applying the monitor rules after
-;; wake forces Hyprland to re-announce outputs so every GTK3 app
-;; recomputes its scale at once; wired into hypridle's after_sleep_cmd
-;; via tilde:nix/files/hypr/scripts/hypr-reapply-monitors.  To give that
-;; a fair test (the DBus handler here otherwise replaces the frame on
-;; every resume, masking the result), automatic recovery is disabled by
-;; default: m/aggressive-wayland-resume-recovery is nil, and
-;; M-x m/recover-wayland-after-resume remains as the manual fallback.
-;; Set it back to t if blur returns and the compositor fix is not
-;; enough.
+;; Update 2026-07-19 — investigated live and could NOT reproduce on
+;; Hyprland 0.55.2 with every workaround disabled: four suspend cycles
+;; including a raw 8 h overnight lid-close, with a WAYLAND_DEBUG canary
+;; (emacs -Q) tracing the whole time.  Findings:
+;; - Short sleeps (<5 min) never touch DRM on this machine (no
+;;   connector rescan, no output events) and cannot trigger the bug;
+;;   historical "blur on every wake" was really "every morning wake".
+;; - The overnight wake showed no output churn and no blur either.
+;; - Conclusion: fixed upstream between 0.53 and 0.55.  The v0.54.0
+;;   commit d91952c5 ("wayland/output: return all bound wl_output
+;;   instances in outputResourceFrom") fixes the co-reported Firefox
+;;   case (Firefox binds wl_output multiple times; enter events only
+;;   reached the first bind).  GTK3 binds once, so the Emacs fix lies
+;;   elsewhere in the 0.53-0.55 output/DRM overhauls.
+;; - This hack had been auto-firing on every resume, masking the
+;;   upstream fix for months — the cost of unconditional workarounds.
+;;
+;; Current stance: automatic recovery is off
+;; (m/aggressive-wayland-resume-recovery is nil);
+;; M-x m/recover-wayland-after-resume remains as a manual fallback.
+;; hypridle still runs tilde:nix/files/hypr/scripts/hypr-reapply-monitors
+;; after wake as cheap insurance (its xdg_output resend nudges GDK's
+;; monitors-changed → window_update_scale recompute; a same-values
+;; reapply is otherwise a near-no-op).  If blur returns: run the manual
+;; command, set the defvar back to t, and re-check #12439.
 
 (defvar m/frame-display-signatures (make-hash-table :test #'eq)
   "Cache display signatures keyed by frame object.")
@@ -75,9 +88,10 @@
 (defvar m/aggressive-wayland-resume-recovery nil
   "If non-nil, run configured recovery after resume on standalone PGTK Emacs.
 This is a pragmatic hack for blur/scale glitches after sleep.
-Disabled by default since the compositor-level mitigation in hypridle
-(hypr-reapply-monitors) should make it unnecessary; set to t if blur
-returns, or run \\[m/recover-wayland-after-resume] manually.")
+Disabled by default: the underlying bug appears fixed upstream in
+Hyprland 0.53-0.55 (could not reproduce on 0.55.2; see comment above).
+Set to t if blur returns, or run \\[m/recover-wayland-after-resume]
+manually.")
 
 (defvar m/prepare-for-sleep-dbus-handle nil
   "DBus registration handle for login1 PrepareForSleep signal.")
