@@ -11,6 +11,7 @@
   (general-define-key :prefix "SPC"
    "." '(dired-jump :which-key "Dired")
    ";" '(evilnc-comment-or-uncomment-lines :which-key "Comment/uncomment lines")
+   "a" '(embark-act :which-key "Actions")
    "c" '(toggle-calendar :which-key "Toggle calendar")
    "e" '(er/expand-region :which-key "Expand region")
    "f" '(find-file :which-key "Find file")

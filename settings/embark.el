@@ -3,7 +3,11 @@
 
   :general
   (:keymaps 'global
-   "<f13>" 'embark-act))
+   "C-." 'embark-act)
+  (:states '(normal visual)
+   :keymaps 'global
+   "g." 'embark-act
+   "gx" 'embark-dwim))
 
 (use-package embark-consult
   :ensure t)
