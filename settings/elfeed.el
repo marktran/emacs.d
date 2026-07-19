@@ -2,10 +2,9 @@
 
 ;; `SPC r' opens the Elfeed search listing in a buffer named `Index';
 ;; entries open in `View'.  Elfeed hard-codes its internal buffer names, so
-;; both renames map through the `m/elfeed-buffer-names' table: `Index' by
-;; overriding `elfeed-search-buffer' and redirecting the direct lookup
-;; inside `elfeed-search-update', and `View' by filtering the name
-;; `elfeed-show--buffer-name' returns.
+;; both renames are advice: `Index' overrides `elfeed-search-buffer' and
+;; redirects the one direct `get-buffer' lookup inside
+;; `elfeed-search-update'; `View' overrides `elfeed-show--buffer-name'.
 ;;
 ;; The listing shows only title and feed, filtered to unread and sorted
 ;; newest first.  Starred titles end in `*' in both the listing and entry
@@ -35,32 +34,26 @@
   :preface
   (defvar elfeed-feedbin-star-tag)
 
-  (defconst m/elfeed-buffer-names
-    '(("*elfeed-search*" . "Index")
-      ("*elfeed-entry*" . "View"))
-    "Renames for Elfeed's hard-coded buffer names.")
-
-  (defun m/elfeed-rename-buffer (buffer-or-name)
-    "Return the rename for Elfeed's internal BUFFER-OR-NAME.
-Return BUFFER-OR-NAME unchanged when it has no rename."
-    (or (and (stringp buffer-or-name)
-             (cdr (assoc buffer-or-name m/elfeed-buffer-names)))
-        buffer-or-name))
-
   (defun m/elfeed-search-buffer ()
     "Create and return the renamed Elfeed search buffer."
-    (get-buffer-create (m/elfeed-rename-buffer "*elfeed-search*")))
+    (get-buffer-create "Index"))
+
+  (defun m/elfeed-show-buffer-name (_entry)
+    "Return the rename for Elfeed's hard-coded entry buffer name."
+    "View")
 
   (defun m/elfeed-search-update (orig &rest args)
     "Run ORIG with ARGS against the renamed Elfeed search buffer.
 `elfeed-search-update' looks up Elfeed's internal buffer name
-directly, so redirect `get-buffer' through `m/elfeed-rename-buffer'."
-    (let ((real-get-buffer (symbol-function 'get-buffer)))
-      (cl-letf (((symbol-function 'get-buffer)
-                 (lambda (buffer-or-name)
-                   (funcall real-get-buffer
-                            (m/elfeed-rename-buffer buffer-or-name)))))
-        (apply orig args))))
+directly, so redirect that one `get-buffer' call."
+    (cl-letf* ((real-get-buffer (symbol-function 'get-buffer))
+               ((symbol-function 'get-buffer)
+                (lambda (buffer-or-name)
+                  (funcall real-get-buffer
+                           (if (equal buffer-or-name "*elfeed-search*")
+                               "Index"
+                             buffer-or-name)))))
+      (apply orig args)))
 
   (defun m/elfeed-search-print-entry (entry)
     "Print ENTRY as title and feed."
@@ -88,16 +81,14 @@ directly, so redirect `get-buffer' through `m/elfeed-rename-buffer'."
                    'follow-link [elfeed-feed]))))
 
   (defun m/elfeed-search-toggle-unread ()
-    "Toggle unread on the selected entries without moving point."
+    "Toggle unread on the selected entries."
     (interactive)
-    (let ((elfeed-search-remain-on-entry t))
-      (elfeed-search-toggle-all 'unread)))
+    (elfeed-search-toggle-all 'unread))
 
   (defun m/elfeed-search-toggle-star ()
-    "Toggle the Feedbin star on selected entries without moving point."
+    "Toggle the Feedbin star on selected entries."
     (interactive)
-    (let ((elfeed-search-remain-on-entry t))
-      (elfeed-search-toggle-all elfeed-feedbin-star-tag)))
+    (elfeed-search-toggle-all elfeed-feedbin-star-tag))
 
   (defun m/elfeed-show-toggle-star ()
     "Toggle the Feedbin star on the displayed entry."
@@ -119,16 +110,14 @@ directly, so redirect `get-buffer' through `m/elfeed-rename-buffer'."
          (default-value 'elfeed-search-filter)
        (format "+%s" elfeed-feedbin-star-tag))))
 
-  (defun m/elfeed-search-mode-line-identification ()
-    "Return a mode-line identification for the current Elfeed view."
-    (car (propertized-buffer-identification
-          (format "%-12s"
-                  (if (m/elfeed-search-starred-p) "Starred" "Index")))))
-
   (defun m/elfeed-set-search-mode-line-identification ()
     "Identify the current Elfeed search view in the mode line."
     (setq-local mode-line-buffer-identification
-                '((:eval (m/elfeed-search-mode-line-identification)))))
+                '(:eval (propertized-buffer-identification
+                         (format "%-12s"
+                                 (if (m/elfeed-search-starred-p)
+                                     "Starred"
+                                   "Index"))))))
 
   (defun m/elfeed-set-evil-bindings (mode _keymaps)
     "Set Evil bindings for Elfeed once evil-collection has set up MODE.
@@ -188,7 +177,8 @@ would clobber bindings made there."
   :custom
   (elfeed-feeds '("feedbin:"))
   (elfeed-search-filter "+unread")
-  (elfeed-search-remain-on-entry '(show))
+  ;; Keep point on the current entry after showing or tagging it.
+  (elfeed-search-remain-on-entry '(show tag))
   (elfeed-search-sort-order 'descending)
 
   :hook
@@ -203,7 +193,7 @@ would clobber bindings made there."
   :config
   (advice-add 'elfeed-search-buffer :override #'m/elfeed-search-buffer)
   (advice-add 'elfeed-search-update :around #'m/elfeed-search-update)
-  (advice-add 'elfeed-show--buffer-name :filter-return #'m/elfeed-rename-buffer))
+  (advice-add 'elfeed-show--buffer-name :override #'m/elfeed-show-buffer-name))
 
 (use-package elfeed-feedbin
   :ensure nil
