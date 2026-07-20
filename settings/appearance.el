@@ -26,7 +26,9 @@
   (pulsar-pulse t)
 
   :hook
-  ((next-error . (pulsar-pulse-line-red pulsar-recenter-top pulsar-reveal-entry)))
+  ((next-error . pulsar-pulse-line-red)
+   (next-error . pulsar-recenter-top)
+   (next-error . pulsar-reveal-entry))
 
   :general
   ("SPC l" '(pulsar-pulse-line :which-key "Pulse Line"))
