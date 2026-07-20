@@ -31,7 +31,7 @@
 ;; Buzzsprout's CDN returns for curl's User-Agent — mpv's is accepted.
 ;;
 ;; Playlist entries for podcast episodes show the episode's cover art
-;; inline at two lines tall (lib/emms-podcast.el caches the images and
+;; inline at three lines tall (lib/emms-podcast.el caches the images and
 ;; re-renders entries when a download finishes); the menu heading
 ;; stays text-only.
 ;;
@@ -83,7 +83,7 @@
       (if (and cover (display-images-p) (file-exists-p cover))
           (concat (propertize " " 'display
                               (create-image cover nil nil
-                                            :height (* 2 (frame-char-height))
+                                            :height (* 3 (frame-char-height))
                                             :ascent 'center))
                   " " description)
         description)))
@@ -198,6 +198,7 @@ playlist buffer when a track ends, so toggle it there."
 
   (transient-define-prefix m/emms-menu ()
     "Custom Transient frontend for EMMS."
+    :mode-line-format nil ; no divider under the menu
     :refresh-suffixes t
     [:description m/emms-menu-status
      ["Playback"
