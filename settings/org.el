@@ -36,9 +36,23 @@
    "s-v" 'org-insert-link-dwim)
   (:keymaps 'org-mode-map
    :states 'insert
-   "s-v" 'org-yank-dwim)
+   "s-v" 'org-yank-dwim
+   "TAB" 'm/org-tab-dwim
+   "<backtab>" 'm/org-backtab-dwim)
 
   :config
+  (defun m/org-tab-dwim ()
+    "Indent the list item at point, but keep TAB's usual behavior elsewhere."
+    (interactive)
+    (if (and (org-at-item-p) (not (org-at-table-p)))
+        (org-metaright)
+      (org-cycle)))
+
+  (defun m/org-backtab-dwim ()
+    "De-indent, but keep S-TAB's previous-field behavior in tables."
+    (interactive)
+    (if (org-at-table-p) (org-table-previous-field) (org-metaleft)))
+
   (defun m/org-agenda-hide-ddl-and-grid (&rest _)
     "Hide Ddl and Grid status markers from the org-agenda mode line."
     (when (and (eq major-mode 'org-agenda-mode)
