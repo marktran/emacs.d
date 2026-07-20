@@ -1044,4 +1044,3 @@ When TEXT-ONLY is non-nil, require a `text/html' part rather than a
 (with-eval-after-load 'evil-collection
   (evil-collection-init 'notmuch))
 
-(provide 'notmuch)
