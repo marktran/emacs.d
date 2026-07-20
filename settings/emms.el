@@ -87,7 +87,7 @@
       (if (and cover (display-images-p) (file-exists-p cover))
           (concat (propertize " " 'display
                               (create-image cover nil nil
-                                            :height (* 5 (frame-char-height))
+                                            :height (* 6 (frame-char-height))
                                             :ascent 'center))
                   " " description)
         description)))
