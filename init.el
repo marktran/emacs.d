@@ -18,6 +18,18 @@
                   "  "
                   mode-line-modes
                   mode-line-misc-info
+                  mode-line-format-right-align
+                  ;; Play icon while EMMS is actively playing (see
+                  ;; settings/emms.el); nothing when paused/stopped.
+                  ;; The gap is a fixed-width space: it measures and
+                  ;; renders identically, so the icon's fallback-font
+                  ;; glyph can't push the padding off the window edge,
+                  ;; and its width mirrors the front-space padding.
+                  (:eval (when (and (bound-and-true-p emms-player-playing-p)
+                                    (not (bound-and-true-p emms-player-paused-p)))
+                           (concat "\u25B6"
+                                   (propertize " " 'display
+                                               '(space :width 1.5)))))
                   mode-line-end-space)))
 
 (add-hook 'after-init-hook #'restore-mode-line)

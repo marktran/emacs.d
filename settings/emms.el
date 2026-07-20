@@ -35,7 +35,11 @@
 ;; re-renders entries when a download finishes); the menu heading
 ;; stays text-only.
 ;;
-;; The setup stays minimal: no cache, browser, or mode-line display.
+;; The setup stays minimal: no cache, browser, or EMMS mode-line
+;; track display. The only mode-line presence is a right-aligned play
+;; icon while a track is actively playing (nothing when paused or
+;; stopped): the icon itself lives in init.el's `mode-line-format',
+;; and the player hooks below refresh mode lines on state changes.
 ;; `emms-playing-time-mode' runs with its mode line display disabled so
 ;; the menu heading can show elapsed time; mpv reports each track's
 ;; duration for the total (`emms-player-mpv-update-duration').
@@ -92,6 +96,18 @@
   ;; line display that enabling the mode also turns on.
   (emms-playing-time-mode 1)
   (setq emms-playing-time-display-mode nil)
+
+  ;; Keep the play icon in `mode-line-format' (see init.el) in sync
+  ;; with playback state.
+  (defun m/emms-mode-line-refresh ()
+    "Refresh all mode lines so the playback indicator stays current."
+    (force-mode-line-update t))
+
+  (dolist (hook '(emms-player-started-hook
+                  emms-player-stopped-hook
+                  emms-player-finished-hook
+                  emms-player-paused-hook))
+    (add-hook hook #'m/emms-mode-line-refresh))
 
   ;; `emms-player-mpv-update-duration' (default t) only handles mpv's
   ;; duration events; mpv only emits them when the property is
