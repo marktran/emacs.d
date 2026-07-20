@@ -11,6 +11,7 @@
 
 (require 'auth-source)
 (require 'cl-lib)
+(require 'elfeed)
 (require 'json)
 (require 'seq)
 (require 'url)
@@ -119,14 +120,15 @@ CALLBACK receives DATA and ERROR.  BODY is encoded as JSON when non-nil."
                               (format "Feedbin returned HTTP %s"
                                       url-http-response-status))))
                   (t
-                   (condition-case parse-error
-                       (funcall callback
-                                (elfeed-feedbin--response-json)
-                                nil)
-                     (error
-                      (funcall callback nil
-                               (format "Invalid Feedbin response: %s"
-                                       (error-message-string parse-error)))))))
+                   (let (data parse-error)
+                     (condition-case err
+                         (setq data (elfeed-feedbin--response-json))
+                       (error (setq parse-error err)))
+                     (if parse-error
+                         (funcall callback nil
+                                  (format "Invalid Feedbin response: %s"
+                                          (error-message-string parse-error)))
+                       (funcall callback data nil)))))
                (when (buffer-live-p buffer)
                  (kill-buffer buffer)))))
          nil t t))

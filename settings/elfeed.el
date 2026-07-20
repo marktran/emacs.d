@@ -201,5 +201,3 @@ would clobber bindings made there."
   :after elfeed
   :config
   (elfeed-feedbin-enable))
-
-(provide 'elfeed)
