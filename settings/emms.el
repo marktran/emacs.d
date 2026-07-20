@@ -11,6 +11,10 @@
 ;; volume or mute state from watch-later files — so loudness is
 ;; adjusted with the system audio controls instead.
 ;;
+;; Playlists persist across sessions: emms-history saves them (with
+;; the selected track and repeat settings) on exit and restores them
+;; when EMMS first loads.
+;;
 ;; The playlist buffer holds the playlist itself, so killing it
 ;; discards the queue — and this config's `quit-window' advice
 ;; (lisp/quit-window.el) turns every quit into a kill. `q' in the
@@ -129,21 +133,27 @@
 
   (defun m/emms-menu-status ()
     "Describe the EMMS playback state for the menu heading.
-Ends with a newline so a blank line separates the heading from the
-menu columns."
-    (concat
-     (if (not emms-player-playing-p)
-         "EMMS: stopped"
-       (let* ((track (emms-playlist-current-selected-track))
-              (total (and track (emms-track-get track 'info-playing-time))))
+While stopped, show the still-selected track, e.g. the one restored
+by emms-history. Ends with a newline so a blank line separates the
+heading from the menu columns."
+    (let* ((track (emms-playlist-current-selected-track))
+           (description (and track (emms-info-track-description track)))
+           (total (and track (emms-track-get track 'info-playing-time))))
+      (concat
+       (cond
+        ((and description emms-player-playing-p)
          (format "EMMS%s: %s  [%s]"
                  (if emms-player-paused-p " (paused)" "")
-                 (if track (emms-info-track-description track) "?")
+                 description
                  (concat (m/emms-menu--format-time emms-playing-time)
                          (and total
                               (concat "/"
-                                      (m/emms-menu--format-time total)))))))
-     "\n"))
+                                      (m/emms-menu--format-time total))))))
+        (description
+         (format "EMMS (stopped): %s" description))
+        (emms-player-playing-p "EMMS: ?")
+        (t "EMMS: stopped"))
+       "\n")))
 
   (defun m/emms-seek-backward-1m ()
     "Seek one minute backward in the current track."
@@ -211,7 +221,16 @@ playlist buffer when a track ends, so toggle it there."
       ("R" emms-toggle-repeat-playlist
        :description m/emms-menu-repeat-playlist-description :transient t)
       ("S" emms-toggle-random-playlist
-       :description m/emms-menu-shuffle-description :transient t)]]))
+       :description m/emms-menu-shuffle-description :transient t)]])
+
+  ;; Persist playlists across sessions. Requiring emms-history hooks
+  ;; saving into `kill-emacs-hook'; loading restores the playlists
+  ;; saved by the previous session. Restore last: inserting restored
+  ;; tracks renders descriptions through `m/emms-track-description',
+  ;; so everything above must already be defined.
+  (require 'emms-history)
+  (make-directory emms-directory t)
+  (emms-history-load))
 
 (use-package emms-podcast
   :ensure nil
