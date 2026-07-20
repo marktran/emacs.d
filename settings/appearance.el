@@ -2,19 +2,16 @@
   :ensure t
 
   :config
-  (if (getenv "EMACS_WRITING_MODE")
-      (load-theme 'ef-light t)
-    (load-theme 'ef-dark t)))
+  (load-theme 'ef-dark t))
 
 (use-package modus-themes
   :ensure t
 
   :custom
   (modus-themes-common-palette-overrides
-      '(
-        (border-mode-line-active bg-mode-line-active)
-        (border-mode-line-inactive bg-mode-line-inactive)
-        (fringe unspecified))))
+   '((border-mode-line-active bg-mode-line-active)
+     (border-mode-line-inactive bg-mode-line-inactive)
+     (fringe unspecified))))
 
 (use-package pulsar
   :ensure t
@@ -41,14 +38,12 @@
 
   :custom
   (spacious-padding-widths '(:internal-border-width 15
-                               :header-line-width 4
-                               :mode-line-width 2
-                               :tab-width 4
-                               :right-divider-width 1
-                               :scroll-bar-width 8
-                               :fringe-width 8))
-  (spacious-padding-subtle-mode-line (when (getenv "EMACS_WRITING_MODE") t))
-  (spacious-padding-subtle-frame-lines (when (getenv "EMACS_WRITING_MODE") t))
+                             :header-line-width 4
+                             :mode-line-width 2
+                             :tab-width 4
+                             :right-divider-width 1
+                             :scroll-bar-width 8
+                             :fringe-width 8))
 
   :config
   (spacious-padding-mode))
