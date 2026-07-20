@@ -11,6 +11,15 @@
 ;; volume or mute state from watch-later files — so loudness is
 ;; adjusted with the system audio controls instead.
 ;;
+;; Next/previous only act when the playlist actually has a track in
+;; that direction (respecting `emms-repeat-playlist' wrap-around):
+;; plain `emms-next'/`emms-previous' stop playback before noticing
+;; there is nothing to select, which kills the current track. The
+;; menu dims their labels when they don't apply; the keys stay
+;; invokable (Transient's `:inapt-if*' would intercept them with a
+;; cryptic "Inapt command" warning) and just report that there is
+;; nothing to play.
+;;
 ;; Playlists persist across sessions: emms-history saves them (with
 ;; the selected track and repeat settings) on exit and restores them
 ;; when EMMS first loads.
@@ -171,6 +180,58 @@ heading from the menu columns."
         (t "EMMS: stopped"))
        "\n")))
 
+  ;; `emms-next'/`emms-previous' stop the current player *before*
+  ;; discovering the playlist has no track in that direction, so at
+  ;; the playlist edge they kill playback and lose the current
+  ;; track's state. Probe first, without moving the selection.
+  (defun m/emms--selectable-track-p (move wrap edge)
+    "Return non-nil when the current playlist can select another track.
+Mirrors the movement of `emms-playlist-select-next' and
+`emms-playlist-select-previous' without moving the selection: MOVE
+is the movement function, WRAP the fallback used when
+`emms-repeat-playlist' wraps around, and EDGE where to start when
+no track is selected."
+    (with-current-emms-playlist
+      (save-excursion
+        (goto-char (or (and emms-playlist-selected-marker
+                            (marker-position emms-playlist-selected-marker))
+                       (funcall edge)))
+        (ignore-errors
+          (if emms-repeat-playlist
+              (condition-case nil
+                  (funcall move)
+                (error (funcall wrap)))
+            (funcall move))
+          t))))
+
+  (defun m/emms-next-track-p ()
+    "Return non-nil when the playlist has a next track to select."
+    (m/emms--selectable-track-p
+     #'emms-playlist-next #'emms-playlist-first #'point-min))
+
+  (defun m/emms-previous-track-p ()
+    "Return non-nil when the playlist has a previous track to select."
+    (m/emms--selectable-track-p
+     #'emms-playlist-previous #'emms-playlist-last #'point-max))
+
+  (defun m/emms-next ()
+    "Play the next track, only when the playlist has one.
+Unlike `emms-next', leave the current track alone at the end of
+the playlist."
+    (interactive)
+    (if (m/emms-next-track-p)
+        (emms-next)
+      (message "No next track in playlist")))
+
+  (defun m/emms-previous ()
+    "Play the previous track, only when the playlist has one.
+Unlike `emms-previous', leave the current track alone at the start
+of the playlist."
+    (interactive)
+    (if (m/emms-previous-track-p)
+        (emms-previous)
+      (message "No previous track in playlist")))
+
   (defun m/emms-seek-backward-1m ()
     "Seek one minute backward in the current track."
     (interactive)
@@ -212,6 +273,20 @@ playlist buffer when a track ends, so toggle it there."
     "Describe the shuffle toggle with its state."
     (m/emms-menu--checkbox "Shuffle" emms-random-playlist))
 
+  (defun m/emms-menu--maybe-dim (label available)
+    "Return LABEL, dimmed like an inapt suffix unless AVAILABLE."
+    (if available
+        label
+      (propertize label 'face 'transient-inapt-suffix)))
+
+  (defun m/emms-menu-next-description ()
+    "Describe the next-track entry, dimmed when there is no next track."
+    (m/emms-menu--maybe-dim "Next track" (m/emms-next-track-p)))
+
+  (defun m/emms-menu-previous-description ()
+    "Describe the previous-track entry, dimmed when there is none."
+    (m/emms-menu--maybe-dim "Previous track" (m/emms-previous-track-p)))
+
   (transient-define-prefix m/emms-menu ()
     "Custom Transient frontend for EMMS."
     :mode-line-format nil ; no divider under the menu
@@ -220,8 +295,8 @@ playlist buffer when a track ends, so toggle it there."
      ["Playback"
       ("SPC" "Play/pause" emms-pause)
       ("s" "Stop" emms-stop)
-      ("n" "Next track" emms-next)
-      ("p" "Previous track" emms-previous)]
+      ("n" m/emms-next :description m/emms-menu-next-description)
+      ("p" m/emms-previous :description m/emms-menu-previous-description)]
      ["Seek"
       ("b" "Back 10s" emms-seek-backward :transient t)
       ("f" "Forward 10s" emms-seek-forward :transient t)
