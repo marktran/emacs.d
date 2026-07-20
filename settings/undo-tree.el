@@ -9,7 +9,7 @@
   (global-undo-tree-mode 1)
 
   ;; Keep region when undoing in a region
-  (defun my/undo-tree-keep-region (orig-fn &rest args)
+  (defun m/undo-tree-keep-region (orig-fn &rest args)
     (if (use-region-p)
         (let ((m (set-marker (make-marker) (mark)))
               (p (set-marker (make-marker) (point))))
@@ -19,4 +19,4 @@
           (set-marker p nil)
           (set-marker m nil))
       (apply orig-fn args)))
-  (advice-add 'undo-tree-undo :around #'my/undo-tree-keep-region))
+  (advice-add 'undo-tree-undo :around #'m/undo-tree-keep-region))
