@@ -12,11 +12,17 @@
 
   :custom
   (recentf-auto-cleanup 'never)
-  (recentf-exclude (list (expand-file-name package-user-dir)
+  ;; `recentf-filename-handlers' records true names (~/.emacs.d is a
+  ;; symlink into the repo), so directory exclusions must be true
+  ;; names as well. The no-littering trees keep package state like
+  ;; the EMMS history out of the recent files list.
+  (recentf-exclude (list (file-truename package-user-dir)
                          #'ignoramus-boring-p
                          ".bookmarks"
                          "recentf"
-                         "TAGS"))
+                         "TAGS"
+                         (file-truename no-littering-var-directory)
+                         (file-truename no-littering-etc-directory)))
   (recentf-keep '(file-remote-p))
   (recentf-max-saved-items 150)
   (recentf-filename-handlers '(file-truename))  ;; Resolve symlinks
