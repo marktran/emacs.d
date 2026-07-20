@@ -33,19 +33,10 @@
        (car (directory-files-recursively
              pnpm-dir "node_modules/typescript/lib/tsserver\\.js$"))))))
 
-(defun m/typescript-eglot-contact (_interactive project)
-  "Build Eglot contact for TypeScript buffers in PROJECT."
-  (when-let* ((server (or (m/find-project-bin "typescript-language-server" project)
-                          (executable-find "typescript-language-server"))))
-    (let ((tsserver (m/find-project-tsserver project)))
-      `(,server "--stdio"
-        ,@(when tsserver
-            `(:initializationOptions (:tsserver (:path ,tsserver))))))))
-
-(defun m/maybe-typescript-eglot ()
-  "Start Eglot only when the current project looks like a TS/JS project."
-  (when (m/typescript-project-p)
-    (eglot-ensure)))
+(defun m/eglot-booster-prefix ()
+  "Return the emacs-lsp-booster command prefix, or nil when not installed."
+  (when (executable-find "emacs-lsp-booster")
+    '("emacs-lsp-booster" "--verbose")))
 
 (defun m/eglot-booster-wrap (entry)
   "Prefix ENTRY's command with emacs-lsp-booster when it is a command list.
@@ -53,8 +44,24 @@ ENTRY is an element of `eglot-server-programs'; function contacts are
 returned unchanged."
   (if (and (consp entry) (listp (cdr entry)))
       (cons (car entry)
-            (append '("emacs-lsp-booster" "--verbose") (cdr entry)))
+            (append (m/eglot-booster-prefix) (cdr entry)))
     entry))
+
+(defun m/typescript-eglot-contact (_interactive project)
+  "Build Eglot contact for TypeScript/TSX buffers in PROJECT.
+The command is boosted with emacs-lsp-booster when available."
+  (when-let* ((server (or (m/find-project-bin "typescript-language-server" project)
+                          (executable-find "typescript-language-server"))))
+    (let ((tsserver (m/find-project-tsserver project)))
+      `(,@(m/eglot-booster-prefix)
+        ,server "--stdio"
+        ,@(when tsserver
+            `(:initializationOptions (:tsserver (:path ,tsserver))))))))
+
+(defun m/maybe-typescript-eglot ()
+  "Start Eglot only when the current project looks like a TS/JS project."
+  (when (m/typescript-project-p)
+    (eglot-ensure)))
 
 (use-package eglot
   :ensure nil
@@ -65,14 +72,18 @@ returned unchanged."
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.5)
 
-  :hook (typescript-ts-mode . m/maybe-typescript-eglot)
+  :hook ((typescript-ts-mode tsx-ts-mode) . m/maybe-typescript-eglot)
 
   :config
-  ;; Wrap plain command contacts with emacs-lsp-booster; function
-  ;; contacts (like the TypeScript one below) are left as-is.
-  (when (executable-find "emacs-lsp-booster")
+  ;; Wrap plain command contacts with emacs-lsp-booster; the TypeScript
+  ;; contact is a function, which boosts its own command instead.
+  (when (m/eglot-booster-prefix)
     (setq eglot-server-programs
           (mapcar #'m/eglot-booster-wrap eglot-server-programs)))
 
-  (setf (alist-get 'typescript-ts-mode eglot-server-programs)
-        #'m/typescript-eglot-contact))
+  ;; One entry (and so one server instance per project) for both .ts and
+  ;; .tsx buffers; language ids match the built-in entry this shadows.
+  (add-to-list 'eglot-server-programs
+               '(((typescript-ts-mode :language-id "typescript")
+                  (tsx-ts-mode :language-id "typescriptreact"))
+                 . m/typescript-eglot-contact)))
