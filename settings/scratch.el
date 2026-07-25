@@ -2,24 +2,11 @@
   :ensure t
   :commands (scratch))
 
-;; http://www.emacswiki.org/emacs/RecreateScratchBuffer
-(save-excursion
-  (set-buffer (get-buffer-create "*scratch*"))
-  (lisp-interaction-mode)
-  (paredit-mode)
-  (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer))
-
-(defun kill-scratch-buffer ()
-  ;; The next line is just in case someone calls this manually
-  (set-buffer (get-buffer-create "*scratch*"))
-  ;; Kill the current (*scratch*) buffer
-  (remove-hook 'kill-buffer-query-functions 'kill-scratch-buffer)
-  (kill-buffer (current-buffer))
-  ;; Make a brand new *scratch* buffer
-  (set-buffer (get-buffer-create "*scratch*"))
-  (lisp-interaction-mode)
-  (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer)
-  ;; Since we killed it, don't let caller do that.
-  nil)
+;; Startup puts *scratch* in `initial-major-mode' (the default
+;; `lisp-interaction-mode') on its own; just add paredit and keep the
+;; buffer from being killed.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (with-current-buffer "*scratch*"
+              (paredit-mode)
+              (emacs-lock-mode 'kill))))
