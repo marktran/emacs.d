@@ -118,10 +118,21 @@ Also start the playing-time updates while a track plays, and clear
 the clock when playback stops."
     (when (buffer-live-p buffer)
       (let ((process (buffer-local-value 'ready-player--process buffer)))
-        ;; New or ended playback starts out unpaused.
-        (unless (eq process m/ready-player--playback-process)
-          (setq m/ready-player--paused nil))
-        (setq m/ready-player--playback-process process)))
+        (cond
+         ;; New playback starts out unpaused.
+         ((process-live-p process)
+          (unless (eq process m/ready-player--playback-process)
+            (setq m/ready-player--paused nil))
+          (setq m/ready-player--playback-process process))
+         ;; BUFFER has no live playback. Only treat that as a stop
+         ;; when nothing newer is playing: replacing playback (say,
+         ;; picking an episode while another plays) starts the new
+         ;; process first, and the old process's sentinel then
+         ;; refreshes its old buffer with no process — that stale
+         ;; refresh must not clobber the live one.
+         ((not (m/ready-player--session-live-p))
+          (setq m/ready-player--playback-process nil
+                m/ready-player--paused nil)))))
     (if (m/ready-player--session-live-p)
         (unless m/ready-player--time-timer
           (setq m/ready-player--time-timer
