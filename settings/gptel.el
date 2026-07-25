@@ -27,7 +27,7 @@
   :commands (gptel gptel-send gptel-menu)
 
   :general
-  ("SPC a" '(gptel :which-key "Chat"))
+  ("SPC a" '(gptel :which-key "AI"))
 
   ;; Soft-wrap long lines in gptel chat buffers. Wide markdown
   ;; tables look broken under soft wrap (continuation lines ruin
