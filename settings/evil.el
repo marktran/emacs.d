@@ -48,7 +48,7 @@
 
   :config
   (evil-collection-init '(calendar consult corfu dashboard dired ediff eglot
-                          elfeed embark emms eshell help info org-agenda
+                          elfeed embark eshell help info org-agenda
                           magit)))
 
 (use-package evil-iedit-state

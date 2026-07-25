@@ -15,7 +15,7 @@
   ;; `recentf-filename-handlers' records true names (~/.emacs.d is a
   ;; symlink into the repo), so directory exclusions must be true
   ;; names as well. The no-littering trees keep package state like
-  ;; the EMMS history out of the recent files list.
+  ;; ready-player's podcast downloads out of the recent files list.
   (recentf-exclude (list (file-truename package-user-dir)
                          #'ignoramus-boring-p
                          ".bookmarks"
