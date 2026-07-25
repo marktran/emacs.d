@@ -18,7 +18,8 @@
 ;; one, and the associated dired buffer acts as the queue.
 ;;
 ;; `SPC m' is a small global prefix mirroring the old EMMS transient:
-;; player, play/stop, next/previous, seek, and podcast episodes.
+;; player, play/stop, next/previous, seek, podcast episodes, and live
+;; radio.
 ;; ready-player's own `C-c m' global map is disabled in favor of it.
 ;; The player buffer's metadata block gets a "Position:" row (the
 ;; conventional name for elapsed playback time — MPRIS and mpv call
@@ -46,6 +47,24 @@
 ;; player view stays hidden until `SPC m m' brings it up. `C-u SPC
 ;; m e' downloads without playing.
 ;;
+;; `SPC m r' picks a live station from `ready-player-radio-stations'
+;; (see lib/ready-player-radio.el) and plays it in the background the
+;; same way. The BBC networks stream 320kbps AAC from worldwide HLS
+;; pools that need neither a VPN nor a sign-in: the BBC's
+;; geo-blocking covers television and some on-demand rights, not the
+;; radio simulcasts. Pointing at a station's master playlist leaves
+;; the choice of bitrate to mpv, which takes the highest.
+;;
+;; A stream needs two concessions in a player built for files.
+;; Stations get their own mpv command: no watch-later state (mpv.conf
+;; saves position on quit) for a stream with no position to resume,
+;; and no sibling scanning (mpv.conf's `autocreate-playlist'), which
+;; would otherwise queue up the neighboring stubs. And since ffprobe
+;; reads no tags off a stub file, advice passes the station name in as
+;; the file's title, which both heads the buffer with "BBC Radio 4"
+;; instead of "BBC Radio 4.radio" and gets the metadata block — where
+;; the Position clock lives — drawn at all.
+;;
 ;; Playback stops at the end of the file: the repeat default (t)
 ;; wraps around the directory, which for a podcast means replaying
 ;; episodes forever; the old EMMS setup also defaulted to no repeat.
@@ -61,6 +80,44 @@
 ;; hides the icon too (tracked by advice on the pause toggle); the
 ;; in-buffer clock keeps showing the frozen position meanwhile.
 
+;; Declared before ready-player: the stub extension has to be in
+;; `ready-player-supported-audio' before `ready-player-mode' builds
+;; `auto-mode-alist' from it, and the station-titling advice calls in.
+(use-package ready-player-radio
+  :ensure nil
+  :load-path "lib"
+  :demand t
+
+  :custom
+  (ready-player-radio-directory
+   (no-littering-expand-var-file-name "ready-player/radio"))
+  ;; Pool IDs rotate every few years (pool_904 answers 410 Gone now),
+  ;; which is why most BBC stream URLs found online are dead. When a
+  ;; station stops resolving, re-read the current URLs from the
+  ;; community stream directory:
+  ;;   curl -s 'https://de1.api.radio-browser.info/json/stations/search?name=BBC' \
+  ;;     | jq -r '.[].url_resolved'
+  (ready-player-radio-stations
+   (let ((bbc (lambda (station pool)
+                ;; The master playlist, leaving mpv to pick its
+                ;; highest bitrate (320kbps AAC).
+                (format (concat "https://as-hls-ww-live.akamaized.net"
+                                "/%s/live/ww/%s/%s.isml/%s.m3u8")
+                        pool station station station))))
+     `(("BBC Radio 4"
+        . ,(funcall bbc "bbc_radio_fourfm" "pool_55057080"))
+       ("BBC Radio 4 Extra"
+        . ,(funcall bbc "bbc_radio_four_extra" "pool_26173715"))
+       ("BBC Radio 3"
+        . ,(funcall bbc "bbc_radio_three" "pool_23461179"))
+       ("BBC Radio 6 Music"
+        . ,(funcall bbc "bbc_6music" "pool_81827798"))
+       ("BBC World Service"
+        . ,(funcall bbc "bbc_world_service" "pool_87948813")))))
+
+  :general
+  ("SPC m r" '(ready-player-radio :which-key "Radio")))
+
 (use-package ready-player
   :ensure t
   :demand t
@@ -70,7 +127,15 @@
   (ready-player-set-global-bindings nil) ; `SPC m' replaces `C-c m'
   (ready-player-repeat nil)
   (ready-player-open-playback-commands
-   '(("mpv" "--audio-display=no" "--input-ipc-server=<<socket>>"
+   ;; An extension list as the first element scopes a command to it:
+   ;; live streams (see lib/ready-player-radio.el) take the first
+   ;; entry, everything else the second.
+   '((("radio") "mpv" "--audio-display=no" "--input-ipc-server=<<socket>>"
+      "--volume=100"
+      "--autocreate-playlist=no"
+      "--no-resume-playback"
+      "--save-position-on-quit=no")
+     ("mpv" "--audio-display=no" "--input-ipc-server=<<socket>>"
       "--volume=100"
       "--watch-later-options-remove=volume"
       "--watch-later-options-remove=mute")))
@@ -220,6 +285,27 @@ Covers the Position row's placeholder (see
   (advice-add 'ready-player--update-buffer :after
               #'m/ready-player--reset-time-overlay)
 
+  ;; A station stub holds a URL, so ffprobe finds no tags on it: the
+  ;; buffer would head itself "BBC Radio 4.radio" and, having no
+  ;; metadata at all, would skip the metadata block that carries the
+  ;; Position clock. Pass the station name in as the file's title,
+  ;; which the heading prefers over the file name (and which the block
+  ;; below it drops as a duplicate).
+  (defun m/ready-player--name-station (args)
+    "Title a station stub after its station in ARGS."
+    (if-let* ((station (ready-player-radio-station-name (nth 1 args)))
+              ;; METADATA is the 8th argument, and optional; pad up to it.
+              (padded (append args
+                              (make-list (max 0 (- 8 (length args))) nil))))
+        (append (seq-take padded 7)
+                ;; Shaped like the ffprobe JSON ready-player reads.
+                (list `((format . ((tags . ((title . ,station)))))))
+                (seq-drop padded 8))
+      args))
+
+  (advice-add 'ready-player--update-buffer :filter-args
+              #'m/ready-player--name-station)
+
   (defun m/ready-player--format-time (seconds)
     "Format SECONDS as a clock string."
     (setq seconds (floor seconds))
@@ -320,6 +406,10 @@ the mode-line icon already shows the playback state."
               #'m/ready-player-seek-forward-1m)
   (define-key ready-player-major-mode-map (kbd "<down>")
               #'m/ready-player-seek-backward-1m)
+
+  ;; Claim the station stubs before `ready-player-mode' builds
+  ;; `auto-mode-alist' from this list.
+  (add-to-list 'ready-player-supported-audio ready-player-radio-extension)
 
   (ready-player-mode 1))
 
