@@ -291,4 +291,7 @@ the mode-line icon already shows the playback state."
   (ready-player-podcast-directory
    (no-littering-expand-var-file-name "ready-player/podcasts"))
   (ready-player-podcast-feeds
-   '(("Midnight Radio" . "https://feeds.buzzsprout.com/2541955.rss"))))
+   '(("Midnight Radio" . "https://feeds.buzzsprout.com/2541955.rss")
+     ("Shipping Forecast" . "https://shippingforecast.uk/feed.xml")
+     ("Marfa Public Radio Puts You to Sleep"
+      . "https://www.marfapublicradio.org/podcast/marfa-public-radio-puts-you-to-sleep/rss.xml"))))
