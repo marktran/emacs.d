@@ -26,6 +26,9 @@
   :ensure t
   :commands (gptel gptel-send gptel-menu)
 
+  :general
+  ("SPC a" '(gptel :which-key "Chat"))
+
   ;; Soft-wrap long lines in gptel chat buffers. Wide markdown
   ;; tables look broken under soft wrap (continuation lines ruin
   ;; column alignment); use `C-x x t' (`toggle-truncate-lines') in
@@ -61,7 +64,7 @@ a model parameter\")."
         ("cf-aig-authorization" . ,(concat "Bearer " token)))))
 
   (setq gptel-backend
-        (gptel-make-openai "Cloudflare"
+        (gptel-make-openai "Gateway"
           :host "gateway.ai.cloudflare.com"
           :endpoint (format "/v1/%s/%s/compat/chat/completions"
                             m/gptel-cloudflare-account-id
@@ -72,8 +75,9 @@ a model parameter\")."
           ;; Note: the compat endpoint's provider slug for xAI is
           ;; `grok', not `xai'.
           :models '(openai/gpt-5.6-sol
-                    anthropic/claude-opus-4-8
                     anthropic/claude-fable-5
+                    anthropic/claude-opus-5
+                    anthropic/claude-sonnet-5
                     grok/grok-4.5))
         gptel-model 'openai/gpt-5.6-sol)
 
