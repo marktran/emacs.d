@@ -20,6 +20,13 @@
 
   :diminish dired-omit-mode
 
+  :custom
+  ;; ignoramus puts dired-omit-mode on every dired buffer, and each
+  ;; readin/revert then reports "(Nothing to omit)" or "Omitting...",
+  ;; clobbering more useful echo-area messages (auto-revert makes this
+  ;; chronic in ready-player's playback dired buffer).
+  (dired-omit-verbose nil)
+
   :config
   (defun diminish-dired-omit-mode ()
     "Diminish dired-omit-mode in the mode line."
