@@ -20,12 +20,15 @@
 ;; `SPC m' is a small global prefix mirroring the old EMMS transient:
 ;; player, play/stop, next/previous, seek, and podcast episodes.
 ;; ready-player's own `C-c m' global map is disabled in favor of it.
-;; While a track plays, the player buffer shows an "[elapsed/total]"
-;; clock: a one-second timer polls mpv over ready-player's IPC
-;; socket and renders it after the "(playing)" status through an
-;; overlay (the buffer is read-only and rebuilt by ready-player, so
-;; an overlay leaves its contents alone), skipping the work while
-;; the buffer isn't shown in any window.
+;; The player buffer's metadata block gets a "Position:" row (the
+;; conventional name for elapsed playback time — MPRIS and mpv call
+;; it the same) above ready-player's own "Duration:" row. Its value
+;; is a "--:--" placeholder; while a track plays, a one-second timer
+;; polls mpv over ready-player's IPC socket and covers the
+;; placeholder with the current position through an overlay's
+;; display property (the buffer is read-only and rebuilt by
+;; ready-player, so an overlay leaves its contents alone), skipping
+;; the work while the buffer isn't shown in any window.
 ;;
 ;; Playback uses mpv with volume pinned at 100% — the same rationale
 ;; as the EMMS setup this replaces: loudness comes from the system
@@ -150,46 +153,39 @@ the clock when playback stops."
     "Overlay showing the playing time in a player buffer.")
 
   (defun m/ready-player--render-time ()
-    "Render elapsed/total time in the active player buffer."
+    "Render the playback position in the active player buffer.
+Covers the Position row's placeholder (see
+`m/ready-player--add-position-row') with the current time."
     (let ((buffer (ready-player--active-buffer t)))
       (when (and (buffer-live-p buffer)
                  (get-buffer-window buffer t))
-        ;; Timer functions run with quit inhibited, and these queries
-        ;; block in `accept-process-output' awaiting mpv's reply, which
+        ;; Timer functions run with quit inhibited, and this query
+        ;; blocks in `accept-process-output' awaiting mpv's reply, which
         ;; makes Emacs warn "Blocking call to accept-process-output with
         ;; quit inhibited!!" on every tick. `with-local-quit' re-allows
         ;; quitting for the wait; a quit merely skips one update.
-        (let ((position (with-local-quit (ready-player--position)))
-              (duration (with-local-quit (ready-player--duration))))
-          ;; The socket queries above wait in `accept-process-output',
+        (let ((position (with-local-quit (ready-player--position))))
+          ;; The socket query above waits in `accept-process-output',
           ;; which runs timers and sentinels re-entrantly: playback may
           ;; have been stopped (and the clock cleared) meanwhile, so
           ;; re-check before writing a stale time back.
-          (when (process-live-p
-                 (buffer-local-value 'ready-player--process buffer))
+          (when (and position
+                     (process-live-p
+                      (buffer-local-value 'ready-player--process buffer)))
             (with-current-buffer buffer
               (save-excursion
                 (goto-char (point-min))
                 (when-let* ((match (text-property-search-forward
-                                    'playing-status))
+                                    'm/ready-player-position-field))
+                            (start (prop-match-beginning match))
                             (end (prop-match-end match)))
                   (unless (overlayp m/ready-player--time-overlay)
-                    (setq m/ready-player--time-overlay (make-overlay end end)))
-                  (move-overlay m/ready-player--time-overlay end end)
-                  (overlay-put
-                   m/ready-player--time-overlay 'after-string
-                   (when position
-                     (propertize
-                      (format " [%s%s]"
-                              (m/ready-player--format-time position)
-                              (if duration
-                                  (concat "/" (m/ready-player--format-time
-                                               duration))
-                                ""))
-                      ;; Match the "(playing)" status face.
-                      'face `(:foreground ,(face-foreground
-                                            'font-lock-comment-face)
-                                          :inherit info-title-2))))))))))))
+                    (setq m/ready-player--time-overlay
+                          (make-overlay start end)))
+                  (move-overlay m/ready-player--time-overlay start end)
+                  (overlay-put m/ready-player--time-overlay 'display
+                               (m/ready-player--format-time
+                                position))))))))))
 
   (defun m/ready-player--time-tick ()
     "Update the playing time, ending the updates when playback stops."
@@ -202,8 +198,8 @@ the clock when playback stops."
         (when (buffer-live-p buffer)
           (with-current-buffer buffer
             (when (overlayp m/ready-player--time-overlay)
-              (overlay-put m/ready-player--time-overlay
-                           'after-string nil)))))))
+              ;; Uncover the placeholder.
+              (overlay-put m/ready-player--time-overlay 'display nil)))))))
 
   (advice-add 'ready-player--refresh-buffer-status :after
               #'m/ready-player-mode-line-refresh)
@@ -234,14 +230,30 @@ the clock when playback stops."
 
   ;; The metadata block repeats the container format ("MP2/3 (MPEG
   ;; audio layer 2/3)" and the like) on every file; drop that row.
-  ;; There's no customization for it, so filter the row list.
-  (defun m/ready-player--drop-format-row (rows)
-    "Drop the Format row from metadata ROWS."
-    (seq-remove (lambda (row) (equal (alist-get 'label row) "Format:"))
-                rows))
+  ;; There's no customization for the rows, so filter the row list,
+  ;; also adding the Position row above its natural companion,
+  ;; Duration.
+  (defun m/ready-player--adjust-core-rows (rows)
+    "Drop the Format row from metadata ROWS and add a Position row.
+The Position value is a placeholder whose text property anchors the
+playback clock; while a track plays, an overlay covers it with the
+current position (see `m/ready-player--render-time')."
+    (let* ((rows (seq-remove (lambda (row)
+                               (equal (alist-get 'label row) "Format:"))
+                             rows))
+           (index (or (seq-position rows "Duration:"
+                                    (lambda (row label)
+                                      (equal (alist-get 'label row) label)))
+                      (length rows))))
+      (append (seq-take rows index)
+              (list (list (cons 'label "Position:")
+                          (cons 'value (propertize
+                                        "--:--"
+                                        'm/ready-player-position-field t))))
+              (seq-drop rows index))))
 
   (advice-add 'ready-player--make-metadata-core-rows :filter-return
-              #'m/ready-player--drop-format-row)
+              #'m/ready-player--adjust-core-rows)
 
   (defun m/ready-player-toggle-play-stop ()
     "Toggle play/pause of media without any echo-area chatter.
