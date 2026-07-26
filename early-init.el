@@ -17,18 +17,18 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
   (add-hook 'after-make-frame-functions #'re-enable-frame-theme))
 
 (defvar m/font-size-overrides
-  '(("Studio.?Display" . 14)
+  '(("Studio.?Display" . 14.5)
     ("ATNA40HQ02" . 10)
     ("eDP" . 10)
-    ("Built-in" . 14)
-    ("Retina" . 14)
-    ("Color LCD" . 14))
+    ("Built-in" . 14.5)
+    ("Retina" . 14.5)
+    ("Color LCD" . 14.5))
   "Monitor name regex overrides for font size.")
 
 (defconst m/default-font-family "Berkeley Mono"
   "Default font family used during startup.")
 
-(defconst m/default-font-size 14
+(defconst m/default-font-size (if (eq system-type 'darwin) 14.5 14)
   "Default font size used during startup.")
 
 (defvar m/monitor-font-size-cache (make-hash-table :test #'equal)
@@ -157,7 +157,9 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 (defun set-dynamic-font (&optional frame)
   "Set font dynamically based on display."
   (let* ((font-size (m/frame-font-size frame))
-         (height (* font-size 10))
+         ;; Face :height must be an integer (1/10pt); a float would be
+         ;; interpreted as a relative scaling factor instead.
+         (height (round (* font-size 10)))
          (target (or frame nil)))
     (unless (equal (face-attribute 'default :height target) height)
       (set-face-attribute 'default target
@@ -166,7 +168,7 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 
 ;; Set initial frame size and position
 (setq initial-frame-alist
-      `((font . ,(format "%s-%d" m/default-font-family m/default-font-size))
+      `((font . ,(format "%s-%g" m/default-font-family m/default-font-size))
         (menu-bar-lines . 0)
         (tool-bar-lines . 0)
         (vertical-scroll-bars)
@@ -182,7 +184,7 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 (setq default-frame-alist initial-frame-alist)
 (set-face-attribute 'default nil
                     :family m/default-font-family
-                    :height (* m/default-font-size 10))
+                    :height (round (* m/default-font-size 10)))
 
 ;; Apply dynamic font sizing
 (add-hook 'window-setup-hook
