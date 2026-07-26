@@ -29,6 +29,9 @@
 (use-package text-mode
   :ensure nil
 
+  :custom
+  (text-mode-ispell-word-completion nil)
+
   :hook
   ((text-mode . turn-on-auto-fill)))
 
