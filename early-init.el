@@ -172,8 +172,8 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
         (menu-bar-lines . 0)
         (tool-bar-lines . 0)
         (vertical-scroll-bars)
-        (width . ,(if (eq system-type 'darwin) 125 105))  ;; Number of columns
-        (height . ,(if (eq system-type 'darwin) 60 75))    ;; Number of rows
+        (width . ,(if (eq system-type 'darwin) 100 105))  ;; Number of columns
+        (height . ,(if (eq system-type 'darwin) 50 75))   ;; Number of rows
         (fullscreen . nil))) ;; Set to 'maximized, 'fullscreen, or 'nil
 
 ;; Add ns-specific settings if on macOS
