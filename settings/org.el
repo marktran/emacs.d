@@ -41,6 +41,10 @@
    "<backtab>" 'm/org-backtab-dwim)
 
   :config
+  ;; Follow file-backed links (file:, denote:, ...) in the same window
+  ;; instead of Org's default `find-file-other-window' split.
+  (setf (alist-get 'file org-link-frame-setup) #'find-file)
+
   (defun m/org-tab-dwim ()
     "Indent the list item at point, but keep TAB's usual behavior elsewhere."
     (interactive)
