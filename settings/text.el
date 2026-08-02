@@ -23,8 +23,11 @@
   (setq jinx-exclude-regexps
         (append jinx-exclude-regexps
                 '((t "\\(?:\\(?:\\w+/\\)+\\w+\\.[[:alpha:]]+\\)") ;; Ignore file paths like "dir/file.ext"
-                  (t "\\<\\w+\\.el\\>")                           ;; Ignore Emacs Lisp files like "beframe.el"
-                  (t "\\b[A-Z][a-z]+\\b")))))                     ;; Ignore proper nouns (capitalized words)
+                  (t "\\<\\w+\\(?:\\.\\w+\\)+\\>")               ;; Ignore dotted names: domains, "file.el"
+                  (t "\\<[[:alnum:]]+\\(?:-[[:alnum:]]+\\)+\\>")  ;; Ignore hyphenated compounds (tool/model names)
+                  (t "\\b[A-Z][a-z]+\\(?:['\u2019]s\\)?\\b")           ;; Ignore proper nouns, incl. possessive
+                  (t "\\<[[:alpha:]]*[A-Z][[:alpha:]]*[A-Z][[:alpha:]]*\\(?:['\u2019]s\\)?\\>") ;; Ignore words with 2+ capitals
+                  (t "\\<[a-z]+[A-Z][[:alpha:]]*\\(?:['\u2019]s\\)?\\>")))))  ;; Ignore lower camelCase words
 
 (use-package text-mode
   :ensure nil
