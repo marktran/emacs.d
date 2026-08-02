@@ -61,3 +61,46 @@
       (force-mode-line-update)))
 
   (advice-add 'org-agenda-set-mode-name :after #'m/org-agenda-hide-ddl-and-grid))
+
+;; Modern styling for Org buffers, feature by feature: tables get
+;; thin pixel-drawn borders instead of ASCII "|" and "-"; tags,
+;; TODO keywords, and priorities render as pill labels (headline-only
+;; elements, so they cannot skew table alignment). The rest is
+;; explicitly disabled; flip things on here as desired.
+(use-package org-modern
+  :ensure t
+
+  :custom
+  ;; Tables — the reason this package is here
+  (org-modern-table t)
+  (org-modern-table-vertical 1)  ; border width in px (default 3, nil hides)
+
+  ;; Tags
+  (org-modern-tag t)
+
+  ;; Keyword lines (frontmatter): hide the "#+" prefix
+  (org-modern-keyword t)
+
+  ;; TODO keyword and priority labels
+  (org-modern-todo t)
+  (org-modern-priority t)
+
+  ;; Everything else off, for now
+  ;; NB: timestamp chips resize timestamps (condensed 0.8-height face),
+  ;; which misaligns the borders of any table containing them
+  ;; (https://github.com/minad/org-modern/issues/5), so keep them off.
+  (org-modern-timestamp nil)
+  (org-modern-star nil)
+  (org-modern-hide-stars nil)
+  (org-modern-list nil)
+  (org-modern-checkbox nil)
+  (org-modern-horizontal-rule nil)
+  (org-modern-block-name nil)
+  (org-modern-block-fringe nil)
+  (org-modern-footnote nil)
+  (org-modern-internal-target nil)
+  (org-modern-radio-target nil)
+  (org-modern-progress nil)
+
+  :hook
+  (org-mode . org-modern-mode))
