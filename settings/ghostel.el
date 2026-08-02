@@ -2,6 +2,9 @@
   :ensure t
 
   :custom
+  ;; Keep the native module outside elpa/ so package updates don't
+  ;; delete it out from under a running Emacs.
+  (ghostel-module-directory "~/.emacs.d/ghostel/")
   (ghostel-kill-buffer-on-exit t)
   (ghostel-query-before-killing nil)
   (ghostel-term "xterm-ghostty")
