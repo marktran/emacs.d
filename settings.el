@@ -20,5 +20,8 @@
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
+;; Any numeric file-local `line-spacing' is harmless; never prompt.
+(put 'line-spacing 'safe-local-variable #'numberp)
+
 ;; load ~/.emacs.d/settings
 (mapc 'load (directory-files "~/.emacs.d/settings" t "^[A-Za-z-]*\\.el"))
