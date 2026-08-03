@@ -1,3 +1,9 @@
+;; Hide the truncation arrows that pile up in the left fringe when a
+;; wide buffer (e.g. a big Org table) is scrolled horizontally. The
+;; right-side arrows are already invisible: interface.el runs
+;; (set-fringe-mode '(8 . 0)), so there is no right fringe at all.
+(setf (alist-get 'truncation fringe-indicator-alist) nil)
+
 (use-package ef-themes
   :ensure t
 
