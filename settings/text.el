@@ -13,8 +13,10 @@
   :diminish
 
   :custom
-  (jinx-ispell-program "aspell")
-  (jinx-ispell-dictionary "en_US")
+  ;; Enchant language; the personal wordlist lives at
+  ;; ~/.config/enchant/en_US.dic (repo-managed, seeded with cspell's
+  ;; software/devops dictionaries).
+  (jinx-languages "en_US")
 
   :hook
   (text-mode . jinx-mode)
