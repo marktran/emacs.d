@@ -8,6 +8,19 @@
 (menu-bar-mode -1)
 (show-paren-mode -1)
 (set-fringe-mode '(8 . 0))
+
+;; Echo-area/minibuffer text otherwise sits one left-fringe (a full
+;; column) right of where the mode-line strip starts, which reads as a
+;; stray indent under the mode-line. Window-level fringe settings beat
+;; the frame default, so zeroing the minibuffer window's fringes
+;; aligns the echo area flush while leaving `set-fringe-mode' and
+;; spacious-padding's fringes alone everywhere else. Every frame owns
+;; a minibuffer window, so cover existing frames and each new one.
+(defun m/flush-minibuffer-fringes (&optional frame)
+  "Remove the fringes of FRAME's minibuffer window."
+  (set-window-fringes (minibuffer-window frame) 0 0))
+(add-hook 'after-make-frame-functions #'m/flush-minibuffer-fringes)
+(mapc #'m/flush-minibuffer-fringes (frame-list))
 (pixel-scroll-precision-mode 1)
 (winner-mode 1)
 
