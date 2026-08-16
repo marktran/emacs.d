@@ -27,6 +27,8 @@
    '(read-only t cursor-intangible t face minibuffer-prompt))
   ;; Hide irrelevant M-x commands
   (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; No "When done with this frame, type C-x 5 0" echo in new client frames.
+  (server-client-instructions nil)
   (tab-always-indent 'complete)
   (warning-suppress-log-types '((treesit)))
 
@@ -53,7 +55,8 @@
 
   (:prefix "SPC q"
    "" '(:ignore t :which-key "Emacs")
-   "q" '(save-buffers-kill-emacs :which-key "Quit Emacs")
+   "q" '(save-buffers-kill-terminal :which-key "Quit frame")
+   "Q" '(save-buffers-kill-emacs :which-key "Kill Emacs daemon")
    "r" '(restart-emacs :which-key "Restart Emacs"))
 
   (:prefix "SPC h"
