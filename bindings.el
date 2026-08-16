@@ -26,6 +26,8 @@
   (general-define-key :prefix "SPC n"
    "" '(:ignore t :which-key "Notes")
    "a" '((lambda () (interactive) (org-agenda nil "n")) :which-key "Agenda")
+   "b" '(m/org-bookmarks-visit :which-key "Bookmarks")
+   "c" '(org-capture :which-key "Capture")
    "d" '(denote-journal-new-or-existing-entry :which-key "Jump to daily entry")
    "f" '(consult-notes :which-key "Find notes")
    "n" '(denote-create-note :which-key "Create note")

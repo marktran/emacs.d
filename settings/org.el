@@ -8,7 +8,13 @@
 
   (org-capture-templates
    '(("t" "Task" entry (file org-default-notes-file)
-      "* TODO %?\n  %U\n  %a\n  %i")))
+      "* TODO %?\n  %U\n  %a\n  %i")
+     ;; Newest first; the link comes from the clipboard URL with its
+     ;; page title fetched (m/org-capture-bookmark-link, org-extras.el).
+     ("b" "Bookmark" entry (file m/org-bookmarks-file)
+      "* %(m/org-capture-bookmark-link)\n%U\n%?"
+      :prepend t
+      :empty-lines-after 1)))
 
   :hook
   (org-mode . visual-line-mode)
