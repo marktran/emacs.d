@@ -10,9 +10,9 @@
 ;; kills the buffer, and this config's quit-window advice would too),
 ;; and the arrow keys seek — left/right 10s back/forward, down/up 1m
 ;; back/forward, mirroring the old EMMS transient's seek keys.
-;; Seeking flashes ready-player's progress bar in the echo area;
-;; advice sizes that bar to the echo area's true width (see
-;; `m/ready-player--fit-progress-bar'). The buffer runs in Evil's
+;; Seeking flashes ready-player's progress bar in the echo area,
+;; redrawn in the style of mmontone's emacs-progress-bar (see
+;; `m/ready-player--progress-bar'). The buffer runs in Evil's
 ;; emacs state so those keys win over normal-state bindings. The
 ;; directory is the playlist: n/p walk the files next to the current
 ;; one, and the associated dired buffer acts as the queue.
@@ -356,24 +356,31 @@ the mode-line icon already shows the playback state."
     (interactive)
     (bury-buffer))
 
-  ;; Seeking flashes a time progress bar in the echo area.
-  ;; ready-player builds it exactly `frame-width' columns wide, but
-  ;; the echo area's usable width is a hair narrower (the fringe eats
-  ;; into it, and `ready-player--message' prepends a direction mark
-  ;; that displays as a thin space), so the bar's last character — the
-  ;; final digit of the track duration — wrapped onto a second
-  ;; echo-area line as a stray digit in the lower-left corner. Build
-  ;; the bar against the echo area's real width instead, sparing one
-  ;; column for the direction mark.
-  (defun m/ready-player--fit-progress-bar (make-bar &rest args)
-    "Call MAKE-BAR with `frame-width' shrunk to the echo area's width."
-    (cl-letf (((symbol-function 'frame-width)
-               (lambda (&optional _frame)
-                 (1- (window-max-chars-per-line (minibuffer-window))))))
-      (apply make-bar args)))
+  ;; Seeking flashes a time progress bar in the echo area. The stock
+  ;; bar spans the full frame width in ?┄ dashes — a glyph Berkeley
+  ;; Mono lacks, so it rendered in a wider proportional fallback font,
+  ;; overflowed the echo area in pixels, and wrapped, hanging a fringe
+  ;; continuation arrow off the echo area's left edge. Replace it with
+  ;; a bar in the style of mmontone's emacs-progress-bar
+  ;; (https://github.com/mmontone/emacs-progress-bar): a fixed-width
+  ;; ▓/░ shade bar (their `progress-bar-char'/`-background-char' and
+  ;; `progress-bar-width' defaults) with a "position of duration"
+  ;; readout. Every glyph is covered by Berkeley
+  ;; Mono, and the fixed width can't overflow any usable frame.
+  (defun m/ready-player--progress-bar (progress total)
+    "Draw PROGRESS out of TOTAL seconds, emacs-progress-bar style."
+    (let* ((width 35)
+           (completed (if (zerop (round total)) 0.0
+                        (min 1.0 (max 0.0 (/ progress (float total))))))
+           (filled (truncate (* completed width))))
+      (concat (make-string filled ?▓)
+              (make-string (- width filled) ?░)
+              (format " %s of %s"
+                      (ready-player--format-time (round progress))
+                      (ready-player--format-time (round total))))))
 
-  (advice-add 'ready-player--make-time-progress-bar :around
-              #'m/ready-player--fit-progress-bar)
+  (advice-add 'ready-player--make-time-progress-bar :override
+              #'m/ready-player--progress-bar)
 
   (defun m/ready-player-seek-forward-10s ()
     "Seek 10 seconds forward in the current track."
