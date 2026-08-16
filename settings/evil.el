@@ -47,9 +47,16 @@
   :diminish evil-collection-unimpaired-mode
 
   :config
+  ;; org covers org-capture-mode (ZZ finalize, ZQ abort, ZR refile) plus
+  ;; org-aware motions and M-hjkl navigation in the org date picker.
   (evil-collection-init '(calendar consult corfu dashboard dired ediff eglot
-                          elfeed embark eshell help info org-agenda
-                          magit)))
+                          elfeed embark eshell help info org org-agenda
+                          magit))
+
+  ;; org-capture-mode turns on after evil has already normalized the
+  ;; capture buffer's keymaps, so the bindings above stay dormant until
+  ;; the next state change; renormalize as soon as the mode enables.
+  (add-hook 'org-capture-mode-hook #'evil-normalize-keymaps))
 
 (use-package evil-iedit-state
   :ensure t
