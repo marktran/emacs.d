@@ -1,88 +1,35 @@
 ;;; ready-player.el --- Music and podcasts with ready-player
 
-;; ready-player turns media files into playable buffers: enabling
-;; `ready-player-mode' makes find-file and dired open audio/video in
-;; `ready-player-major-mode', which shows the file's metadata and
-;; cover art (via ffprobe/ffmpegthumbnailer) with its own playback
-;; keys (SPC play/stop, n/p next/previous, f/b seek, r repeat,
-;; s shuffle, d dired playlist). Two amendments: `q' buries the
-;; buffer, leaving playback running (the default `ready-player-quit'
-;; kills the buffer, and this config's quit-window advice would too),
-;; and the arrow keys seek — left/right 10s back/forward, down/up 1m
-;; back/forward, mirroring the old EMMS transient's seek keys.
-;; Seeking flashes ready-player's progress bar in the echo area,
-;; redrawn in the style of mmontone's emacs-progress-bar (see
-;; `m/ready-player--progress-bar'). The buffer runs in Evil's
-;; emacs state so those keys win over normal-state bindings. The
-;; directory is the playlist: n/p walk the files next to the current
-;; one, and the associated dired buffer acts as the queue.
+;; ready-player turns media files into playable buffers:
+;; `ready-player-mode' routes find-file/dired to
+;; `ready-player-major-mode', which shows metadata and cover art with
+;; single-key playback controls; the directory is the playlist (n/p
+;; walk the sibling files). Amendments here: `q' buries instead of
+;; killing (playback keeps running), and the arrow keys seek 10s/1m,
+;; as under the old EMMS transient.
 ;;
-;; `SPC m' is a small global prefix mirroring the old EMMS transient:
-;; player, play/stop, next/previous, seek, podcast episodes, and live
-;; radio.
-;; ready-player's own `C-c m' global map is disabled in favor of it.
-;; The player buffer's metadata block gets a "Position:" row (the
-;; conventional name for elapsed playback time — MPRIS and mpv call
-;; it the same) above ready-player's own "Duration:" row. Its value
-;; is a "--:--" placeholder; while a track plays, a one-second timer
-;; polls mpv over ready-player's IPC socket and covers the
-;; placeholder with the current position through an overlay's
-;; display property (the buffer is read-only and rebuilt by
-;; ready-player, so an overlay leaves its contents alone), skipping
-;; the work while the buffer isn't shown in any window.
+;; `SPC m' is a small global prefix replacing both that transient and
+;; ready-player's own `C-c m' map. `SPC m e' downloads an episode
+;; from `ready-player-podcast-feeds' to a cache and autoplays it in
+;; the background (`C-u' downloads only); `SPC m r' plays a station
+;; from `ready-player-radio-stations' the same way — the BBC
+;; simulcasts stream 320kbps AAC worldwide, geo-blocking being a
+;; television and on-demand matter.
 ;;
-;; Playback uses mpv with volume pinned at 100% — the same rationale
-;; as the EMMS setup this replaces: loudness comes from the system
-;; audio controls, and watch-later state (mpv.conf saves position on
-;; quit) must not restore an old volume or mute. The
-;; `--input-ipc-server' socket is ready-player's own channel for
-;; seeking.
+;; mpv plays everything with volume pinned at 100%: loudness belongs
+;; to the system controls, and watch-later state must not restore an
+;; old volume or mute. The `--input-ipc-server' socket is the
+;; seek/position channel. Repeat is off — wrapping the directory
+;; would replay podcast episodes forever.
 ;;
-;; `SPC m e' prompts for an episode of a podcast subscribed to in
-;; `ready-player-podcast-feeds' (see lib/ready-player-podcast.el),
-;; newest first with month groups and durations. ready-player only
-;; plays local files, so the episode is downloaded (or reused from
-;; the download cache under no-littering's var directory, which
-;; recentf already excludes) and autoplayed in the background — the
-;; player view stays hidden until `SPC m m' brings it up. `C-u SPC
-;; m e' downloads without playing.
-;;
-;; `SPC m r' picks a live station from `ready-player-radio-stations'
-;; (see lib/ready-player-radio.el) and plays it in the background the
-;; same way. The BBC networks stream 320kbps AAC from worldwide HLS
-;; pools that need neither a VPN nor a sign-in: the BBC's
-;; geo-blocking covers television and some on-demand rights, not the
-;; radio simulcasts. Pointing at a station's master playlist leaves
-;; the choice of bitrate to mpv, which takes the highest.
-;;
-;; A stream needs two concessions in a player built for files.
-;; Stations get their own mpv command: no watch-later state (mpv.conf
-;; saves position on quit) for a stream with no position to resume,
-;; and no sibling scanning (mpv.conf's `autocreate-playlist'), which
-;; would otherwise queue up the neighboring stubs. And since ffprobe
-;; reads no tags off a stub file, advice passes the station name in as
-;; the file's title, which both heads the buffer with "BBC Radio 4"
-;; instead of "BBC Radio 4.radio" and gets the metadata block — where
-;; the Position clock lives — drawn at all.
-;;
-;; Playback stops at the end of the file: the repeat default (t)
-;; wraps around the directory, which for a podcast means replaying
-;; episodes forever; the old EMMS setup also defaulted to no repeat.
-;; `r' in the player buffer still cycles repeat modes.
-;;
-;; The only mode-line presence is a right-aligned play icon while a
-;; track is playing (see init.el's `mode-line-format', shared with
-;; the old EMMS setup): ready-player has no playback hooks, but every
-;; start/stop funnels through its buffer-status refresh, so advice
-;; there records the playback process and refreshes mode lines;
-;; `m/ready-player-playing-p' then just checks that process, which
-;; also self-corrects if the player dies without a refresh. Pausing
-;; hides the icon too (tracked by advice on the pause toggle); the
-;; in-buffer clock keeps showing the frozen position meanwhile.
+;; Advice grafts on the remaining UI: a "Position:" clock row in the
+;; metadata block (a one-second mpv poll behind an overlay) and the
+;; mode line's right-aligned play icon (see init.el), which tracks
+;; the recorded playback process.
 
-;; Declared before ready-player: the stub extension has to be in
-;; `ready-player-supported-audio' before `ready-player-mode' builds
-;; `auto-mode-alist' from it, and the station-titling advice calls in.
+;; Before ready-player on purpose: the stub extension must be known
+;; before `ready-player-mode' builds `auto-mode-alist', and the
+;; station-titling advice calls in.
 (use-package ready-player-radio
   :ensure nil
   :load-path "lib"
@@ -91,16 +38,13 @@
   :custom
   (ready-player-radio-directory
    (no-littering-expand-var-file-name "ready-player/radio"))
-  ;; Pool IDs rotate every few years (pool_904 answers 410 Gone now),
-  ;; which is why most BBC stream URLs found online are dead. When a
-  ;; station stops resolving, re-read the current URLs from the
-  ;; community stream directory:
+  ;; Pool IDs rotate every few years, so most BBC stream URLs found
+  ;; online are dead. When a station stops resolving:
   ;;   curl -s 'https://de1.api.radio-browser.info/json/stations/search?name=BBC' \
   ;;     | jq -r '.[].url_resolved'
   (ready-player-radio-stations
    (let ((bbc (lambda (station pool)
-                ;; The master playlist, leaving mpv to pick its
-                ;; highest bitrate (320kbps AAC).
+                ;; Master playlist; mpv takes the highest bitrate.
                 (format (concat "https://as-hls-ww-live.akamaized.net"
                                 "/%s/live/ww/%s/%s.isml/%s.m3u8")
                         pool station station station))))
@@ -127,9 +71,8 @@
   (ready-player-set-global-bindings nil) ; `SPC m' replaces `C-c m'
   (ready-player-repeat nil)
   (ready-player-open-playback-commands
-   ;; An extension list as the first element scopes a command to it:
-   ;; live streams (see lib/ready-player-radio.el) take the first
-   ;; entry, everything else the second.
+   ;; An extension-list head scopes an entry: streams (.radio stubs)
+   ;; get no watch-later state and no sibling scanning.
    '((("radio") "mpv" "--audio-display=no" "--input-ipc-server=<<socket>>"
       "--volume=100"
       "--autocreate-playlist=no"
@@ -194,12 +137,9 @@ the clock when playback stops."
           (unless (eq process m/ready-player--playback-process)
             (setq m/ready-player--paused nil))
           (setq m/ready-player--playback-process process))
-         ;; BUFFER has no live playback. Only treat that as a stop
-         ;; when nothing newer is playing: replacing playback (say,
-         ;; picking an episode while another plays) starts the new
-         ;; process first, and the old process's sentinel then
-         ;; refreshes its old buffer with no process — that stale
-         ;; refresh must not clobber the live one.
+         ;; Dead playback only counts as a stop while nothing newer
+         ;; plays: replacing a track starts the new process before the
+         ;; old sentinel's stale refresh comes through.
          ((not (m/ready-player--session-live-p))
           (setq m/ready-player--playback-process nil
                 m/ready-player--paused nil)))))
@@ -210,7 +150,7 @@ the clock when playback stops."
       (m/ready-player--time-tick))
     (force-mode-line-update t))
 
-  ;; Playing time in the player buffer, after the "(playing)" status.
+  ;; The Position clock's timer and overlay.
   (defvar m/ready-player--time-timer nil
     "Timer updating the player buffer's playing time.")
 
@@ -220,20 +160,16 @@ the clock when playback stops."
   (defun m/ready-player--render-time ()
     "Render the playback position in the active player buffer.
 Covers the Position row's placeholder (see
-`m/ready-player--add-position-row') with the current time."
+`m/ready-player--adjust-core-rows') with the current time."
     (let ((buffer (ready-player--active-buffer t)))
       (when (and (buffer-live-p buffer)
                  (get-buffer-window buffer t))
-        ;; Timer functions run with quit inhibited, and this query
-        ;; blocks in `accept-process-output' awaiting mpv's reply, which
-        ;; makes Emacs warn "Blocking call to accept-process-output with
-        ;; quit inhibited!!" on every tick. `with-local-quit' re-allows
-        ;; quitting for the wait; a quit merely skips one update.
+        ;; `with-local-quit' silences "Blocking call to
+        ;; accept-process-output with quit inhibited!!" on every tick;
+        ;; a quit merely skips one update.
         (let ((position (with-local-quit (ready-player--position))))
-          ;; The socket query above waits in `accept-process-output',
-          ;; which runs timers and sentinels re-entrantly: playback may
-          ;; have been stopped (and the clock cleared) meanwhile, so
-          ;; re-check before writing a stale time back.
+          ;; The wait runs timers/sentinels re-entrantly — playback may
+          ;; have stopped meanwhile; don't write a stale time back.
           (when (and position
                      (process-live-p
                       (buffer-local-value 'ready-player--process buffer)))
@@ -269,10 +205,8 @@ Covers the Position row's placeholder (see
   (advice-add 'ready-player--refresh-buffer-status :after
               #'m/ready-player-mode-line-refresh)
 
-  ;; `ready-player--update-buffer' (pause toggles, metadata/thumbnail
-  ;; arrivals) erases and rebuilds the buffer, collapsing the clock
-  ;; overlay to the buffer start where its stale text would flash;
-  ;; drop the overlay and re-render it in place right away.
+  ;; Buffer rebuilds collapse the clock overlay to the buffer start,
+  ;; where its stale text would flash; re-create it in place.
   (defun m/ready-player--reset-time-overlay (buffer &rest _)
     "Re-create the clock overlay after BUFFER is rebuilt."
     (when (buffer-live-p buffer)
@@ -285,12 +219,10 @@ Covers the Position row's placeholder (see
   (advice-add 'ready-player--update-buffer :after
               #'m/ready-player--reset-time-overlay)
 
-  ;; A station stub holds a URL, so ffprobe finds no tags on it: the
-  ;; buffer would head itself "BBC Radio 4.radio" and, having no
-  ;; metadata at all, would skip the metadata block that carries the
-  ;; Position clock. Pass the station name in as the file's title,
-  ;; which the heading prefers over the file name (and which the block
-  ;; below it drops as a duplicate).
+  ;; ffprobe finds no tags on a station stub, so the buffer would
+  ;; head itself "BBC Radio 4.radio" and skip the metadata block that
+  ;; carries the Position clock. Pass the station name in as the
+  ;; file's title.
   (defun m/ready-player--name-station (args)
     "Title a station stub after its station in ARGS."
     (if-let* ((station (ready-player-radio-station-name (nth 1 args)))
@@ -314,11 +246,8 @@ Covers the Position row's placeholder (see
                 (/ seconds 3600) (/ (% seconds 3600) 60) (% seconds 60))
       (format "%d:%02d" (/ seconds 60) (% seconds 60))))
 
-  ;; The metadata block repeats the container format ("MP2/3 (MPEG
-  ;; audio layer 2/3)" and the like) on every file; drop that row.
-  ;; There's no customization for the rows, so filter the row list,
-  ;; also adding the Position row above its natural companion,
-  ;; Duration.
+  ;; No customization exists for the metadata rows, so filter them:
+  ;; drop the repetitive Format row, add Position above Duration.
   (defun m/ready-player--adjust-core-rows (rows)
     "Drop the Format row from metadata ROWS and add a Position row.
 The Position value is a placeholder whose text property anchors the
@@ -356,17 +285,10 @@ the mode-line icon already shows the playback state."
     (interactive)
     (bury-buffer))
 
-  ;; Seeking flashes a time progress bar in the echo area. The stock
-  ;; bar spans the full frame width in ?┄ dashes — a glyph Berkeley
-  ;; Mono lacks, so it rendered in a wider proportional fallback font,
-  ;; overflowed the echo area in pixels, and wrapped, hanging a fringe
-  ;; continuation arrow off the echo area's left edge. Replace it with
-  ;; a bar in the style of mmontone's emacs-progress-bar
-  ;; (https://github.com/mmontone/emacs-progress-bar): a fixed-width
-  ;; ▓/░ shade bar (their `progress-bar-char'/`-background-char' and
-  ;; `progress-bar-width' defaults) with a "position of duration"
-  ;; readout. Every glyph is covered by Berkeley
-  ;; Mono, and the fixed width can't overflow any usable frame.
+  ;; The seek bar, restyled after mmontone's emacs-progress-bar
+  ;; (fixed-width ▓/░ shades). The stock full-frame-width ?┄ bar
+  ;; rendered in a wider fallback font (Berkeley Mono lacks that
+  ;; glyph), overflowed the echo area in pixels, and wrapped.
   (defun m/ready-player--progress-bar (progress total)
     "Draw PROGRESS out of TOTAL seconds, emacs-progress-bar style."
     (let* ((width 35)
