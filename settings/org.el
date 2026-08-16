@@ -3,7 +3,8 @@
 
   :custom
   (org-default-notes-file "~/Dropbox/org/now/inbox.org")
-  (org-agenda-files (list org-default-notes-file))
+  (org-agenda-files (list org-default-notes-file
+                          "~/Dropbox/org/now/gcal.org"))
   (org-log-done 'time)
 
   (org-capture-templates
