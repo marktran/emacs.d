@@ -54,17 +54,91 @@ fetched.  Used by the \"b\" `org-capture' template (settings/org.el)."
 
 (add-hook 'org-capture-after-finalize-hook #'m/org-capture-popup-cleanup)
 
-(defun m/org-capture-bookmark-popup ()
-  "Run the bookmark capture template in a dedicated popup frame.
-Target of the Hyprland SUPER+ALT+B binding, which launches
-`emacsclient -c' with an `org-capture-popup' frame parameter; the
+(defun m/org-capture-popup--run (keys)
+  "Run `org-capture' with template KEYS in the current popup frame.
+A blank backdrop replaces whatever buffer the daemon happened to
+have current, so the popup never flashes work in progress. The
 frame is deleted again when the capture is finalized or aborted
 (`m/org-capture-popup-cleanup'), or when it fails to start."
+  (when (frame-parameter nil 'org-capture-popup)
+    (switch-to-buffer (get-buffer-create " *org-capture-popup*"))
+    (setq-local mode-line-format nil))
   (condition-case nil
       (progn
-        (org-capture nil "b")
+        (org-capture nil keys)
         (delete-other-windows))
     ((error quit) (m/org-capture-popup-cleanup))))
+
+(defun m/org-capture-popup ()
+  "Capture into any template from a dedicated popup frame.
+Target of the Hyprland SUPER+ALT+C binding, which launches
+`emacsclient -c' with an `org-capture-popup' frame parameter; the
+template selector runs in the popup's minibuffer
+(`m/org-capture-select-template')."
+  (m/org-capture-popup--run nil))
+
+(defun m/org-capture-bookmark-popup ()
+  "Run the bookmark capture template in a dedicated popup frame.
+Target of the Hyprland SUPER+ALT+B binding; see
+`m/org-capture-popup--run' for the frame lifecycle."
+  (m/org-capture-popup--run "b"))
+
+(defun m/org-capture-select-template (&optional keys)
+  "Select a capture template with `completing-read'.
+`:override' advice for `org-capture-select-template', replacing
+the *Org Select* text-menu buffer with the minibuffer (vertico).
+KEYS picks a template directly, as in the original."
+  (let ((templates (or (org-contextualize-keys
+                        (org-capture-upgrade-templates org-capture-templates)
+                        org-capture-templates-contexts)
+                       '(("t" "Task" entry (file+headline "" "Tasks")
+                          "* TODO %?\n  %u\n  %a")))))
+    (if keys
+        (or (assoc keys templates)
+            (error "No capture template referred to by \"%s\" keys" keys))
+      (let* ((candidates
+              (mapcar (lambda (template)
+                        (cons (format "%-3s%s" (nth 0 template) (nth 1 template))
+                              template))
+                      ;; Entries with only a key and description are
+                      ;; group headings for the *Org Select* menu.
+                      (seq-filter (lambda (template) (> (length template) 2))
+                                  templates)))
+             (table (lambda (string predicate action)
+                      (if (eq action 'metadata)
+                          '(metadata (display-sort-function . identity)
+                                     (cycle-sort-function . identity))
+                        (complete-with-action action candidates string predicate))))
+             (choice (completing-read "Capture template: " table nil t)))
+        (cdr (assoc choice candidates))))))
+
+(advice-add 'org-capture-select-template :override #'m/org-capture-select-template)
+
+(defun m/org-capture-drawer-p (buffer-name _action)
+  "Match capture buffers, except in dedicated popup frames.
+Popup frames (`org-capture-popup' frame parameter) show the
+capture buffer as their only window instead."
+  (and (string-prefix-p "CAPTURE-" buffer-name)
+       (not (frame-parameter nil 'org-capture-popup))))
+
+;; Show capture buffers in a bottom drawer instead of splitting
+;; whichever window happened to be selected.
+(add-to-list 'display-buffer-alist
+             '(m/org-capture-drawer-p
+               (display-buffer-in-side-window)
+               (side . bottom)
+               (window-height . 0.35)))
+
+(defun m/org-capture-tidy ()
+  "Declutter the capture buffer and start typing immediately.
+Drop the verbose \"Finish C-c C-c...\" header line (ZZ/ZQ/ZR
+cover it, see settings/evil.el) and enter insert state at the
+template's %? slot."
+  (when org-capture-mode
+    (setq header-line-format nil)
+    (evil-insert-state)))
+
+(add-hook 'org-capture-mode-hook #'m/org-capture-tidy)
 
 (defun org-insert-link-dwim ()
   "Insert an Org link with smart context-based behavior.
