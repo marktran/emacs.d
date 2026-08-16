@@ -10,6 +10,14 @@
                      (bookmarks . 4)))
   (dashboard-set-file-icons t)
   (dashboard-set-heading-icons t)
+  ;; Daemon: server.el consults `initial-buffer-choice' for client frames
+  ;; opened without files (emacsclient -c / -t). Re-render so recents and
+  ;; projects are fresh, then return the buffer for server.el to display.
+  ;; A bare `get-buffer-create' (the README snippet) would show an empty
+  ;; buffer whenever *dashboard* had been killed.
+  (initial-buffer-choice (lambda ()
+                           (dashboard-open)
+                           (get-buffer dashboard-buffer-name)))
   (dashboard-footer-messages
         '("The man who moves a mountain begins by carrying away small stones."
           "The superior man is modest in his speech, but exceeds in his actions."
