@@ -1,20 +1,12 @@
 ;; This file runs before init.el, ahead of package and UI initialization.
 
-(defun re-enable-frame-theme (_frame)
-  "Re-enable active theme, if any, upon FRAME creation.
-Add this to `after-make-frame-functions' so that new frames do
-not retain the generic background set by the function
-`avoid-initial-flash-of-light'."
-  (when-let* ((theme (car custom-enabled-themes)))
-    (enable-theme theme)))
-
-(defun avoid-initial-flash-of-light ()
-  "Avoid flash of light when starting Emacs, if needed.
-New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
-  (setq mode-line-format nil)
-  (set-face-attribute 'default nil :background "#000000" :foreground "#ffffff")
-  (set-face-attribute 'mode-line nil :background "#000000" :foreground "#ffffff" :box 'unspecified)
-  (add-hook 'after-make-frame-functions #'re-enable-frame-theme))
+;; Avoid a flash of light while the theme loads: paint frames dark via
+;; `initial-frame-alist' (see below) instead of overriding faces. The
+;; old approach overrode the default face and re-enabled the theme from
+;; `after-make-frame-functions', which re-realized every face on the
+;; daemon's colorless initial frame (F1) each time a client frame was
+;; created, spamming 'Unable to load color "unspecified-bg"'.
+(setq mode-line-format nil)
 
 (defvar m/font-size-overrides
   '(("Studio.?Display" . 14.5)
@@ -169,6 +161,9 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
 ;; Set initial frame size and position
 (setq initial-frame-alist
       `((font . ,(format "%s-%g" m/default-font-family m/default-font-size))
+        ;; First paint before the theme's faces realize; matches ef-dark.
+        (background-color . "#000000")
+        (foreground-color . "#ffffff")
         (menu-bar-lines . 0)
         (tool-bar-lines . 0)
         (vertical-scroll-bars)
@@ -192,5 +187,4 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
             (set-dynamic-font (selected-frame))))
 (add-hook 'after-make-frame-functions #'set-dynamic-font)
 
-; Avoid flash of light
-(avoid-initial-flash-of-light)
+
