@@ -5,6 +5,9 @@
   (org-default-notes-file "~/Dropbox/org/now/inbox.org")
   (org-agenda-files (list org-default-notes-file
                           "~/Dropbox/org/now/gcal.org"))
+  ;; Start agenda weeks on Sunday, matching the calendar's default.
+  (org-agenda-start-on-weekday 0)
+  (org-agenda-format-date #'m/org-agenda-format-date-aligned)
   (org-log-done 'time)
 
   (org-capture-templates
@@ -63,6 +66,26 @@
     "De-indent, but keep S-TAB's previous-field behavior in tables."
     (interactive)
     (if (org-at-table-p) (org-table-previous-field) (org-metaleft)))
+
+  (defun m/org-agenda-format-date-aligned (date)
+    "Format DATE like `org-agenda-format-date-aligned', but tag Sundays.
+Weeks start on Sunday here (`org-agenda-start-on-weekday'), so put
+the week number on Sunday, labeled with the ISO week of the Monday
+it precedes, instead of tagging Mondays mid-row."
+    (require 'cal-iso)
+    (let* ((dayname (calendar-day-name date))
+           (day (cadr date))
+           (day-of-week (calendar-day-of-week date))
+           (month (car date))
+           (monthname (calendar-month-name month))
+           (year (nth 2 date))
+           (iso-week (org-days-to-iso-week
+                      (1+ (calendar-absolute-from-gregorian date))))
+           (weekstring (if (= day-of-week 0)
+                           (format " W%02d" iso-week)
+                         "")))
+      (format "%-10s %2d %s %4d%s"
+              dayname day monthname year weekstring)))
 
   (defun m/org-agenda-hide-ddl-and-grid (&rest _)
     "Hide Ddl and Grid status markers from the org-agenda mode line."
