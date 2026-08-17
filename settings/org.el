@@ -166,4 +166,34 @@ it precedes, instead of tagging Mondays mid-row."
   :hook
   (org-mode . org-modern-mode)
   ;; Render the same todo/priority/tag pills in agenda buffers.
-  (org-agenda-finalize . org-modern-agenda))
+  (org-agenda-finalize . org-modern-agenda)
+
+  :config
+  ;; org-modern builds tag pills out of display strings padded with plain
+  ;; spaces, which hands visual-line-mode word-wrap break points between and
+  ;; even *inside* the pills: a long headline can strand a pill's empty
+  ;; leading padding at the end of one visual line and its label on the
+  ;; next. Swap those spaces for no-break spaces (word-wrap only breaks on
+  ;; ASCII space/tab), so the whole tag group wraps as one unit, just like
+  ;; plain :tag: text does.
+  (defun m/org-modern-tag-nobreak (orig)
+    "Call ORIG (`org-modern--tag'), then make its pill padding non-breaking."
+    ;; Bounds must be taken before ORIG runs: its searches clobber the
+    ;; match data set by the font-lock keyword.
+    (let ((beg (match-beginning 2))
+          (end (match-end 2)))
+      (funcall orig)
+      ;; The pills now contain no-break spaces; don't highlight them with
+      ;; the `nobreak-space' face in this buffer.
+      (setq-local nobreak-char-display nil)
+      (while (< beg end)
+        (let ((next (or (next-single-property-change beg 'display nil end) end))
+              (disp (get-text-property beg 'display)))
+          (when (and (stringp disp) (string-search " " disp))
+            (put-text-property beg next 'display
+                               (replace-regexp-in-string " " "\u00A0" disp)))
+          (setq beg next)))
+      ;; Return nil like ORIG so font-lock applies no extra face.
+      nil))
+
+  (advice-add 'org-modern--tag :around #'m/org-modern-tag-nobreak))
