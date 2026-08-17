@@ -8,6 +8,27 @@
   ;; Start agenda weeks on Sunday, matching the calendar's default.
   (org-agenda-start-on-weekday 0)
   (org-agenda-format-date #'m/org-agenda-format-date-aligned)
+
+  ;; Agenda styling: thin rules and terse leaders instead of the ASCII
+  ;; defaults. Org picks its own unicode defaults only when loaded under
+  ;; a graphical display, which never happens in a daemon, so set them
+  ;; explicitly. Faces are left to the active theme.
+  (org-agenda-block-separator ?─)
+  (org-agenda-time-grid
+   '((daily today require-timed)
+     (800 1000 1200 1400 1600 1800 2000)
+     " ┄┄┄┄┄" "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"))
+  (org-agenda-current-time-string "◀── now ─────────────────────")
+  ;; No %i icon slot and no `%-12:c' category column — with one inbox
+  ;; and one calendar, the category repeats more than it informs.
+  (org-agenda-prefix-format
+   '((agenda . "  %?-12t% s")
+     (todo . "  ")
+     (tags . "  ")
+     (search . "  ")))
+  (org-agenda-scheduled-leaders '("" "%2d× "))
+  (org-agenda-deadline-leaders '("Due  " "In %2dd  " "%2dd ago  "))
+
   (org-log-done 'time)
 
   (org-capture-templates
@@ -66,6 +87,12 @@
     "De-indent, but keep S-TAB's previous-field behavior in tables."
     (interactive)
     (if (org-at-table-p) (org-table-previous-field) (org-metaleft)))
+
+  ;; Drop the banner headers ("Global list of TODO items of type: ALL",
+  ;; "Week-agenda (W34):") from every agenda view; date lines and the
+  ;; Sunday week numbers already carry that information. Custom agenda
+  ;; commands can still let-bind their own headers.
+  (setq org-agenda-overriding-header "")
 
   (defun m/org-agenda-format-date-aligned (date)
     "Format DATE like `org-agenda-format-date-aligned', but tag Sundays.
@@ -137,4 +164,6 @@ it precedes, instead of tagging Mondays mid-row."
   (org-modern-progress nil)
 
   :hook
-  (org-mode . org-modern-mode))
+  (org-mode . org-modern-mode)
+  ;; Render the same todo/priority/tag pills in agenda buffers.
+  (org-agenda-finalize . org-modern-agenda))
