@@ -29,6 +29,17 @@
   (org-agenda-scheduled-leaders '("" "%2d× "))
   (org-agenda-deadline-leaders '("Due  " "In %2dd  " "%2dd ago  "))
 
+  ;; One line per item: hide DONE items from the calendar and collapse
+  ;; scheduled+deadline duplicates into the more urgent entry.
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-skip-timestamp-if-done t)
+  (org-agenda-skip-scheduled-if-deadline-is-shown t)
+  (org-agenda-skip-timestamp-if-deadline-is-shown t)
+
+  ;; Put the window layout back the way it was when the agenda quits.
+  (org-agenda-restore-windows-after-quit t)
+
   (org-log-done 'time)
 
   (org-capture-templates
