@@ -276,7 +276,7 @@ CALLBACK receives one argument: the parsed JSON object, or nil on error."
     (weather--url-retrieve
      "https://wttr.in/?format=j1"
      (lambda (data)
-       (if-let ((location (weather--parse-ip-location data)))
+       (if-let* ((location (weather--parse-ip-location data)))
            (funcall callback location)
          (message "Weather: could not detect location from public IP")
          (funcall callback nil))))))
@@ -352,7 +352,7 @@ When LOCATION is nil, detect the approximate location from the public IP."
 
 (defun weather--parse-forecast-data (data)
   "Return (CURRENT . DAILY) forecast data extracted from API DATA."
-  (when-let ((daily (and data (cdr (assoc 'daily data)))))
+  (when-let* ((daily (and data (cdr (assoc 'daily data)))))
     (cons (cdr (assoc 'current data)) daily)))
 
 (defun weather--cache-forecast-data (forecast)
@@ -369,7 +369,7 @@ When LOCATION is nil, detect the approximate location from the public IP."
   (weather--url-retrieve
    (weather--forecast-url lat lon)
    (lambda (data)
-     (if-let ((forecast (weather--parse-forecast-data data)))
+     (if-let* ((forecast (weather--parse-forecast-data data)))
          (progn
            (weather--cache-forecast-data forecast)
            (funcall callback forecast))
@@ -524,7 +524,7 @@ When LOCATION is nil, detect the approximate location from the public IP."
 
 With prefix argument FORCE-REFRESH, ignore cached forecast data."
   (interactive "P")
-  (if-let ((cached-data (and (not force-refresh)
+  (if-let* ((cached-data (and (not force-refresh)
                              (weather--cached-forecast-data))))
       (progn
         (message "Weather: using cached forecast for %s..."
