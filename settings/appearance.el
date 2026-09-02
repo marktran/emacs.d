@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; Hide the truncation arrows that pile up in the left fringe when a
 ;; wide buffer (e.g. a big Org table) is scrolled horizontally. The
 ;; right-side arrows are already invisible: interface.el runs
@@ -52,4 +53,20 @@
                              :fringe-width 8))
 
   :config
-  (spacious-padding-mode))
+  ;; `spacious-padding-set-faces' bakes (face-background 'default) into
+  ;; its face specs. On a daemon that runs against the colorless initial
+  ;; frame F1 and yields "unspecified-bg", which the first client frame
+  ;; then fails to load ('Unable to load color "unspecified-bg"' x15).
+  ;; Enable the mode from the first graphical frame instead.
+  (defun m/spacious-padding-enable-on-first-frame (frame)
+    "Enable `spacious-padding-mode' once graphical FRAME exists."
+    (when (display-graphic-p frame)
+      (remove-hook 'after-make-frame-functions
+                   #'m/spacious-padding-enable-on-first-frame)
+      (with-selected-frame frame
+        (spacious-padding-mode 1))))
+
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions
+                #'m/spacious-padding-enable-on-first-frame)
+    (spacious-padding-mode 1)))
