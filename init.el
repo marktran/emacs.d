@@ -1,10 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 (setq native-comp-async-report-warnings-errors nil)
 
-;; Stop pointless re-native-compilation of tramp/org loaddefs (and the
-;; *Async-native-compile-log* buffer it creates) on every startup.
-(load "~/.emacs.d/lisp/hacks/skip-loaddefs-native-comp.el" 'noerror)
-
 (defun restore-mode-line ()
   (setq-default mode-line-format
                 '("%e"
