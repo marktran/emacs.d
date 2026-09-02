@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; On PGTK/Wayland a stray click sometimes reaches Emacs with a position
 ;; that resolves to no live window — typically the wake/unlock click
 ;; after suspend/resume, delivered before the frame's surface state has

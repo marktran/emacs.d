@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (let ((user-bin (expand-file-name "~/bin")))
   (setenv "PATH" (concat user-bin ":" (getenv "PATH")))
   (add-to-list 'exec-path user-bin))

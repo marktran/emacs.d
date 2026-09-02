@@ -1,4 +1,4 @@
-;;; elfeed.el --- Feedbin RSS reading with Elfeed
+;;; elfeed.el --- Feedbin RSS reading with Elfeed -*- lexical-binding: t; -*-
 
 ;; `SPC r' opens the Elfeed search listing in a buffer named `Index';
 ;; entries open in `View'. Elfeed hard-codes its internal buffer names, so

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; This file runs before init.el, ahead of package and UI initialization.
 
 ;; Avoid a flash of light while the theme loads: paint frames dark via

@@ -1,4 +1,4 @@
-;;; gptel.el --- LLM chat through the Cloudflare AI Gateway
+;;; gptel.el --- LLM chat through the Cloudflare AI Gateway -*- lexical-binding: t; -*-
 
 ;; All models are reached through the Cloudflare AI Gateway's
 ;; OpenAI-compatible endpoint

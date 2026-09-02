@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package treemacs
   :ensure t
   :commands (treemacs treemacs-select-window treemacs-add-and-display-current-project-exclusively)

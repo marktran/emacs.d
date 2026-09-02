@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (require 'uniquify)
 
 (global-set-key (kbd "C-s-F") 'toggle-frame-fullscreen)

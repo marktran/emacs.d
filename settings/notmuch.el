@@ -1,4 +1,4 @@
-;;; notmuch.el --- Gmail with Notmuch on Linux
+;;; notmuch.el --- Gmail with Notmuch on Linux -*- lexical-binding: t; -*-
 
 ;; Emacs frontend settings for the local Notmuch mail index. System
 ;; installation, Gmail authorization, background synchronization, and

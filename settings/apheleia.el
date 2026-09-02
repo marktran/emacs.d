@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package apheleia
   :ensure t
   :diminish apheleia-mode

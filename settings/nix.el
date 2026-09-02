@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defun m/maybe-nix-eglot ()
   "Start Eglot for Nix buffers when a Nix language server is available."
   (when (or (executable-find "nixd")

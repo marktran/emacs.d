@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; Auto refresh buffers.
 ;; http://whattheemacsd.com//sane-defaults.el-01.html
 (use-package autorevert

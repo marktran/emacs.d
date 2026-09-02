@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package golden-ratio
   :ensure t
   :diminish golden-ratio-mode

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defvar denote-journal--origin-window)
 
 (defun denote-journal-close-calendar-advice (orig-fun &rest args)

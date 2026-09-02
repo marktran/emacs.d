@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (setq native-comp-async-report-warnings-errors nil)
 
 ;; Stop pointless re-native-compilation of tramp/org loaddefs (and the

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (cond
  ((eq system-type 'darwin)
   (load-file "~/.emacs.d/os/darwin.el"))

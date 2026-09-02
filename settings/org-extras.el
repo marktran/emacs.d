@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defvar m/org-bookmarks-file "~/Dropbox/org/bookmarks.org"
   "Org file holding captured bookmarks.")
 

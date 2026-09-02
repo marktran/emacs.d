@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
 (defun fill-or-unfill ()
   "Like `fill-paragraph', but unfill if used twice."

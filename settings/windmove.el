@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package windmove
   :ensure nil
 

@@ -1,4 +1,4 @@
-;;; ready-player-podcast.el --- Play podcast episodes with ready-player
+;;; ready-player-podcast.el --- Play podcast episodes with ready-player -*- lexical-binding: t; -*-
 
 ;; Subscriptions live in `ready-player-podcast-feeds', an alist mapping
 ;; a podcast name to its RSS feed URL. `ready-player-podcast' picks a
@@ -241,8 +241,8 @@ the player buffer) once the download finishes."
                                   "--user-agent" ready-player-podcast-user-agent
                                   "--output" tmp url)
                    :sentinel #'ready-player-podcast--download-sentinel)))
-    ;; The file lacks a lexical-binding cookie, so pass state through
-    ;; the process plist rather than a closure.
+    ;; Pass state through the process plist rather than a closure so the
+    ;; sentinel stays a plain named function.
     (process-put process 'ready-player-podcast-file file)
     (process-put process 'ready-player-podcast-tmp tmp)
     (process-put process 'ready-player-podcast-title title)

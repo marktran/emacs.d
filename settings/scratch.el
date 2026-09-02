@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package scratch
   :ensure t
   :commands (scratch))

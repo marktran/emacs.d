@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package treesit-auto
   :ensure t
 

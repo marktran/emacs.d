@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (setq browse-url-browser-function 'browse-url-default-macosx-browser
       delete-by-moving-to-trash t
       dired-use-ls-dired t

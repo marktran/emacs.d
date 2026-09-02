@@ -1,4 +1,4 @@
-;;; org-gcal.el --- Sync Google Calendar into Org
+;;; org-gcal.el --- Sync Google Calendar into Org -*- lexical-binding: t; -*-
 
 ;; Bidirectional sync between mark.tran@gmail.com's Google Calendar
 ;; and ~/Dropbox/org/now/gcal.org via the Calendar API. Google

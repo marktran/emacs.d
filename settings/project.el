@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defun project-ghostel-shell ()
   "Open a `ghostel-mode` terminal in the project root directory."
   (interactive)

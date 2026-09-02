@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defun m/project-root (&optional project)
   "Return root directory for PROJECT or current project."
   (when-let* ((proj (or project (project-current))))

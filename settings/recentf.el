@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defvar recentf-auto-save-timer nil
   "Idle timer used to save the recent file list.")
 

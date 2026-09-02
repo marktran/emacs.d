@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; http://atomized.org/2010/06/ \
 ;; resolving-merge-conflicts-the-easy-way-with-smerge-kmacro/
 (defun sm-try-smerge ()

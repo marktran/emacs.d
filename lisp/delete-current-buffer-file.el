@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; http://whattheemacsd.com//file-defuns.el-02.html
 (defun delete-current-buffer-file ()
   "Removes file connected to current buffer and kills buffer."

@@ -1,4 +1,4 @@
-;;; toggle-calendar-view.el --- Toggle 3/12 month calendar views
+;;; toggle-calendar-view.el --- Toggle 3/12 month calendar views -*- lexical-binding: t; -*-
 
 (require 'calendar)
 (require 'holidays)

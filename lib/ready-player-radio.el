@@ -1,4 +1,4 @@
-;;; ready-player-radio.el --- Play live radio stations with ready-player
+;;; ready-player-radio.el --- Play live radio stations with ready-player -*- lexical-binding: t; -*-
 
 ;; Stations live in `ready-player-radio-stations', an alist mapping a station
 ;; name to the URL of its stream. `ready-player-radio' picks a station

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package ediff
   :ensure nil
   :commands (ediff-buffers ediff-files ediff-buffers3 ediff-files3)

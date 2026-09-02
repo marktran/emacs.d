@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package flymake-collection
   :ensure t
   :commands flymake-collection-jq)

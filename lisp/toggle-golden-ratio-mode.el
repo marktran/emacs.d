@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defun toggle-golden-ratio-mode ()
   (interactive)
   (if golden-ratio-mode

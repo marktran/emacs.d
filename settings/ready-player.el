@@ -1,4 +1,4 @@
-;;; ready-player.el --- Music and podcasts with ready-player
+;;; ready-player.el --- Music and podcasts with ready-player -*- lexical-binding: t; -*-
 
 ;; ready-player turns media files into playable buffers:
 ;; `ready-player-mode' routes find-file/dired to

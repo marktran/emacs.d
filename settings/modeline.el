@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package keycast
   :ensure t
   :commands (keycast-mode-line-mode keycast-header-line-mode keycast-tab-bar-mode keycast-log-mode)
