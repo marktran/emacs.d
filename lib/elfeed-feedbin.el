@@ -145,7 +145,7 @@ CALLBACK receives DATA and ERROR.  BODY is encoded as JSON when non-nil."
 
 (defun elfeed-feedbin--fetch-entry-chunks (chunks entries callback)
   "Fetch Feedbin entry CHUNKS, accumulating ENTRIES for CALLBACK."
-  (if-let ((chunk (car chunks)))
+  (if-let* ((chunk (car chunks)))
       (elfeed-feedbin--request
        "GET"
        (format "/entries.json?ids=%s"
@@ -352,7 +352,7 @@ SUBSCRIPTIONS maps Feedbin feed IDs.  UNREAD and STARRED are ID tables."
 (defun elfeed-feedbin--tags-changed (entries tags present)
   "Push changed TAGS for ENTRIES to Feedbin as PRESENT."
   (unless elfeed-feedbin--applying-remote-state
-    (when-let ((ids (elfeed-feedbin--entry-ids entries)))
+    (when-let* ((ids (elfeed-feedbin--entry-ids entries)))
       (when (memq 'unread tags)
         (elfeed-feedbin--push-state
          "/unread_entries.json" 'unread_entries ids present))
