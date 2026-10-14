@@ -81,7 +81,7 @@ a model parameter\")."
                     grok/grok-4.5))
         gptel-model 'openai/gpt-5.6-sol)
 
-  ;; GLM 5.2 can't be reached through the compat endpoint: the
+  ;; GLM 5.3 can't be reached through the compat endpoint: the
   ;; `custom-fireworks-ai' Custom Provider's base URL is Fireworks'
   ;; `/inference' root, and compat appends `/chat/completions'
   ;; directly, missing the required `/v1'. Instead, hit the provider
@@ -94,4 +94,4 @@ a model parameter\")."
     :stream t
     :key 'gptel-api-key
     :header #'m/gptel-cloudflare-header
-    :models '(accounts/fireworks/models/glm-5p2)))
+    :models '(accounts/fireworks/models/glm-5p3)))
